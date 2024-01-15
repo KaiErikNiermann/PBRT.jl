@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Julia
+      uses: julia-actions/setup-julia@latest
+      with:
+        version: '1.9.2'
+
+    - name: Activate Project Environment
+      run: |
+        julia --project=.
+
+    - name: Install Dependencies
+      run: |
+        julia --project=. -e 'import Pkg; Pkg.instantiate()'
+
+    - name: Run Tests
+      run: |
+        julia --project=. -e 'import Pkg; Pkg.test()'
