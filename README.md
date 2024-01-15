@@ -9,14 +9,11 @@
 If you want to run the library tests 
 
 1. Open the julia repl by typing `julia`
-
 2. Go to **package mode** by typing `]`
-
 3. Activate the environment by running the `activate .` command 
-
 4. In the package mode, run the command `test`
 
-#### summary 
+#### Summary 
 
 ```bash
 $ julia                         # Enter the julia REPL
