@@ -4,6 +4,16 @@
 
 ## Usage 
 
+### Installation
+
+If you don't have julia installed, you can download it [here](https://julialang.org/downloads/).
+
+Clone the repository
+
+```bash
+$ git clone https://github.com/KaiErikNiermann/julia-bsc-thesis.git
+```
+
 ### Testing 
 
 If you want to run the library tests 
