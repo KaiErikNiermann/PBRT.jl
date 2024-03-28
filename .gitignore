@@ -22,3 +22,20 @@ docs/site/
 # committed for packages, but should be committed for applications that require a static
 # environment.
 Manifest.toml
+
+# Python 
+py_src/__pycache__/
+py_src/.pytest_cache/
+py_src/.venv
+py_src/poetry.lock
+
+# cpp + Cmake
+cpp_src/build/
+cpp_src/CMakeFiles/
+cpp_src/CMakeCache.txt
+cpp_src/cmake_install.cmake
+cpp_src/Makefile
+cpp_src/cmake-build-debug/
+cpp_src/cmake-build-release/
+cpp_src/cmake-build-relwithdebinfo/
+cpp_src/cmake-build-minsize/
