@@ -39,3 +39,4 @@ cpp_src/cmake-build-debug/
 cpp_src/cmake-build-release/
 cpp_src/cmake-build-relwithdebinfo/
 cpp_src/cmake-build-minsize/
+cpp_src/jluna
