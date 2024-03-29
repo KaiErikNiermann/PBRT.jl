@@ -1,0 +1,94 @@
+\documentclass[sigconf,screen,9pt]{acmart}
+
+% Flag to disable all editing macros and make the document ready for
+%  submission.
+\newif\ifEditMode
+
+% Editing mode.
+\EditModetrue
+% % Submission mode.
+% % The `submission' mode merges certain comments and edits, and removes some
+% % other notes, TODOs and remarks. For more details, refer to the `reviewing
+% % macros' in the `vusec.sty' file.
+% \EditModefalse
+
+
+\usepackage{vu}
+\usepackage{frontmatter}
+\usepackage{aliases}
+
+
+\begin{document}
+
+%% Thesis title.
+\newcommand{\thesistitle}{My Thesis: what, why, and how?}
+
+%% Author information.
+%% (Used in a couple of places, so it's better to define them in one place.)
+\newcommand{\thauthor}{Kai Erik Niermann}
+\newcommand{\thauthorid}{2720905}
+\newcommand{\thauthoremail}{k.e.niermann@student.vu.nl}
+\newcommand{\thauthoraff}{Vrije Universiteit Amsterdam}
+
+
+%% Thesis type.
+%% Valid values are `vubachelor', `csmaster', `pdcsmaster', and `litstudy'.
+%%
+\thtype{vubachelor}
+
+%% Thesis title.
+\thtitle{\thesistitle}
+
+%% Paper/thesis author.
+\thauthname{\thauthor}
+
+%% First supervisor.
+% \thsvfirst{First supervisor's name}{First supervisor's title}
+
+%% Daily supervisor.
+% \thsvdaily{Daily supervisor's name}{Daily supervisor's title}
+
+%% Second reader.
+% \thrdrsecond{Second reader's name}{Second reader's title}
+
+%% Attach customize front matter.
+\addfrontmatter{}
+
+\title{\thesistitle}
+
+\author{\thauthor}
+\affiliation{
+  \institution{\thauthoraff}
+  \city{Amsterdam}
+  \country{The Netherlands}
+}
+\email{\thauthoremail}
+
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\maketitle
+
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+\input{sections/intro}
+\input{sections/background}
+\input{sections/research_method}
+\input{sections/discussion}
+\input{sections/related}
+\input{sections/conclusion}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
