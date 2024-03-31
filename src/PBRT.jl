@@ -1,4 +1,4 @@
-module juliaThesis
+module PBRT
 
 export greet_your_package_name
 

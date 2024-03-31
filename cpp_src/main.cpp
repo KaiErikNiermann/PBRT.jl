@@ -8,7 +8,7 @@ int main() {
     initialize();
     Base["println"]("hello julia");
     
-    Module module = Main.safe_eval_file("../src/juliaThesis.jl");
+    Module module = Main.safe_eval_file("../src/PBRT.jl");
     auto func = module["greet_your_package_name"];
 
     std::string result = func();

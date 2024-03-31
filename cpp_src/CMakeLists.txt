@@ -5,6 +5,10 @@ add_executable(PBRT main.cpp)
 
 target_compile_features(PBRT PRIVATE cxx_std_20)
 
+# set g++-10 
+set(CMAKE_CXX_COMPILER "/usr/bin/g++-10")
+set(CMAKE_C_COMPILER "/usr/bin/gcc-10")
+
 find_library(jluna REQUIRED NAMES jluna)
 
 find_library(jluna REQUIRED
@@ -22,4 +26,3 @@ target_link_libraries(PBRT PRIVATE
     "/opt/julia-1.9.2/lib/libjulia.so"
 )
 
-target_compile_features(PBRT PRIVATE cxx_std_20)
