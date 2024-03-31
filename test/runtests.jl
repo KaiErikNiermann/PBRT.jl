@@ -1,6 +1,6 @@
-using juliaThesis
+using PBRT
 using Test
 
-@testset "juliaThesis.jl" begin
-    @test juliaThesis.greet_your_package_name() == "Hello, juliaThesis!"
+@testset "PBRT.jl" begin
+    @test PBRT.greet_your_package_name() == "Hello, PBRT!"
 end
