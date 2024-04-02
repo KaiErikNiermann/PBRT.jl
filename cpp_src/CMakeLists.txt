@@ -23,6 +23,6 @@ target_include_directories(PBRT PRIVATE
 
 target_link_libraries(PBRT PRIVATE
     "/usr/local/lib/libjluna.so"
-    "/opt/julia-1.9.2/lib/libjulia.so"
+    "/usr/local/julia-1.10.2/lib/libjulia.so"
 )
 

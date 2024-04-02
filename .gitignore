@@ -40,6 +40,7 @@ cpp_src/cmake-build-release/
 cpp_src/cmake-build-relwithdebinfo/
 cpp_src/cmake-build-minsize/
 cpp_src/jluna
+cpp_src/PBRT
 
 # paper 
 paper/*.aux
@@ -53,4 +54,16 @@ paper/*.bcf
 paper/*.bbl
 paper/*.run.xml
 paper/*.xdv
+
+paper/**/*.aux
+paper/**/*.log
+paper/**/*.out
+paper/**/*.fdb_latexmk
+paper/**/*.fls
+paper/**/*.synctex.gz
+paper/**/*.blg
+paper/**/*.bcf
+paper/**/*.bbl
+paper/**/*.run.xml
+paper/**/*.xdv
  

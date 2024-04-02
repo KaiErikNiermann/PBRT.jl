@@ -13,12 +13,7 @@ WORKDIR /app
 
 # deps 
 RUN apt-get update -y && \ 
-    apt-get install -y gcc make wget curl git zlib1g-dev libffi-dev libssl-dev python-pip 
-
-# poetry 
-RUN curl -sSL https://install.python-poetry.org | python -
-ENV PATH=$PATH:/root/.local/bin
-RUN poetry config virtualenvs.create true
+    apt-get install -y gcc make wget cmake curl git zlib1g-dev libffi-dev libssl-dev python-pip bash tar g++-10
 
 # python 
 RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz && \
@@ -27,3 +22,61 @@ RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSIO
     ./configure --with-ensurepip=install --enable-shared && make && make install && \
     ldconfig && \
     ln -sf python3 /usr/local/bin/python
+
+# poetry 
+RUN curl -sSL https://install.python-poetry.org | python -
+ENV PATH=$PATH:/root/.local/bin
+RUN poetry config virtualenvs.create false
+
+# julia
+RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.2-linux-x86_64.tar.gz && \
+    tar -xvzf julia-1.10.2-linux-x86_64.tar.gz -C /usr/local/ && \
+    ln -s /usr/local/julia-1.10.2/bin/julia /usr/local/bin/julia && \ 
+    mkdir -p /usr/local/include/julia && \
+    cp -r /usr/local/julia-1.10.2/include/julia /usr/local/include/ && \
+    ln -s /usr/local/lib /usr/local/julia-1.10.2/lib 
+
+RUN ls -la /usr/local/include/julia
+RUN ls -la /usr/local/
+
+COPY . .
+
+# install py deps 
+RUN cd py_src && \
+    poetry lock && \
+    poetry install && \
+    cd .. 
+
+# setup cpp 
+RUN cd cpp_src && \
+    rm -rf CMakeFiles && \
+    rm cmake_install.cmake && \
+    rm CMakeCache.txt && \
+    rm Makefile && \
+    bash install_deps.sh && \
+    cmake . && \
+    make && \
+    cd ..
+
+# instantiate julia package
+RUN julia --project=. -e 'using Pkg; Pkg.instantiate()' && \
+    julia --project=. -e 'using Pkg; Pkg.build()' && \
+    julia --project=. -e 'using Pkg; Pkg.precompile()' 
+
+# install sudo 
+RUN apt-get install -y sudo
+
+# cuda toolkit 
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin \
+    sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600 \
+    wget https://developer.download.nvidia.com/compute/cuda/12.4.0/local_installers/cuda-repo-ubuntu2204-12-4-local_12.4.0-550.54.14-1_amd64.deb \
+    sudo dpkg -i cuda-repo-ubuntu2204-12-4-local_12.4.0-550.54.14-1_amd64.deb \
+    sudo cp /var/cuda-repo-ubuntu2204-12-4-local/cuda-*-keyring.gpg /usr/share/keyrings/ \
+    sudo apt-get update \
+    sudo apt-get -y install cuda-toolkit-12-4 
+
+# remove install files 
+RUN rm -rf Python-$PYTHON_VERSION.tgz Python-$PYTHON_VERSION julia-1.10.2-linux-x86_64.tar.gz cuda-*
+
+# enter vm 
+CMD ["/bin/bash"]
