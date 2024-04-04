@@ -1,10 +1,14 @@
+import juliacall as jl
 from juliacall import Main
 from juliacall import Pkg as jlPkg
 from numba import cuda as nb_cuda
+import numpy as np
+import time
 
 # Load required Julia packages
 jlPkg.activate('..')
 Main.seval('using PBRT')
+Main.seval('using PythonCall')
 
 PBRT = Main.PBRT
 
@@ -15,14 +19,31 @@ func = PBRT.greet_your_package_name
 result = func()
 print(type(result))
 
-# basic cuda example numba 
-@nb_cuda.jit
-def add(a, b, c):
-    c[0] = a[0] + b[0]
-    
-a = nb_cuda.to_device([1])
-b = nb_cuda.to_device([4])
-c = nb_cuda.to_device([0])
+# access data_pass_test function 
 
-add[1, 1](a, b, c)
-print(c.copy_to_host())
+func = PBRT.data_pass_test
+
+point = func()
+
+print(type(point.to_numpy()))
+
+
+def time_sleep():
+    import time
+    time.sleep(10)
+    return "Done"
+
+jlsleep = PBRT.time_sleep
+pysleep = time_sleep
+
+# benchmark julia sleep
+t1 = time.time()
+jlsleep()
+t2 = time.time()
+print("Julia sleep time: ", t2-t1)
+
+# benchmark python sleep
+t1 = time.time()
+pysleep()
+t2 = time.time()
+print("Python sleep time: ", t2-t1)

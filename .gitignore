@@ -28,6 +28,7 @@ py_src/__pycache__/
 py_src/.pytest_cache/
 py_src/.venv
 py_src/poetry.lock
+.CondaPkg
 
 # cpp + Cmake
 cpp_src/build/

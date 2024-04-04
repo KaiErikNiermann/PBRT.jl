@@ -1,5 +1,5 @@
 using CUDA
-using PyCall
+using PythonCall
 
 """
     greet_your_package_name()
@@ -24,4 +24,25 @@ function greet_your_package_name()
         println(kernel_exec_timeout > 0 ? "enabled" : "disabled")
     end
     return "Hello, PBRT!"
+end
+
+struct Point{Float64}
+    _x::Float64
+    _y::Float64
+end
+
+# array
+function data_pass_test()
+    a = [1.0, 2.0]
+    return a
+end
+
+# julia function to convert point to pytype
+function point_to_pytype(p)
+    return @py [p._x, p._y]
+end
+
+function time_sleep()
+    sleep(10)
+    return "Done"
 end
