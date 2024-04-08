@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/app/build",
+  "command": "/usr/bin/g++-10  -I/usr/local/include/julia -I/usr/local/include/jluna -g -std=gnu++2a -o CMakeFiles/PBRT.dir/main.cpp.o -c /app/cpp_src/main.cpp",
+  "file": "/app/cpp_src/main.cpp"
+}
+]
