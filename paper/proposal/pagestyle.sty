@@ -1,8 +1,48 @@
-% Bibliography & Language
+% \addtolength{\hoffset}{-2.25cm}
+% \addtolength{\textwidth}{4.5cm}
+% \addtolength{\voffset}{-2.5cm}
+% \addtolength{\textheight}{5cm}
+% \setlength{\parskip}{0pt}
+% \setlength{\parindent}{15pt}
+% \setlength{\itemsep}{1.5em}
+% crate rule to set leftmargin 
+\usepackage{enumitem}
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amssymb}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator*{\argmax}{arg\, max}
+\DeclareMathOperator*{\argmin}{arg\, min}
+\DeclareMathOperator{\EX}{\mathbb{E}}
+
+% \bvec for bold vectors
+\newcommand{\bvec}[1]{\mathbf{#1}}
 \usepackage[english]{babel} % Language-specific stuff, f.i. hyphenation
 \usepackage{csquotes} % Allows for quotes - recommended by babel
 \usepackage[style=ieee, sorting=nyt, urldate=long, date=long, backend=biber]{biblatex}
-\addbibresource{sources.bib}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{csquotes}
+\usepackage{tabularx}
+\usepackage{wrapfig, lipsum, booktabs}
+\usepackage{ marvosym }
+\usepackage{wasysym}
+\usepackage{tikz}
+
+\newcolumntype{M}[1]{>{\raggedright\arraybackslash}m{#1}}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{brown}{rgb}{0.921, 0.325, 0.078}
 
 % General document
 \usepackage[useregional]{datetime2} % Date
@@ -24,5 +64,23 @@
 \usepackage{caption} % allows for centered figure caption justification
 \graphicspath{ {./assets/} } % tells latex images are in assets 
 \usepackage{mathtools}
-\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
-\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\usetikzlibrary{graphs, graphs.standard}
+
+% includes for libertine 
+\usepackage{libertine}
+\usepackage{eulervm}
+% \usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+\usetikzlibrary{patterns}
+
+\newcommand{\ds}{\displaystyle}
+
+\setlength{\parindent}{0in}
+
+\pagestyle{empty}

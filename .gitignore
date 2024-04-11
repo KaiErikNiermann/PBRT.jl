@@ -56,15 +56,17 @@ paper/*.bbl
 paper/*.run.xml
 paper/*.xdv
 
-paper/**/*.aux
-paper/**/*.log
-paper/**/*.out
-paper/**/*.fdb_latexmk
-paper/**/*.fls
-paper/**/*.synctex.gz
-paper/**/*.blg
-paper/**/*.bcf
-paper/**/*.bbl
-paper/**/*.run.xml
-paper/**/*.xdv
+paper/proposal/*.aux
+paper/proposal/*.log
+paper/proposal/*.out
+paper/proposal/*.fdb_latexmk
+paper/proposal/*.fls
+paper/proposal/*.synctex.gz
+paper/proposal/*.blg
+paper/proposal/*.bcf
+paper/proposal/*.bbl
+paper/proposal/*.run.xml
+paper/proposal/*.xdv
  
+# misc 
+**/*.ppm

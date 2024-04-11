@@ -1,38 +1,68 @@
-\documentclass[12pt,a4paper,oneside]{article}
+\documentclass[11pt,a4paper,oneside]{article}
 %\documentclass[12pt,a4paper,oneside,twocolumn]{article}
 \usepackage{pagestyle}
 \usepackage{codestyle}
 
-% Report hand-in date
+\begin{document}
 \DTMsavedate{date}{2024-03-29}
 
 \title{
-    \Huge{VU} \\ \LARGE 
-    Thesis proposal
+    \textbf{Optimization Strategies in High and Low-Level Languages for Physically Based Rendering Systems}
 }
 \author{
 Kai E. Niermann 
 }
 \date{\DTMusedate{date}}
-
-\begin{document}
-
 \maketitle
-
 % \lstinputlisting[firstline=10, lastline=13]{code/sample_script.py}
 
 \begin{abstract}
-    % Abstract content goes here
+    Physically based rendering concerns the synthesis of photorealistic images through the modeling of how light interacts with different surfaces and volumes which is described by light reflectance models. First formalized in the paper from Greenberg et al. in 1997 the theory of physically based rendering was developed as a methodology in computer graphics to synthesize realistic images based on approximations of different physical light models. Especially in the context of surfaces \textit{Bidirectional Scattering Distribution Functions} (BSDF) are commonly used to compute how light scatters upon contact with different types of surfaces, specifically approximations of these functions. The implementations of these different light reflectance models especially in a real-time setting require a high degree of optimization as they are computationally expensive. Due to this prerequisite for efficiency, it has been historically common to use low-level languages as they were some of the first languages to be developed and available early on in the history of computer graphics but also because they have certain inherent properties that make them very effective for writing efficient code. However, with this paper, I am to assess the differences in optimization strategies between modern high-level languages and low-level languages in the context of implementing a physically based rendering system. The goal of this is to gain some insights into the modern landscape of especially high-level languages and how they can be used to effectively implement computationally expensive algorithms. 
 \end{abstract}
 
 \section{RQs}
 
-\section{Introduction}
+The research questions I aim to address in this paper as as follows:
+
+\begin{itemize}[leftmargin=*, noitemsep]
+    \item RQ1: How do optimization techniques differ between high-level and low-level languages in the context of implementing a physically based rendering system?
+    \item RQ2: What are the differences in idiomatic optimization approaches between high and low-level languages in the context of physically based rendering/light reflectance models?
+    \item RQ3: How do language-specific features and paradigms impact the effectiveness of optimization strategies in high versus low-level language implementations of a physically based rendering system? 
+    \item RQ4: How do the differences in language-specific features and execution models impact the design and implementation optimization strategies in a physically based rendering system in high versus low-level languages/different language abstraction levels?
+\end{itemize}
 
 \section{Method}
 
-\section{Results}
+The primary method used to answer this research question will be looking at key algorithms and components of a physically based rendering system that are particularly computationally expensive. All 3 languages have good benchmarking tools, Julia is going to act as a sort of baseline between the two languages as I can easily bench both C++/Python and Julia code in the same file. The two main aspects I will look at will be specifically how optimization approaches differ between the languages and how this along with language-specific features and paradigms impact the effectiveness of optimization strategies in high versus low-level languages.
 
-\section{Conclusion}
+\section{Implementation}
+
+As a key component of the paper is about different language abstraction levels I felt the most representative languages are C++ for low-level and Python for high-level, with Julia acting as a middle ground between the two, with it being designed both as a high-level language but with the performance of a low-level language enabled by its JIT compiler. The implementation will be primarily based on the book pbrt-v4 in addition to other sources to ensure a balanced implementation between the languages. 
+
+\smallskip 
+One key point of consideration is just how much of the implementation will be done in each language as opposed to just passing the work off to the Julia implementation and only isolating key algorithms for each of the languages. A benefit of having this interoperability between Julia and both of the other languages is that it should allow me to use components of the Julia implementation in either language either for comparison's sake or if I deem it unnecessary to implement a certain algorithm in another language if it doesn't have any particular relevance for optimization. 
+
+\smallskip
+Depending on some of the results I see the fact that Julia does have a C API should allow me to also use some other languages such as Rust to potentially incorporate an even wider range of languages for the comparative evaluation of the different strategies. That is to say, the full system will be implemented in Julia then depending on what I see as the most relevant to effectively address the research question is what going to be implemented in the other languages as well.
+
+\section{Planning}
+
+The planning for the project is as follows:
+
+\begin{table}[!h]
+    \begin{tabular}{l|l|p{0.6\linewidth}}
+    \toprule
+    weeks     & activity                        & description                                                                                                                      \\ \midrule
+    week 1    & Initial learning                & pbrt chapter 1 ; finding previous research ; ensuring project setup is stable ; finding good materials to work with              \\
+    week 2, 3 & Core mathematics and Radiometry & pbrt chapter 2 - 4 ; familiarizing myself with mathematical and theory foundations for implementation ; documenting foundations  \\
+    week 3    & Scene building                  & pbrt chapter 5 - 7 ; implementing basic system for camera and shapes to construct scenes                                         \\
+    week 4, 5 & Reflection/Light models         & pbrt chapter 9 ; implementing different light models ; benching computationally expensive algorithms ; documenting results       \\
+    week 6, 7 & Materials, light, and sampling  & pbrt chapter 8, 10 ; implementing types of materials and sampling methods ; more benching and optimization ; documenting results \\
+    week 8, 9 & Thesis paper                    & Writing the full thesis paper ; using any notes documentation from the implementation                                            \\
+    week 10   & Presentation and Final edits    & Creating presentation and doing any final edits on the thesis paper before the presentation                                      \\ \bottomrule
+    \end{tabular}%
+\end{table}
+
+It's based largely around pbrt-v4 as this forms the basis for the implementation, I have an automatic documentation setup for the Julia implementation, which should allow me to easily document the implementation as I go along, in addition, I'm also going to be taking notes for the broad structure of the paper as I go along to ensure that I have a good basis for the final paper.
 
 \end{document}
