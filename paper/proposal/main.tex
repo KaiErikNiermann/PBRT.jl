@@ -22,7 +22,7 @@ Kai E. Niermann
 
 \section{RQs}
 
-The research questions I aim to address in this paper as as follows:
+Some variants of the research questions that I am going to be addressing in this paper are:
 
 \begin{itemize}[leftmargin=*, noitemsep]
     \item RQ1: How do optimization techniques differ between high-level and low-level languages in the context of implementing a physically based rendering system?
@@ -50,13 +50,13 @@ The primary method used to answer this research question will be looking at key 
 
 \section{Implementation}
 
-As a key component of the paper is about different language abstraction levels I felt the most representative languages are C++ for low-level and Python for high-level, with Julia acting as a middle ground between the two, with it being designed both as a high-level language but with the performance of a low-level language enabled by its JIT compiler. The implementation will be primarily based on the book pbrt-v4 in addition to other sources to ensure a balanced implementation between the languages. 
+As a key component of the paper is about different language abstraction levels and what tends to come with that (e.g. paradigms, compilation/execution methods, libraries, etc.) I felt the most representative languages are C++ for low-level and Python for high-level, with Julia acting as a middle ground between the two, with it being designed both as a high-level language but with the performance of a low-level language enabled by its JIT compiler. The implementation will be primarily based on the book pbrt-v4 in addition to other sources to ensure a balanced implementation between the languages. 
 
 \smallskip 
 One point of consideration is just how much of the implementation will be done in each language as opposed to just passing the work off to the Julia implementation and only isolating key algorithms for each of the languages. A benefit of having this interoperability between Julia and both of the other languages is that it should allow me to use components of the Julia implementation in either language either for comparison's sake or if I deem it unnecessary to implement a certain algorithm in another language if it doesn't have any particular relevance for optimization. 
 
 \smallskip
-Depending on some of the results I see the fact that Julia does have a C API should allow me to also use some other languages such as Rust to potentially incorporate an even wider range of languages for the comparative evaluation of the different strategies. That is to say, the full system will be implemented in Julia then depending on what I see as the most relevant to effectively address the research question is what going to be implemented in the other languages as well.
+Depending on some of the results I see; the fact that Julia does have a C API should allow me to also use some other languages such as Rust to potentially incorporate an even wider range of languages for the comparative evaluation of the different optimization strategies. That is to say, the full system will be implemented in Julia then depending on what I see as the most relevant to effectively address the research question is what going to be implemented in the other languages as well.
 
 \section{Planning}
 
