@@ -11,9 +11,6 @@ end
     at(r::ray, t::Float64)
 
 Return the point at `t` along the ray `r`. Using the formula 
-$$
-\text{origin} + t \times \text{direction}
-$$
 """
 function at(r::ray, t::Float64)::Vector{Float64} 
     r.origin + t * r.direction
