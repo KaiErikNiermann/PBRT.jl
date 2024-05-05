@@ -1,10 +1,21 @@
 module PBRT
 
-export greet_your_package_name
+using Base
+using LinearAlgebra
+using Distributions
 
+export greet_your_package_name
 export gen_img
 
-include("functions.jl")
-include("basic_normals.jl")
+include("scene.jl")
+include("util.jl")
+include("ray.jl")
+include("material.jl")
+include("hittable.jl")
+include("sphere.jl")
+include("hittable_list.jl")
+include("camera.jl")
+
+include("RayTracer.jl")
 
 end
