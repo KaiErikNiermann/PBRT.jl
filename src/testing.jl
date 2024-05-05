@@ -2,11 +2,11 @@ using CUDA
 using PythonCall
 
 """
-    greet_your_package_name()
+    foo()
 
 Return a greeting message.
 """
-function greet_your_package_name()
+function foo()
     for (i,device) in enumerate(CUDA.devices())
         println("*** General properties for device $i ***")
         name = CUDA.name(device)

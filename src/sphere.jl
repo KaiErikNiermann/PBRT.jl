@@ -1,5 +1,5 @@
 struct sphere <: hittable
-    center::SVector{3,Float64}
+    center::Vector{Float64}
     radius::Float64
     mat::material
     r_squared::Float64
@@ -29,7 +29,7 @@ function hit!(s::sphere, r::ray, t_min::Float64, t_max::Float64, rec::hit_record
 
     rec.t = root
     rec.p = at(r, rec.t)
-    outward_normal::SVector{3,Float64} = (rec.p - s.center) / s.radius
+    outward_normal::Vector{Float64} = (rec.p - s.center) / s.radius
     set_face_normal!(rec, r, outward_normal)
     rec.mat = s.mat
 

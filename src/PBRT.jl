@@ -4,10 +4,11 @@ using Base
 using LinearAlgebra
 using Distributions
 
-export greet_your_package_name
+include("testing.jl")
+
+export foo
 export gen_img
 
-include("scene.jl")
 include("util.jl")
 include("ray.jl")
 include("material.jl")
@@ -15,6 +16,7 @@ include("hittable.jl")
 include("sphere.jl")
 include("hittable_list.jl")
 include("camera.jl")
+include("scene.jl")
 
 include("RayTracer.jl")
 

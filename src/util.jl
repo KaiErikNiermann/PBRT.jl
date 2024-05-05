@@ -10,18 +10,18 @@ struct color
     color() = new(0.0, 0.0, 0.0)
 end
 
-+(c1::color, c2::color)::color = color(SA_F32[c1.r .+ c2.r, c1.g .+ c2.g, c1.b .+ c2.b])
++(c1::color, c2::color)::color = color([c1.r .+ c2.r, c1.g .+ c2.g, c1.b .+ c2.b])
 
-*(t::Float64, c::color)::color = color(SA_F32[t .* c.r, t .* c.g, t .* c.b])
+*(t::Float64, c::color)::color = color([t .* c.r, t .* c.g, t .* c.b])
 
-*(c1::color, c2::color)::color = color(SA_F32[c1.r .* c2.r, c1.g .* c2.g, c1.b .* c2.b])
+*(c1::color, c2::color)::color = color([c1.r .* c2.r, c1.g .* c2.g, c1.b .* c2.b])
 
-@inline function random()::SVector{3,Float64}
-    SVector{3,Float64}(random_double(), random_double(), random_double())
+@inline function random()::Vector{Float64}
+    Vector{Float64}(random_double(), random_double(), random_double())
 end
 
-@inline function random(min::Float64, max::Float64)::SVector{3,Float64}
-    SVector{3,Float64}(random_double(min, max), random_double(min, max), random_double(min, max))
+@inline function random(min::Float64, max::Float64)::Vector{Float64}
+    [random_double(min, max), random_double(min, max), random_double(min, max)]
 end
 
 random_double()::Float64 = rand(Uniform(0.0, 1.0))
@@ -42,7 +42,7 @@ end
 
 @inline function random_in_unit_disk()
     while(true)
-        p = SA_F64[random_double(-1.0, 1.0), random_double(-1.0, 1.0), 0]
+        p = [random_double(-1.0, 1.0), random_double(-1.0, 1.0), 0]
         if(dot(p, p) >= 1)
             continue
         end
@@ -50,21 +50,21 @@ end
     end
 end
 
-@inline function random_in_hemisphere(normal::SVector{3,Float64})::SVector{3,Float64}
+@inline function random_in_hemisphere(normal::Vector{Float64})::Vector{Float64}
     in_unit_sphere = random_in_unit_sphere()
     ifelse(dot(in_unit_sphere, normal) > 0.0, in_unit_sphere, -in_unit_sphere)
 end 
 
 const EPSILON = 1e-8
 
-@inline function near_zero(vec::SVector{3,Float64})::Bool
+@inline function near_zero(vec::Vector{Float64})::Bool
     (abs(vec[1]) < EPSILON) && (abs(vec[2]) < EPSILON) && (abs(vec[3]) < EPSILON)
 end
 
-reflect(v::SVector{3,Float64}, n::SVector{3,Float64})::SVector{3,Float64} = v + 2.0 * dot(-n, v) * n
+reflect(v::Vector{Float64}, n::Vector{Float64})::Vector{Float64} = v + 2.0 * dot(-n, v) * n
 
 @doc raw"""
-    refract(uv::SVector{3,Float64}, n::SVector{3,Float64}, r::Float64)::SVector{3,Float64}
+    refract(uv::Vector{Float64}, n::Vector{Float64}, r::Float64)::Vector{Float64}
 
 Refract a vector `uv` through a normal `n` with a refractive index `r`. Uses Snell's Law to calculate the refracted vector.
 
@@ -80,7 +80,7 @@ Where
 - $\eta '$ is the refractive index of the medium the vector is entering
 
 """
-@inline function refract(uv::SVector{3,Float64}, n::SVector{3,Float64}, r)::SVector{3,Float64} 
+@inline function refract(uv::Vector{Float64}, n::Vector{Float64}, r)::Vector{Float64} 
     cos_theta = min(dot(-uv, n), 1)
     r_out_perp = r * (uv + cos_theta * n)
     r_out_parallel = -sqrt(abs(1.0 - r^2 * (1 - cos_theta^2))) * n
