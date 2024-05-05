@@ -2,6 +2,7 @@
 
 Documentation for PBRT.jl
 
-```@docs
-greet_your_package_name()
+```@autodocs
+Modules = [PBRT]
+Order = [:function, :type]
 ```
