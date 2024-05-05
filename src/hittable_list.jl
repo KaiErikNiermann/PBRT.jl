@@ -1,9 +1,18 @@
-struct hittable_list 
+import Base.push!
+
+mutable struct hittable_list 
     objects::Vector{hittable}
+    bbox::aabb
     function hittable_list()
         objects::Vector{hittable} = [] 
-        new(objects)
+        bbox::aabb = aabb()
+        new(objects, bbox)
     end
+end
+
+function push!(list::hittable_list, object::hittable)
+    push!(list.objects, object)
+    list.bbox = aabb(list.bbox, object.bbox)
 end
 
 function clear!(list::hittable_list)

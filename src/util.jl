@@ -10,6 +10,12 @@ struct color
     color() = new(0.0, 0.0, 0.0)
 end
 
+-(v::Vector{Float64}, sc::Float64) = [v[1] - sc, v[2] - sc, v[3] - sc]
+
++(v::Vector{Float64}, sc::Float64) = [v[1] + sc, v[2] + sc, v[3] + sc]
+
+*(v::Vector{Float64}, sc::Float64) = [v[1] * sc, v[2] * sc, v[3] * sc]
+
 +(c1::color, c2::color)::color = color([c1.r .+ c2.r, c1.g .+ c2.g, c1.b .+ c2.b])
 
 *(t::Float64, c::color)::color = color([t .* c.r, t .* c.g, t .* c.b])
@@ -26,7 +32,9 @@ end
 
 random_double()::Float64 = rand(Uniform(0.0, 1.0))
 
-random_double(min::Float64, max::Float64)::Float64 = rand(Uniform(min, max))
+random_double(min::Float64, max::Float64)::Float64 = min + (max - min) * random_double() 
+
+random_int(min::Int, max::Int)::Int = rand(Uniform(min, max + 1))
 
 random_unit_vector() = normalize(random_in_unit_sphere())
 
@@ -67,17 +75,6 @@ reflect(v::Vector{Float64}, n::Vector{Float64})::Vector{Float64} = v + 2.0 * dot
     refract(uv::Vector{Float64}, n::Vector{Float64}, r::Float64)::Vector{Float64}
 
 Refract a vector `uv` through a normal `n` with a refractive index `r`. Uses Snell's Law to calculate the refracted vector.
-
-```math
-    \mathbf{R}_\prep ' = \frac{\eta}{\eta '}(\mathbf R + (-\mathbf R \cdot \mathbf N)\mathbf N) - \sqrt{1 - \eta^2(1 - (-\mathbf R \cdot \mathbf N)^2)}\mathbf N
-```
-
-Where 
-- $\mathbf{R}_\prep '$ is the refracted vector
-- $\mathbf{R}$ is the incident vector
-- $\mathbf{N}$ is the normal vector
-- $\eta$ is the refractive index
-- $\eta '$ is the refractive index of the medium the vector is entering
 
 """
 @inline function refract(uv::Vector{Float64}, n::Vector{Float64}, r)::Vector{Float64} 

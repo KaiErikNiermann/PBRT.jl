@@ -50,6 +50,7 @@ function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::i
     end
 end
 
+
 rec_buf = hit_record()
 sd_buf = scatter_data(color(), ray())
 
@@ -59,5 +60,4 @@ const SCALE::Float16 = 1.0 / SC.img.samples_per_pixel
 
 file = open("image.ppm", "w")
 
-# ProfileView.@profview gen_img(SC.img.width, SC.img.height, file, SC.world, SC.img)
 @time gen_img(SC.img.width, SC.img.height, file, SC.world, SC.img)

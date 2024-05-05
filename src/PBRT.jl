@@ -10,11 +10,14 @@ export foo
 export gen_img
 
 include("util.jl")
+include("interval.jl")
 include("ray.jl")
 include("material.jl")
 include("hittable.jl")
+include("aabb.jl")
 include("sphere.jl")
 include("hittable_list.jl")
+include("bvh.jl") 
 include("camera.jl")
 include("scene.jl")
 
