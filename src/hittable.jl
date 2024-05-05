@@ -38,6 +38,11 @@ function scatter(mat::lambertian, r_in::ray, rec::hit_record, sd::scatter_data):
     return true
 end
 
+@doc raw"""
+    scatter(mat::metal, r_in::ray, rec::hit_record, sd::scatter_data)::Bool
+
+Scatter a metal material. Returns true if the ray is scattered, false otherwise.
+"""
 function scatter(mat::metal, r_in::ray, rec::hit_record, sd::scatter_data)::Bool
     reflected = reflect(r_in.direction/norm(r_in.direction), rec.normal)
     sd.scattered = ray(rec.p, reflected + mat.fuzz * random_in_unit_sphere())

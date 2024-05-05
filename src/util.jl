@@ -1,40 +1,36 @@
+import Base: +, -, *
+
 struct color
-    r::Float64
-    g::Float64
-    b::Float64
-    function color(c::Vector{Float64})
+    r::Float32
+    g::Float32
+    b::Float32
+    function color(c)
         new(c[1], c[2], c[3])
     end
     color() = new(0.0, 0.0, 0.0)
 end
 
-function random()::Vector{Float64}
-    return [random_double(), random_double(), random_double()]
++(c1::color, c2::color)::color = color(SA_F32[c1.r .+ c2.r, c1.g .+ c2.g, c1.b .+ c2.b])
+
+*(t::Float64, c::color)::color = color(SA_F32[t .* c.r, t .* c.g, t .* c.b])
+
+*(c1::color, c2::color)::color = color(SA_F32[c1.r .* c2.r, c1.g .* c2.g, c1.b .* c2.b])
+
+@inline function random()::SVector{3,Float64}
+    SVector{3,Float64}(random_double(), random_double(), random_double())
 end
 
-function random(min::Float64, max::Float64)
-    return [random_double(min, max), random_double(min, max), random_double(min, max)]
+@inline function random(min::Float64, max::Float64)::SVector{3,Float64}
+    SVector{3,Float64}(random_double(min, max), random_double(min, max), random_double(min, max))
 end
 
-function my_clamp(x::Float64, min::Float64, max::Float64)::Float64
-    if(x < min)
-        return min
-    end
-    if(x > max)
-        return max
-    end
-    return x
-end
+random_double()::Float64 = rand(Uniform(0.0, 1.0))
 
-function random_double()::Float64
-    rand(Uniform(0.0, 1.0))
-end
+random_double(min::Float64, max::Float64)::Float64 = rand(Uniform(min, max))
 
-function random_double(min::Float64, max::Float64)::Float64
-    rand(Uniform(min, max))
-end
+random_unit_vector() = normalize(random_in_unit_sphere())
 
-function random_in_unit_sphere()
+@inline function random_in_unit_sphere()
     while true
         p = random(-1.0, 1.0)
         if(norm(p) >= 1.0)  
@@ -44,14 +40,9 @@ function random_in_unit_sphere()
     end
 end
 
-function random_unit_vector()
-    rv = random_in_unit_sphere()
-    return rv/norm(rv)
-end
-
-function random_in_unit_disk()
+@inline function random_in_unit_disk()
     while(true)
-        p = [random_double(-1.0, 1.0), random_double(-1.0, 1.0), 0]
+        p = SA_F64[random_double(-1.0, 1.0), random_double(-1.0, 1.0), 0]
         if(dot(p, p) >= 1)
             continue
         end
@@ -59,32 +50,44 @@ function random_in_unit_disk()
     end
 end
 
-function random_in_hemisphere(normal::Vector{Float64})::Vector{Float64}
+@inline function random_in_hemisphere(normal::SVector{3,Float64})::SVector{3,Float64}
     in_unit_sphere = random_in_unit_sphere()
-    if(dot(in_unit_sphere, normal) > 0.0)
-        return in_unit_sphere
-    else 
-        return -in_unit_sphere
-    end
+    ifelse(dot(in_unit_sphere, normal) > 0.0, in_unit_sphere, -in_unit_sphere)
 end 
 
-function near_zero(vec::Vector{Float64})::Bool
-    s = 1e-8
-    return (abs(vec[1]) < s) && (abs(vec[2]) < s) && (abs(vec[3]) < s)
+const EPSILON = 1e-8
+
+@inline function near_zero(vec::SVector{3,Float64})::Bool
+    (abs(vec[1]) < EPSILON) && (abs(vec[2]) < EPSILON) && (abs(vec[3]) < EPSILON)
 end
 
-function reflect(v::Vector{Float64}, n::Vector{Float64})::Vector{Float64}
-    v + 2.0 * dot(-n, v) * n
-end
+reflect(v::SVector{3,Float64}, n::SVector{3,Float64})::SVector{3,Float64} = v + 2.0 * dot(-n, v) * n
 
-function refract(uv::Vector{Float64}, n::Vector{Float64}, r::Float64)::Vector{Float64} 
+@doc raw"""
+    refract(uv::SVector{3,Float64}, n::SVector{3,Float64}, r::Float64)::SVector{3,Float64}
+
+Refract a vector `uv` through a normal `n` with a refractive index `r`. Uses Snell's Law to calculate the refracted vector.
+
+```math
+    \mathbf{R}_\prep ' = \frac{\eta}{\eta '}(\mathbf R + (-\mathbf R \cdot \mathbf N)\mathbf N) - \sqrt{1 - \eta^2(1 - (-\mathbf R \cdot \mathbf N)^2)}\mathbf N
+```
+
+Where 
+- $\mathbf{R}_\prep '$ is the refracted vector
+- $\mathbf{R}$ is the incident vector
+- $\mathbf{N}$ is the normal vector
+- $\eta$ is the refractive index
+- $\eta '$ is the refractive index of the medium the vector is entering
+
+"""
+@inline function refract(uv::SVector{3,Float64}, n::SVector{3,Float64}, r)::SVector{3,Float64} 
     cos_theta = min(dot(-uv, n), 1)
     r_out_perp = r * (uv + cos_theta * n)
     r_out_parallel = -sqrt(abs(1.0 - r^2 * (1 - cos_theta^2))) * n
     r_out_perp + r_out_parallel
 end
 
-function reflectance(cosine, ref_idx)
+@inline function reflectance(cosine, ref_idx)::Float64
     r0 = ((1 - ref_idx) / (1 + ref_idx))^2
     r0 + (1 - r0) * (1 - cosine)^5
 end
