@@ -1,3 +1,6 @@
+rec_buf = hit_record()
+sd_buf = scatter_data(color(), ray())
+
 function ray_color(r::ray, world::hittable_list, depth)::color
     rec = rec_buf
     def_color = color([0.0, 0.0, 0.0])
@@ -7,13 +10,14 @@ function ray_color(r::ray, world::hittable_list, depth)::color
     end
     
     # 0.001 to avoid shadow acne
-    if(hit!(world, r, 0.001, Inf, rec))
+    if(hit!(world, r, interval(0.001, Inf), rec))
         sd = sd_buf
         if(scatter(rec.mat, r, rec, sd))
-            return  sd.attenuation * ray_color(sd.scattered, world, depth - 1)
+            return sd.attenuation * ray_color(sd.scattered, world, depth - 1)
         end
         return def_color
     end
+
     unit_direction = r.direction/norm(r.direction)
     t = 0.5 * (unit_direction[1] + 1.0)
     color((1.0 - t) * [1.0, 1.0, 1.0] + t * [0.5, 0.7, 1.0])
@@ -40,8 +44,8 @@ function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::i
         for i in 0:1:width-1
             pixel_color = color([0.0, 0.0, 0.0])
             for _ in 1:1:spp
-                u = ( i + random_double() ) / (width - 1)
-                v = ( j + random_double() ) / (height - 1)
+                u = ( Float64(i) + random_double() ) / (width - 1)
+                v = ( Float64(j) + random_double() ) / (height - 1)
                 r = get_ray(c, u, v)
                 pixel_color += ray_color(r, world, max_depth)
             end
@@ -50,12 +54,10 @@ function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::i
     end
 end
 
-
-rec_buf = hit_record()
-sd_buf = scatter_data(color(), ray())
-
 # const SC = final_scene()
 const SC = basic_scene()
+# const SC = simple_scene()
+# const SC = empty_scene()
 const SCALE::Float16 = 1.0 / SC.img.samples_per_pixel
 
 file = open("image.ppm", "w")

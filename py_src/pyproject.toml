@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["KaiErikNiermann <kai.niermann@gmail.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -12,7 +13,9 @@ juliacall = "^0.9.19"
 cuda-python = "^12.4.0"
 numba = "^0.59.1"
 numpy = "^1.26.4"
-
+pillow = "^10.3.0"
+matplotlib = "^3.8.4"
+opencv-python = "^4.9.0.80"
 
 [build-system]
 requires = ["poetry-core"]

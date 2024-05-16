@@ -4,9 +4,12 @@ mutable struct hit_record
     mat::material
     t::Float64
     front_face::Bool
-    function hit_record()
-        new([0.0, 0.0, 0.0], [0.0, 0.0, 0.0], lambertian(color([0.0, 0.0, 0.0])),0.0, false)
-    end
+    hit_record() = new([0.0, 0.0, 0.0], [0.0, 0.0, 0.0], lambertian(color([0.0, 0.0, 0.0])), 0.0, false)
+end
+
+mutable struct scatter_data
+    attenuation::color
+    scattered::ray
 end
 
 function set_face_normal!(rec::hit_record, r::ray, outward_normal::Vector{Float64})
@@ -18,11 +21,6 @@ function set_face_normal!(rec::hit_record, r::ray, outward_normal::Vector{Float6
         # ray is inside
         rec.normal = -outward_normal
     end
-end
-
-mutable struct scatter_data
-    attenuation::color
-    scattered::ray
 end
 
 function scatter(mat::lambertian, r_in::ray, rec::hit_record, sd::scatter_data)::Bool
@@ -38,11 +36,6 @@ function scatter(mat::lambertian, r_in::ray, rec::hit_record, sd::scatter_data):
     return true
 end
 
-@doc raw"""
-    scatter(mat::metal, r_in::ray, rec::hit_record, sd::scatter_data)::Bool
-
-Scatter a metal material. Returns true if the ray is scattered, false otherwise.
-"""
 function scatter(mat::metal, r_in::ray, rec::hit_record, sd::scatter_data)::Bool
     reflected = reflect(r_in.direction/norm(r_in.direction), rec.normal)
     sd.scattered = ray(rec.p, reflected + mat.fuzz * random_in_unit_sphere())
@@ -71,3 +64,5 @@ function scatter(mat::dielectric, r_in::ray, rec::hit_record, sd::scatter_data):
 end
 
 abstract type hittable end
+
+struct null_obj <: hittable end

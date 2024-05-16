@@ -11,6 +11,25 @@ struct scene
     img::image
 end
 
+function empty_scene()::scene
+    aspect_ratio = 16.0 / 9.0
+    width = 400
+    height = trunc(Int, width / aspect_ratio)
+    samples_per_pixel = 50
+    max_depth = 50
+    cam = camera(
+        [13.0, 2.0, 3.0], [0.0, 0.0, 0.0], [0.0, 1.0, 0.0], 20, 16.0 / 9.0, 10.0, 0.1
+    )
+
+    world = hittable_list()
+    node = bvh_node()
+
+    world = bvh_node(world, node)
+    world = hittable_list([world], world.bbox)
+
+    scene(world, cam, image(width, height, samples_per_pixel, max_depth))
+end
+
 function final_scene()::scene
     # image 
     aspect_ratio = 3.0 / 2.0
@@ -74,22 +93,43 @@ function basic_scene()::scene
     max_depth = 50
 
     # world
-    world = hittable_list()
+    world_l = hittable_list()
+    node = bvh_node()
+
     ground_materal = lambertian(color([0.8, 0.8, 0.0]))
     center_material = lambertian(color([0.1, 0.2, 0.5]))
-    left_material= dielectric(1.5)
-    right_material = metal(color([0.8, 0.6, 0.2]), 0.0)
-
-    push!(world, sphere([0.0, -100.5, -1.0], 100.0, ground_materal))
-    push!(world, sphere([0.0, 0.0, -1.0], 0.5, center_material))
-    push!(world, sphere([-1.0, 0.0, -1.0], 0.5, left_material))
-    push!(world, sphere([-1.0, 0.0, -1.0], -0.45, left_material))
-    push!(world, sphere([1.0, 0.0, -1.0], 0.5, right_material))
+    left_material= dielectric(1.50)
+    right_material = metal(color([0.8, 0.6, 0.2]), 1.0)
     
+    push!(world_l, sphere([0.0, -100.5, -1.0], 100.0, ground_materal))
+    push!(world_l, sphere([0.0, 0.0, -1.0], 0.5, center_material))
+    push!(world_l, sphere([-1.0, 0.0, -1.0], 0.5, left_material))
+    push!(world_l, sphere([-1.0, 0.0, -1.0], -0.45, left_material))
+    push!(world_l, sphere([1.0, 0.0, -1.0], 0.5, right_material))
+
+    world = bvh_node(world_l, node)
+
+    print_bvh(world)
+
+    world = hittable_list([world], world.bbox)
+
     # camera
     cam = camera(
         [3, 3, 2], [0, 0, -1], [0, 1, 0], 20, 16.0 / 9.0, 2, norm([3, 3, 2] - [0, 0, -1])
     )
 
     scene(world, cam, image(width, height, samples_per_pixel, max_depth))
+end
+
+function print_bvh(world, indent = "")
+    # if type is a bvh node 
+    if typeof(world) == bvh_node
+        println(indent, "BVH Node:")
+        println(indent, "├─ Left:")
+        print_bvh(world.left, indent * "│  ")
+        println(indent, "└─ Right:")
+        print_bvh(world.right, indent * "   ")
+    else
+        println(indent, world)
+    end
 end

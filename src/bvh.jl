@@ -1,42 +1,46 @@
+
 mutable struct bvh_node <: hittable
     left::hittable
     right::hittable
     bbox::aabb
+    function bvh_node(left::hittable, right::hittable, bbox::aabb)
+        new(left, right, bbox)
+    end
+    bvh_node() = new(null_obj(), null_obj(), aabb())
 end
 
-function bvh_node(list::hittable_list)::bvh_node
-    return bvh_node(list.objects, 0, list.bbox)
-end
 
-function box_compare(a::hittable, b::hittable, axis_index::Int)::Bool
-    a_axis_interval = a.bbox[axis_index]
-    b_axis_interval = b.bbox[axis_index]
-    return a_axis_interval.lo < b_axis_interval.lo
+function box_compare(a::interval, b::interval)::Bool
+    return a.lo < b.lo
 end
 
 function box_x_compare(a::hittable, b::hittable)::Bool
-    return box_compare(a, b, 1)
+    return box_compare(a.bbox.x, b.bbox.x)
 end
 
 function box_y_compare(a::hittable, b::hittable)::Bool
-    return box_compare(a, b, 2)
+    return box_compare(a.bbox.y, b.bbox.y)
 end
 
 function box_z_compare(a::hittable, b::hittable)::Bool
-    return box_compare(a, b, 3)
+    return box_compare(a.bbox.z, b.bbox.z)
 end
 
-
 function bvh_node(objects::Vector{hittable}, start, end_, node::bvh_node)::bvh_node
-    axis = rand(1:3)
+    bbox = aabb()
+    for i in start:end_
+        bbox = aabb(bbox, objects[i].bbox)
+    end
+
+    axis = longest_axis(bbox)
 
     comparator = Nothing
     if axis == 1 
-        comparator = (a, b) -> box_x_compare(a, b)
+        comparator = (a::hittable, b::hittable) -> box_x_compare(a, b)
     elseif axis == 2
-        comparator = (a, b) -> box_y_compare(a, b)
+        comparator = (a::hittable, b::hittable) -> box_y_compare(a, b)
     else
-        comparator = (a, b) -> box_z_compare(a, b)
+        comparator = (a::hittable, b::hittable) -> box_z_compare(a, b)
     end
     
     object_span = end_ - start
@@ -48,22 +52,24 @@ function bvh_node(objects::Vector{hittable}, start, end_, node::bvh_node)::bvh_n
         node.left = objects[start]
         node.right = objects[start + 1]
     else
-        sort!(objects, start=start, stop=end_, by=comparator)
-        mid = start + object_span / 2
-        node.left = bvh_node(objects, start, mid)
-        node.right = bvh_node(objects, mid, end_)
-    end
+        objects = [objects[1:start]; sort(objects[start:end_], lt=comparator); objects[end_+1:end]]
+        mid = trunc(Int, start + object_span / 2)
 
-    node.bbox = aabb(node.left.bbox, node.right.bbox)
+        node.left = bvh_node(objects, start, mid, bvh_node())
+        node.right = bvh_node(objects, mid, end_, bvh_node())
+    end
+    return bvh_node(node.left, node.right, bbox)
 end
 
-function hit!(r::ray, ray_t::interval, rec::hit_record, node::bvh_node)::Bool
-    if (!bbox.hit!(r, ray_t))
+bvh_node(list::hittable_list, node::bvh_node) = bvh_node(list.objects, 1, Base.size(list.objects)[1], node)
+
+function hit!(node::bvh_node, r::ray, ray_t::interval, rec::hit_record)::Bool
+    if (!hit!(node.bbox, r, ray_t))
         return false
     end
 
-    hit_left = node.left.hit!(r, ray_t, rec)
-    hit_right = node.right.hit!(r, interval(ray_t.lo, ifelse(hit_left, rec.t, ray_t.hi)), rec)
+    hit_left = hit!(node.left, r, ray_t, rec)
+    hit_right = hit!(node.right, r, interval(ray_t.lo, ifelse(hit_left, rec.t, ray_t.hi)), rec)
 
     return hit_left || hit_right
 end

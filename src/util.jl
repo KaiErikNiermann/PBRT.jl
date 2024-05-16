@@ -10,6 +10,7 @@ struct color
     color() = new(0.0, 0.0, 0.0)
 end
 
+
 -(v::Vector{Float64}, sc::Float64) = [v[1] - sc, v[2] - sc, v[3] - sc]
 
 +(v::Vector{Float64}, sc::Float64) = [v[1] + sc, v[2] + sc, v[3] + sc]
@@ -34,7 +35,7 @@ random_double()::Float64 = rand(Uniform(0.0, 1.0))
 
 random_double(min::Float64, max::Float64)::Float64 = min + (max - min) * random_double() 
 
-random_int(min::Int, max::Int)::Int = rand(Uniform(min, max + 1))
+random_int(min::Int, max::Int)::Int = trunc(Int, random_double(min, max + 1))
 
 random_unit_vector() = normalize(random_in_unit_sphere())
 
