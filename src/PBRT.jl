@@ -9,6 +9,8 @@ include("testing.jl")
 export foo
 export gen_img
 
+using Match
+
 include("util.jl")
 include("interval.jl")
 include("ray.jl")

@@ -62,4 +62,4 @@ const SCALE::Float16 = 1.0 / SC.img.samples_per_pixel
 
 file = open("image.ppm", "w")
 
-@time gen_img(SC.img.width, SC.img.height, file, SC.world, SC.img)
+# @time gen_img(SC.img.width, SC.img.height, file, SC.world, SC.img)
