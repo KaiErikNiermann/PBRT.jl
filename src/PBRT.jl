@@ -18,11 +18,13 @@ include("material.jl")
 include("hittable.jl")
 include("aabb.jl")
 include("sphere.jl")
+include("triangle.jl")
 include("hittable_list.jl")
 include("bvh.jl") 
 include("camera.jl")
 include("scene.jl")
 
+include("obj_reader.jl")
 include("RayTracer.jl")
 
 end
