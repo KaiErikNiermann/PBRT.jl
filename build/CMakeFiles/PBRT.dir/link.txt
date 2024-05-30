@@ -1,1 +1,0 @@
-/usr/bin/g++-10 -g CMakeFiles/PBRT.dir/main.cpp.o -o PBRT  -Wl,-rpath,/usr/local/lib:/usr/local/julia-1.10.2/lib /usr/local/lib/libjluna.so /usr/local/julia-1.10.2/lib/libjulia.so 
