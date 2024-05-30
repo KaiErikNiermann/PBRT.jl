@@ -11,11 +11,11 @@ mutable struct face
     textures::Vector{Int64}
 end
 
-mutable struct scene
+mutable struct obj_scene
     # metadata
     name::String
 
-    # scene information 
+    # obj_scene information 
     v_array::Vector{Float64}
     vn_array::Vector{Float64}
     vt_array::Vector{Float64}
@@ -38,35 +38,37 @@ macro match(v, block)
     ex
 end
 
-function scene_summary(scene::scene)
-    println("Scene: ", scene.name)
-    println("Vertices: ", length(scene.v_array))
-    println("Normals: ", length(scene.vn_array))
-    println("Textures: ", length(scene.vt_array))
-    println("Faces: ", length(scene.f_array))
+function scene_summary(sc::obj_scene)
+    println("Scene: ", sc.name)
+    println("Vertices: ", length(sc.v_array))
+    println("Normals: ", length(sc.vn_array))
+    println("Textures: ", length(sc.vt_array))
+    println("Faces: ", length(sc.f_array))
 end
 
 
 """
 Wavefront .obj file parser
 """
-function reader(file_name::String)::scene
-    v_array = Vector{Float64}()
-    vn_array = Vector{Float64}()
-    vt_array = Vector{Float64}()
+function reader(file_name::String)::obj_scene
+    v_array = Vector{Vector{Float64}}()
+    vn_array = Vector{Vector{Float64}}()
+    vt_array = Vector{Vector{Float64}}()
 
     f_array = Vector{face}()
 
-    sc = scene("", v_array, vn_array, vt_array, f_array)
+    sc = obj_scene("", v_array, vn_array, vt_array, f_array)
     sc_meta = Vector{String}()
 
     for line in eachline(file_name)
         @match true begin
             startswith(line, "v ") => begin
                 v = split(line[3:end], " ")
+                vertex = Vector{Float64}()
                 for i in v
-                    push!(v_array, parse(Float64, i))
+                    push!(vertex, parse(Float64, i))
                 end
+                push!(v_array, vertex)
             end
             # faces 
             startswith(line, "f ") => begin
@@ -79,15 +81,15 @@ function reader(file_name::String)::scene
                         # vertex, texture, normal
                         occursin(r"\d+\/\d+\/\d+", i) => begin
                             face = split(i, "/")
-                            push!(vertices, parse(Int64, face[1]))
-                            push!(textures, parse(Int64, face[2]))
-                            push!(normals, parse(Int64, face[3]))
+                            push!(vertices, parse(Int64, v_array[face[1]]))
+                            push!(textures, parse(Int64, vt_array[face[2]]))
+                            push!(normals, parse(Int64, vn_array[face[3]]))
                         end
                         # vertex, normal
                         occursin(r"\d+\/\/\d+", i) => begin
                             face = split(i, "//")
-                            push!(vertices, parse(Int64, face[1]))
-                            push!(normals, parse(Int64, face[2]))
+                            push!(vertices, parse(Int64, v_array[face[1]]))
+                            push!(normals, parse(Int64, vn_array[face[2]]))
                         end
                     end
                 end
@@ -96,16 +98,20 @@ function reader(file_name::String)::scene
             # vertex normals
             startswith(line, "vn ") => begin
                 vn = split(line[4:end], " ")
+                vertex_normal = Vector{Float64}()
                 for i in vn
-                    push!(vn_array, parse(Float64, i))
+                    push!(vertex_normal, parse(Float64, i))
                 end
+                push!(vn_array, vertex_normal)
             end
             # optional texture vertices
             startswith(line, "vt ") => begin
                 vt = split(line[4:end], " ")
+                vertex_texture = Vector{Float64}()
                 for i in vt
-                    push!(vt_array, parse(Float64, i))
+                    push!(vertex_texture, parse(Float64, i))
                 end
+                push!(vt_array, vertex_texture)
             end
             # object name
             startswith(line, "o ") => println(line)
@@ -131,7 +137,7 @@ end
 Function to check if a point is inside the circumcircle of a triangle
 """
 function in_circumcircle(t::triangle, v::Vector{Float64})
-
+    
 end
 
 """
@@ -149,11 +155,11 @@ function triangulation(faces::Vector{face})::Vector{triangle}
 
     push!(triangles, triangle(0.0, 0.0, 0.0))
 
-    for v in faces.vertices
+    for (v, vn) in zip(faces.vertices, faces.normals)
         bad_triangles = Vector{triangle}()
         for t in triangles
             if in_circumcircle(t, v)
-                push!(bad_triangles, t)
+                push!(bad_triangles, t, vn)
             end
         end
         polygon = Vector{Vector{Int64}}()   
@@ -182,4 +188,10 @@ end
 sc = reader("scenes/cottage_obj.obj")
 
 scene_summary(sc)
+
+faces = sc.f_array
+
+triangle_1 = faces[1]
+
+println(triangle_1.vertices)
 
