@@ -1,15 +1,17 @@
 import MacroTools.rmlines
 
-mutable struct obj <: hittable 
-    faces::Vector{triangle}
+mutable struct obj <: hittable
+    faces::Vector{Triangle}
     bbox::aabb
 end
 
-mutable struct face
+mutable struct Face
     vertices::Vector{Vector{Float64}}
     normals::Vector{Vector{Float64}}
     textures::Vector{Vector{Float64}}
 end
+
+Base.show(io::IO, f::Face) = print(io, "Face($(f.vertices), $( length(f.normals) ), $( length(f.textures) )")
 
 mutable struct obj_scene
     # metadata
@@ -19,7 +21,7 @@ mutable struct obj_scene
     v_array::Vector{Float64}
     vn_array::Vector{Float64}
     vt_array::Vector{Float64}
-    f_array::Vector{face}
+    f_array::Vector{Face}
 end
 
 macro match(v, block)
@@ -46,7 +48,6 @@ function scene_summary(sc::obj_scene)
     println("Faces: ", length(sc.f_array))
 end
 
-
 """
 Wavefront .obj file parser
 """
@@ -55,7 +56,7 @@ function reader(file_name::String)::obj_scene
     vn_array = Vector{Vector{Float64}}()
     vt_array = Vector{Vector{Float64}}()
 
-    f_array = Vector{face}()
+    f_array = Vector{Face}()
 
     sc = obj_scene("", v_array, vn_array, vt_array, f_array)
     sc_meta = Vector{String}()
@@ -80,20 +81,20 @@ function reader(file_name::String)::obj_scene
                     @match true begin
                         # vertex, texture, normal
                         occursin(r"\d+\/\d+\/\d+", i) => begin
-                            face = split(i, "/")
-                            push!(vertices, v_array[parse(Int64, face[1])])
-                            push!(textures, vt_array[parse(Int64, face[2])])
-                            push!(normals, vn_array[parse(Int64, face[3])])
+                            Face = split(i, "/")
+                            push!(vertices, v_array[parse(Int64, Face[1])])
+                            push!(textures, vt_array[parse(Int64, Face[2])])
+                            push!(normals, vn_array[parse(Int64, Face[3])])
                         end
                         # vertex, normal
                         occursin(r"\d+\/\/\d+", i) => begin
-                            face = split(i, "//")
-                            push!(vertices, v_array[parse(Int64, face[1])])
-                            push!(normals, vn_array[parse(Int64, face[2])])
+                            Face = split(i, "//")
+                            push!(vertices, v_array[parse(Int64, Face[1])])
+                            push!(normals, vn_array[parse(Int64, Face[2])])
                         end
                     end
                 end
-                push!(f_array, face(vertices, normals, textures))
+                push!(f_array, Face(vertices, normals, textures))
             end
             # vertex normals
             startswith(line, "vn ") => begin
@@ -133,63 +134,118 @@ function reader(file_name::String)::obj_scene
     sc
 end
 
+function has_vertex(t::Triangle, v::Vector{Float64})::Bool
+    return v in [t.A, t.B, t.C]
+end
+
 """
-Function to check if a point is inside the circumcircle of a triangle
+Creats a super Triangle that bounds a Face
 """
-function in_circumcircle(t::triangle, v::Vector{Float64}, vn::Vector{Float64})::Bool
-    k = [0, 0, 1]
+function create_super_triangle(vertices::Vector{Vector{Float64}})::Triangle
+    # Find the bounding box of the Face
+    minx = miny = minz = Inf
+    maxx = maxy = maxz = -Inf
+    for v in vertices
+        minx = min(minx, v[1])
+        miny = min(miny, v[2])
+        minz = min(minz, v[3])
+        maxx = max(maxx, v[1])
+        maxy = max(maxy, v[2])
+        maxz = max(maxz, v[3])
+    end
+
+    # Create the super Triangle
+    dx = (maxx - minx) * 10
+    dy = (maxy - miny) * 10
+    dz = (maxz - minz) * 10
+
+    A = [minx - dx, miny - dy, minz - dz]
+    B = [maxx + dx, miny - dy, minz - dz]
+    C = [minx - dx, maxy + dy, minz - dz]
+
+    return Triangle(A, B, C)
+end
+
+"""
+Function to check if a point is inside the circumcircle of a Triangle
+"""
+function in_circumcircle(t::Triangle, v::Vector{Float64}, vn::Vector{Float64})::Bool
+    k = [0.0, 0.0, 1.0]
+    # Compute rotation axis and angle
+    rot_axis = cross(vn, k)
     rot_angle = acos(dot(vn, k) / (norm(vn) * norm(k)))
-    rot_matrix = [cos(rot_angle) -sin(rot_angle) 0; sin(rot_angle) cos(rot_angle) 0; 0 0 1]
-    
-    P1 = t.A 
+
+    # Normalize rotation axis
+    if norm(rot_axis) != 0.0
+        rot_axis /= norm(rot_axis)
+    end
+
+    # Rotation matrix (Rodrigues' rotation formula)
+    K = [
+        0.0 -rot_axis[3] rot_axis[2];
+        rot_axis[3] 0.0 -rot_axis[1];
+        -rot_axis[2] rot_axis[1] 0.0
+    ]
+
+    I_m = Matrix{Float64}(I, 3, 3)
+    rot_matrix = I_m + sin(rot_angle) * K + (1 - cos(rot_angle)) * K^2
+
+    # Apply rotation to points
+    P1 = t.A
     P2 = t.B
     P3 = t.C
 
     P1_rot = rot_matrix * P1
     P2_rot = rot_matrix * P2
-    P3_rot = rot_matrix * P3 
+    P3_rot = rot_matrix * P3
     v_rot = rot_matrix * v
 
+    # Convert to 2D by dropping the z-coordinate
     P1_2D = [P1_rot[1], P1_rot[2]]
     P2_2D = [P2_rot[1], P2_rot[2]]
     P3_2D = [P3_rot[1], P3_rot[2]]
     v_2D = [v_rot[1], v_rot[2]]
 
-    p1_x = P1_2D[1] - v_2D[1]
-    p1_y = P1_2D[2] - v_2D[2]
-    p2_x = P2_2D[1] - v_2D[1]
-    p2_y = P2_2D[2] - v_2D[2]
-    p3_x = P3_2D[1] - v_2D[1]
-    p3_y = P3_2D[2] - v_2D[2]
+    # Setup matrix for determinant calculation
+    cc_det = det([
+        P1_2D[1]-v_2D[1] P1_2D[2]-v_2D[2] (P1_2D[1]-v_2D[1])^2+(P1_2D[2]-v_2D[2])^2;
+        P2_2D[1]-v_2D[1] P2_2D[2]-v_2D[2] (P2_2D[1]-v_2D[1])^2+(P2_2D[2]-v_2D[2])^2;
+        P3_2D[1]-v_2D[1] P3_2D[2]-v_2D[2] (P3_2D[1]-v_2D[1])^2+(P3_2D[2]-v_2D[2])^2
+    ])
 
-    return (p1_x^2 + p1_y^2) * (p2_x * p3_y - p2_y * p3_x) - 
-           (p2_x^2 + p2_y^2) * (p1_x * p3_y - p1_y * p3_x) + 
-           (p3_x^2 + p3_y^2) * (p1_x * p2_y - p1_y * p2_x) > 0
+    return cc_det > 0
 end
 
 """
 Function to check if an edge is not shared by an array of triangles
 """
-function not_shared(e::Vector{Float64}, triangles::Vector{triangle})
-
+function not_shared(e::Set{Vector{Float64}}, triangles::Vector{Triangle})::Bool
+    return all([e ∉ t.edges for t in triangles])
 end
 
 """
 Boywer-Watson triangulation algorithm
 """
-function triangulation(faces::Vector{face})::Vector{triangle}
-    triangles = Vector{triangle}()
+function triangulation(v::Vector{Vector{Float64}}, vn::Vector{Vector{Float64}})::Vector{Triangle}
+    triangles = Vector{Triangle}()
 
-    push!(triangles, triangle(0.0, 0.0, 0.0))
+    # Create super Triangle
+    super_triangle = create_super_triangle(v)
+    push!(triangles, super_triangle)
 
-    for (v, vn) in zip(faces.vertices, faces.normals)
-        bad_triangles = Vector{triangle}()
+    for (v, vn) in zip(v, vn)
+        println("curr p ", v, " ", vn)
+
+        # Find bad triangles
+        bad_triangles = Vector{Triangle}()
         for t in triangles
             if in_circumcircle(t, v, vn)
                 push!(bad_triangles, t)
             end
         end
-        polygon = Vector{Vector{Int64}}()   
+
+        # Find boundary of polygonal hole
+        polygon = Vector{Set{Vector{Float64}}}()
         for t in bad_triangles
             for e in t.edges
                 if not_shared(e, bad_triangles)
@@ -197,19 +253,16 @@ function triangulation(faces::Vector{face})::Vector{triangle}
                 end
             end
         end
-        for t in bad_triangles
-            delete!(triangles, t)
-        end
+
+        # Remove bad triangles from triangulation
+        filter!(x -> x ∉ bad_triangles, triangles)
+
         for e in polygon
-            push!(triangles, triangle(e[1], e[2], v))
+            push!(triangles[idx], Triangle(e[1], e[2], v))
         end
     end
-    for t in triangles
-        if has_vertex(t, 0.0) 
-            delete!(triangles, t)
-        end
-    end
-    return triangles
+
+    triangles
 end
 
 sc = reader("scenes/cottage_obj.obj")
@@ -219,10 +272,13 @@ scene_summary(sc)
 faces = sc.f_array
 
 face_1 = faces[10]
-triangle_1 = triangle(face_1.vertices[1], face_1.vertices[2], face_1.vertices[3])
+triangle_1 = Triangle(face_1.vertices[1], face_1.vertices[2], face_1.vertices[3])
 v1 = face_1.vertices[4]
 
 println(triangle_1)
 println(v1)
 
-print(in_circumcircle(triangle_1, v1, face_1.normals[1]))
+println(in_circumcircle(triangle_1, v1, face_1.normals[4]))
+
+tris = triangulation(face_1.vertices, face_1.normals)
+println(tris)

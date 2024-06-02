@@ -17,6 +17,13 @@ mutable struct aabb
 
     aabb(a::aabb, b::aabb) = 
         new(interval(a.x, b.x), interval(a.y, b.y), interval(a.z, b.z))
+
+    aabb(a::Vector{Float64}, b::Vector{Float64}) =
+        new(
+            interval(min(a[1], b[1]), max(a[1], b[1])),
+            interval(min(a[2], b[2]), max(a[2], b[2])),
+            interval(min(a[3], b[3]), max(a[3], b[3])
+        ))
 end
 
 function pad_to_min(bbox::aabb)::bbox
