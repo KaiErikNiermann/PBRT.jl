@@ -141,35 +141,11 @@ end
 """
 Creats a super Triangle that bounds a Face
 """
-function create_super_triangle(vertices::Vector{Vector{Float64}})::Triangle
-    # Find the bounding box of the Face
-    minx = miny = minz = Inf
-    maxx = maxy = maxz = -Inf
-    for v in vertices
-        minx = min(minx, v[1])
-        miny = min(miny, v[2])
-        minz = min(minz, v[3])
-        maxx = max(maxx, v[1])
-        maxy = max(maxy, v[2])
-        maxz = max(maxz, v[3])
-    end
-
-    # Create the super Triangle
-    dx = (maxx - minx) * 10
-    dy = (maxy - miny) * 10
-    dz = (maxz - minz) * 10
-
-    A = [minx - dx, miny - dy, minz - dz]
-    B = [maxx + dx, miny - dy, minz - dz]
-    C = [minx - dx, maxy + dy, minz - dz]
-
-    return Triangle(A, B, C)
+function create_super_triangle(v::Vector{Vector{Float64}}, vn::Vector{Vector{Float64}})::Triangle
+    # TODO - implement super triangulation for delauny triangulation
 end
 
-"""
-Function to check if a point is inside the circumcircle of a Triangle
-"""
-function in_circumcircle(t::Triangle, v::Vector{Float64}, vn::Vector{Float64})::Bool
+function rot_matrix(v::Vector{Float64}, vn::Vector{Float64})::Matrix{Float64}
     k = [0.0, 0.0, 1.0]
     # Compute rotation axis and angle
     rot_axis = cross(vn, k)
@@ -189,22 +165,24 @@ function in_circumcircle(t::Triangle, v::Vector{Float64}, vn::Vector{Float64})::
 
     I_m = Matrix{Float64}(I, 3, 3)
     rot_matrix = I_m + sin(rot_angle) * K + (1 - cos(rot_angle)) * K^2
+    rot_matrix
+end
 
-    # Apply rotation to points
-    P1 = t.A
-    P2 = t.B
-    P3 = t.C
+function point_dim_reduction(p::Vector{Vector{Float64}}, rot_matrix)::Vector{Vector{Float64}}
+    p_rot = Vector{Vector{Float64}}()
+    for v in p
+        v_rot = rot_matrix * v
+        push!(p_rot, [v_rot[1], v_rot[2]])
+    end
+    p_rot
+end
 
-    P1_rot = rot_matrix * P1
-    P2_rot = rot_matrix * P2
-    P3_rot = rot_matrix * P3
-    v_rot = rot_matrix * v
-
-    # Convert to 2D by dropping the z-coordinate
-    P1_2D = [P1_rot[1], P1_rot[2]]
-    P2_2D = [P2_rot[1], P2_rot[2]]
-    P3_2D = [P3_rot[1], P3_rot[2]]
-    v_2D = [v_rot[1], v_rot[2]]
+"""
+Function to check if a point is inside the circumcircle of a Triangle
+"""
+function in_circumcircle(t::Triangle, v::Vector{Float64}, vn::Vector{Float64})::Bool
+    rot_matrix = rot_matrix(v, vn)
+    P1_2D, P2_2D, P3_2D, v_2D = point_dim_reduction([P1, P2, P3, v], rot_matrix)
 
     # Setup matrix for determinant calculation
     cc_det = det([
@@ -230,7 +208,7 @@ function triangulation(v::Vector{Vector{Float64}}, vn::Vector{Vector{Float64}}):
     triangles = Vector{Triangle}()
 
     # Create super Triangle
-    super_triangle = create_super_triangle(v)
+    super_triangle = create_super_triangle(v, vn)
     push!(triangles, super_triangle)
 
     for (v, vn) in zip(v, vn)
@@ -265,20 +243,4 @@ function triangulation(v::Vector{Vector{Float64}}, vn::Vector{Vector{Float64}}):
     triangles
 end
 
-sc = reader("scenes/cottage_obj.obj")
 
-scene_summary(sc)
-
-faces = sc.f_array
-
-face_1 = faces[10]
-triangle_1 = Triangle(face_1.vertices[1], face_1.vertices[2], face_1.vertices[3])
-v1 = face_1.vertices[4]
-
-println(triangle_1)
-println(v1)
-
-println(in_circumcircle(triangle_1, v1, face_1.normals[4]))
-
-tris = triangulation(face_1.vertices, face_1.normals)
-println(tris)

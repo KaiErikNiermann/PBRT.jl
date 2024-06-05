@@ -55,11 +55,13 @@ function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::i
 end
 
 # const SC = final_scene()
-const SC = basic_scene()
+# const SC = basic_scene()
 # const SC = simple_scene()
 # const SC = empty_scene()
+const SC = custom_scene("scenes/cottage_obj.obj")
+
 const SCALE::Float16 = 1.0 / SC.img.samples_per_pixel
 
 file = open("image.ppm", "w")
 
-# @time gen_img(SC.img.width, SC.img.height, file, SC.world, SC.img)
+@time gen_img(SC.img.width, SC.img.height, file, SC.world, SC.img)

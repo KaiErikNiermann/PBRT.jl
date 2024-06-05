@@ -8,6 +8,7 @@ struct color
         new(c[1], c[2], c[3])
     end
     color() = new(0.0, 0.0, 0.0)
+    color(r::Float32, g::Float32, b::Float32) = new(r, g, b)
 end
 
 
