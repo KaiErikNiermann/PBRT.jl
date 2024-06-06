@@ -166,9 +166,9 @@ function custom_scene(obj_file)::scene
     world_l = hittable_list()
     node = bvh_node()
 
-    ground_material = metal(color([0.8, 0.8, 0.0]), 0.0)
+    ground_material = metal(color([0.8, 0.8, 0.0]), 0.4)
 
-    push!(world_l, sphere([0.0, -100.5, -1.0], 100.0, ground_material))
+    # push!(world, sphere([0.0, -100.5, -1.0], 100.0, ground_material))
 
     println("num faces in obj: ", length(sc.f_array))
     for face in sc.f_array
@@ -176,7 +176,7 @@ function custom_scene(obj_file)::scene
         if length(face.vertices) == 3
             t1 = Triangle(face.vertices[1], face.vertices[2], face.vertices[3], metal(random_color(), 0.0))
             push!(world_l, t1)
-        else
+		elseif length(face.vertices) == 4
             triangles = split_quad(face.vertices)
             for t in triangles
                 push!(world_l, t)
@@ -197,7 +197,7 @@ function custom_scene(obj_file)::scene
 
     # camera
     cam = camera(
-        [-150, 50, 0], [0, 0, 0], [0, 1, 0], 20, 16.0 / 9.0, 2, norm([-150, 0, 2] - [0, 0, -1]),
+        [-170, 20, 0], [0, 0, -1], [0, 1, 0], 20, 16.0 / 9.0, 2, norm([-170, 20, 0] - [0, 0, -1]),
     )
 
     return scene(world, cam, image(width, height, samples_per_pixel, max_depth))

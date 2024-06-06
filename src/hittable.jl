@@ -4,6 +4,8 @@ mutable struct hit_record
     mat::material
     t::Float64
     front_face::Bool
+    u::Float64
+    v::Float64
     hit_record() = new([0.0, 0.0, 0.0], [0.0, 0.0, 0.0], lambertian(color([0.0, 0.0, 0.0])), 0.0, false)
 end
 

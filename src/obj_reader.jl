@@ -79,18 +79,20 @@ function reader(file_name::String)::obj_scene
                 textures = Vector{Vector{Float64}}()
                 for i in f
                     @match true begin
-                        # vertex, texture, normal
+                        # object planes
                         occursin(r"\d+\/\d+\/\d+", i) => begin
+                            # vertex, texture, normal
                             Face = split(i, "/")
                             push!(vertices, v_array[parse(Int64, Face[1])])
                             push!(textures, vt_array[parse(Int64, Face[2])])
                             push!(normals, vn_array[parse(Int64, Face[3])])
                         end
-                        # vertex, normal
+                        # lights and ground planes
                         occursin(r"\d+\/\/\d+", i) => begin
+                            # vertex, normal
                             Face = split(i, "//")
-                            push!(vertices, v_array[parse(Int64, Face[1])])
-                            push!(normals, vn_array[parse(Int64, Face[2])])
+                            # push!(vertices, v_array[parse(Int64, Face[1])])
+                            # push!(normals, vn_array[parse(Int64, Face[2])])
                         end
                     end
                 end
