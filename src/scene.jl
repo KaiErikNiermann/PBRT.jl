@@ -168,7 +168,7 @@ function custom_scene(obj_file)::scene
 
     ground_material = metal(color([0.8, 0.8, 0.0]), 0.4)
 
-    # push!(world, sphere([0.0, -100.5, -1.0], 100.0, ground_material))
+    push!(world_l, sphere([0.0, -100.5, -1.0], 100.0, ground_material))
 
     println("num faces in obj: ", length(sc.f_array))
     for face in sc.f_array
