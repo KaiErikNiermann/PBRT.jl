@@ -1,0 +1,70 @@
+        - rec_buf = hit_record()
+        - sd_buf = scatter_data(color(), ray())
+        - 
+        - function ray_color(r::ray, world::hittable_list, depth)::color
+        0     rec = rec_buf
+582110000     def_color = color([0.0, 0.0, 0.0])
+        - 
+        0     if(depth <= 0)
+        0         return def_color
+        -     end
+        -     
+        -     # 0.001 to avoid shadow acne
+232797184     if(hit!(world, r, interval(0.001, Inf), rec))
+        0         sd = sd_buf
+        0         if(scatter(rec.mat, r, rec, sd))
+222110000             return sd.attenuation * ray_color(sd.scattered, world, depth - 1)
+        -         end
+        0         return def_color
+        -     end
+        - 
+        0     unit_direction = r.direction/norm(r.direction)
+        0     t = 0.5 * (unit_direction[1] + 1.0)
+710121760     color((1.0 - t) * [1.0, 1.0, 1.0] + t * [0.5, 0.7, 1.0])
+        - end
+        - 
+        - function write_color(file, c::color)
+        -     # Divide the color by the number of samples and gamma-correct 
+        0     r::Float16 = sqrt(SCALE * c.r)
+        0     g::Float16 = sqrt(SCALE * c.g)
+        0     b::Float16 = sqrt(SCALE * c.b)
+        - 
+  4320000     write(file, string(256 * clamp.(r, 0.0, 0.999), " "
+        -                      , 256 * clamp.(g, 0.0, 0.999), " "
+        -                      , 256 * clamp.(b, 0.0, 0.999), "\n"))
+        - end
+        - 
+        - function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::image) 
+        0     max_depth = img.max_depth
+        0     spp = img.samples_per_pixel
+        0     c = SC.cam
+      336     write(file, "P3\n$width $height\n255\n")
+        0     for j in height-1:-1:0
+     7200         println(stderr, "Scanlines remaining: ", j)
+        0         for i in 0:1:width-1
+  7200000             pixel_color = color([0.0, 0.0, 0.0])
+        0             for _ in 1:1:spp
+        0                 u = ( Float64(i) + random_double() ) / (width - 1)
+        0                 v = ( Float64(j) + random_double() ) / (height - 1)
+        0                 r = get_ray(c, u, v)
+360000000                 pixel_color += ray_color(r, world, max_depth)
+        0             end
+        0             write_color(file, pixel_color)
+        0         end
+        0     end
+        - end
+        - 
+        - # const SC = final_scene()
+        - # const SC = basic_scene()
+        - # const SC = simple_scene()
+        - # const SC = empty_scene()
+        - const SC = custom_scene("scenes/cottage_obj.obj")
+        - 
+        - const SCALE::Float16 = 1.0 / SC.img.samples_per_pixel
+        - 
+        - file = open("image.ppm", "w")
+        - 
+        - Profile.clear()
+        - @profile gen_img(SC.img.width, SC.img.height, file, SC.world, SC.img)
+        - 
+        - pprof()

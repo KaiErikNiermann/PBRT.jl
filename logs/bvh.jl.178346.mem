@@ -1,0 +1,69 @@
+        - 
+        - mutable struct bvh_node <: hittable
+        -     left::hittable
+        -     right::hittable
+        -     bbox::aabb
+        -     function bvh_node(left::hittable, right::hittable, bbox::aabb)
+        -         new(left, right, bbox)
+        -     end
+        -     bvh_node() = new(null_obj(), null_obj(), aabb())
+        - end
+        - 
+        - function box_compare(a, b)
+        -     a.lo < b.lo
+        - end
+        - 
+        - box_x_compare(a, b) = box_compare(a.bbox.x, b.bbox.x)
+        - box_y_compare(a, b) = box_compare(a.bbox.y, b.bbox.y)
+        - box_z_compare(a, b) = box_compare(a.bbox.z, b.bbox.z)
+        - 
+        - function bvh_node(objects::Vector{hittable}, start, end_, node::bvh_node)::bvh_node
+    98112     bbox = aabb()
+        0     for i in start:end_
+   616064         bbox = aabb(bbox, objects[i].bbox)
+        0     end
+        - 
+        0     axis = longest_axis(bbox)
+        - 
+        0     comparator = if axis == 1 
+        -                     box_x_compare
+        0                 elseif axis == 2
+        -                     box_y_compare
+        -                 else
+        0                     box_z_compare
+        -                 end
+        -     
+        0     object_span = end_ - start
+        - 
+        0     if object_span == 1
+        0         node.left = objects[start]
+        0         node.right = objects[start]
+     1088         bvh_node(node.left, node.right, bbox)
+        0     elseif object_span == 2
+        0         node.left = objects[start]
+        0         node.right = objects[start + 1]
+     7104         bvh_node(node.left, node.right, bbox)
+        -     else
+    47008         objects[start:end_] = sort(objects[start:end_], lt=comparator)
+        0         mid = start + trunc(Int, object_span / 2)
+        - 
+    40800         node.left = bvh_node(objects, start, mid, bvh_node())
+    40800         node.right = bvh_node(objects, mid, end_, bvh_node())
+     8160         bvh_node(node.left, node.right, bbox)
+        -     end
+        - 
+        - end
+        - 
+        - bvh_node(list::hittable_list, node::bvh_node) = bvh_node(list.objects, 1, length(list.objects), node)
+        - 
+        - function hit!(node::bvh_node, r::ray, ray_t::interval, rec::hit_record)::Bool
+        -     # if the ray doesn't hit the bounding box then don't explore subtree
+        0     if(!hit!(node.bbox, r, ray_t))
+        0         return false
+        -     end
+        - 
+        0     hit_left = hit!(node.left, r, ray_t, rec)
+8627470112     hit_right = hit!(node.right, r, interval(ray_t.lo, ifelse(hit_left, rec.t, ray_t.hi)), rec)
+        - 
+        0     return hit_left || hit_right
+        - end

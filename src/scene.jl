@@ -172,7 +172,7 @@ function custom_scene(obj_file)::scene
 
     println("num faces in obj: ", length(sc.f_array))
     for face in sc.f_array
-        println("Processing face with vertices: ", face.vertices)
+        # println("Processing face with vertices: ", face.vertices)
         if length(face.vertices) == 3
             t1 = Triangle(face.vertices[1], face.vertices[2], face.vertices[3], metal(random_color(), 0.0))
             push!(world_l, t1)
@@ -184,7 +184,7 @@ function custom_scene(obj_file)::scene
         end
     end
 
-    println("num triangles in world: ", length(world_l.objects))
+    # println("num triangles in world: ", length(world_l.objects))
     for obj in world_l.objects
         if typeof(obj) == Triangle
             println("Triangle vertices: ", obj.id)
@@ -192,7 +192,7 @@ function custom_scene(obj_file)::scene
     end
 
     world = bvh_node(world_l, node)
-    print_bvh(world)
+    # print_bvh(world)
     world = hittable_list([world], world.bbox)
 
     # camera

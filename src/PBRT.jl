@@ -3,11 +3,17 @@ module PBRT
 using Base
 using LinearAlgebra
 using Distributions
+using PProf
+using Profile
+using ProfileView
+using StaticArrays
+using BenchmarkTools
 
 include("testing.jl")
 
 export foo
 export gen_img
+export custom_scene
 
 using Match
 

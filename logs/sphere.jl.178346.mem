@@ -1,0 +1,46 @@
+        - struct sphere <: hittable
+        -     center::Vector{Float64}
+        -     radius::Float64
+        -     mat::material
+        -     r_squared::Float64
+        -     bbox::aabb
+        -     function sphere(center::Vector{Float64}, radius::Float64, mat::material)
+        0         radius = max(0.0, radius)
+       80         rvec = [radius, radius, radius]
+        0         bbox = aabb(center - rvec, center + rvec)
+       32         new(center, radius, mat, radius^2, bbox)
+        -     end
+        - end
+        - 
+        - Base.show(io::IO, s::sphere) = print(io, "sphere($(s.center), $(s.radius), $(s.mat))")
+        - 
+        - function hit!(s::sphere, r::ray, ray_t::interval, rec::hit_record)
+        0     oc = r.origin - s.center
+        0     a = dot(r.direction, r.direction)
+        0     half_b = dot(oc, r.direction)
+        - 
+        0     c = dot(oc, oc) - s.r_squared
+        0     discriminant = half_b^2 - a * c
+        0     if (discriminant < 0)
+        0         return false
+        -     end
+        - 
+        0     sqrtd = sqrt(discriminant)
+        - 
+        -     # Nearest root that lies in the acceptable range
+        0     root = (-half_b - sqrtd) / a
+        0     if (root < ray_t.lo || root > ray_t.hi)
+        0         root = (-half_b + sqrtd) / a
+        0         if (root < ray_t.lo || root > ray_t.hi)
+        0             return false
+        -         end
+        -     end
+        - 
+        0     rec.t = root
+        0     rec.p = at(r, rec.t)
+        0     outward_normal::Vector{Float64} = (rec.p - s.center) / s.radius
+        0     set_face_normal!(rec, r, outward_normal)
+        0     rec.mat = s.mat
+        - 
+        0     return true
+        - end

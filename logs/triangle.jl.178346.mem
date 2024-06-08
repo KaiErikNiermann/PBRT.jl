@@ -1,0 +1,63 @@
+        - struct Triangle <: hittable
+        -     A::Vector{Float64}
+        -     B::Vector{Float64}
+        -     C::Vector{Float64}
+        -     bbox::aabb
+        -     id::Int
+        -     mat::material
+        -     edges::Vector{Set{Vector{Float64}}}
+        -     Triangle(A::Vector{Float64}, B::Vector{Float64}, C::Vector{Float64}, mat::material) = begin 
+        0         u = B - A
+        0         v = C - A
+        0         bbox_diag1 = aabb(A, A + u + v)
+        0         bbox_diag2 = aabb(A + u, A + v)
+    62144         bbox = aabb(bbox_diag1, bbox_diag2)
+   130016         edges = [Set([A, B]), Set([B, C]), Set([C, A])]
+        0         id = rand(1:10000000000000000)
+    15296         new(A, B, C, bbox, id, mat, edges)
+        -     end
+        - end 
+        - 
+        - Base.show(io::IO, t::Triangle) = print(io, "Triangle(id = $(t.id))")
+        - 
+        - function hit!(t::Triangle, r::ray, ray_t::interval, rec::hit_record)::Bool
+        0     e1 = t.B - t.A
+        0     e2 = t.C - t.A
+        0     normal = normalize(cross(e1, e2))
+        - 
+        0     ray_cross_e2 = cross(r.direction, e2)
+        0     det = dot(e1, ray_cross_e2)
+        - 
+        0     if det > -0.0001 && det < 0.0001
+        0         return false
+        -     end
+        - 
+        0     inv_det = 1.0 / det
+        0     s = r.origin - t.A
+        0     u = inv_det * dot(s, ray_cross_e2)
+        0     if u < 0.0 || u > 1.0
+        0         return false
+        -     end
+        - 
+        0     s_cross_e1 = cross(s, e1)
+        0     v = inv_det * dot(r.direction, s_cross_e1)
+        - 
+        0     if v < 0.0 || u + v > 1.0
+        0         return false
+        -     end
+        - 
+        0     t_val = inv_det * dot(e2, s_cross_e1)
+        - 
+        0     if t_val < ray_t.lo || t_val > ray_t.hi
+        0         return false
+        -     end
+        -     
+        -     # Update the hit record with intersection information
+        0     rec.t = t_val
+        0     rec.p = at(r, rec.t)
+        0     set_face_normal!(rec, r, normal)
+        0     rec.mat = t.mat
+        -     
+        0     true
+        - end
+        - 
