@@ -17,30 +17,25 @@ class ray {
         std::vector<double> direction;
 };
 
-template<class T>
 class interval {
     public:
-        T lo;
-        T hi;
-
-        interval(T lo, T hi) : lo(lo), hi(hi) {}
-        interval() : lo(0), hi(0) {}
+        double lo;
+        double hi;
 };
 
 class aabb {
     public:
-        interval<double> x;
-        interval<double> y;
-        interval<double> z;
+        interval x;
+        interval y;
+        interval z;
 };
 
 set_usertype_enabled(ray);
-set_usertype_enabled(interval<float>);
-set_usertype_enabled(interval<double>);
+set_usertype_enabled(interval);
 set_usertype_enabled(aabb);
 
 // lambda function to check if a ray hits a box
-auto hit = [](const aabb& box, const ray& r, const interval<double>& ray_t) -> jluna::Bool {
+auto hit = [](const aabb& box, const ray& r, const interval& ray_t) -> jluna::Bool {
     std::cout << "cpp hit" << std::endl;
     std::cout << "box: " << box.x.lo << " " << box.x.hi << " " << box.y.lo << " " << box.y.hi << " " << box.z.lo << " " << box.z.hi << std::endl;
     std::cout << "ray: " << r.origin[0] << " " << r.origin[1] << " " << r.origin[2] << " " << r.direction[0] << " " << r.direction[1] << " " << r.direction[2] << std::endl;
@@ -53,7 +48,7 @@ auto hit = [](const aabb& box, const ray& r, const interval<double>& ray_t) -> j
 
     for (int axis = 0; axis < 3; axis++) {
         std::cout << "here_start" << std::endl;
-        auto ax = std::vector<interval<double>> {box.x, box.y, box.z}[axis];
+        auto ax = std::vector<interval> {box.x, box.y, box.z}[axis];
         float invD = r.direction[axis] != 0.0 ? 1.0 / r.direction[axis] : 0.0; 
         std::cout << "here2" << std::endl;
 
