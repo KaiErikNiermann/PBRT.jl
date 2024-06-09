@@ -23,25 +23,24 @@ class aabb:
     y: interval[float]
     z: interval[float]
     
-def hit(): 
-    print("aabb hit in python")
-    # r_lo = ray_t.lo
-    # r_hi = ray_t.hi
-    # for axis in range(3): 
-    #     ax = [bbox.x, bbox.y, bbox.z][axis]
-    #     adinv = 1.0 / ray.direction[axis] if ray.direction[axis] != 0 else float('inf')
+def hit(bbox: aabb, r: ray, ray_t: interval[float]) -> bool: 
+    r_lo = ray_t.lo
+    r_hi = ray_t.hi
+    for axis in range(3): 
+        ax = [bbox.x, bbox.y, bbox.z][axis]
+        adinv = 1.0 / r.direction[axis] if r.direction[axis] != 0 else float('inf')
         
-    #     t0 = (ax.lo - ray.origin[axis]) * adinv
-    #     t1 = (ax.hi - ray.origin[axis]) * adinv
+        t0 = (ax.lo - r.origin[axis]) * adinv
+        t1 = (ax.hi - r.origin[axis]) * adinv
         
-    #     if adinv < 0: 
-    #         t0, t1 = t1, t0
+        if adinv < 0: 
+            t0, t1 = t1, t0
          
-    #     r_lo = max(r_lo, t0)
-    #     r_hi = min(r_hi, t1)
+        r_lo = max(r_lo, t0)
+        r_hi = min(r_hi, t1)
         
-    #     if r_hi <= r_lo: 
-    #         return False
+        if r_hi <= r_lo: 
+            return False
         
 
         

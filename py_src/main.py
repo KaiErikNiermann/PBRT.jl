@@ -3,10 +3,6 @@ from juliacall import Pkg as jlPkg
 
 from bvh import aabb, interval, ray, hit
 
-class PythonPBR: 
-    def __init__(self):
-        print("hello from python")
-
 jlPkg.activate('..')
 Main.seval('using PBRT')
 Main.seval('using PythonCall')
@@ -20,8 +16,7 @@ Main.hit = hit
 
 Main.seval("""
 function PBRT.hit(bbox::PBRT.aabb, r::PBRT.ray, ray_t::PBRT.interval)::Bool
-    hit()
-    return false 
+    return Bool(hit(bbox, r, ray_t)) 
 end
 """)
 

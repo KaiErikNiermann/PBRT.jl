@@ -26,7 +26,7 @@ RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSIO
 # poetry 
 RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH=$PATH:/root/.local/bin
-RUN poetry config virtualenvs.create false
+RUN poetry config virtualenvs.create true
 
 # julia
 RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.2-linux-x86_64.tar.gz && \
@@ -57,11 +57,6 @@ RUN cd cpp_src && \
     cmake . && \
     make && \
     cd ..
-
-# instantiate julia package
-RUN julia --project=. -e 'using Pkg; Pkg.instantiate()' && \
-    julia --project=. -e 'using Pkg; Pkg.build()' && \
-    julia --project=. -e 'using Pkg; Pkg.precompile()' 
 
 # install sudo 
 RUN apt-get install -y sudo
