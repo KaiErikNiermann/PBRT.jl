@@ -11,7 +11,7 @@ ENV MAKEFLAGS -j4
 RUN mkdir /app
 WORKDIR /app
 
-# deps 
+# necessary deps 
 RUN apt-get update -y && \ 
     apt-get install -y gcc make wget cmake curl git zlib1g-dev libffi-dev libssl-dev python-pip bash tar g++-10
 
