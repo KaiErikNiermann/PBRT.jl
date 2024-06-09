@@ -23,21 +23,20 @@ function ray_color(r::ray, world::hittable_list, depth)::color
     color((1.0 - t) * [1.0, 1.0, 1.0] + t * [0.5, 0.7, 1.0])
 end
 
-function write_color(file, c::color)
+function write_color(file, c::color, scale)
     # Divide the color by the number of samples and gamma-correct 
-    r::Float16 = sqrt(SCALE * c.r)
-    g::Float16 = sqrt(SCALE * c.g)
-    b::Float16 = sqrt(SCALE * c.b)
+    r::Float16 = sqrt(scale * c.r)
+    g::Float16 = sqrt(scale * c.g)
+    b::Float16 = sqrt(scale * c.b)
 
     write(file, string(256 * clamp.(r, 0.0, 0.999), " "
                      , 256 * clamp.(g, 0.0, 0.999), " "
                      , 256 * clamp.(b, 0.0, 0.999), "\n"))
 end
 
-function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::image) 
+function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::image, c::camera, scale) 
     max_depth = img.max_depth
     spp = img.samples_per_pixel
-    c = SC.cam
     write(file, "P3\n$width $height\n255\n")
     for j in height-1:-1:0
         println(stderr, "Scanlines remaining: ", j)
@@ -49,8 +48,14 @@ function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::i
                 r = get_ray(c, u, v)
                 pixel_color += ray_color(r, world, max_depth)
             end
-            write_color(file, pixel_color)
+            write_color(file, pixel_color, scale)
         end
     end
 end
 
+function example_render()
+    sc = custom_scene("../scenes/cottage_obj.obj") 
+    file = open("image.ppm", "w")
+    scale = 1.0 / sc.img.samples_per_pixel
+    gen_img(sc.img.width, sc.img.height, file, sc.world, sc.img, sc.cam, scale)
+end

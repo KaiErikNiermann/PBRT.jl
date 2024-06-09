@@ -58,7 +58,7 @@ bvh_node(list::hittable_list, node::bvh_node) = bvh_node(list.objects, 1, length
 
 function hit!(node::bvh_node, r::ray, ray_t::interval, rec::hit_record)::Bool
     # if the ray doesn't hit the bounding box then don't explore subtree
-    if(!hit!(node.bbox, r, ray_t))
+    if(!hit(node.bbox, r, ray_t))
         return false
     end
 

@@ -37,6 +37,10 @@ function data_pass_test()
     return a
 end
 
+function point_pass_test(p::Point)
+    return p
+end
+
 # julia function to convert point to pytype
 function point_to_pytype(p)
     return @py [p._x, p._y]
@@ -45,4 +49,20 @@ end
 function time_sleep()
     sleep(10)
     return "Done"
+end
+
+function a()
+    println("a")
+    for i in 1:10
+        b(Point(1.0, 2.0))
+    end
+    c()
+end
+
+function b(p::Point)
+    println("point in jl $(p)")
+end
+
+function c()
+    println("c")
 end

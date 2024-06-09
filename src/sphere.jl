@@ -1,14 +1,14 @@
 struct sphere <: hittable
     center::Vector{Float64}
     radius::Float64
-    mat::material
     r_squared::Float64
+    mat::material
     bbox::aabb
     function sphere(center::Vector{Float64}, radius::Float64, mat::material)
         radius = max(0.0, radius)
         rvec = [radius, radius, radius]
         bbox = aabb(center - rvec, center + rvec)
-        new(center, radius, mat, radius^2, bbox)
+        new(center, radius, radius^2, mat, bbox)
     end
 end
 

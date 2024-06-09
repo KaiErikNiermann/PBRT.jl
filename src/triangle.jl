@@ -2,10 +2,10 @@ struct Triangle <: hittable
     A::Vector{Float64}
     B::Vector{Float64}
     C::Vector{Float64}
-    bbox::aabb
     id::Int
-    mat::material
     edges::Vector{Set{Vector{Float64}}}
+    mat::material
+    bbox::aabb
     Triangle(A::Vector{Float64}, B::Vector{Float64}, C::Vector{Float64}, mat::material) = begin 
         u = B - A
         v = C - A
@@ -14,7 +14,7 @@ struct Triangle <: hittable
         bbox = aabb(bbox_diag1, bbox_diag2)
         edges = [Set([A, B]), Set([B, C]), Set([C, A])]
         id = rand(1:10000000000000000)
-        new(A, B, C, bbox, id, mat, edges)
+        new(A, B, C, id, edges, mat, bbox)
     end
 end 
 

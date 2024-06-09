@@ -56,7 +56,7 @@ end
 """
 Slab method for AABB intersection
 """
-function hit!(bbox::aabb, r::ray, ray_t::interval)::Bool
+function hit(bbox::aabb, r::ray, ray_t::interval)::Bool
     r_lo = ray_t.lo
     r_hi = ray_t.hi
     for axis in 1:3
@@ -77,7 +77,7 @@ function hit!(bbox::aabb, r::ray, ray_t::interval)::Bool
         r_hi = min(r_hi, t1)
 
         # if the slab intersection is empty, the ray misses the box
-        if r_hi < r_lo
+        if r_hi <= r_lo
             return false
         end
     end

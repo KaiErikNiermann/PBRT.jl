@@ -14,6 +14,7 @@ include("testing.jl")
 export foo
 export gen_img
 export custom_scene
+export example_render
 
 using Match
 
