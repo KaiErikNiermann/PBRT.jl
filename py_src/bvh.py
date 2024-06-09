@@ -42,5 +42,7 @@ def hit(bbox: aabb, r: ray, ray_t: interval[float]) -> bool:
         if r_hi <= r_lo: 
             return False
         
+    return True
+        
 
         
