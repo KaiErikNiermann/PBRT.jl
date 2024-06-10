@@ -5,6 +5,7 @@
 
 #include "bvh.h"
 #include "user_types.h"
+#include "funcs.inl"
 
 using namespace jluna;
 
@@ -18,19 +19,13 @@ void inti_pbrt() {
 
 int main() {
     initialize();
-
     inti_pbrt();
 
     register_types();
 
-    Main.create_or_assign("hit", as_julia_function<bool(aabb, ray, interval)>(create_hit_function()));
+    Main.create_or_assign("hit_bbox", as_julia_function<bool(aabb, ray, interval)>(create_hit_function()));
 
-    const char *to_replace = 
-        "function PBRT.hit(bbox::PBRT.aabb, r::PBRT.ray, ray_t::PBRT.interval)::Bool\n"
-        "    return Bool(hit(bbox, r, ray_t))\n" 
-        "end";
-
-    Main.safe_eval(to_replace);
+    Main.safe_eval(funcs::hit_aabb);
 
     auto module = Main["PBRT"];
     auto example_render = module["example_render"];

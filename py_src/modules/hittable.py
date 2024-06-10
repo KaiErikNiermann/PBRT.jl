@@ -1,6 +1,6 @@
 import numpy as np
 from dataclasses import dataclass
-from .bvh import AABB
+from .aabb import aabb
 
 # abstract hittable class with bounding box and material 
 @dataclass 
@@ -9,10 +9,10 @@ class Material:
 
 @dataclass
 class Hittable: 
-    bbox: AABB
+    bbox: aabb
     material: Material
 
 @dataclass
 class HittableList(Hittable): 
     objects: list[Hittable]
-    bbox: AABB
+    bbox: aabb

@@ -1,29 +1,38 @@
 from juliacall import Main
 from juliacall import Pkg as jlPkg
 
-from bvh import aabb, interval, ray, hit
+from modules.aabb import hit_aabb
+from modules.triangle import hit_triangle
+from modules.sphere import hit_sphere
+from utils.sub_func_parser import get_sub_func_list
 
-# julia setup 
-jlPkg.activate('..')
-Main.seval('using PBRT')
-Main.seval('using PythonCall')
-Main.seval('using Pkg')
-Main.seval('Pkg.instantiate()')
-Main.seval('Pkg.resolve()')
+class PyJlPBRT: 
+    def __init__(self):
+        # julia setup 
+        jlPkg.activate('..')
+        Main.seval('using PBRT')
+        Main.seval('using PythonCall')
+        Main.seval('using Pkg')
+        Main.seval('Pkg.instantiate()')
+        Main.seval('Pkg.resolve()')
 
-PBRT = Main.PBRT
+        self.PBRT = Main.PBRT
 
-# functions to replace
-Main.hit = hit
+    def ex_render(self):
+        self.PBRT.example_render()
+        
+    def f_to_replace(self):
+        """
+        Overwrite the julia functions with the python functions
+        """
+        Main.hit_aabb = hit_aabb
+        Main.hit_triangle = hit_triangle
+        Main.hit_sphere = hit_sphere        
 
-Main.seval("""
-function PBRT.hit(bbox::PBRT.aabb, r::PBRT.ray, ray_t::PBRT.interval)::Bool
-    return Bool(hit(bbox, r, ray_t)) 
-end
-""")
-
-def render_image():
-    PBRT.example_render()
+        for f in get_sub_func_list():
+            Main.seval(f)
 
 if __name__ == '__main__':
-    PBRT.example_render()
+    p = PyJlPBRT()
+    p.f_to_replace()
+    p.ex_render()

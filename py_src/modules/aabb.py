@@ -23,7 +23,7 @@ class aabb:
     y: interval[float]
     z: interval[float]
     
-def hit(bbox: aabb, r: ray, ray_t: interval[float]) -> bool: 
+def hit_aabb(bbox: aabb, r: ray, ray_t: interval[float]) -> bool: 
     r_lo = ray_t.lo
     r_hi = ray_t.hi
     for axis in range(3): 

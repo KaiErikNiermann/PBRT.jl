@@ -63,5 +63,3 @@ function example_render()
         gen_img(sc.img.width, sc.img.height, file, sc.world, sc.img, sc.cam, scale)
     end
 end
-
-example_render()

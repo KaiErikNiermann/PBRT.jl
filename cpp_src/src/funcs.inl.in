@@ -1,0 +1,12 @@
+#pragma once 
+
+#include <string>
+
+namespace funcs {
+    static inline std::string hit_aabb = 
+        R"(@HIT_AABB@)";
+    static inline std::string hit_tri  = 
+        R"(@HIT_TRI@)";
+    static inline std::string hit_sphere = 
+        R"(@HIT_SPHERE@)";
+}   
