@@ -1,5 +1,7 @@
 # PBRT.jl
 
+This project is an exploration into the viability of Julia for use in physically based rendering as compared to Python (`py_src`) and C++ (`cpp_src`) when looking at optimization strategies and overall performance. A secondary goal is to gain some insights into how to effectively apply language APIs for larger projects, in this case `jluna` for C++ and `juliacall` for Python.
+
 ## Installation
 
 If you don't have julia installed, you can download it [here](https://julialang.org/downloads/).
@@ -41,3 +43,12 @@ If you don't have julia installed, you can download it [here](https://julialang.
 | `scenes`    | Stores scene files in the wavefront object format (`.obj`)  |
 | `src`       | Contains the main source code for the project, in Julia. |
 | `test`      | Constains tests for the main Julia implementation                 |
+
+
+## Scripts explained 
+
+| Script           | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `install_deps.sh`| Script to install dependencies for the C++ project.                         |
+| `opt-tools.sh`   | Shell script for setting up optional tools nice to have for development |
+| `setup.sh`   | Setup script for initializing or configuring the project environment w/o docker |
