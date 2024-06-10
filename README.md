@@ -1,33 +1,43 @@
-# juliaThesis
+# PBRT.jl
 
-[![Build Status](https://github.com/KaiErikNiermann/julia-bsc-thesis/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/KaiErikNiermann/julia-bsc-thesis/actions/workflows/documenation.yml?query=branch%3Amain)
-
-## Usage 
-
-### Installation
+## Installation
 
 If you don't have julia installed, you can download it [here](https://julialang.org/downloads/).
 
-Clone the repository
+1. Clone the repository
 
-```bash
-$ git clone https://github.com/KaiErikNiermann/julia-bsc-thesis.git
-```
+    ```bash
+    git clone https://github.com/KaiErikNiermann/julia-bsc-thesis.git
+    ```
 
-### Testing 
+2. Build the Dockerfile 
 
-If you want to run the library tests 
+    ```bash 
+    docker build -t pbrt-runner .
+    ```
 
-1. Open the julia repl by typing `julia`
-2. Go to **package mode** by typing `]`
-3. Activate the environment by running the `activate .` command 
-4. In the package mode, run the command `test`
+3. Either mount to the Docker container or attach to it
 
-#### Summary 
+    **option 1** - Mounting to the container
+    ```bash
+    docker run -v $(pwd):/mnt -it pbrt-runner
+    ```
 
-```bash
-$ julia                         # Enter the julia REPL
-julia> ]                        # Go to the package mode
-(v1.8) pkg> activate .          # Activate the environemnt
-(YourPackageName) pkg> test     # Run the tests
-```
+    **option 2** - Attaching to the container
+    
+    Install the [`Dev Containers`](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension for VScode, and then just attach to the running container.
+
+## Directories explained 
+
+| Directory   | Description                                                                                 |
+|-------------|---------------------------------------------------------------------------------------------|
+| `build`     | Contains compiled binaries and build artifacts for the cpp PBRT implementation              |
+| `cpp_src`   | Contains C++ source code files for the project, uses CMake for compilation.                                            |
+| `docs`      | Project documentation using `Documenter.jl`                                                 |
+| `logs`      | Stores any log files for the PBRT implementation (e.g. memory profiling)                 |
+| `notebooks` | Contains Jupyter notebooks for benchmarking, debugging, and other analysis      |
+| `paper`     | Cotnains the main research paper and research proposal|
+| `py_src`    | Contains Python source code files for the project ; project uses `poetry`                                         |
+| `scenes`    | Stores scene files in the wavefront object format (`.obj`)  |
+| `src`       | Contains the main source code for the project, in Julia. |
+| `test`      | Constains tests for the main Julia implementation                 |
