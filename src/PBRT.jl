@@ -5,7 +5,6 @@ using LinearAlgebra
 using Distributions
 using PProf
 using Profile
-using ProfileView
 using StaticArrays
 using BenchmarkTools
 
