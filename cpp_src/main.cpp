@@ -68,8 +68,7 @@ int main() {
 
     const char *to_replace = 
         "function PBRT.hit(bbox::PBRT.aabb, r::PBRT.ray, ray_t::PBRT.interval)::Bool\n"
-        "    res = Bool(hit(bbox, r, ray_t))\n"
-        "    return res\n" 
+        "    return Bool(hit(bbox, r, ray_t))\n" 
         "end";
 
     Main.safe_eval(to_replace);
