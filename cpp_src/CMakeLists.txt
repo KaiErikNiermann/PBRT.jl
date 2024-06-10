@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 project(PBRT)
 
-add_executable(PBRT main.cpp)
+include_directories(include)
+file(GLOB SOURCES "src/*.cpp")
+
+add_executable(PBRT ${SOURCES})
 
 target_compile_features(PBRT PRIVATE cxx_std_20)
 
@@ -25,4 +28,3 @@ target_link_libraries(PBRT PRIVATE
     "/usr/local/lib/libjluna.so"
     "/usr/local/julia-1.10.2/lib/libjulia.so"
 )
-

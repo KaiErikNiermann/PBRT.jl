@@ -37,6 +37,7 @@ end
 function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::image, c::camera, scale) 
     max_depth = img.max_depth
     spp = img.samples_per_pixel
+    write_counter = 0
     write(file, "P3\n$width $height\n255\n")
     for j in height-1:-1:0
         println(stderr, "Scanlines remaining: ", j)
@@ -48,14 +49,19 @@ function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::i
                 r = get_ray(c, u, v)
                 pixel_color += ray_color(r, world, max_depth)
             end
+            write_counter += 1
             write_color(file, pixel_color, scale)
         end
     end
+    println(write_counter)
 end
 
 function example_render()
     sc = custom_scene("../scenes/cottage_obj.obj") 
-    file = open("image.ppm", "w")
-    scale = 1.0 / sc.img.samples_per_pixel
-    gen_img(sc.img.width, sc.img.height, file, sc.world, sc.img, sc.cam, scale)
+    open("image.ppm", "w") do file
+        scale = 1.0 / sc.img.samples_per_pixel
+        gen_img(sc.img.width, sc.img.height, file, sc.world, sc.img, sc.cam, scale)
+    end
 end
+
+example_render()
