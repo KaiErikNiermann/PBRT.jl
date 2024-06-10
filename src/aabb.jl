@@ -57,6 +57,7 @@ end
 Slab method for AABB intersection
 """
 function hit(bbox::aabb, r::ray, ray_t::interval)::Bool
+    println("julia hit")
     r_lo = ray_t.lo
     r_hi = ray_t.hi
     for axis in 1:3

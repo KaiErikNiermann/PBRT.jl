@@ -64,20 +64,11 @@ int main() {
 
     Usertype<aabb>::implement();
 
-    auto hit = [](const aabb& bbox, const ray& r, const Int32 a) -> bool {
-        return true;
-    };
-
-    // Main.create_or_assign("hit", as_julia_function<bool()>(hit));
-    Main.create_or_assign("hit", as_julia_function<bool(aabb, ray, Int32)>(hit));
+    Main.create_or_assign("hit", as_julia_function<bool(aabb, ray, interval)>(hit));
 
     const char *to_replace = 
         "function PBRT.hit(bbox::PBRT.aabb, r::PBRT.ray, ray_t::PBRT.interval)::Bool\n"
-        "    println('a')\n"
-        "    code_lowered(hit(bbox, r, 10))\n"
-        "    res = hit(bbox, r, 10)\n"
-        // "    res = Bool(hit(bbox, r, ray_t))\n"
-        "    println('b')\n"    
+        "    res = Bool(hit(bbox, r, ray_t))\n"
         "    return res\n" 
         "end";
 
