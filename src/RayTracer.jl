@@ -23,21 +23,7 @@ function ray_color(r::ray, world::hittable_list, depth)::color
     color((1.0 - t) * [1.0, 1.0, 1.0] + t * [0.5, 0.7, 1.0])
 end
 
-function validate_color(color, height, width)
-    open("img1.ppm", "r") do valid_file
-        open("cum_diff.ppm", "r") do validator_file
-            curr_line = height * width
-            # read all lines into an array 
-            valid_lines = readlines(valid_file)
-            validator_lines = readlines(validator_file)
-            curr_valid_line = valid_lines[curr_line + 3]
-            curr_valid_line = sum([Float64(i) for i in split(curr_valid_line)])
-            curr_validator_line = Float64(validator_lines[curr_line])
-        end
-    end
-end
-
-function write_color(file, c::color, scale, height, width, validation=false)
+function write_color(file, c::color, scale)
     # Divide the color by the number of samples and gamma-correct 
     r::Float16 = sqrt(scale * c.r)
     g::Float16 = sqrt(scale * c.g)
@@ -47,10 +33,6 @@ function write_color(file, c::color, scale, height, width, validation=false)
                  , 256 * clamp.(g, 0.0, 0.999), " "
                  , 256 * clamp.(b, 0.0, 0.999), "\n")
 
-    if validation
-        validate_color(color, height, width)
-    end
-    
     write(file, color)
 end
 
@@ -72,8 +54,7 @@ function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::i
                 pixel_color += ray_color(r, world, max_depth)
             end
             write_counter += 1
-            validation = true
-            write_color(file, pixel_color, scale, height, width, validation)
+            write_color(file, pixel_color, scale)
         end
     end
     println(write_counter)
