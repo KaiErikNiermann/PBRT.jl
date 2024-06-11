@@ -1,4 +1,4 @@
-#include "bvh.h"
+#include "aabb.h"
 
 std::function<bool(const aabb&, const ray&, const interval&)> create_hit_function() {
     return [](const aabb& box, const ray& r, const interval& ray_t) -> bool {

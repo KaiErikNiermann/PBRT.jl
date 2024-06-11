@@ -6,7 +6,7 @@ from .material import Material
 class Hittable: 
     pass
 
-class HittableList(Hittable): 
+class HittableList: 
     def __init__(self, objects: list[Hittable] = [], bbox: aabb = None):
         self.objects = objects
         self.bbox = bbox

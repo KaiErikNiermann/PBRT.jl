@@ -6,7 +6,7 @@
 #include <string>
 #include <jluna.hpp>
 
-#include "bvh.h"
+#include "aabb.h"
 
 void register_type_properties();
 

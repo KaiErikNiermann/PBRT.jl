@@ -3,7 +3,7 @@
 #include <string>
 #include <functional>
 
-#include "bvh.h"
+#include "aabb.h"
 #include "user_types.h"
 #include "funcs.inl"
 

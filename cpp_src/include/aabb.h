@@ -1,5 +1,5 @@
-#ifndef BVH_H
-#define BVH_H
+#ifndef AABB_H
+#define AABB_H
 
 #include <vector>
 #include <iostream>
@@ -39,4 +39,4 @@ set_usertype_enabled(aabb);
 // lambda function to check if a ray hits a box
 std::function<jluna::Bool(const aabb&, const ray&, const interval&)> create_hit_function();
 
-#endif // BVH_H
+#endif // AABB_H

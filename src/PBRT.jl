@@ -6,6 +6,7 @@ using Distributions
 using PProf
 using Profile
 using StaticArrays
+using ProgressBars
 using BenchmarkTools
 
 include("testing.jl")
