@@ -5,19 +5,14 @@ from .material import Material
 import numpy as np
 
 class Sphere(Hittable):
-    # center: np.ndarray
-    # radius: float
-    # r_squared: float
-    # mat: Material
-    # bbox: aabb
     def __init__(self
                 , center: np.ndarray = np.array([0.0, 0.0, 0.0])
                 , radius: float = 0.0
                 , mat: Material = None):
-        self.center = center
-        self.radius = max(0.0, radius)
-        self.r_squared = radius * radius
-        self.mat = mat
+        self.center: np.ndarray = center
+        self.radius: float = max(0.0, radius)
+        self.r_squared: float = radius * radius
+        self.mat: Material = mat
         self.bbox = aabb(
               x = interval[float](lo = center[0] - radius, hi = center[0] + radius)
             , y = interval[float](lo = center[1] - radius, hi = center[1] + radius)
@@ -44,6 +39,12 @@ def hit_sphere(s: Sphere, r: ray, ray_t: interval[float], rec: HitRecord) -> boo
         
     rec.t = root
     rec.p = at(r, root)
-    outward_normal = (rec.p - s.center) / s.radius
+    outward_normal = [
+        (rec.p[0] - s.center[0]) / s.radius, 
+        (rec.p[1] - s.center[1]) / s.radius,
+        (rec.p[2] - s.center[2]) / s.radius
+    ]
     rec.normal = outward_normal
     rec.mat = s.mat
+    
+    return True
