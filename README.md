@@ -49,6 +49,8 @@ If you don't have julia installed, you can download it [here](https://julialang.
 
 | Script           | Description                                                                 |
 |------------------|-----------------------------------------------------------------------------|
-| `install_deps.sh`| Script to install dependencies for the C++ project.                         |
-| `opt-tools.sh`   | Shell script for setting up optional tools nice to have for development |
-| `setup.sh`   | Setup script for initializing or configuring the project environment w/o docker |
+| `install_deps.sh` (**local setup**)| Script to install dependencies for the C++ project.                         |
+| `setup.sh` (**local setup**)  | Setup script for initializing or configuring the project environment w/o docker |
+| `opt-tools.sh` (**optional**)   | Shell script for setting up optional tools nice to have for development |
+| `install-extensions.sh` (**recommended**) | Script that installs the extensions that I recommend using for the project, they should allow you to interact with any part of the project | 
+| `update-ext.sh` (**optional**) | Script that updates the extension installer with the current extensions |

@@ -50,9 +50,9 @@ RUN cd py_src && \
 # setup cpp 
 RUN cd cpp_src && \
     rm -rf CMakeFiles && \
-    rm cmake_install.cmake && \
-    rm CMakeCache.txt && \
-    rm Makefile && \
+    rm -f cmake_install.cmake && \
+    rm -f CMakeCache.txt && \
+    rm -f Makefile && \
     bash install_deps.sh && \
     cmake . && \
     make && \
