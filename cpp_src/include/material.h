@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+#include <jluna.hpp>
 
 class material {
 
@@ -23,5 +24,9 @@ class dielectric : public material {
     public:
         double ref_idx;
 };
+
+set_usertype_enabled(material);
+set_usertype_enabled(metal)
+set_usertype_enabled(dielectric)
 
 #endif // !MATERIAL_H

@@ -8,12 +8,12 @@ namespace funcs {
     return Bool(hit_aabb(bbox, r, ray_t)) 
 end
 )";
-    static inline std::string hit_tri  = 
+    static inline std::string hit_triangle  = 
         R"(function PBRT.hit!(triangle::PBRT.Triangle, r::PBRT.ray, ray_t::PBRT.interval, rec::PBRT.hit_record)::Bool
-    return Bool(hit_triangle(triangle, r, ray_t, rec)) 
+    return Bool(hit_triangle(triangle, Main.ray_itval(r, ray_t), rec)) 
 end)";
     static inline std::string hit_sphere = 
         R"(function PBRT.hit!(sphere::PBRT.sphere, r::PBRT.ray, ray_t::PBRT.interval, rec::PBRT.hit_record)::Bool
-    return Bool(hit_sphere(sphere, r, ray_t, rec)) 
+    return Bool(hit_sphere(sphere, Main.ray_itval(r, ray_t), rec)) 
 end)";
 }   

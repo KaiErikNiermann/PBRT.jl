@@ -1,4 +1,4 @@
-#include <sphere.h>
+#include "sphere.h"
 
 std::vector<double> at (const ray& r, double t) {
     return {r.origin[0] + t * r.direction[0],
@@ -14,11 +14,11 @@ std::vector<double> subtract(const std::vector<double>& a, const std::vector<dou
     return {a[0] - b[0], a[1] - b[1], a[2] - b[2]};
 }
 
-std::function<bool(const Sphere&, const ray&, const interval&, HitRecord&)> create_sphere_hit_func() {
-    return [](const Sphere& s, const ray& r, const interval& ray_t, HitRecord& rec) -> bool {
-        std::vector<double> oc = subtract(r.origin, s.center);
-        double a = dot(r.direction, r.direction);
-        double half_b = dot(oc, r.direction);
+std::function<bool(const Sphere&, const ray_itval&, HitRecord&)> create_sphere_hit_func() {
+    return [](const Sphere& s, const ray_itval& rt, HitRecord& rec) -> bool {
+        std::vector<double> oc = subtract(rt.r.origin, s.center);
+        double a = dot(rt.r.direction, rt.r.direction);
+        double half_b = dot(oc, rt.r.direction);
         double c = dot(oc, oc) - s.r_squared;
         double discriminant = half_b * half_b - a * c;
 
@@ -29,15 +29,15 @@ std::function<bool(const Sphere&, const ray&, const interval&, HitRecord&)> crea
         double sqrtd = std::sqrt(discriminant);
 
         double root = (-half_b - sqrtd) / a;
-        if (root < ray_t.lo || root > ray_t.hi) {
+        if (root < rt.t.lo || root > rt.t.hi) {
             root = (-half_b + sqrtd) / a;
-            if (root < ray_t.lo || root > ray_t.hi) {
+            if (root < rt.t.lo || root > rt.t.hi) {
                 return false;
             }
         }
 
         rec.t = root;
-        rec.p = at(r, root);
+        rec.p = at(rt.r, root);
         std::vector<double> outward_normal = {
             (rec.p[0] - s.center[0]) / s.radius,
             (rec.p[1] - s.center[1]) / s.radius,
