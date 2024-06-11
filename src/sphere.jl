@@ -4,12 +4,13 @@ struct sphere <: hittable
     r_squared::Float64
     mat::material
     bbox::aabb
-    function sphere(center::Vector{Float64}, radius::Float64, mat::material)
-        radius = max(0.0, radius)
-        rvec = [radius, radius, radius]
-        bbox = aabb(center - rvec, center + rvec)
-        new(center, radius, radius^2, mat, bbox)
-    end
+end
+
+function sphere(center::Vector{Float64}, radius::Float64, mat::material)
+    radius = max(0.0, radius)
+    rvec = [radius, radius, radius]
+    bbox = aabb(center - rvec, center + rvec)
+    sphere(center, radius, radius^2, mat, bbox)
 end
 
 Base.show(io::IO, s::sphere) = print(io, "sphere($(s.center), $(s.radius), $(s.mat))")

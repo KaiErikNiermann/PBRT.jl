@@ -3,19 +3,28 @@ from juliacall import Main
 from juliacall import Pkg as jlPkg
 from numba import cuda as nb_cuda
 import numpy as np
+from dataclasses import dataclass
 import time
 
 # Load required Julia packages
-jlPkg.activate('..')
+jlPkg.activate('../../')
 Main.seval('using PBRT')
 Main.seval('using PythonCall')
+Main.seval('using Pkg')
+Main.seval('Pkg.instantiate()')
+Main.seval('Pkg.resolve()')
 
-def b(p): 
+@dataclass
+class Point: 
+    _x: float
+    _y: float
+
+def b(p: Point) -> None: 
+    p._x = 2
     print(f"point in py {p}")
 
 PBRT = Main.PBRT
 
-# set PBRT.b to be the python function b ?
 Main.b = b
 
 Main.seval("""

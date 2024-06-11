@@ -6,17 +6,17 @@ struct Triangle <: hittable
     edges::Vector{Set{Vector{Float64}}}
     mat::material
     bbox::aabb
-    Triangle(A::Vector{Float64}, B::Vector{Float64}, C::Vector{Float64}, mat::material) = begin 
-        u = B - A
-        v = C - A
-        bbox_diag1 = aabb(A, A + u + v)
-        bbox_diag2 = aabb(A + u, A + v)
-        bbox = aabb(bbox_diag1, bbox_diag2)
-        edges = [Set([A, B]), Set([B, C]), Set([C, A])]
-        id = rand(1:10000000000000000)
-        new(A, B, C, id, edges, mat, bbox)
-    end
-end 
+    end 
+Triangle(A::Vector{Float64}, B::Vector{Float64}, C::Vector{Float64}, mat::material) = begin 
+    u = B - A
+    v = C - A
+    bbox_diag1 = aabb(A, A + u + v)
+    bbox_diag2 = aabb(A + u, A + v)
+    bbox = aabb(bbox_diag1, bbox_diag2)
+    edges = [Set([A, B]), Set([B, C]), Set([C, A])]
+    id = rand(1:10000000000000000)
+    Triangle(A, B, C, id, edges, mat, bbox)
+end
 
 Base.show(io::IO, t::Triangle) = print(io, "Triangle(id = $(t.id))")
 

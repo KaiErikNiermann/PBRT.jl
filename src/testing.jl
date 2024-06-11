@@ -26,11 +26,11 @@ function foo()
     return "Hello, PBRT!"
 end
 
-struct Point{Float64}
+mutable struct Point{Float64}
     _x::Float64
     _y::Float64
 end
-
+    
 # array
 function data_pass_test()
     a = [1.0, 2.0]
@@ -53,9 +53,12 @@ end
 
 function a()
     println("a")
+    p = Point(1.0, 2.0)
+    println(p)
     for i in 1:10
-        b(Point(1.0, 2.0))
+        b(p)
     end
+    println(p)
     c()
 end
 
