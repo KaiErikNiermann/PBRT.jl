@@ -23,7 +23,7 @@ int main() {
 
     register_types();
 
-    Main.create_or_assign("hit_bbox", as_julia_function<bool(aabb, ray, interval)>(create_hit_function()));
+    Main.create_or_assign("hit_aabb", as_julia_function<bool(aabb, ray, interval)>(create_hit_function()));
 
     Main.safe_eval(funcs::hit_aabb);
 
