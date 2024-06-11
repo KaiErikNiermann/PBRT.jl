@@ -37,6 +37,6 @@ set_usertype_enabled(aabb);
 
 
 // lambda function to check if a ray hits a box
-std::function<jluna::Bool(const aabb&, const ray&, const interval&)> create_hit_function();
+std::function<jluna::Bool(const aabb&, const ray&, const interval&)> create_aabb_hit_func();
 
 #endif // AABB_H

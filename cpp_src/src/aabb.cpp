@@ -1,6 +1,6 @@
 #include "aabb.h"
 
-std::function<bool(const aabb&, const ray&, const interval&)> create_hit_function() {
+std::function<bool(const aabb&, const ray&, const interval&)> create_aabb_hit_func() {
     return [](const aabb& box, const ray& r, const interval& ray_t) -> bool {
         float r_lo = ray_t.lo;
         float r_hi = ray_t.hi;

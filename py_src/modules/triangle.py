@@ -46,3 +46,5 @@ def hit_triangle(t: Triangle, r: ray, ray_t: interval[float], rec: HitRecord) ->
     rec.p = at(r, t_val)
     rec.normal = normal
     rec.mat = t.mat
+    
+    return True

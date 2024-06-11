@@ -27,6 +27,3 @@ class HitRecord:
         self.front_face = front_face
         self.u = u
         self.v = v
-
-hr = HitRecord()
-print(hr)    
