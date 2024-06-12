@@ -16,18 +16,29 @@ class ray {
     public:
         std::vector<double> origin;
         std::vector<double> direction;
+
+    ray() : 
+        origin({0.0, 0.0, 0.0}), direction({0.0, 0.0, 0.0}) {}
 };
 
 class interval {
     public:
         double lo;
         double hi;
+        
+        interval() :
+            lo(0.0), hi(0.0) {}
+
+        interval(double lo, double hi) :
+            lo(lo), hi(hi) {}
 };
 
 class ray_itval {
     public:
         interval t;
         ray r;
+        ray_itval() :
+            t(0.0, 0.0), r() {}
 };
 
 class aabb {
