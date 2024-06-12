@@ -50,6 +50,9 @@ cpp_src/cmake-build-relwithdebinfo/
 cpp_src/cmake-build-minsize/
 cpp_src/jluna
 cpp_src/PBRT
+cpp_src/core
+cpp_src/gmon.out
+cpp_src/analysis.txt
 build/
 
 # paper 

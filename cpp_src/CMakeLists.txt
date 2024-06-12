@@ -18,7 +18,8 @@ add_executable(PBRT ${SOURCES})
 
 target_compile_features(PBRT PRIVATE cxx_std_20)
 
-# set g++-10 
+# set g++-10
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
 set(CMAKE_CXX_COMPILER "/usr/bin/g++-10")
 set(CMAKE_C_COMPILER "/usr/bin/gcc-10")
 
