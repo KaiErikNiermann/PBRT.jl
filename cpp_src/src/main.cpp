@@ -29,17 +29,17 @@ int main() {
     register_types();
 
     jluna::unsafe::Value* hit_aabb_f = as_julia_function<bool(aabb, ray, interval)>(create_aabb_hit_func());
-    // jluna::unsafe::Value* hit_triangle_f = as_julia_function<bool(triangle, ray_itval, HitRecord)>(create_triangle_hit_func());
-    // jluna::unsafe::Value* hit_sphere_f = as_julia_function<bool(Sphere, ray_itval, HitRecord)>(create_sphere_hit_func());
+    jluna::unsafe::Value* hit_triangle_f = as_julia_function<bool(triangle, ray_itval, HitRecord)>(create_triangle_hit_func());
+    jluna::unsafe::Value* hit_sphere_f = as_julia_function<bool(Sphere, ray_itval, HitRecord)>(create_sphere_hit_func());
 
     // Redefine hit functions
     Main.create_or_assign("hit_aabb", hit_aabb_f);
-    // Main.create_or_assign("hit_triangle", hit_triangle_f);
-    // Main.create_or_assign("hit_sphere", hit_sphere_f);
+    Main.create_or_assign("hit_triangle", hit_triangle_f);
+    Main.create_or_assign("hit_sphere", hit_sphere_f);
 
     Main.safe_eval(funcs::hit_aabb);
-    // Main.safe_eval(funcs::hit_triangle);
-    // Main.safe_eval(funcs::hit_sphere);
+    Main.safe_eval(funcs::hit_triangle);
+    Main.safe_eval(funcs::hit_sphere);
 
     auto module = Main["PBRT"];
     auto example_render = module["example_render"];

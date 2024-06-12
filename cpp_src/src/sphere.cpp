@@ -29,7 +29,9 @@ std::function<bool(const Sphere&, const ray_itval&, const HitRecord&)> create_sp
             (rec.p[1] - s.center[1]) / s.radius,
             (rec.p[2] - s.center[2]) / s.radius
         };
-        set_face_normal(rec, rt.r, outward_normal);
+
+        rec.normal = outward_normal;
+        // set_face_normal(rec, rt.r, outward_normal);
         rec.mat = s.mat;
         return true;
     };

@@ -33,7 +33,8 @@ std::function<bool(const triangle&, const ray_itval&, const HitRecord&)> create_
 
         rec.t = t_val;
         rec.p = at(rt.r, t_val);
-        set_face_normal(rec, rt.r, normal);
+        rec.normal = normal;
+        // set_face_normal(rec, rt.r, normal);
         rec.mat = t.mat;
 
         return true;
