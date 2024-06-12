@@ -7,6 +7,11 @@ struct ray
     ray() = new([0.0, 0.0, 0.0], [0.0, 0.0, 0.0])
 end
 
+struct ray_itval 
+    r::ray
+    t::interval
+end
+
 """
     at(r::ray, t::Float64)
 

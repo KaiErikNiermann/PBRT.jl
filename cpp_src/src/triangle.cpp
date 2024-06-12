@@ -1,16 +1,7 @@
 #include "triangle.h"
 
-// std::function<bool(const triangle&)> create_triangle_hit_func() {
-//     return [](const triangle& t) -> bool {
-
-//         return true;
-//     };
-// }
-
-
 std::function<bool(const triangle&, const ray_itval&, const HitRecord&)> create_triangle_hit_func() {
     return [](const triangle& t, const ray_itval& rt, const HitRecord& rec) -> bool {
-        std::cout << "got to start" << std::endl;
         std::vector<double> e1 = {t.B[0] - t.A[0], t.B[1] - t.A[1], t.B[2] - t.A[2]};
         std::vector<double> e2 = {t.C[0] - t.A[0], t.C[1] - t.A[1], t.C[2] - t.A[2]};
         std::vector<double> normal = cross(e1, e2);
@@ -39,8 +30,6 @@ std::function<bool(const triangle&, const ray_itval&, const HitRecord&)> create_
         if (t_val < rt.t.lo || t_val > rt.t.hi) {
             return false;
         }
-
-        std::cout << "got to end" << std::endl;
 
         rec.t = t_val;
         rec.p = at(rt.r, t_val);

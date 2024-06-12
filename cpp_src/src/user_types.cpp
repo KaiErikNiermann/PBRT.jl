@@ -107,15 +107,15 @@ void register_type_properties() {
     );
 
     Usertype<triangle>::add_property<int>(
-        "ident",
+        "id",
         [](const triangle& t) -> int { return t.ident; },
         [](triangle& t, int v) -> void { t.ident = v; }
     );
 
-    Usertype<triangle>::add_property<std::vector<std::vector<std::vector<double>>>>(
+    Usertype<triangle>::add_property<std::vector<std::set<std::vector<double>>>>(
         "edges",
-        [](const triangle& t) -> std::vector<std::vector<std::vector<double>>> { return t.edges; },
-        [](triangle& t, const std::vector<std::vector<std::vector<double>>>& v) -> void { t.edges = v; }
+        [](const triangle& t) -> std::vector<std::set<std::vector<double>>> { return t.edges; },
+        [](triangle& t, const std::vector<std::set<std::vector<double>>>& v) -> void { t.edges = v; }
     );
 
     Usertype<triangle>::add_property<material>(

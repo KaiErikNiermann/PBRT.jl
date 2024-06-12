@@ -16,7 +16,7 @@ class triangle {
     std::vector<double> B;
     std::vector<double> C;
     int ident;
-    std::vector<std::vector<std::vector<double>>> edges;
+    std::vector<std::set<std::vector<double>>> edges;
     material mat;
     aabb bbox;
 };

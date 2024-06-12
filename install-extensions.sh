@@ -1,5 +1,4 @@
 #!/bin/sh
-code --install-extension Extensions installed on Container thesis-runner (thesis-runner):
 code --install-extension damiankoper.gdb-debug
 code --install-extension danielpinto8zz6.c-cpp-compile-run
 code --install-extension github.copilot
