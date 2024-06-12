@@ -4,10 +4,11 @@
 #include <cmath>
 #include <functional>
 #include <array>
+#include <jluna.hpp>
 #include "aabb.h"
 #include "hittable.h"
 #include "material.h"
-#include <jluna.hpp>
+#include "math_util.h"
 
 class Sphere {
     public:
@@ -19,7 +20,7 @@ class Sphere {
 };
 
 
-std::function<jluna::Bool(const Sphere&, const ray_itval&, HitRecord&)> create_sphere_hit_func();
+std::function<jluna::Bool(const Sphere&, const ray_itval&, const HitRecord&)> create_sphere_hit_func();
 
 set_usertype_enabled(Sphere);
 

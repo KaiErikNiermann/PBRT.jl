@@ -1,21 +1,7 @@
 #include "sphere.h"
 
-std::vector<double> at (const ray& r, double t) {
-    return {r.origin[0] + t * r.direction[0],
-            r.origin[1] + t * r.direction[1],
-            r.origin[2] + t * r.direction[2]};
-}
-
-double dot(const std::vector<double>& a, const std::vector<double>& b) {
-    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
-}
-
-std::vector<double> subtract(const std::vector<double>& a, const std::vector<double>& b) {
-    return {a[0] - b[0], a[1] - b[1], a[2] - b[2]};
-}
-
-std::function<bool(const Sphere&, const ray_itval&, HitRecord&)> create_sphere_hit_func() {
-    return [](const Sphere& s, const ray_itval& rt, HitRecord& rec) -> bool {
+std::function<bool(const Sphere&, const ray_itval&, const HitRecord&)> create_sphere_hit_func() {
+    return [](const Sphere& s, const ray_itval& rt, const HitRecord& rec) -> bool {
         std::vector<double> oc = subtract(rt.r.origin, s.center);
         double a = dot(rt.r.direction, rt.r.direction);
         double half_b = dot(oc, rt.r.direction);

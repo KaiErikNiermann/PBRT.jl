@@ -37,10 +37,10 @@ class aabb {
         interval z;
 };
 
-set_usertype_enabled(ray_itval);
 set_usertype_enabled(ray);
 set_usertype_enabled(interval);
 set_usertype_enabled(aabb);
+set_usertype_enabled(ray_itval);
 
 // lambda function to check if a ray hits a box
 std::function<jluna::Bool(const aabb&, const ray&, const interval&)> create_aabb_hit_func();

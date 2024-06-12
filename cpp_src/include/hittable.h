@@ -18,13 +18,13 @@ class HittableList {
 
 class HitRecord {
     public:
-        double t;
-        std::vector<double> p;
-        std::vector<double> normal;
-        bool front_face;
-        material mat;
-        double u;
-        double v;
+        mutable double t;
+        mutable std::vector<double> p;
+        mutable std::vector<double> normal;
+        mutable bool front_face;
+        mutable material mat;
+        mutable double u;
+        mutable double v;
 };
 
 set_usertype_enabled(Hittable);

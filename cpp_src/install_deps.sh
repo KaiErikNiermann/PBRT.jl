@@ -2,7 +2,7 @@
 ls -la /usr/local/include
 ls -la /usr/local
 
-git clone https://github.com/clemapfel/jluna.git
+git clone -b typedef-fix https://github.com/KaiErikNiermann/jluna.git
 cd jluna
 mkdir build
 cd build
