@@ -19,7 +19,7 @@ RUN apt-get update -y && \
 RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz && \
     tar -zxf Python-$PYTHON_VERSION.tgz && \
     cd Python-$PYTHON_VERSION && \
-    ./configure --with-ensurepip=install --enable-shared --enable-loadable-sqlite-extensions && make && make install && \
+    ./configure --with-ensurepip=install --enable-shared --enable-loadable-sqlite-extensions --enable-optimizations && make && make install && \
     ldconfig && \
     ln -sf python3 /usr/local/bin/python
 

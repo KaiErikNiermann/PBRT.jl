@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "notebooks"
+version = "0.1.0"
+description = ""
+authors = ["KaiErikNiermann <k.e.niermann@student.vu.nl>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+matplotlib = "^3.9.0"
+numpy = "^1.26.4"
+pandas = "^2.2.2"
+ipykernel = "^6.29.4"
+jupyter = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

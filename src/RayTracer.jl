@@ -64,6 +64,8 @@ function example_render()
     sc = custom_scene("../scenes/cottage_obj.obj") 
     open("image.ppm", "w") do file
         scale = 1.0 / sc.img.samples_per_pixel
-        gen_img(sc.img.width, sc.img.height, file, sc.world, sc.img, sc.cam, scale)
+        Profile.clear()
+        @profile gen_img(sc.img.width, sc.img.height, file, sc.world, sc.img, sc.cam, scale)
+        pprof()
     end
 end

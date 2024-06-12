@@ -13,7 +13,7 @@ end
 
 function empty_scene()::scene
 	aspect_ratio = 16.0 / 9.0
-	width = 400
+	width = 100
 	height = trunc(Int, width / aspect_ratio)
 	samples_per_pixel = 50
 	max_depth = 50
@@ -157,7 +157,7 @@ function custom_scene(obj_file)::scene
 
     # image
     aspect_ratio = 16.0 / 9.0
-    width = 400
+    width = 100
     height = trunc(Int, width / aspect_ratio)
     samples_per_pixel = 50
     max_depth = 50

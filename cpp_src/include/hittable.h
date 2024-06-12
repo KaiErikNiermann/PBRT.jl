@@ -6,9 +6,9 @@
 #include <array>
 #include "aabb.h"
 #include "material.h"
+#include "math_util.h"
 
-class Hittable {
-};
+class Hittable { };
 
 class HittableList {
     public:
@@ -26,6 +26,10 @@ class HitRecord {
         mutable double u;
         mutable double v;
 };
+
+std::vector<double> scale(std::vector<double> v, double s);
+
+void set_face_normal(const HitRecord& rec, const ray& r, const std::vector<double>& outward_normal);
 
 set_usertype_enabled(Hittable);
 set_usertype_enabled(HitRecord);

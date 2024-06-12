@@ -17,6 +17,7 @@ pillow = "^10.3.0"
 matplotlib = "^3.8.4"
 opencv-python = "^4.9.0.80"
 seaborn = "^0.13.2"
+ipykernel = "^6.29.4"
 
 [build-system]
 requires = ["poetry-core"]

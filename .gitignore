@@ -32,6 +32,12 @@ py_src/.venv
 py_src/poetry.lock
 .CondaPkg
 
+# notebooks
+notebooks/.ipynb_checkpoints/
+notebooks/*.html
+notebooks/*.pdf
+notebooks/*.tex
+
 # cpp + Cmake
 cpp_src/build/
 cpp_src/CMakeFiles/
