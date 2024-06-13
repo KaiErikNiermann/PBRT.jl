@@ -6,7 +6,7 @@ macro wtime(ex)
         local t1 = time()
         local val = $(esc(ex))
         local t2 = time()
-        open("time.txt", "a") do io
+        open("time.csv", "a") do io
             local elapsed = round(1000 * (t2 - t1), sigdigits=3)
             write(io, "$elapsed\n")
         end

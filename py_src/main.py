@@ -19,7 +19,7 @@ class PyJlPBRT:
         self.PBRT = Main.PBRT
 
     def ex_render(self):
-        self.PBRT.example_render()
+        self.PBRT.example_render("../scenes/cottage_obj.obj")
         
     def f_to_replace(self):
         """
@@ -35,5 +35,4 @@ class PyJlPBRT:
 if __name__ == '__main__':
     p = PyJlPBRT()
     p.f_to_replace()
-    print('replace funcs')
     p.ex_render()
