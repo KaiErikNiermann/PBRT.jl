@@ -220,12 +220,12 @@ void implement_types() {
     Usertype<aabb>::implement();
     Usertype<interval>::implement();
     Usertype<ray>::implement();
-    // Usertype<Sphere>::implement();
-    // Usertype<triangle>::implement();
-    // Usertype<HittableList>::implement();
-    // Usertype<HitRecord>::implement();
-    // Usertype<color>::implement();
-    // Usertype<ray_itval>::implement();
+    Usertype<Sphere>::implement();
+    Usertype<triangle>::implement();
+    Usertype<HittableList>::implement();
+    Usertype<HitRecord>::implement();
+    Usertype<color>::implement();
+    Usertype<ray_itval>::implement();
 }
 
 void register_types() {

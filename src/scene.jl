@@ -170,7 +170,6 @@ function custom_scene(obj_file)::scene
 
     push!(world_l, sphere([0.0, -100.5, -1.0], 100.0, ground_material))
 
-    println("num faces in obj: ", length(sc.f_array))
     for face in sc.f_array
         if length(face.vertices) == 3
             t1 = Triangle(face.vertices[1], face.vertices[2], face.vertices[3], metal(random_color(), 0.0))

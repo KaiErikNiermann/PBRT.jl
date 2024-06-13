@@ -35,4 +35,5 @@ class PyJlPBRT:
 if __name__ == '__main__':
     p = PyJlPBRT()
     p.f_to_replace()
+    print('replace funcs')
     p.ex_render()

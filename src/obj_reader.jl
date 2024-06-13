@@ -24,22 +24,6 @@ mutable struct obj_scene
     f_array::Vector{Face}
 end
 
-macro match(v, block)
-    block = rmlines(block)
-    pairs = block.args
-    ex = nothing
-
-    for p in reverse(pairs)
-        if isnothing(ex)
-            ex = esc(p.args[3])
-        else
-            ex = Expr(:if, Expr(:call, :(==), esc(v), esc(p.args[2])), esc(p.args[3]), ex)
-        end
-    end
-
-    ex
-end
-
 function scene_summary(sc::obj_scene)
     println("Scene: ", sc.name)
     println("Vertices: ", length(sc.v_array))
@@ -117,19 +101,19 @@ function reader(file_name::String)::obj_scene
                 push!(vt_array, vertex_texture)
             end
             # object name
-            startswith(line, "o ") => println(line)
+            startswith(line, "o ") => begin end
             # groups
-            startswith(line, "g ") => println(line)
+            startswith(line, "g ") => begin end
             # smoothing group
-            startswith(line, "s ") => println(line)
+            startswith(line, "s ") => begin end
             # headers and metadata 
             startswith(line, "# ") => begin
                 push!(sc_meta, line)
             end
             # material library
-            startswith(line, "mtllib ") => println(line)
+            startswith(line, "mtllib ") => begin end
             # material name
-            startswith(line, "usemtl ") => println(line)
+            startswith(line, "usemtl ") => begin end
         end
     end
     sc.name = join(sc_meta, "\n")

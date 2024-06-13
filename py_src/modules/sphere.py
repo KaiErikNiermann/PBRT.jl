@@ -1,4 +1,4 @@
-from .aabb import aabb, interval, ray, at
+from .aabb import aabb, interval, ray, at, ray_itval
 from .hittable import HittableList, Hittable, HitRecord
 from dataclasses import dataclass
 from .material import Material
@@ -19,10 +19,10 @@ class Sphere(Hittable):
             , z = interval[float](lo = center[2] - radius, hi = center[2] + radius)
         )
 
-def hit_sphere(s: Sphere, r: ray, ray_t: interval[float], rec: HitRecord) -> bool: 
-    oc = r.origin - s.center
-    a = np.dot(r.direction, r.direction)
-    half_b = np.dot(oc, r.direction)
+def hit_sphere(s: Sphere, rt: ray_itval, rec: HitRecord) -> bool: 
+    oc = rt.r.origin - s.center
+    a = np.dot(rt.r.direction, rt.r.direction)
+    half_b = np.dot(oc, rt.r.direction)
     
     c = np.dot(oc, oc) - s.r_squared
     discriminant = half_b * half_b - a * c
@@ -32,13 +32,13 @@ def hit_sphere(s: Sphere, r: ray, ray_t: interval[float], rec: HitRecord) -> boo
     sqrtd = np.sqrt(discriminant)
     
     root = (-half_b - sqrtd) / a
-    if root < ray_t.lo or root > ray_t.hi: 
+    if root < rt.t.lo or root > rt.t.hi: 
         root = (-half_b + sqrtd) / a
-        if root < ray_t.lo or root > ray_t.hi: 
+        if root < rt.t.lo or root > rt.t.hi: 
             return False
         
     rec.t = root
-    rec.p = at(r, root)
+    rec.p = at(rt.r, root)
     outward_normal = [
         (rec.p[0] - s.center[0]) / s.radius, 
         (rec.p[1] - s.center[1]) / s.radius,

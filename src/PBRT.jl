@@ -18,6 +18,7 @@ export example_render
 
 using Match
 
+include("macros.jl")
 include("util.jl")
 include("interval.jl")
 include("ray.jl")

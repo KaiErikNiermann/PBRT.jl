@@ -23,6 +23,11 @@ class aabb:
     y: interval[float]
     z: interval[float]
     
+@dataclass 
+class ray_itval:
+     r: ray
+     t: interval[float]
+    
 def hit_aabb(bbox: aabb, r: ray, ray_t: interval[float]) -> bool: 
     r_lo = ray_t.lo
     r_hi = ray_t.hi

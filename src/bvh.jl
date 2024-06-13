@@ -18,9 +18,6 @@ box_y_compare(a, b) = box_compare(a.bbox.y, b.bbox.y)
 box_z_compare(a, b) = box_compare(a.bbox.z, b.bbox.z)
 
 function bvh_node(objects::Vector{hittable}, start, end_, node::bvh_node)::bvh_node
-    if end_ == start
-        error("Empty list of objects")
-    end
     bbox = aabb()
     for i in start:end_
         bbox = aabb(bbox, objects[i].bbox)

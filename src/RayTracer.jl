@@ -10,7 +10,7 @@ function ray_color(r::ray, world::hittable_list, depth)::color
     end
     
     # 0.001 to avoid shadow acne
-    if(hit!(world, r, interval(0.001, Inf), rec))
+    if(@wtime hit!(world, r, interval(0.001, Inf), rec))
         sd = sd_buf
         if(scatter(rec.mat, r, rec, sd))
             return sd.attenuation * ray_color(sd.scattered, world, depth - 1)
@@ -57,12 +57,11 @@ function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::i
             write_color(file, pixel_color, scale)
         end
     end
-    println(write_counter)
 end
 
-function example_render()
-    sc = custom_scene("../scenes/cottage_obj.obj") 
+function example_render(scene_fp)
     open("image.ppm", "w") do file
+        sc = custom_scene(scene_fp) 
         scale = 1.0 / sc.img.samples_per_pixel
         gen_img(sc.img.width, sc.img.height, file, sc.world, sc.img, sc.cam, scale)
     end
