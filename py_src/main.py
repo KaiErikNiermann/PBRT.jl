@@ -4,6 +4,8 @@ from juliacall import Pkg as jlPkg
 from modules.aabb import hit_aabb
 from modules.triangle import hit_triangle
 from modules.sphere import hit_sphere
+from modules.bvh import hit_bvh
+from modules.abs_hit import hit
 from utils.sub_func_parser import get_sub_func_list
 
 class PyJlPBRT: 
@@ -27,7 +29,9 @@ class PyJlPBRT:
         """
         Main.hit_aabb = hit_aabb
         Main.hit_triangle = hit_triangle
-        Main.hit_sphere = hit_sphere        
+        Main.hit_sphere = hit_sphere     
+        Main.hit_bvh = hit_bvh  
+        Main.hit = hit 
 
         for f in get_sub_func_list():
             Main.seval(f)
@@ -36,3 +40,4 @@ if __name__ == '__main__':
     p = PyJlPBRT()
     p.f_to_replace()
     p.ex_render()
+    

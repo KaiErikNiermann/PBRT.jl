@@ -1,7 +1,9 @@
 import numpy as np
 from dataclasses import dataclass, field
-from .aabb import aabb
+from .aabb import aabb, ray_itval
 from .material import Material
+from functools import singledispatch
+from .aabb import hit_aabb
 
 class Hittable: 
     pass
@@ -27,3 +29,4 @@ class HitRecord:
         self.front_face = front_face
         self.u = u
         self.v = v
+    

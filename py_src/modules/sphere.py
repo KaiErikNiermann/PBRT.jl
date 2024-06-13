@@ -1,10 +1,10 @@
 from .aabb import aabb, interval, ray, at, ray_itval
-from .hittable import HittableList, Hittable, HitRecord
+import modules.hittable as h
 from dataclasses import dataclass
 from .material import Material
 import numpy as np
 
-class Sphere(Hittable):
+class Sphere(h.Hittable):
     def __init__(self
                 , center: np.ndarray = np.array([0.0, 0.0, 0.0])
                 , radius: float = 0.0
@@ -18,8 +18,11 @@ class Sphere(Hittable):
             , y = interval[float](lo = center[1] - radius, hi = center[1] + radius)
             , z = interval[float](lo = center[2] - radius, hi = center[2] + radius)
         )
+        
+    def __repr__(self) -> str: 
+        return f"sphere"
 
-def hit_sphere(s: Sphere, rt: ray_itval, rec: HitRecord) -> bool: 
+def hit_sphere(s: Sphere, rt: ray_itval, rec: h.HitRecord) -> bool: 
     oc = rt.r.origin - s.center
     a = np.dot(rt.r.direction, rt.r.direction)
     half_b = np.dot(oc, rt.r.direction)

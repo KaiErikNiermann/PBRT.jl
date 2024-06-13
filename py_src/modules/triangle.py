@@ -1,5 +1,5 @@
 from .aabb import aabb, interval, ray, at, ray_itval
-from .hittable import HittableList, Hittable, HitRecord
+from .hittable import Hittable, HitRecord
 import numpy as np
 from dataclasses import dataclass
 from .material import Material
@@ -13,6 +13,9 @@ class Triangle(Hittable):
     edges: list[set[list[float]]]
     mat: Material
     bbox: aabb
+    
+    def __repr__(self) -> str: 
+        return "Triangle"
 
 def hit_triangle(t: Triangle, rt: ray_itval, rec: HitRecord) -> bool: 
     e1 = t.B - t.A

@@ -44,7 +44,7 @@ int main() {
     auto module = Main["PBRT"];
     auto example_render = module["example_render"];
 
-    example_render();
+    example_render("../scenes/cottage_obj.obj");
 
     return 0;
 }
