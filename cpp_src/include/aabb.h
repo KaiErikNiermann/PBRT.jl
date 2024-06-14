@@ -7,8 +7,6 @@
 #include <string>
 #include <jluna.hpp>
 
-#include "abs_hittable.h"
-
 class ray {
     std::vector<double> at(double t) {
         return {origin[0] + t * direction[0], origin[1] + t * direction[1], origin[2] + t * direction[2]};
@@ -44,7 +42,7 @@ class ray_itval {
             t(t), r(r) {}
 };
 
-class aabb : public Hittable {
+class aabb {
     public:
         interval x;
         interval y;

@@ -1,8 +1,12 @@
 #include "triangle.h"
 
-bool hit_triangle(const triangle& t, const ray_itval& rt, const HitRecord& rec) {
-    std::vector<double> e1 = {t.B[0] - t.A[0], t.B[1] - t.A[1], t.B[2] - t.A[2]};
-    std::vector<double> e2 = {t.C[0] - t.A[0], t.C[1] - t.A[1], t.C[2] - t.A[2]};
+bool hit(const triangle& tri, const ray_itval& rt, const HitRecord& rec) {
+    return tri.hit(rt, rec);
+};
+
+bool triangle::hit(const ray_itval& rt, const HitRecord& rec) const {
+    std::vector<double> e1 = {this->B[0] - this->A[0], this->B[1] - this->A[1], this->B[2] - this->A[2]};
+    std::vector<double> e2 = {this->C[0] - this->A[0], this->C[1] - this->A[1], this->C[2] - this->A[2]};
     std::vector<double> normal = cross(e1, e2);
 
     std::vector<double> ray_cross_e2 = cross(rt.r.direction, e2);
@@ -13,7 +17,7 @@ bool hit_triangle(const triangle& t, const ray_itval& rt, const HitRecord& rec) 
     }
 
     double inv_det = 1.0 / det;
-    std::vector<double> s = {rt.r.origin[0] - t.A[0], rt.r.origin[1] - t.A[1], rt.r.origin[2] - t.A[2]};
+    std::vector<double> s = {rt.r.origin[0] - this->A[0], rt.r.origin[1] - this->A[1], rt.r.origin[2] - this->A[2]};
     double u = dot(s, ray_cross_e2) * inv_det;
     if (u < 0.0 || u > 1.0) {
         return false;
@@ -34,7 +38,7 @@ bool hit_triangle(const triangle& t, const ray_itval& rt, const HitRecord& rec) 
     rec.p = at(rt.r, t_val);
     rec.normal = normal;
     // set_face_normal(rec, rt.r, normal);
-    rec.mat = t.mat;
+    rec.mat = this->mat;
 
     return true;
 };

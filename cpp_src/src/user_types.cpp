@@ -202,26 +202,6 @@ void register_type_properties() {
         [](const ray_itval& rt) -> interval { return rt.t; },
         [](ray_itval& rt, const interval& i) -> void { rt.t = i; }
     );
-
-    Usertype<bvh_node>::add_property<Hittable>(
-        "left",
-        [](const bvh_node& node) -> Hittable { return node.left; },
-        [](bvh_node& node, const Hittable& n) -> void { node.left = n; }
-    );
-
-    Usertype<bvh_node>::add_property<Hittable>(
-        "right",
-        [](const bvh_node& node) -> Hittable { return node.right; },
-        [](bvh_node& node, const Hittable& n) -> void { node.right = n; }
-    );
-
-    Usertype<bvh_node>::add_property<aabb>(
-        "bbox",
-        [](const bvh_node& node) -> aabb { return node.bbox; },
-        [](bvh_node& node, const aabb& b) -> void { node.bbox = b; }
-    );
-
-
 }
 
 void implement_types() {
@@ -235,7 +215,6 @@ void implement_types() {
     Usertype<ray_itval>::implement();
     Usertype<bvh_node>::implement();
     Usertype<Hittable>::implement();
-    Usertype<hit_lambda>::implement();
 }
 
 void register_types() {

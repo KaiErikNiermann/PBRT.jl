@@ -17,9 +17,8 @@ class Sphere : public Hittable {
         double r_squared;
         material mat;
         aabb bbox;
+        bool hit(const ray_itval&, const HitRecord& rec) const;
 };
-
-bool hit_sphere(const Sphere& s, const ray_itval& rt, const HitRecord& rec);
 
 set_usertype_enabled(Sphere);
 

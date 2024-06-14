@@ -7,9 +7,11 @@
 
 class bvh_node : public Hittable {
     public:
-        Hittable left;
-        Hittable right;
+        std::shared_ptr<Hittable> left;
+        std::shared_ptr<Hittable> right;
         aabb bbox;
+
+    bool hit(const ray_itval& rt, const HitRecord& rec) const; 
 };
 
 bool hit_bvh(const bvh_node& node, const ray_itval& rt, const HitRecord& rec);

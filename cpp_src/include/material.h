@@ -5,9 +5,7 @@
 #include <iostream>
 #include <jluna.hpp>
 
-class material {
-
-};
+class material {};
 
 class lambertian : public material {
     public:

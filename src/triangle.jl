@@ -6,7 +6,8 @@ struct Triangle <: hittable
     edges::Vector{Set{Vector{Float64}}}
     mat::material
     bbox::aabb
-    end 
+end 
+
 Triangle(A::Vector{Float64}, B::Vector{Float64}, C::Vector{Float64}, mat::material) = begin 
     u = B - A
     v = C - A

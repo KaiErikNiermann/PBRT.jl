@@ -1,10 +1,14 @@
 #include "sphere.h"
 
-bool hit_sphere(const Sphere& s, const ray_itval& rt, const HitRecord& rec) {
-    std::vector<double> oc = subtract(rt.r.origin, s.center);
+bool hit(const Sphere& s, const ray_itval& rt, const HitRecord& rec) {
+    return s.hit(rt, rec);
+}
+
+bool Sphere::hit(const ray_itval& rt, const HitRecord& rec) const {
+    std::vector<double> oc = subtract(rt.r.origin, this->center);
     double a = dot(rt.r.direction, rt.r.direction);
     double half_b = dot(oc, rt.r.direction);
-    double c = dot(oc, oc) - s.r_squared;
+    double c = dot(oc, oc) - this->r_squared;
     double discriminant = half_b * half_b - a * c;
 
     if (discriminant < 0) {
@@ -24,13 +28,13 @@ bool hit_sphere(const Sphere& s, const ray_itval& rt, const HitRecord& rec) {
     rec.t = root;
     rec.p = at(rt.r, root);
     std::vector<double> outward_normal = {
-        (rec.p[0] - s.center[0]) / s.radius,
-        (rec.p[1] - s.center[1]) / s.radius,
-        (rec.p[2] - s.center[2]) / s.radius
+        (rec.p[0] - this->center[0]) / this->radius,
+        (rec.p[1] - this->center[1]) / this->radius,
+        (rec.p[2] - this->center[2]) / this->radius
     };
 
     rec.normal = outward_normal;
     // set_face_normal(rec, rt.r, outward_normal);
-    rec.mat = s.mat;
+    rec.mat = this->mat;
     return true;
 };

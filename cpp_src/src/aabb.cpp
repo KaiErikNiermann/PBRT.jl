@@ -1,5 +1,9 @@
 #include "aabb.h"
 
+bool hit(const aabb& bbox, const ray& r, const interval& ray_t) {
+    return hit_aabb(bbox, r, ray_t);
+}
+
 bool hit_aabb(const aabb& box, const ray& r, const interval& ray_t) {
     float r_lo = ray_t.lo;
     float r_hi = ray_t.hi;

@@ -7,12 +7,12 @@
 #include "triangle.h"
 #include "bvh.h"
 #include "abs_hittable.h"
-
+    
 // function takes the 
 
-using hit_lambda = std::function<jluna::Bool(const Hittable&, const ray_itval&, const HitRecord&)>;
+using hit_lambda = std::function<jluna::Bool(const std::shared_ptr<Hittable>&, const ray_itval&, const HitRecord&)>;
 
-hit_lambda hit(const Hittable& h);
+hit_lambda hit(const std::shared_ptr<Hittable>& h);
 
 set_usertype_enabled(hit_lambda);
 

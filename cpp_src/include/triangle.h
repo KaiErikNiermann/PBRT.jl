@@ -5,10 +5,7 @@
 #include <jluna.hpp>
 #include <vector>
 
-#include "aabb.h"
 #include "hittable.h"
-#include "material.h"
-#include "math_util.h"
 
 class triangle : public Hittable {
    public:
@@ -19,6 +16,7 @@ class triangle : public Hittable {
     std::vector<std::set<std::vector<double>>> edges;
     material mat;
     aabb bbox;
+    bool hit(const ray_itval&, const HitRecord& rec) const;
 };
 
 class tri_hit_container {
