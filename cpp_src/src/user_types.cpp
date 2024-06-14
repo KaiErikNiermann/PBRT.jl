@@ -6,6 +6,7 @@
 #include "sphere.h"
 #include "color.h"
 #include "hittable.h"
+#include "bvh.h"
 #include "material.h"
 
 using namespace jluna;
@@ -130,19 +131,6 @@ void register_type_properties() {
         [](triangle& t, const aabb& b) -> void { t.bbox = b; }
     );
 
-    // hittable
-    Usertype<HittableList>::add_property<std::vector<Hittable>>(
-        "objects",
-        [](const HittableList& hl) -> std::vector<Hittable> { return hl.objects; },
-        [](HittableList& hl, const std::vector<Hittable>& v) -> void { hl.objects = v; }
-    );
-
-    Usertype<HittableList>::add_property<aabb>(
-        "bbox",
-        [](const HittableList& hl) -> aabb { return hl.bbox; },
-        [](HittableList& hl, const aabb& b) -> void { hl.bbox = b; }
-    );
-
     Usertype<HitRecord>::add_property<double>(
         "t",
         [](const HitRecord& hr) -> double { return hr.t; },
@@ -214,6 +202,26 @@ void register_type_properties() {
         [](const ray_itval& rt) -> interval { return rt.t; },
         [](ray_itval& rt, const interval& i) -> void { rt.t = i; }
     );
+
+    Usertype<bvh_node>::add_property<Hittable>(
+        "left",
+        [](const bvh_node& node) -> Hittable { return node.left; },
+        [](bvh_node& node, const Hittable& n) -> void { node.left = n; }
+    );
+
+    Usertype<bvh_node>::add_property<Hittable>(
+        "right",
+        [](const bvh_node& node) -> Hittable { return node.right; },
+        [](bvh_node& node, const Hittable& n) -> void { node.right = n; }
+    );
+
+    Usertype<bvh_node>::add_property<aabb>(
+        "bbox",
+        [](const bvh_node& node) -> aabb { return node.bbox; },
+        [](bvh_node& node, const aabb& b) -> void { node.bbox = b; }
+    );
+
+
 }
 
 void implement_types() {
@@ -222,10 +230,12 @@ void implement_types() {
     Usertype<ray>::implement();
     Usertype<Sphere>::implement();
     Usertype<triangle>::implement();
-    Usertype<HittableList>::implement();
     Usertype<HitRecord>::implement();
     Usertype<color>::implement();
     Usertype<ray_itval>::implement();
+    Usertype<bvh_node>::implement();
+    Usertype<Hittable>::implement();
+    Usertype<hit_lambda>::implement();
 }
 
 void register_types() {

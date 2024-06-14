@@ -10,7 +10,7 @@
 #include "material.h"
 #include "math_util.h"
 
-class Sphere {
+class Sphere : public Hittable {
     public:
         std::vector<double> center;
         double radius;
@@ -19,8 +19,7 @@ class Sphere {
         aabb bbox;
 };
 
-
-std::function<jluna::Bool(const Sphere&, const ray_itval&, const HitRecord&)> create_sphere_hit_func();
+bool hit_sphere(const Sphere& s, const ray_itval& rt, const HitRecord& rec);
 
 set_usertype_enabled(Sphere);
 

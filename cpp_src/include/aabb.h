@@ -5,8 +5,9 @@
 #include <iostream>
 #include <functional>
 #include <string>
-
 #include <jluna.hpp>
+
+#include "abs_hittable.h"
 
 class ray {
     std::vector<double> at(double t) {
@@ -39,9 +40,11 @@ class ray_itval {
         ray r;
         ray_itval() :
             t(0.0, 0.0), r() {}
+        ray_itval(interval t, ray r) :
+            t(t), r(r) {}
 };
 
-class aabb {
+class aabb : public Hittable {
     public:
         interval x;
         interval y;
@@ -53,7 +56,7 @@ set_usertype_enabled(interval);
 set_usertype_enabled(aabb);
 set_usertype_enabled(ray_itval);
 
-// lambda function to check if a ray hits a box
-std::function<jluna::Bool(const aabb&, const ray&, const interval&)> create_aabb_hit_func();
+
+bool hit_aabb(const aabb& box, const ray& r, const interval& ray_t);
 
 #endif // AABB_H

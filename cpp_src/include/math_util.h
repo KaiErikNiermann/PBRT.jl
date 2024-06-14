@@ -4,6 +4,8 @@
 #include <vector>
 #include "aabb.h"
 
+class ray;
+
 std::vector<double> at(const ray& r, double t);
 
 double dot(const std::vector<double>& a, const std::vector<double>& b);

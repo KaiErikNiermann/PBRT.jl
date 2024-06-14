@@ -10,7 +10,7 @@
 #include "material.h"
 #include "math_util.h"
 
-class triangle {
+class triangle : public Hittable {
    public:
     std::vector<double> A;
     std::vector<double> B;
@@ -29,7 +29,7 @@ class tri_hit_container {
     HitRecord& rec;
 };
 
-std::function<jluna::Bool(const triangle&, const ray_itval&, const HitRecord&)> create_triangle_hit_func();
+bool hit_triangle(const triangle& tri, const ray_itval& rt, const HitRecord& rec);
 
 set_usertype_enabled(triangle);
 

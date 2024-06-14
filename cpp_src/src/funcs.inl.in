@@ -9,4 +9,6 @@ namespace funcs {
         R"(@HIT_TRI@)";
     static inline std::string hit_sphere = 
         R"(@HIT_SPHERE@)";
+    static inline std::string hit_bvh = 
+        R"(@HIT_BVH@)";
 }   

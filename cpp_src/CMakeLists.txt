@@ -7,6 +7,7 @@ file(GLOB SOURCES "src/*.cpp" "src/*.inl")
 file(READ ../interface/hit-aabb.jl HIT_AABB)
 file(READ ../interface/hit-triangle.jl HIT_TRI)
 file(READ ../interface/hit-sphere.jl HIT_SPHERE)
+file(READ ../interface/hit-bvh.jl HIT_BVH)
 
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/funcs.inl.in
