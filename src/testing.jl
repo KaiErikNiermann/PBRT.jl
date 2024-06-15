@@ -78,26 +78,13 @@ end
 
 
 
-
-
-
-
-
 abstract type A end 
 
 struct B <: A
     str::String
 end
 
-struct node
+struct C <: A
     val::A
 end
 
-function message(n::node) end
-
-function test() 
-    a = node(B("B node"))
-    message(a)
-end
-
-test()

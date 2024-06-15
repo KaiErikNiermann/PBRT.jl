@@ -15,6 +15,7 @@ export foo
 export gen_img
 export custom_scene
 export example_render
+export wrapper
 
 using Match
 

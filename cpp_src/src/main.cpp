@@ -61,31 +61,92 @@ void render_scene(const std::string& scene_path) {
     Main["PBRT"]["example_render"](scene_path);
 }
 
-class A { };
-
-class B : public A {
-    public:
-        std::string str = "B";
-        B() { }
-        B(const std::string& s) : str(s) { }
+class A {
+   public:
+    virtual ~A() = default;  // Virtual destructor for proper cleanup
+    virtual const std::string get_name() const { return "A"; }
 };
 
-class node : public A {
+// Class B that inherits from A
+class B : public A {
     public:
-        A val;
-        node() : val(B()) { };
-        node(const A& a) : val(a) { };
+        B() : str("default B") {}
+        B(const std::string& s) : str(s) {}
+        virtual const std::string get_name() const override { return "B"; }
+        void set_str(const std::string& s) { str = s; }
+    private:    
+        std::string str;
+};
+
+// Class C that inherits from A and can hold an A-type value
+class C : public A {
+    public:
+        A* val;  // Pointer to an instance of A
+        C() : val(nullptr) {}
+        C(A* v) : val(v) {}
+        ~C() { delete val; }  // Destructor to clean up the allocated memory
+        virtual const std::string get_name() const override { return "C"; }
+        void set_str(const std::string& s) { str = s; }
+    private:
+        std::string str;
 };
 
 set_usertype_enabled(A);
+set_usertype_enabled(A*);
 set_usertype_enabled(B);
-set_usertype_enabled(node);
+set_usertype_enabled(C);
 
-void foo(const node& n) {
-    // print pointer n
-    node* n_ptr = const_cast<node*>(&n); 
-    std::cout << n_ptr << std::endl;
-    std::cout << "node" << std::endl;
+// void foo(jl_value_t* C) {
+//     jl_datatype_t* C_type = (jl_datatype_t*)jl_typeof(C);
+//     jluna::Type C_jltype = jluna::Type(C_type);
+//     std::vector<std::string> f_names = C_jltype.get_field_names();
+//     for (std::string s : f_names) {
+//         std::cout << s << std::endl;
+//     }
+//     std::cout << "is abstract: " << C_jltype.is_abstract_type() << std::endl;
+//     std::cout << C_jltype.get_super_type().get_name() << std::endl;
+
+//     // get val field
+//     jl_value_t* val = jl_get_nth_field(C, 0);
+//     jluna::Type val_type = jluna::Type((jl_datatype_t*)jl_typeof(val));
+//     std::cout << val_type.get_name() << std::endl;
+//     std::cout << val_type.get_field_names().size() << std::endl;
+//     std::cout << val_type.get_field_names()[0] << std::endl;
+//     // print super type
+//     std::cout << val_type.get_super_type().get_name() << std::endl;
+
+//     // get str field
+//     jl_value_t* str = jl_get_nth_field(val, 0);
+//     std::cout << jl_string_ptr(str) << std::endl;
+// }
+
+void foo(const C& c) {
+    std::cout << "calling foo" << std::endl;
+    
+    C* c1 = dynamic_cast<C*>(c.val);
+
+    jl_value_t* B = (jl_value_t*)(c1->val);
+
+    std::cout << "works" << std::endl;
+    // jl_value_t* str = jl_get_nth_field(val, 0);
+    // std::cout << jl_string_ptr(str) << std::endl;
+}
+
+template<class... Types>
+struct type_container {
+    using as_tuple = std::tuple<Types...>;
+
+    template<std::size_t I>
+    using get = std::tuple_element_t<I, as_tuple>;
+
+    static constexpr std::size_t size = sizeof...(Types);
+};
+
+template<typename T>
+void print_type() {
+    std::cout << typeid(T).name() << std::endl;
+    auto b = T();
+    std::cout << b.get_name() << std::endl;
 }
 
 int main() {
@@ -97,34 +158,34 @@ int main() {
 
     // render_scene("../scenes/cottage_obj.obj");
 
-
-
-
     Usertype<B>::add_property<std::string>(
         "str",
-        [](const B& b) -> std::string { return b.str; },
-        [](B& b, const std::string& msg) -> void { b.str = msg; }
-    );
+        [](const B& b) -> std::string { return b.get_name(); },
+        [](B& b, const std::string& msg) -> void { b.set_str(msg); });
 
-    Usertype<node>::add_property<A>(
+    Usertype<C>::add_property<A*>(
         "val",
-        [](const node& n) -> A { return n.val; },
-        [](node& n, const A& a) -> void { n.val = a; }
+        [](const C& c) -> A* { return c.val; },
+        [](C& c, A* val) -> void {
+            c.val = val;
+        });
+
+    // add foo method
+    Main.create_or_assign("foo", as_julia_function<void(C)>(
+        [](const C& c) -> void { foo(c); })
     );
 
     Usertype<A>::implement();
+    Usertype<A*>::implement();
     Usertype<B>::implement();
-    Usertype<node>::implement();
+    Usertype<C>::implement();
 
-    Main.create_or_assign("foo", as_julia_function<void(node)>(
-        [](const node& n) -> void {
-            foo(n);
-        }
-    ));
+    // create typearray using type_container 
+    using types = type_container<A, B, C>;
+    print_type<types::get<1>>();
 
     Main.safe_eval(R"(
-    n = node()
-    foo(n)
+    foo(PBRT.C(PBRT.C(PBRT.B("heyyy :3"))))
     )");
 
     return 0;
