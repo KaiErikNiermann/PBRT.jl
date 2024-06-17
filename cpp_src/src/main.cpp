@@ -3,6 +3,12 @@
 #include <functional>
 #include <jluna.hpp>
 #include <string>
+#include <any>
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <typeinfo>
+#include <functional>
 
 #include "aabb.h"
 #include "abs_hit.h"
@@ -73,7 +79,10 @@ class B : public A {
     B() : str("default B") {}
     B(const std::string& s) : str(s) {}
     virtual const std::string get_name() const override { return "B"; }
-    void set_str(const std::string& s) { str = s; }
+    void set_str(const std::string& s) { 
+        std::cout << "setting str -> " << s << std::endl;
+        str = s; 
+    }
 
    private:
     std::string str;
@@ -124,16 +133,36 @@ set_usertype_enabled(C);
 
 void foo(const C& c) {
     std::cout << "calling foo" << std::endl;
-
-    C* c1 = dynamic_cast<C*>(c.val);
-
-    jl_value_t* B = (jl_value_t*)(c1->val);
-
-    std::cout << "works" << std::endl;
     // jl_value_t* str = jl_get_nth_field(val, 0);
     // std::cout << jl_string_ptr(str) << std::endl;
 }
 
+
+template <typename Lambda>
+struct LambdaWrapper {
+    Lambda lambda;
+
+    LambdaWrapper(Lambda l) : lambda(l) {}
+
+    template <typename T>
+    void execute_with_type() const {
+        std::cout << "executing with type " << typeid(T).name() << std::endl;
+        lambda.template operator()<T>();
+    }
+
+    // pointer operator overload 
+    void operator()() const {
+        lambda();
+    }
+};
+
+auto single_t = [](std::string x) -> auto {
+    return [&x]<typename T>() {
+        name_myself<T>(x);
+    };
+};
+
+using wrapper_t2 = decltype(single_t);
 
 template <typename MainType, typename... AdditionalTypes>
 class MyType {
@@ -144,9 +173,29 @@ class MyType {
 
         static inline auto self = MainType();
 
+        template<typename wrapper>
+        static inline std::function<void(const std::string&, const wrapper)> seeker;
+
         static void initialize_map() {
             type_to_info[MainType::name()] = typeid(MainType).hash_code();
             (initialize_additional_t_map<AdditionalTypes>(), ...);
+
+            seeker<wrapper_t2> = [](const std::string& t_name, const wrapper_t2&& op) {
+                std::size_t type_info = type_to_info[t_name];
+                auto lambda = [&op, &type_info]<typename... ATs>() {
+                    if (type_info == typeid(MainType).hash_code()) {
+                        op("main type").template operator()<MainType>();
+                    } else {
+                        ([&type_info, &op]() -> void {
+                            if (type_info == typeid(ATs).hash_code()) {
+                                op("additional type").template operator()<ATs>();
+                            } 
+                        }(), ...);
+                    }
+                };
+
+                lambda.template operator()<AdditionalTypes...>();
+            }; 
         }
 
         static void name_myself(std::string custom_name) {
@@ -158,31 +207,17 @@ class MyType {
             type_to_info[T::name()] = typeid(T).hash_code();
         }
 
-        static void dispatch_method(const std::string& t_name, const auto& op) {
-            std::size_t type_info = type_to_info[t_name];
-            if (type_info == typeid(MainType).hash_code()) {
-                op.template operator()<MainType>();
-            } else {
-                ([&type_info, &op]() -> void {
-                    if (type_info == typeid(AdditionalTypes).hash_code()) {
-                        op.template operator()<AdditionalTypes>();
-                    }
-                }(), ...);
-            }
+        template<typename lambda_t>
+        static void dispatch_method(const std::string& t_name, lambda_t&& op) {
+            seeker<wrapper_t2>(t_name, op);
         }
 
 };
+
 template<typename T>
 void name_myself(std::string str) {
     MyType<T>::name_myself(str);
 }
-
-
-template<typename T>
-T myself() {
-    return T();
-}
-
 
 template <typename MainType, typename... AdditionalTypes>
 std::unordered_map<std::string, std::size_t> MyType<MainType, AdditionalTypes...>::type_to_info;
@@ -202,6 +237,12 @@ struct C1 {
     static std::string name() { return "C1"; }
 };
 
+
+template <typename T, typename Wrapper>
+void execute_lambda_wrapper(Wrapper& wrapper) {
+    wrapper.template execute_with_type<T>(); 
+}
+
 int main() {
     initialize();
     inti_pbrt();
@@ -211,10 +252,14 @@ int main() {
 
     // render_scene("../scenes/cottage_obj.obj");
 
+
     Usertype<B>::add_property<std::string>(
         "str",
         [](const B& b) -> std::string { return b.get_name(); },
-        [](B& b, const std::string& msg) -> void { b.set_str(msg); });
+        [](B& b, const std::string& msg) -> void { 
+            
+            b.set_str(msg); 
+        });
 
     Usertype<C>::add_property<A*>(
         "val",
@@ -230,16 +275,14 @@ int main() {
     
     MyType<A1, B1>::initialize_map();
     MyType<B1>::initialize_map();
-    MyType<B1>::name = "B1 type 2390482";
+    MyType<B1>::name = "spoingus blabla";
     MyType<A1, B1, C1>::initialize_map();
 
-    std::cout << MyType<B1>::self.id << std::endl;
+    // std::cout << MyType<B1>::self.id << std::endl;
 
-    MyType<A1, B1, C1>::dispatch_method("B1", []<typename T>() {
-        name_myself<T>("custom name");
-    });
-
-    std::cout << MyType<B1>::self.id << std::endl;
+    // MyType<A1, B1, C1>::dispatch_method("B1", single_t);
+    
+    // std::cout << MyType<B1>::self.id << std::endl;
 
     Usertype<A>::implement();
     Usertype<A*>::implement();
