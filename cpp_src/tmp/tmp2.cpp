@@ -3,6 +3,12 @@
 #include <functional>
 #include <jluna.hpp>
 #include <string>
+#include <any>
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <typeinfo>
+#include <functional>
 
 #include "aabb.h"
 #include "abs_hit.h"
@@ -72,8 +78,11 @@ class B : public A {
    public:
     B() : str("default B") {}
     B(const std::string& s) : str(s) {}
-    virtual const std::string get_name() const override { return "B"; }
-    void set_str(const std::string& s) { str = s; }
+    virtual const std::string get_name() const override { return str; }
+    void set_str(const std::string& s) { 
+        std::cout << "setting str -> " << s << std::endl;
+        str = s; 
+    }
 
    private:
     std::string str;
@@ -124,167 +133,88 @@ set_usertype_enabled(C);
 
 void foo(const C& c) {
     std::cout << "calling foo" << std::endl;
-
-    C* c1 = dynamic_cast<C*>(c.val);
-
-    jl_value_t* B = (jl_value_t*)(c1->val);
-
-    std::cout << "works" << std::endl;
-    // jl_value_t* str = jl_get_nth_field(val, 0);
-    // std::cout << jl_string_ptr(str) << std::endl;
+    std::cout << c.val->get_name() << std::endl;
+    // std::cout << static_cast<B*>(static_cast<C*>(c.val)->val)->get_name() << std::endl;
 }
 
-struct TypeErased {
-    virtual ~TypeErased() = default;
-    virtual void print() const = 0;
+// -----------------------------------------------
+
+auto single_t = [](std::string x) -> auto {
+    return [&x]<typename T, typename U>() {
+        name_myself<T>(x);
+    };
 };
+
+using wrapper_t2 = decltype(single_t);
 
 template <typename T>
-struct TypeHolder : TypeErased {
-    using type = T;
-    void print() const override { type::p_type(); }
-};
-
-template <class... Types>
-struct tc {
-    using as_tuple = std::tuple<Types...>;
-    template <std::size_t I, typename = std::enable_if_t<I<sizeof...(Types)>> 
-    using get = std::tuple_element_t<I, as_tuple>;
-    static constexpr std::size_t size = sizeof...(Types);
-
-    std::vector<std::unique_ptr<TypeErased>> type_vector;
-
-    tc() {
-        (type_vector.push_back(std::make_unique<TypeHolder<Types>>()), ...);
-    }
-
-    TypeErased* get_instance_by_index(std::size_t index) const {
-        if (index < type_vector.size()) {
-            return type_vector[index].get();
-        }
-        return nullptr;
-    }
-};
-
-template <class MainType, class... AdditionalTypes>
-struct main_tc {
-    using main_t = MainType;
-    using additional_t = tc<AdditionalTypes...>;
-};
-
-template <class MainType>
-struct main_tc<MainType> {
-    using main_t = MainType;
-    using additional_t = tc<>;
-};
-
-template <typename MainType, typename... AdditionalTypes>
 class MyType {
     public:
-        using types = main_tc<MainType, AdditionalTypes...>;
+        using base = T;
 
-        static std::unordered_map<std::string, std::function<std::unique_ptr<TypeErased>()>> type_map;
         static std::unordered_map<std::string, std::size_t> type_to_info;
 
-        static inline std::string str;
+        static inline bool is_abstract = false; 
+        static inline std::string name;
+        static inline auto self = T();
 
+        template<typename wrapper>
+        static inline std::function<void(const std::string&, const wrapper)> seeker;
+
+        template<typename... AT>
         static void initialize_map() {
-            type_to_info[MainType::name()] = typeid(MainType).hash_code();
-
-            type_map[MainType::name()] = []() -> std::unique_ptr<TypeErased> { 
-                return std::make_unique<TypeHolder<MainType>>(); 
-            };
-            (initialize_additional_map<AdditionalTypes>(), ...);
-            (initialize_additional_t_map<AdditionalTypes>(), ...);
-        }
-
-        template <typename T>
-        static void initialize_additional_map() {
-            type_map[T::name()] = []() -> std::unique_ptr<TypeErased> { 
-                return std::make_unique<TypeHolder<T>>(); 
-            };
-        }
-
-        template <typename T>
-        static void initialize_additional_t_map() {
             type_to_info[T::name()] = typeid(T).hash_code();
-        }
 
-        static std::unique_ptr<TypeErased> get_instance_by_name(const std::string& name) {
-            if (type_map.find(name) != type_map.end()) {
-                return type_map[name]();
-            } else {
-                std::cout << "Type not found" << std::endl;
-                return nullptr;
-            }
-        }
-
-        static void print_map() {
-            for (auto& [key, value] : type_map) {
-                std::cout << key << std::endl;
-            }
-        }
-
-        static void name_myself() {
-            std::cout << str << std::endl;
-        }
-
-        static void print_type_to_info() {
-            for (auto& [key, value] : type_to_info) {
-                std::cout << key << " " << value << std::endl;
-            }
-        }
-
-        static void print_types() {
-            std::cout << "main type -> " << typeid(MainType).name() << std::endl;
-            (
-                []() {
-                    std::cout << "additional type -> " << typeid(AdditionalTypes).name() << std::endl;
-                }(),
-                ...
-            );
-        }
-
-        static void dispatch_method(const std::string& t_name, const auto& op) {
-            std::size_t type_info = type_to_info[t_name];
-            if (type_info == typeid(MainType).hash_code()) {
-                op.template operator()<MainType>();
-            } else {
-                ([&type_info, &op]() {
-                    if (type_info == typeid(AdditionalTypes).hash_code()) {
-                        op.template operator()<AdditionalTypes>();
+            seeker<wrapper_t2> = [](const std::string& t_name, const wrapper_t2&& op) {
+                std::size_t type_info = type_to_info[t_name];
+                auto lambda = [&op, &type_info]<typename... ATs>()  {
+                    if (type_info == typeid(T).hash_code()) {
+                        op("main type").template operator()<T, T>();
+                    } else {
+                        ([&type_info, &op]() -> void {
+                            if (type_info == typeid(ATs).hash_code()) {
+                                op("additional type").template operator()<ATs, T>();
+                            } 
+                        }(), ...);
                     }
-                }(), ...);
-            }
+                };
+
+                lambda.template operator()<AT...>();
+            }; 
+        }
+
+        template<typename lambda_t>
+        static void dispatch_method(const std::string& t_name, lambda_t&& op) {
+            seeker<wrapper_t2>(t_name, op);
+        }
+
+        static void name_myself(std::string custom_name) {
+            self.id = custom_name;
         }
 };
 
 template<typename T>
-void myself_namer() {
-    MyType<T>::name_myself();
+T name_myself(std::string str) {
+    return MyType<T>::name_myself(str);
 }
 
-template <typename MainType, typename... AdditionalTypes>
-std::unordered_map<std::string, std::function<std::unique_ptr<TypeErased>()>> MyType<MainType, AdditionalTypes...>::type_map;
-
-template <typename MainType, typename... AdditionalTypes>
-std::unordered_map<std::string, std::size_t> MyType<MainType, AdditionalTypes...>::type_to_info;
-
-// Example types
 struct A1 {
-    static void p_type() { std::cout << "A1" << std::endl; }
+    std::string id = "A1";
     static std::string name() { return "A1"; }
 };
 
-struct B1 {
-    static void p_type() { std::cout << "B1" << std::endl; }
+struct B1 : public A1 {
+    std::string id = "B1";
     static std::string name() { return "B1"; }
 };
 
-struct C1 {
-    static void p_type() { std::cout << "C1" << std::endl; }
+struct C1 : public A1 {
+    std::string id = "C1";
     static std::string name() { return "C1"; }
 };
+
+
+
 
 int main() {
     initialize();
@@ -298,37 +228,37 @@ int main() {
     Usertype<B>::add_property<std::string>(
         "str",
         [](const B& b) -> std::string { return b.get_name(); },
-        [](B& b, const std::string& msg) -> void { b.set_str(msg); });
+        [](B& b, const std::string& msg) -> void { 
+            b.set_str(msg); 
+        });
 
-    Usertype<C>::add_property<A*>(
+    Usertype<C>::add_property<A*, B*, C*>(
         "val",
         [](const C& c) -> A* { return c.val; },
-        [](C& c, A* val) -> void {
-            c.val = val;
-        });
+        [](C& c, A* val) -> void { c.val = val; }
+    );
+    
+    Usertype<C>::add_property<A*, B*, C*>(
+        "val",
+        [](const C& c) -> A* { return c.val; },
+        [](C& c, A* val) -> void { c.val = val; }
+    );
 
     // add foo method
     Main.create_or_assign("foo", as_julia_function<void(C)>(
         [](const C& c) -> void { foo(c); })
     );
 
-    MyType<A1, B1>::initialize_map();
-    MyType<B1>::initialize_map();
-    MyType<B1>::str = "B1 type 2390482";
-
-    MyType<A1, B1, C1>::initialize_map();
-
-    MyType<A1, B1, C1>::print_types();
-
-    MyType<A1, B1, C1>::dispatch_method("B1", []<typename T>() {
-        myself_namer<T>();
-    });
-
+    MyType<A1>::initialize_map<B1, C1>();
 
     Usertype<A>::implement();
     Usertype<A*>::implement();
     Usertype<B>::implement();
+    Usertype<B*>::implement();
     Usertype<C>::implement();
+    Usertype<C*>::implement();
+
+    Usertype<A>::initialize_map<B, C>();
 
     Main.safe_eval(R"(
     foo(PBRT.C(PBRT.C(PBRT.B("heyyy :3"))))
