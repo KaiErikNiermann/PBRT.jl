@@ -26,7 +26,7 @@ void inti_pbrt() {
     Main.safe_eval("Pkg.activate(\"../\")");
     Main.safe_eval("Pkg.instantiate()");
     Main.safe_eval("Pkg.resolve()");
-    Main.safe_eval("using PBRT");
+    // Main.safe_eval("using PBRT");
 }
 
 void register_functions() {
@@ -73,7 +73,6 @@ class A {
     virtual const std::string get_name() const { return "A"; }
 };
 
-// Class B that inherits from A
 class B : public A {
    public:
     B() : str("default B") {}
@@ -88,7 +87,6 @@ class B : public A {
     std::string str;
 };
 
-// Class C that inherits from A and can hold an A-type value
 class C : public A {
    public:
     A* val;  // Pointer to an instance of A
@@ -115,11 +113,90 @@ void foo(C c) {
     // std::cout << c.val->get_name() << std::endl;
 }
 
-template <typename T>
-class bar {
-    public:
-        static inline T unbox() { return T(); }    
+template <typename Ot, typename Ft, int Tag>
+struct Property {
+    using object_type = const Ot;
+    using field_type = const Ft;
+    static std::string name;
+    static std::function<const Ft(Ot&)> getter;
+    static std::function<const void(Ot&, Ft)> setter;
 };
+
+template <typename Ot, typename Ft, int Tag>
+std::function<const Ft(Ot&)> Property<Ot, Ft, Tag>::getter;
+
+template <typename Ot, typename Ft, int Tag>
+std::function<const void(Ot&, Ft)> Property<Ot, Ft, Tag>::setter;
+
+template <typename Ot, typename Ft, int Tag>
+std::string Property<Ot, Ft, Tag>::name;
+
+template <typename... Types>
+struct TypeList { };
+
+template<typename T>
+struct type_enabled {
+    constexpr static inline const char* name = "None";
+    constexpr static inline const bool value = false;
+    constexpr static inline const bool is_abstract = false;
+};
+
+#define set_type_enabled(T) template<> struct type_enabled<T> { \
+    constexpr static inline const char* name = #T;   \
+    constexpr static inline const bool is_abstract = std::is_abstract<T>::value; \
+}; 
+
+template<typename T>
+class MyType { 
+    public:
+        static inline std::map<std::string, std::function<void(T&, std::string)>> functions;
+        static inline std::map<std::string, std::size_t> tstr_hash;
+    
+        template <
+            typename... Property, template <typename...> class A, 
+            typename... Derived, template <typename...> class B 
+        >
+        static inline void initalize_self_constructor(A<Property...>, B<Derived...>) {
+            (functions.insert({
+                Property::name,
+                [](T& instance, std::string jl_t) -> void {
+                    size_t real_t_hash = MyType<T>::tstr_hash[jl_t];
+                    if (real_t_hash == typeid(T).hash_code()) {
+                        // Property::setter(instance, MyType<T>::self_construct())
+                    } else {
+                        ([&real_t_hash]() -> void {
+                            if (real_t_hash == typeid(Derived).hash_code()) {
+                                // Property::setter(instance, MyType<Derived>::self_construct())  
+                            }
+                        }(), ...);
+                    }
+                }
+            }), ...);
+            initialize_map<Derived...>();
+        }
+
+        template <typename... Derived>
+        static inline void initialize_map() {
+            tstr_hash[typeid(T).name()] = typeid(T).hash_code();
+            ((tstr_hash[typeid(Derived).name()] = typeid(Derived).hash_code()), ...);
+        }
+
+        template <typename... Derived>
+        static inline void self_construct(std::string jl_t) {
+
+        }
+
+    private:
+        static inline bool _is_abstract = type_enabled<T>::is_abstract;
+};
+
+template<typename T>
+concept is_str = std::is_same_v<std::remove_cv_t<T>, std::string>;
+
+template <is_str T>
+void print_str(T t) {
+    std::cout << t << std::endl;
+}
 
 int main() {
     initialize();
@@ -137,39 +214,46 @@ int main() {
     Usertype<C>::implement();
     Usertype<C*>::implement();
 
+    Property<B, std::string, 0>::name = "str";
+    Property<B, std::string, 0>::getter = [](const B& b) -> std::string { return b.get_name(); };
+    Property<B, std::string, 0>::setter = [](B b, const std::string msg) -> void { b.set_str(msg); };
 
-    Usertype<B>::add_property<std::string>(
-        "str",
-        [](B& b) -> std::string { return b.get_name(); },
-        [](B& b, const std::string msg) -> void { b.set_str(msg); }
-    );
+    Usertype<B>::initialize_type(
+        TypeList<
+            Property<B, std::string, 0>
+        >(),
+        TypeList<>()
+    ); 
 
-    Usertype<C>::initialize_map<A*, B, C>();
 
-    Usertype<C>::add_property<A*, B, C>(
-        "val",
-        [](C& c) -> A* { return c.val; },
-        [](C& c, A* val) -> void { 
-            c.val = val; 
-        }
-    );
 
-    // add foo method
-    Main.create_or_assign("foo", as_julia_function<void(C)>
-        ( [](C c) -> void { foo(c); } )
-    );
+    // Usertype<B>::add_property<std::string>(
+    //     "str",
+    //     [](B& b) -> std::string { return b.get_name(); },
+    //     [](B& b, const std::string msg) -> void { b.set_str(msg); }
+    // );
 
-    const std::function<void(C&, A*)> setter_f = [](C& c, A* val) -> void { c.val = val; };
 
-    C* c = new C();
-    C c2 = bar<C>::unbox();
-    setter_f(*c, &c2);
+    // Usertype<C>::initialize_map<A*, B, C>();
 
-    // setter_f(*c, bar<C>()::unbox());
+    // Usertype<C>::add_property<A*, B, C>(
+    //     "val",
+    //     [](C& c) -> A* { return c.val; },
+    //     [](C& c, A* val) -> void { 
+    //         c.val = val; 
+    //     }
+    // );
 
-    // Main.safe_eval(R"(
-    // foo(PBRT.C(PBRT.C(PBRT.B("heyyy :3"))))
-    // )");
+    // // add foo method
+    // Main.create_or_assign("foo", as_julia_function<void(C)>
+    //     ( [](C c) -> void { foo(c); } )
+    // );
+
+    
+
+    Main.safe_eval(R"(
+    foo(PBRT.C(PBRT.C(PBRT.B("heyyy :3"))))
+    )");
 
     return 0;
 }

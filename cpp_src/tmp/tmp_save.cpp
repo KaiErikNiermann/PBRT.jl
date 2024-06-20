@@ -136,13 +136,11 @@ void foo(const C& c) {
 
 struct TypeErased {
     virtual ~TypeErased() = default;
-    virtual void print() const = 0;
 };
 
 template <typename T>
 struct TypeHolder : TypeErased {
     using type = T;
-    void print() const override { type::p_type(); }
 };
 
 template <class... Types>

@@ -63,20 +63,16 @@ function hit!(bbox::aabb, r::ray, ray_t::interval)::Bool
         ax = axis_interval(bbox, axis)
         adinv = r.direction[axis] != 0.0 ? 1.0 / r.direction[axis] : Inf
         
-        # t0 and t1 are the intersection points of the ray with the slab
         t0 = (ax.lo - r.origin[axis]) * adinv
         t1 = (ax.hi - r.origin[axis]) * adinv
 
-        # swap t0 and t1 if the slab is entered from the wrong side
         if adinv < 0.0
             t0, t1 = t1, t0
         end
    
-        # update the ray_t interval to reflect closest intersection
         r_lo = max(r_lo, t0)
         r_hi = min(r_hi, t1)
 
-        # if the slab intersection is empty, the ray misses the box
         if r_hi <= r_lo
             return false
         end
