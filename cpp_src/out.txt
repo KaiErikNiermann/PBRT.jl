@@ -2,17 +2,6 @@
 -- Generating done
 -- Build files have been written to: /app/cpp_src/jluna/build
 Consolidate compiler generated dependencies of target jluna
-[  9%] Building CXX object CMakeFiles/jluna.dir/.src/safe_utilities.cpp.o
-[ 18%] Building CXX object CMakeFiles/jluna.dir/.src/exceptions.cpp.o
-[ 27%] Building CXX object CMakeFiles/jluna.dir/.src/unsafe_utilities.cpp.o
-[ 36%] Building CXX object CMakeFiles/jluna.dir/.src/proxy.cpp.o
-[ 45%] Building CXX object CMakeFiles/jluna.dir/.src/module.cpp.o
-[ 54%] Building CXX object CMakeFiles/jluna.dir/.src/symbol.cpp.o
-[ 63%] Building CXX object CMakeFiles/jluna.dir/.src/type.cpp.o
-[ 72%] Building CXX object CMakeFiles/jluna.dir/.src/generator_expression.cpp.o
-[ 81%] Building CXX object CMakeFiles/jluna.dir/.src/mutex.cpp.o
-[ 90%] Building CXX object CMakeFiles/jluna.dir/.src/c_adapter.cpp.o
-[100%] Linking CXX shared library /usr/local/libjluna.so
 [100%] Built target jluna
 Install the project...
 -- Install configuration: ""
@@ -27,7 +16,7 @@ Install the project...
 -- Up-to-date: /usr/local/include/jluna/include/julia_wrapper.hpp
 -- Up-to-date: /usr/local/include/jluna/include/safe_utilities.hpp
 -- Up-to-date: /usr/local/include/jluna/include/usertype.hpp
--- Installing: /usr/local/include/jluna/include/concepts.hpp
+-- Up-to-date: /usr/local/include/jluna/include/concepts.hpp
 -- Up-to-date: /usr/local/include/jluna/include/symbol.hpp
 -- Up-to-date: /usr/local/include/jluna/include/proxy.hpp
 -- Up-to-date: /usr/local/include/jluna/include/cppcall.hpp
@@ -76,57 +65,13 @@ Install the project...
 -- Up-to-date: /usr/local/include/jluna/.src/unbox.inl
 -- Up-to-date: /usr/local/include/jluna/.src/array.inl
 -- Up-to-date: /usr/local/include/jluna/.src/gc_sentinel.hpp
--- Installing: /usr/local/lib/libjluna.so.1.0.0
--- Set runtime path of "/usr/local/lib/libjluna.so.1.0.0" to ""
+-- Up-to-date: /usr/local/lib/libjluna.so.1.0.0
 -- Up-to-date: /usr/local/lib/libjluna.so
 -- Up-to-date: /usr/local/lib/cmake/jluna/jluna-config.cmake
 -- Up-to-date: /usr/local/lib/cmake/jluna/jluna-config-version.cmake
 -- Up-to-date: /usr/local/lib/cmake/jluna/jluna-targets.cmake
 -- Up-to-date: /usr/local/lib/cmake/jluna/jluna-targets-noconfig.cmake
 Consolidate compiler generated dependencies of target PBRT
-[ 27%] Building CXX object CMakeFiles/PBRT.dir/src/bvh.cpp.o
-[ 27%] Building CXX object CMakeFiles/PBRT.dir/src/abs_hit.cpp.o
-[ 27%] Building CXX object CMakeFiles/PBRT.dir/src/aabb.cpp.o
-[ 36%] Building CXX object CMakeFiles/PBRT.dir/src/hittable.cpp.o
-[ 45%] Building CXX object CMakeFiles/PBRT.dir/src/main.cpp.o
-[ 54%] Building CXX object CMakeFiles/PBRT.dir/src/math_util.cpp.o
-[ 63%] Building CXX object CMakeFiles/PBRT.dir/src/sphere.cpp.o
-[ 72%] Building CXX object CMakeFiles/PBRT.dir/src/triangle.cpp.o
-In file included from /usr/local/include/jluna/include/box.hpp:193,
-                 from /usr/local/include/jluna/jluna.hpp:15,
-                 from /app/cpp_src/src/main.cpp:4:
-/usr/local/include/jluna/.src/box.inl: In instantiation of ‘jluna::unsafe::Value* jluna::box(T) [with T = const std::__cxx11::basic_string<char>; jluna::unsafe::Value = _jl_value_t]’:
-/usr/local/include/jluna/.src/usertype.inl:48:69:   required from ‘static void jluna::Usertype<T>::initialize_type(A<Property ...>, B<Derived_t ...>) [with Property = {Property<B, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 0>}; A = TypeList; Derived_t = {}; B = TypeList; T = B]’
-/app/cpp_src/src/main.cpp:221:33:   required from here
-/usr/local/include/jluna/.src/box.inl:137:50: error: no matching function for call to ‘new_array_from_data(jluna::unsafe::Value*, const char*, std::__cxx11::basic_string<char>::size_type)’
-  137 |         auto* array = unsafe::new_array_from_data((unsafe::Value*) as_julia_type<char>::type(), value.data(), value.size());
-      |                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from /usr/local/include/jluna/include/unsafe_utilities.hpp:272,
-                 from /usr/local/include/jluna/jluna.hpp:13,
-                 from /app/cpp_src/src/main.cpp:4:
-/usr/local/include/jluna/.src/unsafe_utilities.inl:125:20: note: candidate: ‘template<class ... Dims, typename std::enable_if<(sizeof... (Dims) > 1), bool>::type <anonymous> > jluna::unsafe::Array* jluna::unsafe::new_array_from_data(jluna::unsafe::Value*, void*, Dims ...)’
-  125 |     unsafe::Array* new_array_from_data(unsafe::Value* value_type, void* data, Dims... size_per_dimension)
-      |                    ^~~~~~~~~~~~~~~~~~~
-/usr/local/include/jluna/.src/unsafe_utilities.inl:125:20: note:   template argument deduction/substitution failed:
-In file included from /usr/local/include/jluna/jluna.hpp:13,
-                 from /app/cpp_src/src/main.cpp:4:
-/usr/local/include/jluna/include/unsafe_utilities.hpp:158:80: error: no type named ‘type’ in ‘struct std::enable_if<false, bool>’
-  158 |     template<typename... Dims, std::enable_if_t<(sizeof...(Dims) > 1), bool> = true>
-      |                                                                                ^~~~
-/usr/local/include/jluna/include/unsafe_utilities.hpp:166:20: note: candidate: ‘jluna::unsafe::Array* jluna::unsafe::new_array_from_data(jluna::unsafe::Value*, void*, uint64_t)’ (near match)
-  166 |     unsafe::Array* new_array_from_data(unsafe::Value* value_type, void* data, uint64_t one_d);
-      |                    ^~~~~~~~~~~~~~~~~~~
-/usr/local/include/jluna/include/unsafe_utilities.hpp:166:20: note:   conversion of argument 2 would be ill-formed:
-In file included from /usr/local/include/jluna/include/box.hpp:193,
-                 from /usr/local/include/jluna/jluna.hpp:15,
-                 from /app/cpp_src/src/main.cpp:4:
-/usr/local/include/jluna/.src/box.inl:137:107: error: invalid conversion from ‘const void*’ to ‘void*’ [-fpermissive]
-  137 |         auto* array = unsafe::new_array_from_data((unsafe::Value*) as_julia_type<char>::type(), value.data(), value.size());
-      |                                                                                                 ~~~~~~~~~~^~
-      |                                                                                                           |
-      |                                                                                                           const void*
-[ 81%] Building CXX object CMakeFiles/PBRT.dir/src/user_types.cpp.o
-gmake[2]: *** [CMakeFiles/PBRT.dir/build.make:146: CMakeFiles/PBRT.dir/src/main.cpp.o] Error 1
-gmake[2]: *** Waiting for unfinished jobs....
-gmake[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/PBRT.dir/all] Error 2
-gmake: *** [Makefile:91: all] Error 2
+[  9%] Building CXX object CMakeFiles/PBRT.dir/src/main.cpp.o
+[ 18%] Linking CXX executable PBRT
+[100%] Built target PBRT

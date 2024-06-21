@@ -1,14 +1,12 @@
 #include <stdlib.h>
 
+#include <any>
 #include <functional>
+#include <iostream>
 #include <jluna.hpp>
 #include <string>
-#include <any>
-#include <iostream>
-#include <string>
-#include <unordered_map>
 #include <typeinfo>
-#include <functional>
+#include <unordered_map>
 
 #include "aabb.h"
 #include "abs_hit.h"
@@ -26,7 +24,7 @@ void inti_pbrt() {
     Main.safe_eval("Pkg.activate(\"../\")");
     Main.safe_eval("Pkg.instantiate()");
     Main.safe_eval("Pkg.resolve()");
-    // Main.safe_eval("using PBRT");
+    Main.safe_eval("using PBRT");
 }
 
 void register_functions() {
@@ -75,28 +73,15 @@ class A {
 
 class B : public A {
    public:
-    B() : str("default B") {}
-    B(const std::string& s) : str(s) {}
-    virtual const std::string get_name() const override { return str; }
-    void set_str(const std::string& s) { 
-        std::cout << "setting str -> " << s << std::endl;
-        str = s; 
-    }
-
-   private:
     std::string str;
+    B() : str("default B") {}
 };
 
 class C : public A {
    public:
-    A* val;  // Pointer to an instance of A
-    C() : val(nullptr) {}
-    C(A* v) : val(v) {}
-    ~C() { delete val; }  // Destructor to clean up the allocated memory
+    std::shared_ptr <A> val;
+    C() : val(nullptr), str("default C") {}
     virtual const std::string get_name() const override { return "C"; }
-    void set_str(const std::string& s) { str = s; }
-
-   private:
     std::string str;
 };
 
@@ -107,58 +92,51 @@ set_usertype_enabled(B*);
 set_usertype_enabled(C);
 set_usertype_enabled(C*);
 
-void foo(C c) {
-    std::cout << "calling foo" << std::endl;
-    // std::cout << static_cast<C*>(c.val)->val->get_name() << std::endl;
-    // std::cout << c.val->get_name() << std::endl;
-}
-
-template <typename Ot, typename Ft, int Tag>
+template <typename Ot, typename Ft, const char* name>
 struct Property {
-    using object_type = const Ot;
-    using field_type = const Ft;
-    static std::string name;
-    static std::function<const Ft(Ot&)> getter;
-    static std::function<const void(Ot&, Ft)> setter;
+    using obj_t = const Ot;
+    using field_t = Ft;
+    static constexpr const char* get_name() { return name; }
+    static std::function<Ft(Ot&)> getter;
+    static std::function<void(Ot&, Ft)> setter;
 };
 
-template <typename Ot, typename Ft, int Tag>
-std::function<const Ft(Ot&)> Property<Ot, Ft, Tag>::getter;
+template <typename Ot, typename Ft, const char* name>
+std::function<Ft(Ot&)> Property<Ot, Ft, name>::getter;
 
-template <typename Ot, typename Ft, int Tag>
-std::function<const void(Ot&, Ft)> Property<Ot, Ft, Tag>::setter;
-
-template <typename Ot, typename Ft, int Tag>
-std::string Property<Ot, Ft, Tag>::name;
+template <typename Ot, typename Ft, const char* name>
+std::function<void(Ot&, Ft)> Property<Ot, Ft, name>::setter;
 
 template <typename... Types>
-struct TypeList { };
+struct TypeList {};
 
-template<typename T>
+template <typename T>
 struct type_enabled {
     constexpr static inline const char* name = "None";
     constexpr static inline const bool value = false;
     constexpr static inline const bool is_abstract = false;
 };
 
-#define set_type_enabled(T) template<> struct type_enabled<T> { \
-    constexpr static inline const char* name = #T;   \
-    constexpr static inline const bool is_abstract = std::is_abstract<T>::value; \
-}; 
+#define set_type_enabled(T)                                                          \
+    template <>                                                                      \
+    struct type_enabled<T> {                                                         \
+        constexpr static inline const char* name = #T;                               \
+        constexpr static inline const bool is_abstract = std::is_abstract<T>::value; \
+    };
 
-template<typename T>
-class MyType { 
-    public:
-        static inline std::map<std::string, std::function<void(T&, std::string)>> functions;
-        static inline std::map<std::string, std::size_t> tstr_hash;
-    
-        template <
-            typename... Property, template <typename...> class A, 
-            typename... Derived, template <typename...> class B 
-        >
-        static inline void initalize_self_constructor(A<Property...>, B<Derived...>) {
-            (functions.insert({
-                Property::name,
+template <typename T>
+class MyType {
+   public:
+    static inline std::map<const std::string, std::function<void(T&, std::string)>> functions;
+    static inline std::map<std::string, std::size_t> tstr_hash;
+
+    template <
+        typename... Property, template <typename...> class A,
+        typename... Derived, template <typename...> class B>
+    static inline void initialize_self_constructor(A<Property...>, B<Derived...>) {
+        ([&]() -> void {
+            auto symbol = jluna::Symbol(Property::get_name());
+            functions.insert({Property::get_name(),
                 [](T& instance, std::string jl_t) -> void {
                     size_t real_t_hash = MyType<T>::tstr_hash[jl_t];
                     if (real_t_hash == typeid(T).hash_code()) {
@@ -166,37 +144,41 @@ class MyType {
                     } else {
                         ([&real_t_hash]() -> void {
                             if (real_t_hash == typeid(Derived).hash_code()) {
-                                // Property::setter(instance, MyType<Derived>::self_construct())  
+                                // Property::setter(instance, MyType<Derived>::self_construct())
                             }
-                        }(), ...);
+                        }(),
+                        ...);
                     }
-                }
-            }), ...);
-            initialize_map<Derived...>();
-        }
+                }});
+        }(),
+         ...);
 
-        template <typename... Derived>
-        static inline void initialize_map() {
-            tstr_hash[typeid(T).name()] = typeid(T).hash_code();
-            ((tstr_hash[typeid(Derived).name()] = typeid(Derived).hash_code()), ...);
-        }
+        initialize_map<Derived...>();
+    }
 
-        template <typename... Derived>
-        static inline void self_construct(std::string jl_t) {
+    template <typename... Derived>
+    static inline void initialize_map() {
+        tstr_hash[typeid(T).name()] = typeid(T).hash_code();
+        ((tstr_hash[typeid(Derived).name()] = typeid(Derived).hash_code()), ...);
+    }
 
-        }
+    template <typename... Derived>
+    static inline void self_construct(std::string jl_t) {
+    }
 
-    private:
-        static inline bool _is_abstract = type_enabled<T>::is_abstract;
+   private:
+    static inline bool _is_abstract = type_enabled<T>::is_abstract;
 };
 
-template<typename T>
-concept is_str = std::is_same_v<std::remove_cv_t<T>, std::string>;
+template<typename B, typename... D>
+void assign_shared_ptr(std::shared_ptr<B>& val, B* in) {
+    (..., [&]() -> void {
+        if (auto d = dynamic_cast<D*>(in)) {
+            val = std::shared_ptr<B>(std::make_shared<D>(*d));
+        }
+    }());
+} 
 
-template <is_str T>
-void print_str(T t) {
-    std::cout << t << std::endl;
-}
 
 int main() {
     initialize();
@@ -214,42 +196,33 @@ int main() {
     Usertype<C>::implement();
     Usertype<C*>::implement();
 
-    Property<B, std::string, 0>::name = "str";
-    Property<B, std::string, 0>::getter = [](const B& b) -> std::string { return b.get_name(); };
-    Property<B, std::string, 0>::setter = [](B b, const std::string msg) -> void { b.set_str(msg); };
+    static char str[] = "str";
+    Property<B, std::string, str>::getter = [](B& b) -> std::string { return b.get_name(); };
+    Property<B, std::string, str>::setter = [](B& b, std::string my_str) -> void {
+        b.str = my_str;
+    };
 
     Usertype<B>::initialize_type(
         TypeList<
-            Property<B, std::string, 0>
-        >(),
-        TypeList<>()
-    ); 
+            Property<B, std::string, str>>(),
+        TypeList<>());
 
+    static char val[] = "val";
+    Property<C, A*, val>::getter = [](C& c) -> A* { return c.val.get(); };
+    Property<C, A*, val>::setter = [](C& c, A* my_val) -> void {
+        assign_shared_ptr<A, B, C>(c.val, my_val);
+    };
 
+    Usertype<C>::initialize_type(
+        TypeList<
+            Property<C, A*, val>>(),
+        TypeList<B, C>());
 
-    // Usertype<B>::add_property<std::string>(
-    //     "str",
-    //     [](B& b) -> std::string { return b.get_name(); },
-    //     [](B& b, const std::string msg) -> void { b.set_str(msg); }
-    // );
-
-
-    // Usertype<C>::initialize_map<A*, B, C>();
-
-    // Usertype<C>::add_property<A*, B, C>(
-    //     "val",
-    //     [](C& c) -> A* { return c.val; },
-    //     [](C& c, A* val) -> void { 
-    //         c.val = val; 
-    //     }
-    // );
-
-    // // add foo method
-    // Main.create_or_assign("foo", as_julia_function<void(C)>
-    //     ( [](C c) -> void { foo(c); } )
-    // );
-
-    
+    Main.create_or_assign("foo", as_julia_function<void(C)>([](C c) -> void { 
+        std::cout << "c mem " << &c << "\n";
+        B* b = static_cast<B*>(static_cast<C*>(c.val.get())->val.get());
+        std::cout << "b str " << static_cast<B*>(static_cast<C*>(c.val.get())->val.get())->str << "\n";
+    }));
 
     Main.safe_eval(R"(
     foo(PBRT.C(PBRT.C(PBRT.B("heyyy :3"))))
