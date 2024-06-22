@@ -26,33 +26,51 @@ void inti_pbrt() {
     Main.safe_eval("using PBRT");
 }
 
+// function to print bvh_tree
+void print_bvh_tree(const Hittable* hit, int depth = 0) {
+    std::string indent = "";
+    for (int i = 0; i < depth; i++) {
+        indent += "  ";
+    }
+
+    if (auto tri = dynamic_cast<const Triangle*>(hit)) {
+        std::cout << indent << "Triangle" << std::endl;
+    } else if (auto sph = dynamic_cast<const sphere*>(hit)) {
+        std::cout << indent << "Sphere" << std::endl;
+    } else if (auto bvh = dynamic_cast<const bvh_node*>(hit)) {
+        std::cout << indent << "BVH" << std::endl;
+        print_bvh_tree(bvh->left.get(), depth + 1);
+        print_bvh_tree(bvh->right.get(), depth + 1);
+    }    
+}
+
 void register_functions() {
-    jluna::unsafe::Value* hit_aabb_f = as_julia_function<bool(aabb, ray, interval)>(
-        [](const aabb& box, const ray& r, const interval& ray_t) -> bool {
-            return hit_aabb(box, r, ray_t);
-        });
-    jluna::unsafe::Value* hit_triangle_f = as_julia_function<bool(Triangle, ray_itval, HitRecord)>(
-        [](const Triangle& tri, const ray_itval& r, const HitRecord& rec) -> bool {
-            return tri.hit(r, rec);
-        });
-    jluna::unsafe::Value* hit_sphere_f = as_julia_function<bool(sphere, ray_itval, HitRecord)>(
-        [](const sphere& s, const ray_itval& r, const HitRecord& rec) -> bool {
-            return s.hit(r, rec);
-        });
+    // jluna::unsafe::Value* hit_aabb_f = as_julia_function<bool(aabb, ray, interval)>(
+    //     [](const aabb& box, const ray& r, const interval& ray_t) -> bool {
+    //         return hit_aabb(box, r, ray_t);
+    //     });
+    // jluna::unsafe::Value* hit_triangle_f = as_julia_function<bool(Triangle, ray_itval, HitRecord)>(
+    //     [](const Triangle& tri, const ray_itval& r, const HitRecord& rec) -> bool {
+    //         return tri.hit(r, rec);
+    //     });
+    // jluna::unsafe::Value* hit_sphere_f = as_julia_function<bool(sphere, ray_itval, HitRecord)>(
+    //     [](const sphere& s, const ray_itval& r, const HitRecord& rec) -> bool {
+    //         return s.hit(r, rec);
+    //     });
     jluna::unsafe::Value* hit_bvh_f = as_julia_function<bool(bvh_node, ray_itval, HitRecord)>(
         [](const bvh_node& bvh, const ray_itval& r, const HitRecord& rec) -> bool {
             return bvh.hit(r, rec);
         });
 
     // Redefine hit functions
-    Main.create_or_assign("hit_aabb", hit_aabb_f);
-    Main.create_or_assign("hit_triangle", hit_triangle_f);
-    Main.create_or_assign("hit_sphere", hit_sphere_f);
+    // Main.create_or_assign("hit_aabb", hit_aabb_f);
+    // Main.create_or_assign("hit_triangle", hit_triangle_f);
+    // Main.create_or_assign("hit_sphere", hit_sphere_f);
     Main.create_or_assign("hit_bvh", hit_bvh_f);
 
-    Main.safe_eval(funcs::hit_aabb);
-    Main.safe_eval(funcs::hit_triangle);
-    Main.safe_eval(funcs::hit_sphere);
+    // Main.safe_eval(funcs::hit_aabb);
+    // Main.safe_eval(funcs::hit_triangle);
+    // Main.safe_eval(funcs::hit_sphere);
     Main.safe_eval(funcs::hit_bvh);
 }
 
@@ -188,16 +206,6 @@ int main( int argc, char* argv[] ) {
     register_functions();
 
     render_scene("../scenes/cottage_obj.obj");
-
-    // jl_value_t* bvh_node_ex = Main.safe_eval("return PBRT.bvh_node(PBRT.Triangle(), PBRT.Triangle(), PBRT.aabb())");
-    // bvh_node b1 = jluna::unbox<bvh_node>(bvh_node_ex);
-    // // cast left and right to tri
-    // Triangle* t1 = dynamic_cast<Triangle*>(b1.left.get());
-    // Triangle* t2 = dynamic_cast<Triangle*>(b1.right.get());
-    // std::vector<double> B = t2->B; 
-    // for (auto& i : B) {
-    //     std::cout << i << std::endl;
-    // }
 
     return 0;
 }

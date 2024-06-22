@@ -171,3 +171,13 @@ In file included from /usr/include/c++/11/bits/std_thread.h:44,
 gmake[2]: *** [CMakeFiles/PBRT.dir/build.make:132: CMakeFiles/PBRT.dir/src/main.cpp.o] Error 1
 gmake[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/PBRT.dir/all] Error 2
 gmake: *** [Makefile:91: all] Error 2
+gmake[2]: *** Deleting file 'CMakeFiles/PBRT.dir/src/user_types.cpp.o'
+gmake[2]: *** Deleting file 'CMakeFiles/PBRT.dir/src/triangle.cpp.o'
+gmake[2]: *** Deleting file 'CMakeFiles/PBRT.dir/src/main.cpp.o'
+gmake[2]: *** Deleting file 'CMakeFiles/PBRT.dir/src/bvh.cpp.o'
+gmake[2]: *** [CMakeFiles/PBRT.dir/build.make:132: CMakeFiles/PBRT.dir/src/main.cpp.o] Hangup
+gmake[2]: *** [CMakeFiles/PBRT.dir/build.make:90: CMakeFiles/PBRT.dir/src/bvh.cpp.o] Hangup
+gmake[2]: *** [CMakeFiles/PBRT.dir/build.make:174: CMakeFiles/PBRT.dir/src/triangle.cpp.o] Hangup
+gmake[2]: *** [CMakeFiles/PBRT.dir/build.make:188: CMakeFiles/PBRT.dir/src/user_types.cpp.o] Hangup
+gmake[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/PBRT.dir/all] Hangup
+gmake: *** [Makefile:91: all] Hangup

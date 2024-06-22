@@ -100,7 +100,7 @@ void register_type_properties() {
         tl<>()
     );
 
-    // sphere
+    // triangle
     var(A); var(B); var(C); var(id); var(edges); var(mat); var(bbox);
     using Triangle_A = Property<Triangle, std::vector<double>, A>;
     using Triangle_B = Property<Triangle, std::vector<double>, B>;

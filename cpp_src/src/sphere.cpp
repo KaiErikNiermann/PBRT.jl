@@ -1,9 +1,5 @@
 #include "sphere.h"
 
-bool hit(const sphere& s, const ray_itval& rt, const HitRecord& rec) {
-    return s.hit(rt, rec);
-}
-
 bool sphere::hit(const ray_itval& rt, const HitRecord& rec) const {
     std::vector<double> oc = subtract(rt.r.origin, this->center);
     double a = dot(rt.r.direction, rt.r.direction);
