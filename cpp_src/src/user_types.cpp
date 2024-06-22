@@ -101,63 +101,63 @@ void register_type_properties() {
     );
 
     // sphere
-    var(A); var(B); var(C); var(ident); var(edges); var(mat); var(bbox);
-    using triangle_A = Property<triangle, std::vector<double>, A>;
-    using triangle_B = Property<triangle, std::vector<double>, B>;
-    using triangle_C = Property<triangle, std::vector<double>, C>;
-    using triangle_ident = Property<triangle, int, ident>;
-    using triangle_edges = Property<triangle, std::vector<std::set<std::vector<double>>>, edges>;
-    using triangle_mat = Property<triangle, material, mat>;
-    using triangle_bbox = Property<triangle, aabb, bbox>;
+    var(A); var(B); var(C); var(id); var(edges); var(mat); var(bbox);
+    using Triangle_A = Property<Triangle, std::vector<double>, A>;
+    using Triangle_B = Property<Triangle, std::vector<double>, B>;
+    using Triangle_C = Property<Triangle, std::vector<double>, C>;
+    using Triangle_id = Property<Triangle, int, id>;
+    using Triangle_edges = Property<Triangle, std::vector<std::set<std::vector<double>>>, edges>;
+    using Triangle_mat = Property<Triangle, material, mat>;
+    using Triangle_bbox = Property<Triangle, aabb, bbox>;
 
-    triangle_A::getter = [](triangle& t) -> std::vector<double> { return t.A; };
-    triangle_A::setter = [](triangle& t, const std::vector<double>& v) -> void { t.A = v; };
-    triangle_B::getter = [](triangle& t) -> std::vector<double> { return t.B; };
-    triangle_B::setter = [](triangle& t, const std::vector<double>& v) -> void { t.B = v; };
-    triangle_C::getter = [](triangle& t) -> std::vector<double> { return t.C; };
-    triangle_C::setter = [](triangle& t, const std::vector<double>& v) -> void { t.C = v; };
-    triangle_ident::getter = [](triangle& t) -> int { return t.ident; };
-    triangle_ident::setter = [](triangle& t, int v) -> void { t.ident = v; };
-    triangle_edges::getter = [](triangle& t) -> std::vector<std::set<std::vector<double>>>{ return t.edges; };
-    triangle_edges::setter = [](triangle& t, const std::vector<std::set<std::vector<double>>>& v) -> void { t.edges = v; };
-    triangle_mat::getter = [](triangle& t) -> material { return t.mat; };
-    triangle_mat::setter = [](triangle& t, const material& m) -> void { t.mat = m; };
-    triangle_bbox::getter = [](triangle& t) -> aabb { return t.bbox; };
-    triangle_bbox::setter = [](triangle& t, const aabb& b) -> void { t.bbox = b; };
+    Triangle_A::getter = [](Triangle& t) -> std::vector<double> { return t.A; };
+    Triangle_A::setter = [](Triangle& t, const std::vector<double>& v) -> void { t.A = v; };
+    Triangle_B::getter = [](Triangle& t) -> std::vector<double> { return t.B; };
+    Triangle_B::setter = [](Triangle& t, const std::vector<double>& v) -> void { t.B = v; };
+    Triangle_C::getter = [](Triangle& t) -> std::vector<double> { return t.C; };
+    Triangle_C::setter = [](Triangle& t, const std::vector<double>& v) -> void { t.C = v; };
+    Triangle_id::getter = [](Triangle& t) -> int { return t.id; };
+    Triangle_id::setter = [](Triangle& t, int v) -> void { t.id = v; };
+    Triangle_edges::getter = [](Triangle& t) -> std::vector<std::set<std::vector<double>>>{ return t.edges; };
+    Triangle_edges::setter = [](Triangle& t, const std::vector<std::set<std::vector<double>>>& v) -> void { t.edges = v; };
+    Triangle_mat::getter = [](Triangle& t) -> material { return t.mat; };
+    Triangle_mat::setter = [](Triangle& t, const material& m) -> void { t.mat = m; };
+    Triangle_bbox::getter = [](Triangle& t) -> aabb { return t.bbox; };
+    Triangle_bbox::setter = [](Triangle& t, const aabb& b) -> void { t.bbox = b; };
 
-    Usertype<triangle>::initialize_type(
+    Usertype<Triangle>::initialize_type(
         tl<
-            triangle_A,
-            triangle_B,
-            triangle_C,
-            triangle_ident,
-            triangle_edges,
-            triangle_mat,
-            triangle_bbox
+            Triangle_A,
+            Triangle_B,
+            Triangle_C,
+            Triangle_id,
+            Triangle_edges,
+            Triangle_mat,
+            Triangle_bbox
         >(),
         tl<>()
     );
 
     // sphere
     var(center); var(radius); var(r_squared); 
-    using sphere_center = Property<Sphere, std::vector<double>, center>;
-    using sphere_radius = Property<Sphere, double, radius>;
-    using sphere_r_squared = Property<Sphere, double, r_squared>;
-    using sphere_mat = Property<Sphere, material, mat>;
-    using sphere_bbox = Property<Sphere, aabb, bbox>;
+    using sphere_center = Property<sphere, std::vector<double>, center>;
+    using sphere_radius = Property<sphere, double, radius>;
+    using sphere_r_squared = Property<sphere, double, r_squared>;
+    using sphere_mat = Property<sphere, material, mat>;
+    using sphere_bbox = Property<sphere, aabb, bbox>;
 
-    sphere_center::getter = [](Sphere& s) -> std::vector<double> { return s.center; };
-    sphere_center::setter = [](Sphere& s, const std::vector<double>& v) -> void { s.center = v; };
-    sphere_radius::getter = [](Sphere& s) -> double { return s.radius; };
-    sphere_radius::setter = [](Sphere& s, double v) -> void { s.radius = v; };
-    sphere_r_squared::getter = [](Sphere& s) -> double { return s.r_squared; };
-    sphere_r_squared::setter = [](Sphere& s, double v) -> void { s.r_squared = v; };
-    sphere_mat::getter = [](Sphere& s) -> material { return s.mat; };
-    sphere_mat::setter = [](Sphere& s, const material& m) -> void { s.mat = m; };
-    sphere_bbox::getter = [](Sphere& s) -> aabb { return s.bbox; };
-    sphere_bbox::setter = [](Sphere& s, const aabb& b) -> void { s.bbox = b; };
+    sphere_center::getter = [](sphere& s) -> std::vector<double> { return s.center; };
+    sphere_center::setter = [](sphere& s, const std::vector<double>& v) -> void { s.center = v; };
+    sphere_radius::getter = [](sphere& s) -> double { return s.radius; };
+    sphere_radius::setter = [](sphere& s, double v) -> void { s.radius = v; };
+    sphere_r_squared::getter = [](sphere& s) -> double { return s.r_squared; };
+    sphere_r_squared::setter = [](sphere& s, double v) -> void { s.r_squared = v; };
+    sphere_mat::getter = [](sphere& s) -> material { return s.mat; };
+    sphere_mat::setter = [](sphere& s, const material& m) -> void { s.mat = m; };
+    sphere_bbox::getter = [](sphere& s) -> aabb { return s.bbox; };
+    sphere_bbox::setter = [](sphere& s, const aabb& b) -> void { s.bbox = b; };
     
-    Usertype<Sphere>::initialize_type(
+    Usertype<sphere>::initialize_type(
         tl<
             sphere_center,
             sphere_radius,
@@ -250,13 +250,13 @@ void register_type_properties() {
 
     bvh_node_left::getter = [](bvh_node& b) -> Hittable* { return b.left.get(); };
     bvh_node_left::setter = [](bvh_node& b, Hittable* h) -> void { 
-        if (!assign_shared_ptr<Hittable, triangle, Sphere, bvh_node>(b.left, h)) {
+        if (!assign_shared_ptr<Hittable, Triangle, sphere, bvh_node>(b.left, h)) {
             // std::cout << "could not assign" << std::endl;
         }
     };
     bvh_node_right::getter = [](bvh_node& b) -> Hittable* { return b.right.get(); };
     bvh_node_right::setter = [](bvh_node& b, Hittable* h) -> void { 
-        if (!assign_shared_ptr<Hittable, triangle, Sphere, bvh_node>(b.right, h)) {
+        if (!assign_shared_ptr<Hittable, Triangle, sphere, bvh_node>(b.right, h)) {
             // std::cout << "could not assign" << std::endl;
         }
     };
@@ -269,7 +269,7 @@ void register_type_properties() {
             bvh_node_right,
             bvh_node_bbox
         >(),
-        tl<triangle, Sphere, bvh_node>()
+        tl<Triangle, sphere, bvh_node>()
     );
 }
 
@@ -277,10 +277,10 @@ void implement_types() {
     Usertype<aabb>::implement();
     Usertype<interval>::implement();
     Usertype<ray>::implement();
-    Usertype<Sphere>::implement();
-    Usertype<Sphere*>::implement();
-    Usertype<triangle>::implement();
-    Usertype<triangle*>::implement();
+    Usertype<sphere>::implement();
+    Usertype<sphere*>::implement();
+    Usertype<Triangle>::implement();
+    Usertype<Triangle*>::implement();
     Usertype<HitRecord>::implement();
     Usertype<color>::implement();
     Usertype<ray_itval>::implement();

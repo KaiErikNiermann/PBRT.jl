@@ -31,12 +31,12 @@ void register_functions() {
         [](const aabb& box, const ray& r, const interval& ray_t) -> bool {
             return hit_aabb(box, r, ray_t);
         });
-    jluna::unsafe::Value* hit_triangle_f = as_julia_function<bool(triangle, ray_itval, HitRecord)>(
-        [](const triangle& tri, const ray_itval& r, const HitRecord& rec) -> bool {
+    jluna::unsafe::Value* hit_triangle_f = as_julia_function<bool(Triangle, ray_itval, HitRecord)>(
+        [](const Triangle& tri, const ray_itval& r, const HitRecord& rec) -> bool {
             return tri.hit(r, rec);
         });
-    jluna::unsafe::Value* hit_sphere_f = as_julia_function<bool(Sphere, ray_itval, HitRecord)>(
-        [](const Sphere& s, const ray_itval& r, const HitRecord& rec) -> bool {
+    jluna::unsafe::Value* hit_sphere_f = as_julia_function<bool(sphere, ray_itval, HitRecord)>(
+        [](const sphere& s, const ray_itval& r, const HitRecord& rec) -> bool {
             return s.hit(r, rec);
         });
     jluna::unsafe::Value* hit_bvh_f = as_julia_function<bool(bvh_node, ray_itval, HitRecord)>(
@@ -183,45 +183,6 @@ int main() {
     register_functions();
 
     render_scene("../scenes/cottage_obj.obj");
-
-    // Usertype<A>::implement();
-    // Usertype<A*>::implement();
-    // Usertype<B>::implement();
-    // Usertype<B*>::implement();
-    // Usertype<C>::implement();
-    // Usertype<C*>::implement();
-
-    // static char str[] = "str";
-    // Property<B, std::string, str>::getter = [](B& b) -> std::string { return b.get_name(); };
-    // Property<B, std::string, str>::setter = [](B& b, std::string my_str) -> void {
-    //     b.str = my_str;
-    // };
-
-    // Usertype<B>::initialize_type(
-    //     TypeList<
-    //         Property<B, std::string, str>>(),
-    //     TypeList<>());
-
-    // static char val[] = "val";
-    // Property<C, A*, val>::getter = [](C& c) -> A* { return c.val.get(); };
-    // Property<C, A*, val>::setter = [](C& c, A* my_val) -> void {
-    //     assign_shared_ptr<A, B, C>(c.val, my_val);
-    // };
-
-    // Usertype<C>::initialize_type(
-    //     TypeList<
-    //         Property<C, A*, val>>(),
-    //     TypeList<B, C>());
-
-    // Main.create_or_assign("foo", as_julia_function<void(C)>([](C c) -> void { 
-    //     std::cout << "c mem " << &c << "\n";
-    //     B* b = static_cast<B*>(static_cast<C*>(c.val.get())->val.get());
-    //     std::cout << "b str " << static_cast<B*>(static_cast<C*>(c.val.get())->val.get())->str << "\n";
-    // }));
-
-    // Main.safe_eval(R"(
-    // foo(PBRT.C(PBRT.C(PBRT.B("heyyy :3"))))
-    // )");
 
     return 0;
 }

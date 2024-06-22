@@ -8,6 +8,8 @@ struct Triangle <: hittable
     bbox::aabb
 end 
 
+Triangle() = Triangle([1.0, 0.0, 0.0], [2.0, 0.0, 0.0], [3.0, 0.0, 0.0], 0, [], lambertian(color()), aabb())
+
 Triangle(A::Vector{Float64}, B::Vector{Float64}, C::Vector{Float64}, mat::material) = begin 
     u = B - A
     v = C - A

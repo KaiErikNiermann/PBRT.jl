@@ -71,4 +71,7 @@ Install the project...
 -- Up-to-date: /usr/local/lib/cmake/jluna/jluna-config-version.cmake
 -- Up-to-date: /usr/local/lib/cmake/jluna/jluna-targets.cmake
 -- Up-to-date: /usr/local/lib/cmake/jluna/jluna-targets-noconfig.cmake
+Consolidate compiler generated dependencies of target PBRT
+[ 10%] Building CXX object CMakeFiles/PBRT.dir/src/user_types.cpp.o
+[ 20%] Linking CXX executable PBRT
 [100%] Built target PBRT

@@ -1,10 +1,10 @@
 #include "sphere.h"
 
-bool hit(const Sphere& s, const ray_itval& rt, const HitRecord& rec) {
+bool hit(const sphere& s, const ray_itval& rt, const HitRecord& rec) {
     return s.hit(rt, rec);
 }
 
-bool Sphere::hit(const ray_itval& rt, const HitRecord& rec) const {
+bool sphere::hit(const ray_itval& rt, const HitRecord& rec) const {
     std::vector<double> oc = subtract(rt.r.origin, this->center);
     double a = dot(rt.r.direction, rt.r.direction);
     double half_b = dot(oc, rt.r.direction);

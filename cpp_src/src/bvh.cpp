@@ -8,16 +8,16 @@ bool bvh_node::hit(const ray_itval& rt, const HitRecord& rec) const {
     bool hit_left = false; 
     bool hit_right = false;
     
-    if (auto tri = std::dynamic_pointer_cast<triangle>(left)) {
+    if (auto tri = std::dynamic_pointer_cast<Triangle>(left)) {
         hit_left = tri->hit(rt, rec);
     } 
-    if (auto tri = std::dynamic_pointer_cast<triangle>(right)) {
+    if (auto tri = std::dynamic_pointer_cast<Triangle>(right)) {
         hit_right = tri->hit(rt, rec);
     }
-    if (auto sph = std::dynamic_pointer_cast<Sphere>(left)) {
+    if (auto sph = std::dynamic_pointer_cast<sphere>(left)) {
         hit_left = sph->hit(rt, rec);
     }
-    if (auto sph = std::dynamic_pointer_cast<Sphere>(right)) {
+    if (auto sph = std::dynamic_pointer_cast<sphere>(right)) {
         hit_right = sph->hit(rt, rec);
     }
     if (auto bvh = std::dynamic_pointer_cast<bvh_node>(left)) {

@@ -7,12 +7,12 @@
 
 #include "hittable.h"
 
-class triangle : public Hittable {
+class Triangle : public Hittable {
    public:
     std::vector<double> A;
     std::vector<double> B;
     std::vector<double> C;
-    int ident;
+    int id;
     std::vector<std::set<std::vector<double>>> edges;
     material mat;
     aabb bbox;
@@ -21,15 +21,15 @@ class triangle : public Hittable {
 
 class tri_hit_container {
    public:
-    triangle tri;
+    Triangle tri;
     ray r;
     interval t_interval;
     HitRecord& rec;
 };
 
-bool hit_triangle(const triangle& tri, const ray_itval& rt, const HitRecord& rec);
+bool hit_triangle(const Triangle& tri, const ray_itval& rt, const HitRecord& rec);
 
-set_usertype_enabled(triangle);
-set_usertype_enabled(triangle*);
+set_usertype_enabled(Triangle);
+set_usertype_enabled(Triangle*);
 
 #endif  // !TRIANGLE_H

@@ -1,5 +1,5 @@
-#ifndef SPHERE_H
-#define SPHERE_H
+#ifndef sphere_H
+#define sphere_H
 
 #include <cmath>
 #include <functional>
@@ -10,7 +10,7 @@
 #include "material.h"
 #include "math_util.h"
 
-class Sphere : public Hittable {
+class sphere : public Hittable {
     public:
         std::vector<double> center;
         double radius;
@@ -20,7 +20,7 @@ class Sphere : public Hittable {
         bool hit(const ray_itval&, const HitRecord& rec) const;
 };
 
-set_usertype_enabled(Sphere);
-set_usertype_enabled(Sphere*);
+set_usertype_enabled(sphere);
+set_usertype_enabled(sphere*);
 
-#endif // SPHERE_H
+#endif // sphere_H
