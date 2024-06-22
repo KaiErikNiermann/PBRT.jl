@@ -157,7 +157,7 @@ function custom_scene(obj_file)::scene
 
     # image
     aspect_ratio = 16.0 / 9.0
-    width = 10
+    width = 100
     height = trunc(Int, width / aspect_ratio)
     samples_per_pixel = 50
     max_depth = 50
@@ -171,17 +171,17 @@ function custom_scene(obj_file)::scene
     push!(world_l, sphere([0.0, -100.5, -1.0], 100.0, ground_material))
     push!(world_l, sphere([0.0, -100.5, -1.0], 100.0, ground_material))
 
-    for face in sc.f_array[1:10]
-        if length(face.vertices) == 3
-            t1 = Triangle(face.vertices[1], face.vertices[2], face.vertices[3], metal(random_color(), 0.0))
-            push!(world_l, t1)
-		elseif length(face.vertices) == 4
-            triangles = split_quad(face.vertices)
-            for t in triangles
-                push!(world_l, t)
-            end
-        end
-    end
+    # for face in sc.f_array
+    #     if length(face.vertices) == 3
+    #         t1 = Triangle(face.vertices[1], face.vertices[2], face.vertices[3], metal(random_color(), 0.0))
+    #         push!(world_l, t1)
+	# 	elseif length(face.vertices) == 4
+    #         triangles = split_quad(face.vertices)
+    #         for t in triangles
+    #             push!(world_l, t)
+    #         end
+    #     end
+    # end
 
     world = bvh_node(world_l, node)
     world = hittable_list([world], world.bbox)

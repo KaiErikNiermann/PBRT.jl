@@ -26,24 +26,6 @@ void inti_pbrt() {
     Main.safe_eval("using PBRT");
 }
 
-// function to print bvh_tree
-void print_bvh_tree(const Hittable* hit, int depth = 0) {
-    std::string indent = "";
-    for (int i = 0; i < depth; i++) {
-        indent += "  ";
-    }
-
-    if (auto tri = dynamic_cast<const Triangle*>(hit)) {
-        std::cout << indent << "Triangle" << std::endl;
-    } else if (auto sph = dynamic_cast<const sphere*>(hit)) {
-        std::cout << indent << "Sphere" << std::endl;
-    } else if (auto bvh = dynamic_cast<const bvh_node*>(hit)) {
-        std::cout << indent << "BVH" << std::endl;
-        print_bvh_tree(bvh->left.get(), depth + 1);
-        print_bvh_tree(bvh->right.get(), depth + 1);
-    }    
-}
-
 void register_functions() {
     jluna::unsafe::Value* hit_bvh_f = as_julia_function<bool(bvh_node, ray_itval, HitRecord)>(
         [](const bvh_node& bvh, const ray_itval& r, const HitRecord& rec) -> bool {
