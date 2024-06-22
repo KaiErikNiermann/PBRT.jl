@@ -72,6 +72,102 @@ Install the project...
 -- Up-to-date: /usr/local/lib/cmake/jluna/jluna-targets.cmake
 -- Up-to-date: /usr/local/lib/cmake/jluna/jluna-targets-noconfig.cmake
 Consolidate compiler generated dependencies of target PBRT
-[ 10%] Building CXX object CMakeFiles/PBRT.dir/src/user_types.cpp.o
-[ 20%] Linking CXX executable PBRT
-[100%] Built target PBRT
+[ 10%] Building CXX object CMakeFiles/PBRT.dir/src/main.cpp.o
+/app/cpp_src/src/main.cpp:216:33: error: template constraint failure for ‘template<auto cst>  requires  is_ct_string<decltype(cst)> struct Map’
+  216 | struct Map<make_ct_string("int")> {
+      |                                 ^
+/app/cpp_src/src/main.cpp:216:33: note: constraints not satisfied
+/app/cpp_src/src/main.cpp: In substitution of ‘template<auto cst>  requires  is_ct_string<decltype(cst)> struct Map [with auto cst = ct_string<4>{"int"}]’:
+/app/cpp_src/src/main.cpp:216:33:   required from here
+/app/cpp_src/src/main.cpp:209:9:   required for the satisfaction of ‘is_ct_string<decltype (cst)>’ [with cst = _ZTAXtl9ct_stringILm4EEtlA4_cLc105ELc110ELc116EEEE]
+/app/cpp_src/src/main.cpp:209:43: note: the expression ‘is_ct_string_t<T>::value [with T = const ct_string<4>]’ evaluated to ‘false’
+  209 | concept is_ct_string = is_ct_string_t<T>::value;
+      |                                           ^~~~~
+/app/cpp_src/src/main.cpp:221:36: error: template constraint failure for ‘template<auto cst>  requires  is_ct_string<decltype(cst)> struct Map’
+  221 | struct Map<make_ct_string("double")> {
+      |                                    ^
+/app/cpp_src/src/main.cpp:221:36: note: constraints not satisfied
+/app/cpp_src/src/main.cpp: In substitution of ‘template<auto cst>  requires  is_ct_string<decltype(cst)> struct Map [with auto cst = ct_string<7>{"double"}]’:
+/app/cpp_src/src/main.cpp:221:36:   required from here
+/app/cpp_src/src/main.cpp:209:9:   required for the satisfaction of ‘is_ct_string<decltype (cst)>’ [with cst = _ZTAXtl9ct_stringILm7EEtlA7_cLc100ELc111ELc117ELc98ELc108ELc101EEEE]
+/app/cpp_src/src/main.cpp:209:43: note: the expression ‘is_ct_string_t<T>::value [with T = const ct_string<7>]’ evaluated to ‘false’
+  209 | concept is_ct_string = is_ct_string_t<T>::value;
+      |                                           ^~~~~
+/app/cpp_src/src/main.cpp:226:36: error: template constraint failure for ‘template<auto cst>  requires  is_ct_string<decltype(cst)> struct Map’
+  226 | struct Map<make_ct_string("string")> {
+      |                                    ^
+/app/cpp_src/src/main.cpp:226:36: note: constraints not satisfied
+/app/cpp_src/src/main.cpp: In substitution of ‘template<auto cst>  requires  is_ct_string<decltype(cst)> struct Map [with auto cst = ct_string<7>{"string"}]’:
+/app/cpp_src/src/main.cpp:226:36:   required from here
+/app/cpp_src/src/main.cpp:209:9:   required for the satisfaction of ‘is_ct_string<decltype (cst)>’ [with cst = _ZTAXtl9ct_stringILm7EEtlA7_cLc115ELc116ELc114ELc105ELc110ELc103EEEE]
+/app/cpp_src/src/main.cpp:209:43: note: the expression ‘is_ct_string_t<T>::value [with T = const ct_string<7>]’ evaluated to ‘false’
+  209 | concept is_ct_string = is_ct_string_t<T>::value;
+      |                                           ^~~~~
+/app/cpp_src/src/main.cpp: In function ‘int main(int, char**)’:
+/app/cpp_src/src/main.cpp:265:65: error: no matching function for call to ‘register_type<ct_string<4>{"int"}>()’
+  265 | #define REGISTER_TYPE(name) register_type<make_ct_string(#name)>()
+      |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/app/cpp_src/src/main.cpp:295:9: note: in expansion of macro ‘REGISTER_TYPE’
+  295 |         REGISTER_TYPE(int);
+      |         ^~~~~~~~~~~~~
+/app/cpp_src/src/main.cpp:261:6: note: candidate: ‘template<auto cst>  requires  is_ct_string<decltype(cst)> void register_type()’
+  261 | void register_type() {
+      |      ^~~~~~~~~~~~~
+/app/cpp_src/src/main.cpp:261:6: note:   template argument deduction/substitution failed:
+/app/cpp_src/src/main.cpp:261:6: note: constraints not satisfied
+/app/cpp_src/src/main.cpp: In substitution of ‘template<auto cst>  requires  is_ct_string<decltype(cst)> void register_type() [with auto cst = ct_string<4>{"int"}]’:
+/app/cpp_src/src/main.cpp:295:9:   required from here
+/app/cpp_src/src/main.cpp:209:9:   required for the satisfaction of ‘is_ct_string<decltype (cst)>’ [with cst = _ZTAXtl9ct_stringILm4EEtlA4_cLc105ELc110ELc116EEEE]
+/app/cpp_src/src/main.cpp:209:43: note: the expression ‘is_ct_string_t<T>::value [with T = const ct_string<4>]’ evaluated to ‘false’
+  209 | concept is_ct_string = is_ct_string_t<T>::value;
+      |                                           ^~~~~
+/app/cpp_src/src/main.cpp:265:65: error: no matching function for call to ‘register_type<ct_string<7>{"double"}>()’
+  265 | #define REGISTER_TYPE(name) register_type<make_ct_string(#name)>()
+      |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/app/cpp_src/src/main.cpp:296:9: note: in expansion of macro ‘REGISTER_TYPE’
+  296 |         REGISTER_TYPE(double);
+      |         ^~~~~~~~~~~~~
+/app/cpp_src/src/main.cpp:261:6: note: candidate: ‘template<auto cst>  requires  is_ct_string<decltype(cst)> void register_type()’
+  261 | void register_type() {
+      |      ^~~~~~~~~~~~~
+/app/cpp_src/src/main.cpp:261:6: note:   template argument deduction/substitution failed:
+/app/cpp_src/src/main.cpp:261:6: note: constraints not satisfied
+/app/cpp_src/src/main.cpp: In substitution of ‘template<auto cst>  requires  is_ct_string<decltype(cst)> void register_type() [with auto cst = ct_string<7>{"double"}]’:
+/app/cpp_src/src/main.cpp:296:9:   required from here
+/app/cpp_src/src/main.cpp:209:9:   required for the satisfaction of ‘is_ct_string<decltype (cst)>’ [with cst = _ZTAXtl9ct_stringILm7EEtlA7_cLc100ELc111ELc117ELc98ELc108ELc101EEEE]
+/app/cpp_src/src/main.cpp:209:43: note: the expression ‘is_ct_string_t<T>::value [with T = const ct_string<7>]’ evaluated to ‘false’
+  209 | concept is_ct_string = is_ct_string_t<T>::value;
+      |                                           ^~~~~
+/app/cpp_src/src/main.cpp:265:65: error: no matching function for call to ‘register_type<ct_string<7>{"string"}>()’
+  265 | #define REGISTER_TYPE(name) register_type<make_ct_string(#name)>()
+      |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/app/cpp_src/src/main.cpp:297:9: note: in expansion of macro ‘REGISTER_TYPE’
+  297 |         REGISTER_TYPE(string);
+      |         ^~~~~~~~~~~~~
+/app/cpp_src/src/main.cpp:261:6: note: candidate: ‘template<auto cst>  requires  is_ct_string<decltype(cst)> void register_type()’
+  261 | void register_type() {
+      |      ^~~~~~~~~~~~~
+/app/cpp_src/src/main.cpp:261:6: note:   template argument deduction/substitution failed:
+/app/cpp_src/src/main.cpp:261:6: note: constraints not satisfied
+/app/cpp_src/src/main.cpp: In substitution of ‘template<auto cst>  requires  is_ct_string<decltype(cst)> void register_type() [with auto cst = ct_string<7>{"string"}]’:
+/app/cpp_src/src/main.cpp:297:9:   required from here
+/app/cpp_src/src/main.cpp:209:9:   required for the satisfaction of ‘is_ct_string<decltype (cst)>’ [with cst = _ZTAXtl9ct_stringILm7EEtlA7_cLc115ELc116ELc114ELc105ELc110ELc103EEEE]
+/app/cpp_src/src/main.cpp:209:43: note: the expression ‘is_ct_string_t<T>::value [with T = const ct_string<7>]’ evaluated to ‘false’
+  209 | concept is_ct_string = is_ct_string_t<T>::value;
+      |                                           ^~~~~
+In file included from /usr/include/c++/11/bits/std_thread.h:44,
+                 from /usr/include/c++/11/stop_token:35,
+                 from /usr/include/c++/11/thread:40,
+                 from /usr/local/include/jluna/include/multi_threading.hpp:13,
+                 from /usr/local/include/jluna/jluna.hpp:17,
+                 from /app/cpp_src/src/main.cpp:6:
+/usr/include/c++/11/bits/unique_ptr.h: In instantiation of ‘void std::default_delete<_Tp>::operator()(_Tp*) const [with _Tp = void]’:
+/usr/include/c++/11/bits/unique_ptr.h:361:17:   required from ‘std::unique_ptr<_Tp, _Dp>::~unique_ptr() [with _Tp = void; _Dp = std::default_delete<void>]’
+/app/cpp_src/src/main.cpp:249:30:   required from here
+/usr/include/c++/11/bits/unique_ptr.h:81:23: error: static assertion failed: can't delete pointer to incomplete type
+   81 |         static_assert(!is_void<_Tp>::value,
+      |                       ^~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/11/bits/unique_ptr.h:81:23: note: ‘!(bool)std::integral_constant<bool, true>::value’ evaluates to false
+gmake[2]: *** [CMakeFiles/PBRT.dir/build.make:132: CMakeFiles/PBRT.dir/src/main.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/PBRT.dir/all] Error 2
+gmake: *** [Makefile:91: all] Error 2

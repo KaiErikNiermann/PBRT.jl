@@ -175,7 +175,12 @@ void assign_shared_ptr(std::shared_ptr<B>& val, B* in) {
     }());
 } 
 
-int main() {
+template <typename T> 
+void print_type() {
+    std::cout << typeid(T).name() << std::endl;
+};
+
+int main( int argc, char* argv[] ) {
     initialize();
     inti_pbrt();
 
@@ -183,6 +188,16 @@ int main() {
     register_functions();
 
     render_scene("../scenes/cottage_obj.obj");
+
+    // jl_value_t* bvh_node_ex = Main.safe_eval("return PBRT.bvh_node(PBRT.Triangle(), PBRT.Triangle(), PBRT.aabb())");
+    // bvh_node b1 = jluna::unbox<bvh_node>(bvh_node_ex);
+    // // cast left and right to tri
+    // Triangle* t1 = dynamic_cast<Triangle*>(b1.left.get());
+    // Triangle* t2 = dynamic_cast<Triangle*>(b1.right.get());
+    // std::vector<double> B = t2->B; 
+    // for (auto& i : B) {
+    //     std::cout << i << std::endl;
+    // }
 
     return 0;
 }
