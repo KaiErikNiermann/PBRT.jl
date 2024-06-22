@@ -48,6 +48,15 @@ RUN cd py_src && \
     cd .. 
 
 # setup cpp 
+RUN cd cpp_src && \
+    rm -rf CMakeFiles && \
+    rm -f cmake_install.cmake && \
+    rm -f CMakeCache.txt && \
+    rm -f Makefile && \
+    bash install_deps.sh && \
+    cmake . && \
+    make && \
+    cd ..
 
 # install sudo 
 RUN apt-get install -y sudo
