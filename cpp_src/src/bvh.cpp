@@ -1,5 +1,35 @@
 #include "bvh.h"
 
-bool hit_bvh(const bvh_node& node, const ray_itval& rt, const HitRecord& rec) {
-    return false;
+bool bvh_node::hit(const ray_itval& rt, const HitRecord& rec) const {
+    if (!hit_aabb(bbox, rt.r, rt.t)) {
+        return false;
+    }
+    
+    bool hit_left = false; 
+    bool hit_right = false;
+    
+    if (auto tri = std::dynamic_pointer_cast<triangle>(left)) {
+        hit_left = tri->hit(rt, rec);
+    } 
+    if (auto tri = std::dynamic_pointer_cast<triangle>(right)) {
+        hit_right = tri->hit(rt, rec);
+    }
+    if (auto sph = std::dynamic_pointer_cast<Sphere>(left)) {
+        hit_left = sph->hit(rt, rec);
+    }
+    if (auto sph = std::dynamic_pointer_cast<Sphere>(right)) {
+        hit_right = sph->hit(rt, rec);
+    }
+    if (auto bvh = std::dynamic_pointer_cast<bvh_node>(left)) {
+        hit_left = bvh->hit(rt, rec);
+    }
+    if (auto bvh = std::dynamic_pointer_cast<bvh_node>(right)) {
+        hit_right = bvh->hit(rt, rec);
+    }
+
+    if (hit_left || hit_right) {
+        std::cout << "hit" << std::endl;
+    }
+
+    return hit_left || hit_right;
 }

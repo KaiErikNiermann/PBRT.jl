@@ -21,5 +21,6 @@ class Sphere : public Hittable {
 };
 
 set_usertype_enabled(Sphere);
+set_usertype_enabled(Sphere*);
 
 #endif // SPHERE_H

@@ -10,5 +10,6 @@ class color {
 };
 
 set_usertype_enabled(color);
+set_usertype_enabled(color*);
 
 #endif // !COLOR_H

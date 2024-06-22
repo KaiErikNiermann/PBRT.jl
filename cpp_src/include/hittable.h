@@ -23,11 +23,14 @@ class Hittable {
     public: 
         Hittable() = default;
         virtual ~Hittable() = default;
+        virtual bool hit(const ray_itval& rt, const HitRecord& rec) const = 0;
 };
 
 std::vector<double> scale(std::vector<double> v, double s);
 
 set_usertype_enabled(Hittable);
+set_usertype_enabled(Hittable*);
 set_usertype_enabled(HitRecord);
+set_usertype_enabled(HitRecord*);
 
 #endif // HITTABLE_H

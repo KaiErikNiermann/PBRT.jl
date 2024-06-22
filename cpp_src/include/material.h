@@ -24,7 +24,10 @@ class dielectric : public material {
 };
 
 set_usertype_enabled(material);
+set_usertype_enabled(material*);
 set_usertype_enabled(metal)
+set_usertype_enabled(metal*)
 set_usertype_enabled(dielectric)
+set_usertype_enabled(dielectric*)
 
 #endif // !MATERIAL_H

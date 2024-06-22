@@ -30,5 +30,6 @@ class tri_hit_container {
 bool hit_triangle(const triangle& tri, const ray_itval& rt, const HitRecord& rec);
 
 set_usertype_enabled(triangle);
+set_usertype_enabled(triangle*);
 
 #endif  // !TRIANGLE_H
