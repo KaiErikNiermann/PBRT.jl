@@ -7,6 +7,8 @@
 #include <string>
 #include <typeinfo>
 #include <unordered_map>
+#include <chrono>
+#include <fstream>
 
 #include "aabb.h"
 #include "bvh.h"
@@ -29,7 +31,24 @@ void inti_pbrt() {
 void register_functions() {
     jluna::unsafe::Value* hit_bvh_f = as_julia_function<bool(bvh_node, ray_itval, HitRecord)>(
         [](const bvh_node& bvh, const ray_itval& r, const HitRecord& rec) -> bool {
-            return bvh.hit(r, rec);
+            auto start = std::chrono::high_resolution_clock::now();
+
+            bool result = bvh.hit(r, rec);
+
+            auto end = std::chrono::high_resolution_clock::now();
+
+            std::chrono::duration<double> duration = end - start;
+            double timeTaken = duration.count();
+
+            std::ofstream file("cpp_t_real.csv", std::ios::app);
+            if (file.is_open()) {
+                file << timeTaken << "\n";
+                file.close();
+            } else {
+                std::cerr << "Unable to open the file for writing\n";
+            }
+
+            return result;
         });
    
     Main.create_or_assign("hit_bvh", hit_bvh_f);
