@@ -45,32 +45,12 @@ void print_bvh_tree(const Hittable* hit, int depth = 0) {
 }
 
 void register_functions() {
-    // jluna::unsafe::Value* hit_aabb_f = as_julia_function<bool(aabb, ray, interval)>(
-    //     [](const aabb& box, const ray& r, const interval& ray_t) -> bool {
-    //         return hit_aabb(box, r, ray_t);
-    //     });
-    // jluna::unsafe::Value* hit_triangle_f = as_julia_function<bool(Triangle, ray_itval, HitRecord)>(
-    //     [](const Triangle& tri, const ray_itval& r, const HitRecord& rec) -> bool {
-    //         return tri.hit(r, rec);
-    //     });
-    // jluna::unsafe::Value* hit_sphere_f = as_julia_function<bool(sphere, ray_itval, HitRecord)>(
-    //     [](const sphere& s, const ray_itval& r, const HitRecord& rec) -> bool {
-    //         return s.hit(r, rec);
-    //     });
     jluna::unsafe::Value* hit_bvh_f = as_julia_function<bool(bvh_node, ray_itval, HitRecord)>(
         [](const bvh_node& bvh, const ray_itval& r, const HitRecord& rec) -> bool {
             return bvh.hit(r, rec);
         });
-
-    // Redefine hit functions
-    // Main.create_or_assign("hit_aabb", hit_aabb_f);
-    // Main.create_or_assign("hit_triangle", hit_triangle_f);
-    // Main.create_or_assign("hit_sphere", hit_sphere_f);
+   
     Main.create_or_assign("hit_bvh", hit_bvh_f);
-
-    // Main.safe_eval(funcs::hit_aabb);
-    // Main.safe_eval(funcs::hit_triangle);
-    // Main.safe_eval(funcs::hit_sphere);
     Main.safe_eval(funcs::hit_bvh);
 }
 

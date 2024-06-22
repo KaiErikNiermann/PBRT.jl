@@ -1,7 +1,6 @@
 #include "triangle.h"
 
 bool Triangle::hit(const ray_itval& rt, const HitRecord& rec) const {
-    std::cout << "triangle hit" << std::endl;
     std::vector<double> e1 = {this->B[0] - this->A[0], this->B[1] - this->A[1], this->B[2] - this->A[2]};
     std::vector<double> e2 = {this->C[0] - this->A[0], this->C[1] - this->A[1], this->C[2] - this->A[2]};
     std::vector<double> normal = cross(e1, e2);
