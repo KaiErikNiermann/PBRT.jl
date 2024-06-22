@@ -171,7 +171,7 @@ function custom_scene(obj_file)::scene
     push!(world_l, sphere([0.0, -100.5, -1.0], 100.0, ground_material))
     push!(world_l, sphere([0.0, -100.5, -1.0], 100.0, ground_material))
 
-    for face in sc.f_array[:10]
+    for face in sc.f_array[1:10]
         if length(face.vertices) == 3
             t1 = Triangle(face.vertices[1], face.vertices[2], face.vertices[3], metal(random_color(), 0.0))
             push!(world_l, t1)
