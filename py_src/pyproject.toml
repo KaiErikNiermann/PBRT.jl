@@ -19,6 +19,7 @@ opencv-python = "^4.9.0.80"
 seaborn = "^0.13.2"
 ipykernel = "^6.29.4"
 scipy = "^1.13.1"
+flameprof = "^0.4"
 
 [build-system]
 requires = ["poetry-core"]

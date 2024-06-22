@@ -23,10 +23,10 @@ def hit_bvh(node: bvh_node, rt: ray_itval, rec: HitRecord) -> bool:
         
         return (hit_left or hit_right)
     
-    t1 = time.time()
+    # t1 = time.time()
     res = hit(node, rt, rec)
-    t2 = time.time()
-    with open("py_t_real.csv", 'a') as f:
-        f.write(f"{t2-t1}\n")
+    # t2 = time.time()
+    # with open("py_t_real.csv", 'a') as f:
+        # f.write(f"{t2-t1}\n")
     
     return res
