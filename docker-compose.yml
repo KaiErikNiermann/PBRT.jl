@@ -1,0 +1,16 @@
+version: '3'
+services:
+  thesis-runner:
+    image: thesis-runner  # Replace with the actual image name
+    privileged: true
+    cap_add:
+      - SYS_ADMIN
+      - PERFMON
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - /proc:/hostproc:ro
+      - "./:/mnt/data"
+    stdin_open: true
+    tty: true
+    command: /bin/bash  # Replace with the command to execute inside the container, if needed
