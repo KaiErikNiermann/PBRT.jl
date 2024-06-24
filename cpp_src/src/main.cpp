@@ -135,11 +135,11 @@ class MyType {
                 [](T& instance, std::string jl_t) -> void {
                     size_t real_t_hash = MyType<T>::tstr_hash[jl_t];
                     if (real_t_hash == typeid(T).hash_code()) {
-                        // Property::setter(instance, MyType<T>::self_construct())
+                        Property::setter(instance, MyType<T>::self_construct())
                     } else {
                         ([&real_t_hash]() -> void {
                             if (real_t_hash == typeid(Derived).hash_code()) {
-                                // Property::setter(instance, MyType<Derived>::self_construct())
+                                Property::setter(instance, MyType<Derived>::self_construct())
                             }
                         }(),
                         ...);

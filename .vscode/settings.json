@@ -66,5 +66,6 @@
         "cstring": "cpp",
         "unordered_set": "cpp",
         "any": "cpp"
-    }
+    },
+    "latex-workshop.latex.recipe.default": "latexmk (xelatex)",
 }

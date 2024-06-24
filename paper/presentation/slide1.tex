@@ -1,0 +1,71 @@
+\documentclass{beamer}
+\usepackage{codestyle}
+\usepackage{pagestyle}
+\usetheme{Copenhagen}
+% make the header more minimal 
+\setbeamertemplate{headline}{
+    \leavevmode
+    \hbox{%
+        \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+            \insertsectionnavigationhorizontal{\paperwidth}{}{}
+        \end{beamercolorbox}%
+    }
+}
+
+% remove the footer in the copenhagen theme
+\setbeamertemplate{footline}{}
+
+\title{Cross-Language Component Testing: Performance and Interoperability Insights}
+\author{Kai Erik Niermann}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+\input{introduction.tex}
+\subsection{Motivation}
+\input{motivation.tex} 
+
+\section{Research Questions}
+\input{RQs.tex}
+
+\section{Study design}
+\subsection{System Design}
+\input{system-design.tex}
+\subsection{Approach}
+\input{approach.tex}
+
+\section{Methodology}
+\subsection{rewriting}
+\input{rewriting.tex}
+\subsection{choice of apis}
+\input{choice-of-apis.tex}
+\subsection{testing setup}
+\input{testing-setup.tex}
+
+\subsection{mapping}
+\input{dynamic-mapping.tex}
+\input{static-mapping.tex}
+\input{no-reflect-trivial.tex}
+\subsection{improved static mapping}
+\input{no-reflect-better.tex}
+\input{no-reflect-better2.tex}
+\input{no-reflect-better3.tex}
+
+\section{Discussion}
+\input{limitations.tex}
+\input{benefits.tex}
+\input{impact.tex}
+\section{Results}
+\input{baseline-performance.tex}
+\input{isolated-performance.tex}
+\input{results.tex}
+
+\end{document}

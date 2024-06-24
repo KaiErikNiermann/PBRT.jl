@@ -1,0 +1,23 @@
+
+\begin{frame}{Mapping Objects to Statically Typed Languages}
+    \textbf{Static Mapping}
+    \begin{itemize}
+        \item User describes interface for types (e.g., class/struct).
+        \item API maps Julia type to corresponding C++ type.
+        \item User-defined reflection system parses low-level types.
+    \end{itemize}
+    
+    \vspace{0.5cm}
+    \pause
+    \textbf{Getters and Setters:}
+    \begin{itemize}
+        \item Define functions $\text{get}(x)$ and $\text{put}(x)$.
+        \item Property $x$ represented as a string.
+        \item $\text{get}: S \rightarrow V = \text{object property } x$
+        \item $\text{set}: S, V \rightarrow S = \text{modified property } x$
+    \end{itemize}
+    
+    \vspace{0.5cm}
+    \pause
+    \textbf{Note:} Similar to functional programming lens.
+\end{frame}

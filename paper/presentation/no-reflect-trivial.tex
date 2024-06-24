@@ -1,0 +1,24 @@
+\begin{frame}{Challenges with Getter/Setter Pairs}
+    \begin{block}{Limitation} 
+        Issues arise when source $S$ has an abstract type.
+    \end{block}
+    \textbf{Notation}
+        \begin{itemize}
+            \item $[S: T]$, $[V: T]$ represent source and value types.
+            \item $\text{set}: [S: T_B], [V: T_{bi}] \rightarrow S_m$
+        \end{itemize}
+    \textit{Problem}: Julia uses strings for type representation:
+        \begin{itemize}
+            \item $\text{set}: [S: T_B], [V: \text{str}(T_{bi})] \rightarrow S_m$
+            \item Need to map strings to C++ types.
+        \end{itemize}
+    \textit{Solution}: Create a mapping mechanism
+        \begin{itemize}
+            \item string to type mapping $st$ and type comparison $f$:
+            \[
+                st: \text{str}(T_i) \rightarrow \text{typeinf}(T_i) \quad f: st, \text{typeinf}(T_p) \rightarrow \text{bool}
+            \]
+            \item Use compile-time code generation with variadic templates.
+        \end{itemize}
+    Achieve correspondence using fold expressions on variadic templates.
+\end{frame}

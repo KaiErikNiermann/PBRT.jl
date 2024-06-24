@@ -1,0 +1,21 @@
+\begin{frame}{Limitations}
+    \textbf{Considerations}
+    \begin{itemize}
+        \item Users must specify class properties via lambdas. 
+        \begin{itemize}
+            \item Macros can simplify this process but its not ideal.
+        \end{itemize}
+        \pause
+        \item All derived types must be passed to objects with base type attributes.
+        \begin{itemize}
+            \item Tradeoff in library complexity and maintainability vs user defined types. 
+        \end{itemize} 
+        \pause
+        \item Still requires additional user defined type specifications to allow for introspection
+    \end{itemize}
+    \pause
+    \begin{block}{key challenge}
+        Find some means of having the base type interface discern the correct derived type to instantiate.
+    \end{block}
+\end{frame}
+    

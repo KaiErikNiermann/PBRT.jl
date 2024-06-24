@@ -1,0 +1,21 @@
+\begin{frame}{Testing Approach: Q \& A Format}
+    \begin{itemize}
+        \item How do we isolate the most performance impacting component?
+        \begin{itemize}
+            \item Profile our application for runtime and memory.
+            \item Use the profiling data to make a judgement on the most performance impacting component.
+        \end{itemize}
+        \pause
+        \item What languages do we choose for rewriting?
+        \begin{itemize}
+            \item Choose languages with embedding APIs for Julia. 
+            \item Opt for Python and C++ due to their differing fundamental properties and available interface libraries.
+        \end{itemize}
+        \pause
+        \item How do we test the rewritten components?
+        \begin{itemize}
+            \item Use the language specific benchmarking tools to test components in isolation.
+            \item Use Julia's benchmarking tools to test compontents \& overhead 
+        \end{itemize}
+    \end{itemize}
+\end{frame}

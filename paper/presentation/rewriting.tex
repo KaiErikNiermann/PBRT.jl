@@ -1,0 +1,25 @@
+\begin{frame}[fragile]{rewriting}
+    \begin{itemize}
+        \item Most performance impact: hit functions, crucial for ray tracing efficiency.
+        \pause
+        \item Efficiency concern: If target languages perform poorly with hit functions, rewriting the entire ray tracer may not be feasible.
+        \pause
+        \item Rewriting components: Trivial task due to similar syntax across languages.
+    \end{itemize}
+
+\textbf{C++}
+\begin{lstlisting}
+bool hit(const aabb& box, const ray& r, const interval& ray_t);
+\end{lstlisting}
+
+\textbf{Python}
+\begin{lstlisting}
+def hit(bbox: aabb, r: ray, ray_t: interval[float]) -> bool:
+\end{lstlisting} 
+
+\textbf{Julia}
+\begin{lstlisting}
+function hit!(bbox::aabb, r::ray, ray_t::interval)::Bool
+\end{lstlisting}
+    
+\end{frame}

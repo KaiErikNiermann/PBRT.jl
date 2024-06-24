@@ -1,0 +1,41 @@
+
+\begin{frame}
+    \frametitle{Choosing an Embedding API}
+    
+    Choosing the right embedding API to attach hit functions to the ray tracer implementation was crucial.
+    
+    \pause
+    
+    \textbf{Python}
+    \begin{itemize}
+        \item Python/JuliaCall API:
+        \begin{itemize}
+            \item Builds on previous implementations.
+            \item Supports extensive language conversions.
+        \end{itemize}
+    \end{itemize}
+    
+    \pause
+    
+    \textbf{C++}
+    \begin{itemize}
+        \item Options:
+        \begin{itemize}
+            \item CxxWrap: Feature-rich but less user-friendly.
+            \item (\textbf{choice}) Jluna: Newer, user-friendly, lacks some features
+        \end{itemize}
+    \end{itemize}
+    
+    \pause
+    
+    \textbf{Considerations}
+    \begin{enumerate}
+        \item Choose an API that minimizes additional code.
+        \item Prefer an API that simplifies component attachment.
+    \end{enumerate}
+    
+    \pause
+    
+    Languages supporting reflection reduce additional code, simplifying rewriting and testing.
+    
+    \end{frame}

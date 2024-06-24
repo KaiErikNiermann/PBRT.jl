@@ -1,0 +1,28 @@
+\begin{frame}[fragile]
+    \frametitle{Improved Design with Varadic Templates}
+    
+    We can improve upon this design by utilizing varadic templates for types, getters, and setters to create a compile-time mapping:
+    \pause
+\begin{lstlisting}
+def initalize_type[T, attr..., derived...]() -> void:
+    fold => (attr,
+        mapping.insert(attr::name,
+            (
+                // getter
+                [instance: T]() { instance[T](attr::get(instance)) }
+                // setter 
+                [instance: T, jl_val: jlval, jl_type_string: str] {
+                    fold(derived,
+                        if (f(st(jl_type_string), typeinfo(derived))):
+                            attr::set(instance, instance[derived](jl_val))
+                            matched = true
+                        )                       
+                    if (!matched):
+                        attr::set(instance, instance[T](jl_val))
+                }
+            )
+        )
+    )
+
+\end{lstlisting}
+\end{frame}
