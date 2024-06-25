@@ -81,6 +81,18 @@ paper/proposal/*.bcf
 paper/proposal/*.bbl
 paper/proposal/*.run.xml
 paper/proposal/*.xdv
+
+paper/presentation/*.aux
+paper/presentation/*.log
+paper/presentation/*.out
+paper/presentation/*.fdb_latexmk
+paper/presentation/*.fls
+paper/presentation/*.synctex.gz
+paper/presentation/*.blg
+paper/presentation/*.bcf
+paper/presentation/*.bbl
+paper/presentation/*.run.xml
+paper/presentation/*.xdv
  
 # misc 
 **/*.ppm

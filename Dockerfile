@@ -53,10 +53,7 @@ RUN cd cpp_src && \
     rm -f cmake_install.cmake && \
     rm -f CMakeCache.txt && \
     rm -f Makefile && \
-    bash install_deps.sh && \
-    cmake . && \
-    make && \
-    cd ..
+    bash install_deps.sh 
 
 # install sudo 
 RUN apt-get install -y sudo
