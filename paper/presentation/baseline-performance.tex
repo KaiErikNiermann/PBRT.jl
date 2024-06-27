@@ -1,2 +1,24 @@
-\begin{frame}{Baseline performance}
+\begin{frame}{Baseline Performance analysis}
+        \textbf{Timing method}
+        \begin{itemize}
+            \item Call to \texttt{bvh\_hit} from Julia
+            \item Execution time in target languages (C++ and Python)
+        \end{itemize}
+        \pause
+        \textbf{Results}
+        \begin{itemize}
+            \item Julia: 
+            \begin{itemize}
+                \item Many calls near 0ms (no hit)
+                \item Some calls around 0.0010ms (ray intersection and computation)
+            \end{itemize}
+            \item Python and C++:
+            \begin{itemize}
+                \item Similar call time distribution (measured from Julia)
+                \item Overhead will be clearer in overhead-exclusive graphs
+            \end{itemize}
+        \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{assets/time-and-overhead.png} % Replace placeholder_graph with your actual graph file
+    \end{center}
 \end{frame}

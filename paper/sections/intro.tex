@@ -1,4 +1,4 @@
-\section{Introduction} \label{s:intro}
+\section{Introduction}\label{s:intro}
 
 % \TODO{
 % This section includes the context and motivation behind the work, explicitly or implicitly highlights the main research question(s), provides a high-level explanation of the solution, and describes the contributions.}
@@ -6,31 +6,29 @@
 % \TODO{Context, motivation, research question asds, and original contribution could be organized in subsections.}
 
 
+Rewriting software components; or entire systems; in a different language is a common practice to address various limitations caused by the original implementation language, including but not limited to performance, maintainability, and scalability. The primary motivation behind rewriting is to leverage the strengths of the new language to address the limitations of the original language. However, rewriting a large system, especially in a different language with potentially different paradigms can be a complex and time-consuming task. This study aims to asses the viability of leveraging language interoperability to simplify and expedite the rewriting process.
 
+Most well known major software services today like Facebook, YouTube, Google, LinkedIn, Wordpress, etc. have all had either components many of them starting out with language such as PHP or Ruby on Rails because these were the popular choices back in the day and what the intial developers where likely the most familiar with. We can take YouTube as a good example, it was intially written largely in PHP, but as the platform grew this came with some key drawbacks, a key one being scalability, one reason for switching to Python (and C++) was because Python speifically had both a wider range of syntax expressions and more importantly a better optimizability. This allowed for rapid flexible development and deployment, in addition to scalability and performance at an improved maintainability over PHP.\  
 
-% \begin{figure}[!h]
-%     \input{tex_figures/main_interface.tex}
-% \end{figure}
+Similar stories exist for so many other platforms, as languages evolve and the second system effect comes into play we will naturally see software evolve to adapt to new requirements and technologies as developers realize their mistakes of the past. Though the rewriting process does not come without its own set of challenges. It could be argued that a contributing factor to the downfall of the Netscape browser was the decision to do a ground up rewrite of the browser, a reason for this being that the original code base was so messy developers did not want to contribute \textcite{pogue2000netscape}. The choice was then made to start from new, but by the time the browser released it still lacked a lot of basic features \textcite{zawinski1999resignation}. 
 
-% briefly talk about physically based rendering 
-Computational ray tracing and more broadly physically based rendering developed its theoretical foundation in the mid to late 20th century. As hardware improved the viability and practicality of ray tracing in various domains became more common. Alongside the improvements in hardware came the development ray-tracing specific hardware, more commonly known as application-specific integrated circuits or ASICs for short. These ASICs were specifically designed to accelerate common patterns in ray-tracing operations. Ray tracing ASICs where intially a largely academic pursuit from around the mid 90s to the early 2010s. In 2018 Nvidia announced its Turing architecture which included the first consumer-grade ray tracing ASIC, the RT core. 
+More broadly speaking the manner in which we choose to rewrite software in a different language should preferably align with the core motivation as best as we can, while mitigating as many of the downsides as possible. This is where the concept of language interoperability could come into play. Language interoperability can potentially offer some very interesting benefits, a key one being the ability to effectively implement a gradual/iterative rewrite while still allowing for the original code to be used. The benefit here being that we can leverage the strengths of the new language, still use existing familiar infrastructure, all while allowing the system to be iteratively improved without there being any major downtime untill the rewrite is complete.
 
-The introduction of the RT core in consumer-grade hardware marked a significant shift in the industry. Ray tracing was no longer a niche technology but readily available to the average consumer. Which in turn meant that applications of ray tracing could now be more widely adopted. A key area being the videogame industry. However with this wider adoption, especially for videogames came an increased focus on performance and optimizations.
-
-% talk about the relevance of performance and optimizations 
-
-% talk about the motivation behind the comparative analysis
-    % what is the general idea behind the analysis
-    % what are the goals of the analysis
-    % what are the expected outcomes of the analysis
-    % what isthe importance of this
-
-% give some of the research questions that will be answered in the analysis
-
-% give a brief overview of the methodology used in the analysis
-
-
-
+\begin{lstlisting}
+    //Example of interoperability between C and C++
+    #include <iostream>
+    extern "C" {
+        #include <stdio.h>
+        void c_function() {
+            printf("Hello from C\n");
+        }
+    }
+    int main() {
+        c_function();
+        std::cout << "Hello from C++" << std::endl;
+        return 0;
+    }
+\end{lstlisting}
 
 % ---------- templates for figures ----------------------- 
 

@@ -1,5 +1,6 @@
-\documentclass[sigconf,screen,9pt]{acmart}
-
+\documentclass[sigconf,screen,9pt,natbib=false]{acmart}
+\usepackage[style=ieee, sorting=nyt, urldate=long, date=long, backend=biber]{biblatex}
+\addbibresource{references.bib}
 % Flag to disable all editing macros and make the document ready for
 %  submission.
 \newif\ifEditMode
@@ -11,7 +12,6 @@
 % % other notes, TODOs and remarks. For more details, refer to the `reviewing
 % % macros' in the `vusec.sty' file.
 % \EditModefalse
-
 
 \usepackage{vu}
 \usepackage{frontmatter}
@@ -65,13 +65,11 @@
 }
 \email{\thauthoremail}
 
-
 \begin{abstract}
 \input{sections/abstract}
 \end{abstract}
 
 \maketitle
-
 
 \pagestyle{plain}
 \pagenumbering{arabic}
@@ -83,8 +81,8 @@
 \input{sections/related}
 \input{sections/conclusion}
 
-\bibliographystyle{ACM-Reference-Format}
-\bibliography{references}
+% \bibliographystyle{ACM-Reference-Format}
+\printbibliography
 
 \end{document}
 

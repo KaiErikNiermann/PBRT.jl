@@ -1,24 +1,24 @@
-\frametitle{Template Metafunctions for Object Properties}
+\frametitle{Rewriting}
+\begin{itemize}
+        \item Most performance impact: hit functions, crucial for ray tracing efficiency.
+        \pause
+        \item Efficiency concern: If target languages perform poorly with hit functions, rewriting the entire ray tracer may not be feasible.
+        \pause
+        \item Rewriting components: Trivial task due to similar syntax across languages.
+    \end{itemize}
 
-    Template metafunctions are used to define object properties:
+\textbf{C++}
+\begin{lstlisting}
+bool hit(const aabb& box, const ray& r, const interval& ray_t);
+\end{lstlisting}
 
-    \begin{lstlisting}
-    template <typename Ot, typename Ft, const char* name>
-    struct Property {
-        static constexpr const char* get_name() { return name; }
-        static std::function<Ft(Ot&)> getter;
-        static std::function<void(Ot&, Ft)> setter;
-    };
-    \end{lstlisting}
-    \pause
-    Example property declaration:
-    \begin{lstlisting}
-    Usertype<bvh_node>::initialize_type(
-        tl<
-            Property<bvh_node, Hittable*, #left>,
-            Property<bvh_node, Hittable*, #right>,
-            Property<bvh_node, aabb, #bbox>
-        >(),
-        tl<Triangle, Sphere, bvh_node>()
-    );
-    \end{lstlisting}
+\textbf{Python}
+\begin{lstlisting}
+def hit(bbox: aabb, r: ray, ray_t: interval[float]) -> bool:
+\end{lstlisting}
+
+\textbf{Julia}
+\begin{lstlisting}
+function hit!(bbox::aabb, r::ray, ray_t::interval)::Bool
+\end{lstlisting}
+

@@ -1,3 +1,17 @@
-\begin{frame}{Isolated performance}
-    
+\begin{frame}{Isolated Performance - RQ3}
+        \textbf{Results}
+        \begin{itemize}
+            \item C++ outperforms Julia and Python in component runtime.
+            \item Substantial overhead from Julia API (dynamic dispatch, type inference).
+            \item Julia performs well with type stability, hindered by dynamic calls.
+        \end{itemize}
+        \pause
+        \textbf{Conclusion}
+        \begin{itemize}
+            \item High-performance interop between different languages is challenging.
+            \item Effective on a smaller scale, but less viable for very different languages.
+        \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.45\textwidth]{assets/time-and-overhead-log.png} % Replace with your actual diagram file
+    \end{center}
 \end{frame}

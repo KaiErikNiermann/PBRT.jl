@@ -258,3 +258,27 @@ Thus putting it on par with the abilities of the juliacall API while offering th
 With the above described system I aimed to demonstrate that even if there is a lacking availability in interop libraries these are not necessarily too complex to work with and extend given the modern feature set of a language. So even if there are certain unique attributes of an implementation which might not be as trivially mapped, if we can implement a basic form of reflection or if a language already has this available, then we can generally utilize this effectively as a means of mapping low level object representations between languages.
 
 Furthermore since many existing statically typed languages do have some means of object introspection, either through direct support or via similar metaprogramming techniques, it gives ground to the simplicity in the application of these interop libraries as a means of at least testing components in an existing implementation.
+
+# Baseline performance 
+
+So, to look a bit into the performance side of things, I added timing points to two main sections, I timed the call to the bvh hit from julia and i timed the internal time it took for the call to execute in the target language, so c++ and python. This yielded the following results.
+
+These 3 graphs display the runtimes of all calls made to the bvh hit function. We can notice that for Julia most calls alternate betwen a runtime close to 0 which is generally the case where we immediately return because the ray doesn't hit anything and we have a bunch of calls with a longer runtime around 0.0010ms which can be described by the calls where we do actually have a ray intersection with an object and preform the computations
+
+With Python and C++ it becomes a little less clear initially. We can notice that the distribution in call times again measured from julia is within a similar range this can be explained by the overhead incurred which will become a bit clearer when we actually graph out the overhead exclusively. 
+
+# Isolated performance 
+
+Now while its not necessarily the most unexpected thing that using language embedding APIs incurs overhead in this instance I felt it made sense to dig a bit deeper and try to understand the actual source of this. Firstly I wanted to separate out the component runtime from the overhead runtime caused by making the calls to the target languages. 
+
+Doing this we can notice that the actual component runtimes accurately reflect the speed we would expect from the languages with C++ outperforming Julia and Python. 
+
+To look into why we have such a substantial overhead we can use `perf` to actually see which functions are yielding the most amount of overhead. The result revealed that for both Python and C++ the Julia API functions related to dynamic dispatch and type inference where the most heavily visited. While Julia when written trivially generally preforms not much better than something like Python in can preform incredibly well when written in a Type stable manner, that is to say when we don't force the JIT compiler to look for a function to execute and when it can use a cached compiled version. This is a behavior which is likely inhibited as in this case the JIT compiler cant just triviall run a cached precompiled version of the function but instead needs to preform various operations before it can utilize the C API to make the external calls. 
+
+This is one of the major downsides if you want to have high performance interop between languages which are alot more fundamentally different. On a smaller scale this might be effective but it does inhibit the viability of using interop between languages that are too different.  
+
+# Results
+
+So in the end there are a few key things I learned from this. Firstly, while different language APIs do utilize different approaches in the way they allow for the integration of foriegn programming languages into your program, the adaptation of these APIs to a specific use case does not pose a significant challenge. In addition metaprogramming techniques are an effect tool to implement these libraries in a generic and extensible manner. Nonetheless its an important consideration what API you use to rewrite a component since the ways in which they function can drastically impact the developer experience. 
+
+In terms of the performance there is indeed a considerable overhead but this is primarily caused by language incompatitibilites and can be potentially mitigated when doing interop with languages that function of similar execution methods. Thus while the use of these APIs for testing components works well enough based on this application using them in performance dependent production code is something that should be carefully tested beforehand and could be potentially looked into further.
