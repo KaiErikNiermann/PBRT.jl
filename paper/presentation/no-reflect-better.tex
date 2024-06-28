@@ -1,13 +1,13 @@
 \begin{frame}
     \frametitle{Optimizing Setter Functions}
     
-    An issue with the current approach:
+    Key issue with trivial approach
     \begin{itemize}
       \item Requires providing all derived types to each getter/setter pair.
-      \item Leads to significant overhead and potential errors.
+      \item Leads to annoying repeated user defined code and potential errors.
     \end{itemize}
     \pause 
-    Preferable solution:
+    \textit{Preferable solution}
     \begin{itemize}
       \item Define the set of derived types once.
       \item Allow all setters for attributes of a class to access this information.

@@ -5,55 +5,57 @@
 \headcommand {\beamer@sectionpages {1}{2}}
 \headcommand {\beamer@subsectionpages {1}{2}}
 \headcommand {\sectionentry {1}{Introduction}{3}{Introduction}{0}}
-\headcommand {\slideentry {1}{0}{1}{3/7}{}{0}}
-\headcommand {\beamer@framepages {3}{7}}
-\headcommand {\beamer@subsectionpages {3}{7}}
-\headcommand {\beamer@subsectionentry {0}{1}{1}{8}{Motivation}}
-\headcommand {\slideentry {1}{1}{1}{8/13}{Motivation}{0}}
-\headcommand {\beamer@framepages {8}{13}}
-\headcommand {\beamer@sectionpages {3}{13}}
-\headcommand {\beamer@subsectionpages {8}{13}}
-\headcommand {\sectionentry {2}{Research Questions}{14}{Research Questions}{0}}
-\headcommand {\slideentry {2}{0}{1}{14/16}{}{0}}
-\headcommand {\beamer@framepages {14}{16}}
-\headcommand {\beamer@sectionpages {14}{16}}
-\headcommand {\beamer@subsectionpages {14}{16}}
-\headcommand {\sectionentry {3}{Study design}{17}{Study design}{0}}
-\headcommand {\beamer@subsectionpages {17}{16}}
-\headcommand {\beamer@subsectionentry {0}{3}{1}{17}{System Design}}
-\headcommand {\slideentry {3}{1}{1}{17/20}{System Design}{0}}
-\headcommand {\beamer@framepages {17}{20}}
-\headcommand {\beamer@subsectionpages {17}{20}}
-\headcommand {\beamer@subsectionentry {0}{3}{2}{21}{Approach}}
-\headcommand {\slideentry {3}{2}{1}{21/23}{Approach}{0}}
-\headcommand {\beamer@framepages {21}{23}}
-\headcommand {\beamer@sectionpages {17}{23}}
-\headcommand {\beamer@subsectionpages {21}{23}}
-\headcommand {\sectionentry {4}{Methodology}{24}{Methodology}{0}}
-\headcommand {\beamer@subsectionpages {24}{23}}
-\headcommand {\beamer@subsectionentry {0}{4}{1}{24}{rewriting}}
-\headcommand {\slideentry {4}{1}{1}{24/26}{rewriting}{0}}
-\headcommand {\beamer@framepages {24}{26}}
-\headcommand {\beamer@subsectionpages {24}{26}}
-\headcommand {\beamer@subsectionentry {0}{4}{2}{27}{choice of apis}}
-\headcommand {\slideentry {4}{2}{1}{27/31}{choice of apis}{0}}
-\headcommand {\beamer@framepages {27}{31}}
-\headcommand {\beamer@subsectionpages {27}{31}}
-\headcommand {\beamer@subsectionentry {0}{4}{3}{32}{testing setup}}
-\headcommand {\slideentry {4}{3}{1}{32/32}{testing setup}{0}}
-\headcommand {\beamer@framepages {32}{32}}
-\headcommand {\beamer@subsectionpages {32}{32}}
-\headcommand {\beamer@subsectionentry {0}{4}{4}{33}{mapping}}
-\headcommand {\slideentry {4}{4}{1}{33/35}{mapping}{0}}
-\headcommand {\beamer@framepages {33}{35}}
-\headcommand {\slideentry {4}{4}{2}{36/36}{mapping}{0}}
-\headcommand {\beamer@framepages {36}{36}}
-\headcommand {\beamer@subsectionpages {33}{36}}
-\headcommand {\beamer@subsectionentry {0}{4}{5}{37}{improved static mapping}}
-\headcommand {\slideentry {4}{5}{1}{37/38}{improved static mapping}{0}}
+\headcommand {\slideentry {1}{0}{1}{3/5}{}{0}}
+\headcommand {\beamer@framepages {3}{5}}
+\headcommand {\beamer@subsectionpages {3}{5}}
+\headcommand {\beamer@subsectionentry {0}{1}{1}{6}{Motivation}}
+\headcommand {\slideentry {1}{1}{1}{6/11}{Motivation}{0}}
+\headcommand {\beamer@framepages {6}{11}}
+\headcommand {\beamer@sectionpages {3}{11}}
+\headcommand {\beamer@subsectionpages {6}{11}}
+\headcommand {\sectionentry {2}{Research Questions}{12}{Research Questions}{0}}
+\headcommand {\slideentry {2}{0}{1}{12/14}{}{0}}
+\headcommand {\beamer@framepages {12}{14}}
+\headcommand {\beamer@sectionpages {12}{14}}
+\headcommand {\beamer@subsectionpages {12}{14}}
+\headcommand {\sectionentry {3}{Study design}{15}{Study design}{0}}
+\headcommand {\beamer@subsectionpages {15}{14}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{15}{System Design}}
+\headcommand {\slideentry {3}{1}{1}{15/18}{System Design}{0}}
+\headcommand {\beamer@framepages {15}{18}}
+\headcommand {\beamer@subsectionpages {15}{18}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{19}{Approach}}
+\headcommand {\slideentry {3}{2}{1}{19/21}{Approach}{0}}
+\headcommand {\beamer@framepages {19}{21}}
+\headcommand {\beamer@sectionpages {15}{21}}
+\headcommand {\beamer@subsectionpages {19}{21}}
+\headcommand {\sectionentry {4}{Methodology}{22}{Methodology}{0}}
+\headcommand {\beamer@subsectionpages {22}{21}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{22}{rewriting}}
+\headcommand {\slideentry {4}{1}{1}{22/24}{rewriting}{0}}
+\headcommand {\beamer@framepages {22}{24}}
+\headcommand {\beamer@subsectionpages {22}{24}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{25}{choice of apis}}
+\headcommand {\slideentry {4}{2}{1}{25/29}{choice of apis}{0}}
+\headcommand {\beamer@framepages {25}{29}}
+\headcommand {\beamer@subsectionpages {25}{29}}
+\headcommand {\beamer@subsectionentry {0}{4}{3}{30}{testing setup}}
+\headcommand {\slideentry {4}{3}{1}{30/30}{testing setup}{0}}
+\headcommand {\beamer@framepages {30}{30}}
+\headcommand {\beamer@subsectionpages {30}{30}}
+\headcommand {\beamer@subsectionentry {0}{4}{4}{31}{mapping}}
+\headcommand {\slideentry {4}{4}{1}{31/33}{mapping}{0}}
+\headcommand {\beamer@framepages {31}{33}}
+\headcommand {\slideentry {4}{4}{2}{34/34}{mapping}{0}}
+\headcommand {\beamer@framepages {34}{34}}
+\headcommand {\beamer@subsectionpages {31}{34}}
+\headcommand {\beamer@subsectionentry {0}{4}{5}{35}{improved static mapping}}
+\headcommand {\slideentry {4}{5}{1}{35/36}{improved static mapping}{0}}
+\headcommand {\beamer@framepages {35}{36}}
+\headcommand {\slideentry {4}{5}{2}{37/38}{improved static mapping}{0}}
 \headcommand {\beamer@framepages {37}{38}}
-\headcommand {\beamer@sectionpages {24}{38}}
-\headcommand {\beamer@subsectionpages {37}{38}}
+\headcommand {\beamer@sectionpages {22}{38}}
+\headcommand {\beamer@subsectionpages {35}{38}}
 \headcommand {\sectionentry {5}{Discussion}{39}{Discussion}{0}}
 \headcommand {\slideentry {5}{0}{1}{39/42}{}{0}}
 \headcommand {\beamer@framepages {39}{42}}
@@ -74,4 +76,4 @@
 \headcommand {\beamer@subsectionpages {47}{51}}
 \headcommand {\beamer@sectionpages {47}{51}}
 \headcommand {\beamer@documentpages {51}}
-\headcommand {\gdef \inserttotalframenumber {19}}
+\headcommand {\gdef \inserttotalframenumber {20}}
