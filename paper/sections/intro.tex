@@ -14,22 +14,6 @@ Similar stories exist for so many other platforms, as languages evolve and the s
 
 More broadly speaking the manner in which we choose to rewrite software in a different language should preferably align with the core motivation as best as we can, while mitigating as many of the downsides as possible. This is where the concept of language interoperability could come into play. Language interoperability can potentially offer some very interesting benefits, a key one being the ability to effectively implement a gradual/iterative rewrite while still allowing for the original code to be used. The benefit here being that we can leverage the strengths of the new language, still use existing familiar infrastructure, all while allowing the system to be iteratively improved without there being any major downtime untill the rewrite is complete.
 
-\begin{lstlisting}
-    //Example of interoperability between C and C++
-    #include <iostream>
-    extern "C" {
-        #include <stdio.h>
-        void c_function() {
-            printf("Hello from C\n");
-        }
-    }
-    int main() {
-        c_function();
-        std::cout << "Hello from C++" << std::endl;
-        return 0;
-    }
-\end{lstlisting}
-
 % ---------- templates for figures ----------------------- 
 
 % \begin{figure}[bh]

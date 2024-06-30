@@ -1,18 +1,22 @@
-\section{Research Methods}
+\section{Research Methods}\label{s:method}
 
-\label{s:method}
+To examine the viability of FFI's in the context of testing the performance of a ray-tracing component in different languages a basic ray-tracing system was implemented first entirely in Julia. The most performance critical component was then isolated through profiling and implement in C++ and Python Jluna and Juliacall as the respective interop APIs. With this case study I aim to assess 3 key questions.
+\begin{itemize}
+    \item How can we effectively test the performance of a specific component of a system rewritten in another programming language?
+    \item How easy are language APIs to use when rewriting a larger component?
+    \item What are the performance characteristics of interop APIs with different types of guest languages? 
+\end{itemize}
 
-\TODO{
-In this section, you would provide a description of: the research strategy (well-formulated and justified); the data collection and data analysis methods; and a clear link explaining how research strategy and methods are suitable to answer the research question(s). Include a figure providing a overview of the whole thesis in terms of research strategies/methods, RQs, inputs and outputs. An example is given in Figure}.
+\subsection{Core Ray Tracer}
+The core system studied here was a ray tracer implementation in the Julia programming language based in part of RTI1W and PBRT. A ray tracer implementation offers some interesting challenges in the context of language interop. Firstly despite this implementation still being towards the minimal side of things it is complex enough to demonstrate interop in a uniquely applied setting. Additionally a nice benefit in this instance is that we have relatively distinct components, while this does not necessarily transfer to all types of systems it does in some ways mirror the Microservices architecture which is realtively common 
+% find out if this is true ?
+.
+Finally ray-tracers especially in the context of real time ray-tracing generally have the requirement of being highly performant, I believe this requirement will give some nice insights into how FFI act under this type of environment.
 
-\lipsum[1-3]
+\subsection{Isolation and Rewriting}
+So asses the above stated research questions I reasoned that in this instance if a certain language did not demonstrate good performance characteristics for a critical component of the system then rewriting the entire system in this language would likely not be a very effective approach. To isolate the critical component I looked at the callgraph from the \texttt{pprof} file and then allocations using the \texttt{--track-allocations=user} flag when executing the basic rendering for a scene. The choice of C++ and Python would allow for comparing interop between 2 very different languages while being able to use the original julia implementation as the baseline.
 
-\begin{figure*}[ht!]
-    \include{tex_figures/main_interface}
-    \figcap{System architecture of multi-language PBR renderer.}\label{fig:main_interface}
-\end{figure*}
-
-\lipsum[1-3]
+\subsection{Ease of use and Performance}
 
 % talk about memory optmizations 
 
