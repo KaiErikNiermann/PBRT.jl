@@ -70,21 +70,42 @@ function c()
     println("c")
 end
 
-
-
-
-
-
-
-
-
 abstract type A end 
 
-struct B <: A
+mutable struct B <: A
     str::String
 end
 
-struct C <: A
+mutable struct C <: A
     val::A
 end
 
+mutable struct D <: A
+    val::A
+end
+
+abstract type s1 end
+
+abstract type s2 end
+
+mutable struct var"s2*"
+    var"s2*"() = new()
+end
+
+mutable struct d1 <: s1
+    albedo::Vector{Float64}
+    d1() = new()
+end
+
+mutable struct var"d1*"
+    var"d1*"() = new()
+end
+
+mutable struct a1 <: s2
+    val::s1
+    a1() = new()
+end
+
+mutable struct var"a1*"
+    var"a1*"() = new()
+end

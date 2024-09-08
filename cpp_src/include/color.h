@@ -4,9 +4,9 @@
 
 class color {
     public:
-        double r;
-        double g;
-        double b;
+        float r;
+        float g;
+        float b;
 };
 
 set_usertype_enabled(color);

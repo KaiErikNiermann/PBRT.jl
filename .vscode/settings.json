@@ -1,5 +1,5 @@
 {
-    "cmake.sourceDirectory": "/app/cpp_src",
+    "cmake.sourceDirectory": "/mnt/data/cpp_src",
     "files.associations": {
         "iostream": "cpp",
         "array": "cpp",
@@ -65,7 +65,11 @@
         "semaphore": "cpp",
         "cstring": "cpp",
         "unordered_set": "cpp",
-        "any": "cpp"
+        "any": "cpp",
+        "variant": "cpp"
     },
     "latex-workshop.latex.recipe.default": "latexmk (xelatex)",
+    "makefile.configureOnOpen": true,
+    "lldb.library": "/swift/5.2.0/usr/lib/liblldb.so",
+    "lldb.launch.expressions": "native",
 }

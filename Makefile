@@ -21,3 +21,7 @@ render-with-allocs:
 mv-logs: 
 	mv $(SRC)*.mem logs/
 	mv $(SRC)*profile.pb.gz logs/
+
+mv-data: 
+	mv *.csv data/
+	mv *.ipynb data/

@@ -6,15 +6,21 @@
 #include "sphere.h"
 #include <jluna.hpp>
 
+class bvh_node;
+
+bool bvh_hit(const bvh_node& node, const ray_itval& rt, HitRecord* rec);
+
 class bvh_node : public Hittable {
     public:
         std::shared_ptr<Hittable> left;
         std::shared_ptr<Hittable> right;
         aabb bbox;
+        
 
-        virtual bool hit(const ray_itval& rt, const HitRecord& rec) const override;
+        bool hit(const ray_itval& rt, HitRecord* rec) const override {
+            return bvh_hit(*this, rt, rec);
+        }
 };
-
 
 set_usertype_enabled(bvh_node);
 set_usertype_enabled(bvh_node*);

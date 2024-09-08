@@ -10,20 +10,21 @@
 
 class HitRecord {
     public:
-        mutable double t;
         mutable std::vector<double> p;
         mutable std::vector<double> normal;
+        mutable std::shared_ptr<material> mat;
+        mutable double t;
         mutable bool front_face;
-        mutable material mat;
         mutable double u;
         mutable double v;
+        mutable bool hit;
 };
 
 class Hittable {
     public: 
         Hittable() = default;
         virtual ~Hittable() = default;
-        virtual bool hit(const ray_itval& rt, const HitRecord& rec) const = 0;
+        virtual bool hit(const ray_itval& rt, HitRecord* rec) const = 0;
 };
 
 std::vector<double> scale(std::vector<double> v, double s);

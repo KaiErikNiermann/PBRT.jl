@@ -1,6 +1,6 @@
 #include "triangle.h"
 
-bool Triangle::hit(const ray_itval& rt, const HitRecord& rec) const {
+bool Triangle::hit(const ray_itval& rt, HitRecord* rec) const {
     std::vector<double> e1 = {this->B[0] - this->A[0], this->B[1] - this->A[1], this->B[2] - this->A[2]};
     std::vector<double> e2 = {this->C[0] - this->A[0], this->C[1] - this->A[1], this->C[2] - this->A[2]};
     std::vector<double> normal = cross(e1, e2);
@@ -30,11 +30,10 @@ bool Triangle::hit(const ray_itval& rt, const HitRecord& rec) const {
         return false;
     }
 
-    rec.t = t_val;
-    rec.p = at(rt.r, t_val);
-    rec.normal = normal;
-    // set_face_normal(rec, rt.r, normal);
-    rec.mat = this->mat;
+    rec->t = t_val;
+    rec->p = at(rt.r, t_val);
+    rec->normal = normal;
+    rec->mat = this->mat;
 
     return true;
 };

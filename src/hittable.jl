@@ -6,7 +6,8 @@ mutable struct hit_record
     front_face::Bool
     u::Float64
     v::Float64
-    hit_record() = new([0.0, 0.0, 0.0], [0.0, 0.0, 0.0], lambertian(color([0.0, 0.0, 0.0])), 0.0, false)
+    hit::Bool
+    hit_record() = new([0.0, 0.0, 0.0], [0.0, 0.0, 0.0], lambertian(color([0.0, 0.0, 0.0])), 0.0, false, 0.0, 0.0, false)
 end
 
 mutable struct scatter_data

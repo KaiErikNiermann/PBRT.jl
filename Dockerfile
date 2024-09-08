@@ -55,6 +55,13 @@ RUN cd cpp_src && \
     rm -f Makefile && \
     bash install_deps.sh 
 
+# setup ctest 
+RUN apt-get update && apt-get install -y libgtest-dev cmake && \
+    cd /usr/src/gtest && \
+    cmake . && \
+    make && \
+    cp lib/*.a /usr/lib
+
 # install sudo 
 RUN apt-get install -y sudo
 

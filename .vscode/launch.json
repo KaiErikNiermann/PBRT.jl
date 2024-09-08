@@ -3,10 +3,10 @@
     "configurations": [
         {
             "name": "In debug",
-            "cwd": "${workspaceFolder}/build",
+            "cwd": "${workspaceFolder}/cpp_src/",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/PBRT", // Binary to exec
+            "program": "${workspaceFolder}/cpp_src/PBRT", // Binary to exec
             "stopAtEntry": false,
             "environment": [],
             "externalConsole": false,

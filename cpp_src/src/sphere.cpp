@@ -1,6 +1,6 @@
 #include "sphere.h"
 
-bool sphere::hit(const ray_itval& rt, const HitRecord& rec) const {
+bool sphere::hit(const ray_itval& rt, HitRecord* rec) const {
     std::vector<double> oc = subtract(rt.r.origin, this->center);
     double a = dot(rt.r.direction, rt.r.direction);
     double half_b = dot(oc, rt.r.direction);
@@ -21,16 +21,15 @@ bool sphere::hit(const ray_itval& rt, const HitRecord& rec) const {
         }
     }
 
-    rec.t = root;
-    rec.p = at(rt.r, root);
+    rec->t = root;
+    rec->p = at(rt.r, root);
     std::vector<double> outward_normal = {
-        (rec.p[0] - this->center[0]) / this->radius,
-        (rec.p[1] - this->center[1]) / this->radius,
-        (rec.p[2] - this->center[2]) / this->radius
+        (rec->p[0] - this->center[0]) / this->radius,
+        (rec->p[1] - this->center[1]) / this->radius,
+        (rec->p[2] - this->center[2]) / this->radius
     };
 
-    rec.normal = outward_normal;
-    // set_face_normal(rec, rt.r, outward_normal);
-    rec.mat = this->mat;
+    rec->normal = outward_normal;
+    rec->mat = this->mat;
     return true;
 };

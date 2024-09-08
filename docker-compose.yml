@@ -10,7 +10,7 @@ services:
       - seccomp:unconfined
     volumes:
       - /proc:/hostproc:ro
-      - "./:/mnt/data"
+      - "./:/mnt/thesis-project"
     stdin_open: true
     tty: true
     command: /bin/bash  # Replace with the command to execute inside the container, if needed

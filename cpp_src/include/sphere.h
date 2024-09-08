@@ -15,9 +15,9 @@ class sphere : public Hittable {
         std::vector<double> center;
         double radius;
         double r_squared;
-        material mat;
+        std::shared_ptr<material> mat;
         aabb bbox;
-        bool hit(const ray_itval&, const HitRecord& rec) const;
+        bool hit(const ray_itval&, HitRecord* rec) const override;
 };
 
 set_usertype_enabled(sphere);

@@ -43,7 +43,6 @@ function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::i
     write(file, "P3\n$width $height\n255\n")
     h_iter = tqdm(height-1:-1:0)
     for j in h_iter
-        # println(stderr, "Scanlines remaining: ", j)
         set_description(h_iter, "sl remaining: $j")
         for i in 0:1:width-1
             pixel_color = color([0.0, 0.0, 0.0])

@@ -157,7 +157,7 @@ function custom_scene(obj_file)::scene
 
     # image
     aspect_ratio = 16.0 / 9.0
-    width = 100
+    width = 50
     height = trunc(Int, width / aspect_ratio)
     samples_per_pixel = 50
     max_depth = 50
@@ -166,7 +166,7 @@ function custom_scene(obj_file)::scene
     world_l = hittable_list()
     node = bvh_node()
 
-    ground_material = metal(color([0.8, 0.8, 0.0]), 0.4)
+    ground_material = lambertian(color([0.8, 0.8, 0.0]))
 
     push!(world_l, sphere([0.0, -100.5, -1.0], 100.0, ground_material))
     push!(world_l, sphere([0.0, -100.5, -1.0], 100.0, ground_material))
@@ -185,6 +185,8 @@ function custom_scene(obj_file)::scene
 
     world = bvh_node(world_l, node)
     world = hittable_list([world], world.bbox)
+
+	print_bvh(world)
 
     # camera
     cam = camera(

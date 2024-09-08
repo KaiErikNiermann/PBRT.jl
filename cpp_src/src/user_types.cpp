@@ -15,7 +15,6 @@ bool assign_shared_ptr(std::shared_ptr<B>& val, B* in) {
     (..., [&]() -> void {
         if (auto d = dynamic_cast<D*>(in)) {
             val = std::shared_ptr<B>(std::make_shared<D>(*d));
-            // std::cout << "assigned " << typeid(D).name() << std::endl;
             assigned = true;
         }
     }());
@@ -100,6 +99,19 @@ void register_type_properties() {
         tl<>()
     );
 
+    var(albedo); 
+    using material_albedo = Property<lambertian, color, albedo>;
+
+    material_albedo::getter = [](lambertian& l) -> color { return l.albedo; };
+    material_albedo::setter = [](lambertian& l, const color& v) -> void { l.albedo = v; };
+
+    Usertype<lambertian>::initialize_type(
+        tl<
+            material_albedo
+        >(),
+        tl<>()
+    );
+
     // triangle
     var(A); var(B); var(C); var(id); var(edges); var(mat); var(bbox);
     using Triangle_A = Property<Triangle, std::vector<double>, A>;
@@ -107,7 +119,7 @@ void register_type_properties() {
     using Triangle_C = Property<Triangle, std::vector<double>, C>;
     using Triangle_id = Property<Triangle, int, id>;
     using Triangle_edges = Property<Triangle, std::vector<std::set<std::vector<double>>>, edges>;
-    using Triangle_mat = Property<Triangle, material, mat>;
+    using Triangle_mat = Property<Triangle, material*, mat>;
     using Triangle_bbox = Property<Triangle, aabb, bbox>;
 
     Triangle_A::getter = [](Triangle& t) -> std::vector<double> { return t.A; };
@@ -120,8 +132,12 @@ void register_type_properties() {
     Triangle_id::setter = [](Triangle& t, int v) -> void { t.id = v; };
     Triangle_edges::getter = [](Triangle& t) -> std::vector<std::set<std::vector<double>>>{ return t.edges; };
     Triangle_edges::setter = [](Triangle& t, const std::vector<std::set<std::vector<double>>>& v) -> void { t.edges = v; };
-    Triangle_mat::getter = [](Triangle& t) -> material { return t.mat; };
-    Triangle_mat::setter = [](Triangle& t, const material& m) -> void { t.mat = m; };
+    Triangle_mat::getter = [](Triangle& t) -> material* { return t.mat.get(); };
+    Triangle_mat::setter = [](Triangle& t, material* m) -> void { 
+        if (!assign_shared_ptr<material, lambertian>(t.mat, m)) {
+            // std::cout << "could not assign" << std::endl;
+        }
+    };
     Triangle_bbox::getter = [](Triangle& t) -> aabb { return t.bbox; };
     Triangle_bbox::setter = [](Triangle& t, const aabb& b) -> void { t.bbox = b; };
 
@@ -135,7 +151,7 @@ void register_type_properties() {
             Triangle_mat,
             Triangle_bbox
         >(),
-        tl<>()
+        tl<lambertian>()
     );
 
     // sphere
@@ -143,7 +159,7 @@ void register_type_properties() {
     using sphere_center = Property<sphere, std::vector<double>, center>;
     using sphere_radius = Property<sphere, double, radius>;
     using sphere_r_squared = Property<sphere, double, r_squared>;
-    using sphere_mat = Property<sphere, material, mat>;
+    using sphere_mat = Property<sphere, material*, mat>;
     using sphere_bbox = Property<sphere, aabb, bbox>;
 
     sphere_center::getter = [](sphere& s) -> std::vector<double> { return s.center; };
@@ -152,8 +168,12 @@ void register_type_properties() {
     sphere_radius::setter = [](sphere& s, double v) -> void { s.radius = v; };
     sphere_r_squared::getter = [](sphere& s) -> double { return s.r_squared; };
     sphere_r_squared::setter = [](sphere& s, double v) -> void { s.r_squared = v; };
-    sphere_mat::getter = [](sphere& s) -> material { return s.mat; };
-    sphere_mat::setter = [](sphere& s, const material& m) -> void { s.mat = m; };
+    sphere_mat::getter = [](sphere& s) -> material* { return s.mat.get(); };
+    sphere_mat::setter = [](sphere& s, material* m) -> void { 
+        if (!assign_shared_ptr<material, lambertian>(s.mat, m)) {
+            // std::cout << "could not assign" << std::endl;
+        }
+    };
     sphere_bbox::getter = [](sphere& s) -> aabb { return s.bbox; };
     sphere_bbox::setter = [](sphere& s, const aabb& b) -> void { s.bbox = b; };
     
@@ -165,17 +185,19 @@ void register_type_properties() {
             sphere_mat,
             sphere_bbox
         >(),
-        tl<>()
+        tl<lambertian>()
     );
 
     // HitRecord
-    var(p); var(normal); var(u); var(v); var(t);
+    var(p); var(normal); var(u); var(v); var(t); var(hit); var(front_face); 
     using hitrecord_t = Property<HitRecord, double, t>;
     using hitrecord_p = Property<HitRecord, std::vector<double>, p>;
     using hitrecord_normal = Property<HitRecord, std::vector<double>, normal>;
-    using hitrecord_mat = Property<HitRecord, material, mat>;
+    using hitrecord_mat = Property<HitRecord, material*, mat>;
     using hitrecord_u = Property<HitRecord, double, u>;
     using hitrecord_v = Property<HitRecord, double, v>;
+    using hitrecord_hit = Property<HitRecord, bool, hit>;
+    using hitrecord_front_face = Property<HitRecord, bool, front_face>;
 
     hitrecord_t::getter = [](HitRecord& rec) -> double { return rec.t; };
     hitrecord_t::setter = [](HitRecord& rec, double v) -> void { rec.t = v; };
@@ -183,28 +205,38 @@ void register_type_properties() {
     hitrecord_p::setter = [](HitRecord& rec, const std::vector<double>& v) -> void { rec.p = v; };
     hitrecord_normal::getter = [](HitRecord& rec) -> std::vector<double> { return rec.normal; };
     hitrecord_normal::setter = [](HitRecord& rec, const std::vector<double>& v) -> void { rec.normal = v; };
-    hitrecord_mat::getter = [](HitRecord& rec) -> material { return rec.mat; };
-    hitrecord_mat::setter = [](HitRecord& rec, const material& m) -> void { rec.mat = m; };
+    hitrecord_mat::getter = [](HitRecord& rec) -> material* { return rec.mat.get(); };
+    hitrecord_mat::setter = [](HitRecord& rec, material* m) -> void { 
+        if (!assign_shared_ptr<material, lambertian>(rec.mat, m)) {
+            // std::cout << "could not assign" << std::endl;
+        }
+    };
     hitrecord_u::getter = [](HitRecord& rec) -> double { return rec.u; };
     hitrecord_u::setter = [](HitRecord& rec, double v) -> void { rec.u = v; };
     hitrecord_v::getter = [](HitRecord& rec) -> double { return rec.v; };
     hitrecord_v::setter = [](HitRecord& rec, double v) -> void { rec.v = v; };
+    hitrecord_hit::getter = [](HitRecord& rec) -> bool { return rec.hit; };
+    hitrecord_hit::setter = [](HitRecord& rec, bool v) -> void { rec.hit = v; };
+    hitrecord_front_face::getter = [](HitRecord& rec) -> bool { return rec.front_face; };
+    hitrecord_front_face::setter = [](HitRecord& rec, bool v) -> void { rec.front_face = v; };
 
     Usertype<HitRecord>::initialize_type(
         tl<
-            hitrecord_t,
             hitrecord_p,
             hitrecord_normal,
             hitrecord_mat,
+            hitrecord_t,
+            hitrecord_front_face,
             hitrecord_u,
-            hitrecord_v
+            hitrecord_v, 
+            hitrecord_hit
         >(),
-        tl<>()
+        tl<lambertian>()
     );
 
     // color
-    var(c_r); var(g); var(b);
-    using color_r = Property<color, double, c_r>;
+    var(r); var(g); var(b);
+    using color_r = Property<color, double, r>;
     using color_g = Property<color, double, g>;
     using color_b = Property<color, double, b>;
 
@@ -225,7 +257,6 @@ void register_type_properties() {
     );
 
     // ray_itval
-    var(r); 
     using ray_itval_r = Property<ray_itval, ray, r>;
     using ray_itval_t = Property<ray_itval, interval, t>;
     
@@ -274,20 +305,26 @@ void register_type_properties() {
 }
 
 void implement_types() {
-    Usertype<aabb>::implement();
     Usertype<interval>::implement();
+    Usertype<aabb>::implement();
     Usertype<ray>::implement();
-    Usertype<sphere>::implement();
-    Usertype<sphere*>::implement();
-    Usertype<Triangle>::implement();
-    Usertype<Triangle*>::implement();
-    Usertype<HitRecord>::implement();
-    Usertype<color>::implement();
-    Usertype<ray_itval>::implement();
     Usertype<Hittable>::implement();
     Usertype<Hittable*>::implement();
-    Usertype<bvh_node>::implement();
-    Usertype<bvh_node*>::implement();
+    Usertype<material>::implement();
+    Usertype<material*>::implement();
+    Usertype<lambertian>::implement<material>();
+    Usertype<lambertian*>::implement<material>();
+    Usertype<sphere>::implement<Hittable>();
+    Usertype<sphere*>::implement<Hittable>();
+    Usertype<Triangle>::implement<Hittable>();
+    Usertype<Triangle*>::implement<Hittable>();
+    Usertype<HitRecord>::implement();
+    Usertype<HitRecord*>::implement();
+    Usertype<color>::implement();
+    Usertype<ray_itval>::implement();
+    Usertype<bvh_node>::implement<Hittable>();
+    Usertype<bvh_node*>::implement<Hittable>();
+
 }
 
 void register_types() {

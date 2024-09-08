@@ -4,7 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/cpp_src/include/**"
+                "${workspaceFolder}/cpp_src/include/**",
+                "/usr/local/include/julia",
+                "/usr/src/googletest/googletest/include/gtest"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

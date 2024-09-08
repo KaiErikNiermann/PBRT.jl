@@ -4,12 +4,18 @@
 #include <vector>
 #include <iostream>
 #include <jluna.hpp>
+#include "color.h"
 
-class material {};
+class material {
+    public:
+        virtual ~material() = default;
+        virtual void foo() = 0; 
+};
 
 class lambertian : public material {
     public:
-        std::vector<double> albedo;
+        color albedo;
+        virtual void foo() override {}
 };
 
 class metal : public material {
@@ -29,5 +35,7 @@ set_usertype_enabled(metal)
 set_usertype_enabled(metal*)
 set_usertype_enabled(dielectric)
 set_usertype_enabled(dielectric*)
+set_usertype_enabled(lambertian)
+set_usertype_enabled(lambertian*)
 
 #endif // !MATERIAL_H

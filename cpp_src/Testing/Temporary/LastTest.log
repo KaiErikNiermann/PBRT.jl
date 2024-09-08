@@ -1,0 +1,34 @@
+Start testing: Sep 01 12:35 UTC
+----------------------------------------------------------
+1/1 Testing: PBRTTests
+1/1 Test: PBRTTests
+Command: "/mnt/data/cpp_src/PBRT_tests"
+Directory: /mnt/data/cpp_src
+"PBRTTests" start time: Sep 01 12:35 UTC
+Output:
+----------------------------------------------------------
+[JULIA][LOG] initialization successful (1 thread(s)).
+  Activating project at `/mnt/data`
+  No Changes to `/mnt/data/Project.toml`
+  No Changes to `/mnt/data/Manifest.toml`
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from BasicTests
+[ RUN      ] BasicTests.SimpleUnbox
+[       OK ] BasicTests.SimpleUnbox (17 ms)
+[ RUN      ] BasicTests.SimplePolymorphicUnbox
+[       OK ] BasicTests.SimplePolymorphicUnbox (41 ms)
+[----------] 2 tests from BasicTests (59 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (59 ms total)
+[  PASSED  ] 2 tests.
+<end of output>
+Test time =  16.18 sec
+----------------------------------------------------------
+Test Passed.
+"PBRTTests" end time: Sep 01 12:35 UTC
+"PBRTTests" time elapsed: 00:00:16
+----------------------------------------------------------
+
+End testing: Sep 01 12:35 UTC

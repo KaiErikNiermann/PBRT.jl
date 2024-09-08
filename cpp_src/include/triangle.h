@@ -14,9 +14,9 @@ class Triangle : public Hittable {
     std::vector<double> C;
     int id;
     std::vector<std::set<std::vector<double>>> edges;
-    material mat;
+    std::shared_ptr<material> mat;
     aabb bbox;
-    bool hit(const ray_itval&, const HitRecord& rec) const;
+    bool hit(const ray_itval&, HitRecord* rec) const override;
 };
 
 class tri_hit_container {
