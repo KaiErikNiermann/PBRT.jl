@@ -56,6 +56,21 @@ cpp_src/core
 cpp_src/gmon.out
 cpp_src/analysis.txt
 cpp_src/llvm-project/
+cpp_src/lens/build/
+cpp_src/lens/CMakeFiles/
+cpp_src/lens/CMakeCache.txt
+cpp_src/lens/cmake_install.cmake
+cpp_src/lens/Makefile
+cpp_src/lens/cmake-build-debug/
+cpp_src/lens/cmake-build-release/
+cpp_src/lens/cmake-build-relwithdebinfo/
+cpp_src/lens/cmake-build-minsize/
+cpp_src/lens/jluna/
+cpp_src/lens/PBRT
+cpp_src/lens/core
+cpp_src/lens/gmon.out
+cpp_src/lens/analysis.txt
+cpp_src/lens/llvm-project/
 build/
 
 # paper 
