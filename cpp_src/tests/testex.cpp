@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <jluna.hpp>
+#include <utility>
 
 using namespace jluna;
 
@@ -181,10 +182,37 @@ void proxy_object_setup() {
     Usertype<D*>::implement<A>();
 }
 
+template <typename T, typename M>
+struct Lens {
+    consteval Lens(M T::* member) 
+        : member_(member) 
+    {}
+
+    auto get(const T& obj) const {
+        return obj.*member_;
+    }
+
+    T set(const T& obj, const M& value) const {
+        T copy = obj; 
+        copy.*member_ = value; 
+        return copy; 
+    }
+
+private:
+    M T::* member_; 
+};
+
+template <typename T, typename M>
+consteval auto make_lens(M T::* member) {
+    return Lens<T, M>(member);
+}
+
 void complex_proxy_object_setup() {
     // d1
     static char albedo[] = "albedo";
     Property<d1, std::vector<double>, albedo>::getter = [](d1& d) -> std::vector<double> { return d.albedo; };
+
+    constexpr auto albedo_lens = make_lens(&d1::albedo);
 
     Usertype<d1>::initialize_type(
         TypeList<

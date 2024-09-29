@@ -55,6 +55,7 @@ cpp_src/PBRT
 cpp_src/core
 cpp_src/gmon.out
 cpp_src/analysis.txt
+cpp_src/llvm-project/
 build/
 
 # paper 
