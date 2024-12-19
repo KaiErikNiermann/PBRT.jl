@@ -1,7 +1,6 @@
-version: '3'
 services:
   thesis-runner:
-    image: thesis-runner  # Replace with the actual image name
+    build: . 
     privileged: true
     cap_add:
       - SYS_ADMIN
@@ -13,4 +12,4 @@ services:
       - "./:/mnt/thesis-project"
     stdin_open: true
     tty: true
-    command: /bin/bash  # Replace with the command to execute inside the container, if needed
+    command: /bin/bash  

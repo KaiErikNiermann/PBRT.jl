@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{mylib} \PYG{o}{=} \PYG{n}{ctypes}\PYG{o}{.}\PYG{n}{CDLL}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./libmylib.so\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{mylib}\PYG{o}{.}\PYG{n}{greet}\PYG{o}{.}\PYG{n}{argtypes} \PYG{o}{=} \PYG{p}{[}\PYG{n}{ctypes}\PYG{o}{.}\PYG{n}{c\PYGZus{}char\PYGZus{}p}\PYG{p}{]}
+\PYG{n}{mylib}\PYG{o}{.}\PYG{n}{greet}\PYG{o}{.}\PYG{n}{restype} \PYG{o}{=} \PYG{k+kc}{None}
+
+\PYG{n}{name} \PYG{o}{=} \PYG{l+s+sa}{b}\PYG{l+s+s2}{\PYGZdq{}World\PYGZdq{}}  \PYG{c+c1}{\PYGZsh{} Use bytes for C string}
+\PYG{n}{mylib}\PYG{o}{.}\PYG{n}{greet}\PYG{p}{(}\PYG{n}{name}\PYG{p}{)}
+\end{Verbatim}

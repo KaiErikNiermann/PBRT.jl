@@ -8,9 +8,6 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV LANG en_US.utf8
 ENV MAKEFLAGS -j4
 
-RUN mkdir /app
-WORKDIR /app
-
 # necessary deps 
 RUN apt-get update -y && \ 
     apt-get install -y gcc make wget cmake curl git zlib1g-dev libffi-dev libssl-dev python-pip bash tar g++-10
@@ -29,31 +26,29 @@ ENV PATH=$PATH:/root/.local/bin
 RUN poetry config virtualenvs.create true
 
 # julia
-RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.2-linux-x86_64.tar.gz && \
-    tar -xvzf julia-1.10.2-linux-x86_64.tar.gz -C /usr/local/ && \
-    ln -s /usr/local/julia-1.10.2/bin/julia /usr/local/bin/julia && \ 
+RUN wget https://julialang-s3.julialang.org/bin/linux/x64/${JULIA_VERSION%.*}/julia-$JULIA_VERSION-linux-x86_64.tar.gz && \
+    tar -xvzf julia-$JULIA_VERSION-linux-x86_64.tar.gz -C /usr/local/ && \
+    ln -s /usr/local/julia-$JULIA_VERSION/bin/julia /usr/local/bin/julia && \ 
     mkdir -p /usr/local/include/julia && \
-    cp -r /usr/local/julia-1.10.2/include/julia /usr/local/include/ && \
-    ln -s /usr/local/lib /usr/local/julia-1.10.2/lib 
+    cp -r /usr/local/julia-$JULIA_VERSION/include/julia /usr/local/include/ && \
+    ln -s /usr/local/lib /usr/local/julia-$JULIA_VERSION/lib 
 
 RUN ls -la /usr/local/include/julia
 RUN ls -la /usr/local/
 
-COPY . .
+# # install py deps 
+# RUN cd py_src && \
+#     poetry lock && \
+#     poetry install && \
+#     cd .. 
 
-# install py deps 
-RUN cd py_src && \
-    poetry lock && \
-    poetry install && \
-    cd .. 
-
-# setup cpp 
-RUN cd cpp_src && \
-    rm -rf CMakeFiles && \
-    rm -f cmake_install.cmake && \
-    rm -f CMakeCache.txt && \
-    rm -f Makefile && \
-    bash install_deps.sh 
+# # setup cpp 
+# RUN cd cpp_src && \
+#     rm -rf CMakeFiles && \
+#     rm -f cmake_install.cmake && \
+#     rm -f CMakeCache.txt && \
+#     rm -f Makefile && \
+#     bash install_deps.sh 
 
 # setup ctest 
 RUN apt-get update && apt-get install -y libgtest-dev cmake && \
@@ -61,6 +56,9 @@ RUN apt-get update && apt-get install -y libgtest-dev cmake && \
     cmake . && \
     make && \
     cp lib/*.a /usr/lib
+
+# setup latex 
+RUN apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
 
 # install sudo 
 RUN apt-get install -y sudo

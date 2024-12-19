@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{    }\PYG{c+cp}{\PYGZsh{}[link(name = }\PYG{l+s}{\PYGZdq{}mylib\PYGZdq{}}\PYG{c+cp}{)]}
+\PYG{+w}{    }\PYG{k}{extern}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}C\PYGZdq{}}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{k}{fn}\PYG{+w}{ }\PYG{n+nf}{greet}\PYG{p}{(}\PYG{n}{name}\PYG{p}{:}\PYG{+w}{ }\PYG{o}{*}\PYG{k}{const}\PYG{+w}{ }\PYG{n}{c\PYGZus{}char}\PYG{p}{);}\PYG{+w}{ }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{    }\PYG{k}{fn}\PYG{+w}{ }\PYG{n+nf}{main}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{name}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}World\PYGZdq{}}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{c\PYGZus{}name}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{CString}\PYG{p}{::}\PYG{n}{new}\PYG{p}{(}\PYG{n}{name}\PYG{p}{).}\PYG{n}{expect}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}CString::new failed\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{unsafe}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{greet}\PYG{p}{(}\PYG{n}{c\PYGZus{}name}\PYG{p}{.}\PYG{n}{as\PYGZus{}ptr}\PYG{p}{());}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

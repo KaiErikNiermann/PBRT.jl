@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }\PYG{n+nd}{@ccall}\PYG{+w}{ }\PYG{n}{library}\PYG{o}{.}\PYG{n}{function\PYGZus{}name}\PYG{p}{(}\PYG{n}{argvalue1}\PYG{o}{::}\PYG{k+kt}{argtype1}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{...}\PYG{p}{)}\PYG{o}{::}\PYG{k+kt}{returntype}
+\PYG{+w}{        }\PYG{n+nd}{@ccall}\PYG{+w}{ }\PYG{n}{function\PYGZus{}name}\PYG{p}{(}\PYG{n}{argvalue1}\PYG{o}{::}\PYG{k+kt}{argtype1}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{...}\PYG{p}{)}\PYG{o}{::}\PYG{k+kt}{returntype}
+\end{Verbatim}
