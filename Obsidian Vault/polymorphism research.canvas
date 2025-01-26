@@ -1,0 +1,35 @@
+{
+	"nodes":[
+		{"id":"4ced02009e2ee9e8","x":-520,"y":-30,"width":645,"height":110,"type":"text","text":"Polymorphism\n- Use of a single symbol to represent multiple types"},
+		{"id":"4f4aacb3ac9a3163","x":-821,"y":700,"width":603,"height":212,"type":"text","text":"Static Polymorphism (static dispatch)\n- Polymorphism is which fully resolved at compile time\n- Code is generally monomorphised \n\t- Which means that specific types are deduced and traced through the call graph to instantiate specific versions of generic functions "},
+		{"id":"5fda3b8edbc6995a","x":680,"y":240,"width":560,"height":383,"type":"text","text":"Subtyping\n- Polymorphism by having subtype related to a supertype by a notion of substitutability \n- Functions meant to operate on the supertype can typically also operate on the subtype\n- Formal subtype requirement\n$$\nS \\leq T\\rightarrow (\\forall x : T.\\phi(x)\\rightarrow \\forall y: S.\\phi(y))\n$$\n- If $S$ is a subtype of $T$ then for all provable properties of object $x$ of type $T$ then $\\phi(y)$ should be true for objects $y$ of type $S$ \n- (AKA seems to more or less just say that the properties must hold for the subtype so that we can reasonably substitute it) "},
+		{"id":"87d57fe510b2d1b4","x":-160,"y":280,"width":700,"height":223,"type":"text","text":"Parametric\n- Polymorphism through generic functions and datatypes \n- Parametric as types become parameters of a functions/datatypes\n- Uniform as opposed to distinct, meaning that an implementation behaves the same regardless of type, whereas with adhoc implementations are generally different (e.g. overloaded + for ints vs lists)\n"},
+		{"id":"7774cf537493e31b","x":-322,"y":1100,"width":250,"height":60,"type":"text","text":"Method Dispatch"},
+		{"id":"f40ac2f80d6272e0","x":-784,"y":269,"width":530,"height":223,"type":"text","text":"Ad-hoc\n- Polymorphic functions can be applied to arguments of different types\n- A function can denote an arbitrary number of distinct implementations depending on the argument type \n- Also known as operator or function overloading"},
+		{"id":"77e3ebc4cb083924","type":"text","text":"Dynamic Polymorphism (dynamic dispatch)\n- Selecting an implementation of a polymorphic operation at runtime ","x":-160,"y":760,"width":483,"height":152},
+		{"id":"63e16a0778f9ef35","x":57,"y":1100,"width":700,"height":255,"type":"text","text":"Existential types\n- Types that encapsulate other types enabling you to work with various types through a common interface without needing to know the specific types at compile time\n- e.g. \n\t- Type erasure in C++ \n\t- Dynamic Dispatch \n\t- Interface Conformance (swift protocols, dynamic traits for rust)"},
+		{"id":"10c723fe6a74995c","x":1600,"y":309,"width":513,"height":245,"type":"text","text":"Inheritance\n- Mechanism whereby we base an object or class upon another object or class \n- Most class-based OOP languages the \"child-object\" acquires properties and behaviors from the parent object\n- Can sometimes agree with subtyping but is not necessarily implied"},
+		{"id":"2040bde40a3a8f22","x":1900,"y":670,"width":250,"height":60,"type":"text","text":"Prototype-based"},
+		{"id":"dee602fed47a8991","x":1600,"y":670,"width":250,"height":60,"type":"text","text":"Class-based"},
+		{"id":"3cf9c9ed81a6dde8","x":642,"y":836,"width":637,"height":214,"type":"text","text":"Behavioral Subtyping \n- The principle where a subclass should satisfy the expectation of clients accessing subclass objects through references of the superclass type \n- Key note: Properties that clients can prove using the specification of an objects presumed type should hold even if that object is actually a member of a subtype of that type."},
+		{"id":"979fcba0bc81ae65","x":1473,"y":918,"width":707,"height":102,"type":"text","text":"Rust - dynamic Trait Objects \nC++ - inheritance \nSwift - class-based inheritance"}
+	],
+	"edges":[
+		{"id":"e3d8d6e6be8d8c5f","fromNode":"4ced02009e2ee9e8","fromSide":"bottom","toNode":"f40ac2f80d6272e0","toSide":"top"},
+		{"id":"7f0c7795f44d98bd","fromNode":"4ced02009e2ee9e8","fromSide":"bottom","toNode":"87d57fe510b2d1b4","toSide":"top"},
+		{"id":"5cf30abf48528e14","fromNode":"4ced02009e2ee9e8","fromSide":"bottom","toNode":"5fda3b8edbc6995a","toSide":"top"},
+		{"id":"f411f9f1d884d320","fromNode":"4ced02009e2ee9e8","fromSide":"bottom","toNode":"7774cf537493e31b","toSide":"top"},
+		{"id":"c7c21a4487d9ec5e","fromNode":"7774cf537493e31b","fromSide":"top","toNode":"4f4aacb3ac9a3163","toSide":"bottom"},
+		{"id":"b891e55f50707806","fromNode":"7774cf537493e31b","fromSide":"top","toNode":"77e3ebc4cb083924","toSide":"bottom"},
+		{"id":"a0256b2a65c94156","fromNode":"4f4aacb3ac9a3163","fromSide":"top","toNode":"87d57fe510b2d1b4","toSide":"bottom"},
+		{"id":"d7d2a3084dac40db","fromNode":"4f4aacb3ac9a3163","fromSide":"top","toNode":"f40ac2f80d6272e0","toSide":"bottom"},
+		{"id":"54c6d3166a9b2b2c","fromNode":"4f4aacb3ac9a3163","fromSide":"top","toNode":"5fda3b8edbc6995a","toSide":"bottom","label":"achievable with template metaprogramming"},
+		{"id":"971bbf7c05e30ec7","fromNode":"77e3ebc4cb083924","fromSide":"right","toNode":"5fda3b8edbc6995a","toSide":"bottom"},
+		{"id":"7febf1ddc607f53f","fromNode":"5fda3b8edbc6995a","fromSide":"bottom","toNode":"3cf9c9ed81a6dde8","toSide":"top"},
+		{"id":"5a30aeb51d8cadd7","fromNode":"10c723fe6a74995c","fromSide":"left","toNode":"5fda3b8edbc6995a","toSide":"right","label":"sometimes implements"},
+		{"id":"72383ae013b43488","fromNode":"63e16a0778f9ef35","fromSide":"top","toNode":"77e3ebc4cb083924","toSide":"bottom"},
+		{"id":"8f4efd912607a6ae","fromNode":"10c723fe6a74995c","fromSide":"bottom","toNode":"dee602fed47a8991","toSide":"top"},
+		{"id":"ccbf6c92a3538471","fromNode":"10c723fe6a74995c","fromSide":"bottom","toNode":"2040bde40a3a8f22","toSide":"top"},
+		{"id":"acb63c2322247c8c","fromNode":"5fda3b8edbc6995a","fromSide":"bottom","toNode":"979fcba0bc81ae65","toSide":"top"}
+	]
+}

@@ -1,0 +1,11 @@
+- when do we do all of this
+    - preprocessor tool based generation
+    - most tools have this as a separate build step usually reliant on some library to preform the binding generation, so this is usually a preprocessing step that happens before the actual execution of the application
+    - static compiler based generation
+    - sometimes compilers themselves have interoperability baked in
+        - swiftc : swift compiler has clang embedded and has header parsing built in, this essentially forms a disconnected glue code layer in that it allows us on the developer level to use any bridagble type in an idiomatically mirrored fashion
+    - runtime based generation
+    - seems to be generally effective in languages focused on dynamism
+    - some tools aim to have runtime binding generation, only two instances i can find are javacpp and cppyy
+        - a key benefit of this is that you can utilize runtime information to dynamically work with constructs exposed by the API
+        - more or less just useful with monomorphization but also other stuff i think

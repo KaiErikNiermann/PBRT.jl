@@ -1,0 +1,239 @@
+{
+  "main": {
+    "id": "bfb388141f7f17de",
+    "type": "split",
+    "children": [
+      {
+        "id": "1b5d90558cb1635c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1f80603cedfbd018",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "notes/binding tool design/binding tool implementation.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "binding tool implementation"
+            }
+          },
+          {
+            "id": "71984fad4cfa2645",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "notes/binding tool design/binding generation.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "binding generation"
+            }
+          },
+          {
+            "id": "0fec6e4c8878f216",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "notes/low level preamble/memory management.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "memory management"
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "dc7f8f719daa1bfa",
+    "type": "split",
+    "children": [
+      {
+        "id": "166c179c278b7b64",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5a3107ddc057f0ca",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "byModifiedTime"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "6b93ed29d458f759",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "path:/",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "cb7649dc6b0a941b",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "Plugin no longer active"
+            }
+          },
+          {
+            "id": "f2665e64e167f4ee",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 248.5
+  },
+  "right": {
+    "id": "9deae1c4a933d68c",
+    "type": "split",
+    "children": [
+      {
+        "id": "dae1d8fc3f4e7d1b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f4a7739ffd6898ec",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Untitled.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Untitled"
+            }
+          },
+          {
+            "id": "1aeb69a6b15d2322",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Untitled.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Untitled"
+            }
+          },
+          {
+            "id": "24bac4a17dcfa4ce",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "feb90343134051fe",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Untitled.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Untitled"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "0fec6e4c8878f216",
+  "lastOpenFiles": [
+    "notes/binding tool design/phases.md",
+    "writing planning.canvas",
+    "notes/binding tool design/binding generation.md",
+    "notes/binding tool design/binding tool implementation.md",
+    "notes/low level preamble/memory management.md",
+    "notes/type theory",
+    "notes/binding tool design",
+    "notes/low level preamble",
+    "notes",
+    "interop research.canvas",
+    "polymorphism research.canvas",
+    "programming language research.canvas",
+    "type theory research.canvas",
+    "old/initial draft writing.md",
+    "old",
+    "Untitled 1.md",
+    "title.md",
+    "assets/Pasted image 20241005183214.png",
+    "assets",
+    "papers/STLC-intro.pdf",
+    "Untitled.canvas",
+    "papers/The Concept of a Supercompiler.pdf",
+    "papers/bolz_tratt__the_impact_of_metatracing_on_vm_design_and_implementation.pdf",
+    "papers/pppj14-om.pdf",
+    "papers/2024-06-30.md",
+    "model evaluation/validation.md",
+    "model evaluation/model evaluation.md",
+    "model evaluation/statistical testing.md",
+    "Computational intelligence.md",
+    "2023-05-25.md",
+    "test1.md",
+    "test 2.md"
+  ]
+}

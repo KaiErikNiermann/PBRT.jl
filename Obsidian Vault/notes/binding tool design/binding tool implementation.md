@@ -1,0 +1,25 @@
+binding / blue code implementations
+- binding
+    - wrappers that allow you to use something in a target language
+- binding construction (metadata phase)
+    - since we need some representation of the types in both languages
+    - so the question is how do we generate these bindings
+    - automatically
+        - we parse the headers
+            - frontend compiler tools (clang AST parser)
+            - alot more difficult to work with as we only need a very restricted portion of the ast, that is we just need the header information
+            => manually implemented header parsers (crubit I think)
+            - easier to implement and apply in our binding generation tool but also means we have to basically reimplement existing frontend tooling
+        - we use code reflection
+            - languages which implement strong reflection systems (AKA python)
+            - reflect on the types and extract runtime type metadata to generat bindings for target language
+            - **issues**:
+                - reflection is not supported in many languages
+                - many languages arent even designed to ever really accomodate it properly,
+                - additionaly reflections systems can potentially not provide enough or just not the right information needed
+                - examples: Python, Java, C#
+    - manual specification
+        - we can manually specificy the bindings
+	- example: Boost.python (pybind11, CxxWrap) use manual specifications and then code generation from the specifications
+        - issue: obvious fact that it requires manual specification
+        - benefit: we dont need to work with parsers at all, i mean idfk im not gonna enmerate on everything
