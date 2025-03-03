@@ -1,0 +1,4 @@
+for name, (setter, getter) in mapping: 
+    setter(out, jlfield(name, jl_val))
+
+return out

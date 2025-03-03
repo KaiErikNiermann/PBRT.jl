@@ -1,21 +1,21 @@
-mutable struct hit_record
+mutable struct HitRecord
     p::Vector{Float64}
     normal::Vector{Float64}
-    mat::material
+    mat::Material
     t::Float64
     front_face::Bool
     u::Float64
     v::Float64
     hit::Bool
-    hit_record() = new([0.0, 0.0, 0.0], [0.0, 0.0, 0.0], lambertian(color([0.0, 0.0, 0.0])), 0.0, false, 0.0, 0.0, false)
+    HitRecord() = new([0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Lambertian(Color([0.0, 0.0, 0.0])), 0.0, false, 0.0, 0.0, false)
 end
 
-mutable struct scatter_data
-    attenuation::color
-    scattered::ray
+mutable struct ScatterData
+    attenuation::Color
+    scattered::Ray
 end
 
-function set_face_normal!(rec::hit_record, r::ray, outward_normal::Vector{Float64})
+function set_face_normal!(rec::HitRecord, r::Ray, outward_normal::Vector{Float64})
     rec.front_face = dot(r.direction, outward_normal) < 0
     if(rec.front_face)
         # ray is outside
@@ -26,7 +26,7 @@ function set_face_normal!(rec::hit_record, r::ray, outward_normal::Vector{Float6
     end
 end
 
-function scatter(mat::lambertian, r_in::ray, rec::hit_record, sd::scatter_data)::Bool
+function scatter(mat::Lambertian, ray::Ray, rec::HitRecord, sd::ScatterData)::Bool
     scatter_direction = rec.normal + random_unit_vector()
     
     # Catch degenerate scatter direction
@@ -34,23 +34,23 @@ function scatter(mat::lambertian, r_in::ray, rec::hit_record, sd::scatter_data):
         scatter_direction = rec.normal
     end
     
-    sd.scattered = ray(rec.p, scatter_direction)
+    sd.scattered = Ray(rec.p, scatter_direction)
     sd.attenuation = mat.albedo
     return true
 end
 
-function scatter(mat::metal, r_in::ray, rec::hit_record, sd::scatter_data)::Bool
-    reflected = reflect(r_in.direction/norm(r_in.direction), rec.normal)
-    sd.scattered = ray(rec.p, reflected + mat.fuzz * random_in_unit_sphere())
-    sd.attenuation = mat.albedo
+function scatter(material::Metal, ray::Ray, rec::HitRecord, sd::ScatterData)::Bool
+    reflected = reflect(ray.direction/norm(ray.direction), rec.normal)
+    sd.scattered = Ray(rec.p, reflected + material.fuzz * random_in_unit_sphere())
+    sd.attenuation = material.albedo
     return (dot(sd.scattered.direction, rec.normal) > 0)
 end
 
-function scatter(mat::dielectric, r_in::ray, rec::hit_record, sd::scatter_data)::Bool
-    sd.attenuation = color([1.0, 1.0, 1.0])
-    refraction_ratio = rec.front_face ? (1.0 / mat.ir) : mat.ir
+function scatter(material::Dielectric, ray::Ray, rec::HitRecord, sd::ScatterData)::Bool
+    sd.attenuation = Color([1.0, 1.0, 1.0])
+    refraction_ratio = rec.front_face ? (1.0 / material.ir) : material.ir
 
-    unit_direction = r_in.direction/norm(r_in.direction)
+    unit_direction = ray.direction/norm(ray.direction)
     cos_theta = min(dot(-unit_direction, rec.normal), 1.0)
     sin_theta = sqrt(1.0 - cos_theta^2)
 
@@ -62,10 +62,10 @@ function scatter(mat::dielectric, r_in::ray, rec::hit_record, sd::scatter_data):
         dir = refract(unit_direction, rec.normal, refraction_ratio)
     end
 
-    sd.scattered = ray(rec.p, dir)
+    sd.scattered = Ray(rec.p, dir)
     return true
 end
 
-abstract type hittable end
+abstract type Hittable end
 
-struct null_obj <: hittable end
+struct NULLHittable <: Hittable end

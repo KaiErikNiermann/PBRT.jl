@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{template}\PYG{o}{\PYGZlt{}}\PYG{n}{is\PYGZus{}boxable}\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}\PYG{+w}{ }\PYG{n}{Args\PYGZus{}t}\PYG{o}{\PYGZgt{}}
+\PYG{n}{Proxy}\PYG{+w}{ }\PYG{n}{safe\PYGZus{}call}\PYG{p}{(}\PYG{n}{Args\PYGZus{}t}\PYG{o}{\PYGZam{}}\PYG{o}{\PYGZam{}}\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}\PYG{p}{)}\PYG{p}{;}
+\end{Verbatim}

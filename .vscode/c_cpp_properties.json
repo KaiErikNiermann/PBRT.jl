@@ -4,15 +4,16 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/cpp_src/include/**",
-                "/usr/local/include/julia",
-                "/usr/src/googletest/googletest/include/gtest"
+                "/root/.julia/juliaup/julia-1.10.8+0.x64.linux.gnu/include/julia/",
+                "${workspaceFolder}/include/**",
+                "/workspaces/Thesis/libs/jluna/include"
+
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/gcc",
+            "compilerPath": "/usr/bin/g++-13",
             "cStandard": "c17",
             "cppStandard": "c++23",
-            "intelliSenseMode": "linux-gcc-x64",
+            "intelliSenseMode": "linux-clang-x64",
             "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],

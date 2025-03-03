@@ -1,0 +1,8 @@
+\begin{tikzpicture}[subgraph text bottom=text centered, subgraph nodes={font=\itshape, black}, nodes=draw]
+    \graph [tree layout, grow=down, sibling sep=5mm, level sep=5mm, component align=center, component direction=270] {
+        "Image generation" <-> {
+            "Hit detection" -> [loop below] "Hit detection",
+            "Scattering"
+        },
+    };
+  \end{tikzpicture}

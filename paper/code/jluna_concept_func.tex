@@ -1,0 +1,6 @@
+\begin{fileminted}{libs/jluna/include/usertype.hpp}{cpp}
+template<is<double> T>
+unsafe::Value* box(T value) {
+    return jl_box_float64((double) value);
+}
+\end{fileminted}

@@ -1,0 +1,73 @@
+# Versions 
+
+## Draft 
+- Briefly introduce just the abstract notion of interoperability in software 
+- Transition into modern instances of interoperability 
+	- Use this to jump into why this fascinated you about interop. 
+- Introduce the initial idea you wanted to test
+	- Transition this into the more abstract question you started to become curious about
+	- Talk about the general applied aspects of interop and how they are interesting and worth exploring
+- Talk about the sort of two pronged approach you wanted to do with your research ultimately 
+	- First prong : Gaining a bit picture understanding of the modern state of interoperability and how different imaginings of polyglot systems are implemented 
+		- The main idea here is to gain and present a broad structural overview of the modern state of software interoperability.
+		- The primary motivation being that I wanted to myself understand how the practical implementation I worked on fit into the broader context of the field
+			- So for example how some of its techniques related to what is used in the industry 
+
+	- Second prong : Gain a practical understanding of how interoperability works in a very applied practical case 
+		- The main idea here being to both explore a unique instance of interop applying some modern programming techniques to present some of the benefits and drawbacks of these over legacy approaches.
+		- The idea here started as just a simple question of could I replace a performance intensive part of my program with with one written in a different language and kind of slot it into place of the old one
+
+	- Link -> I want to sort of try and go from the big picture understanding of how these systems work and then see how these abstract ideas and different versions relate or contrast with the practical case 
+- The ultimate purpose here being to attempt to link and contrast various aspects of interop theory; bridging and connecting various concepts with each other and with an interesting practical case.
+
+## Refined Draft 
+- Briefly introduce just the abstract notion of interoperability in software 
+	- Abstractly speaking interoperability in the context of software is the simple notion of two or more systems, such as languages following different design paradigms in their execution models and linguistic properties, working together via some means of communication.
+	- Interop. is by no means a new concept, in many ways it ties quite naturally into how systems we interact with evolve over time. If we take the most relevant example of such systems, programming language, we can note that their evolution over time has in many was been based on the development of abstractions to make their usage easier to programmers. 
+	- Naturally with the evolution of these abstractions we developed systems which must translate composited abstractions which define most software back into the basic codes which machines can apply to execute said abstractions.
+	- Two notable byproducts of this type of evolution are that 
+		- The performance characteristics in kind evolved with the abstractions we developed to design new programming languages 
+		- Not all abstractions are created equal, so naturally had languages evolve in various different directions, built on various different execution models
+	- From the first point it would then be a natural question, sooner or later, for most programmers how one can create a balance between ease of use abstractions but still the desired performance characteristics of the granular low level control of hardware through languages which allow such control.
+	- For the second point a question one might ask is in what way do these abstractions differ, and furthermore in what ways are these differences more applicable to some domains then others.
+	- For both of the above questions I hope that it becomes clear how we then derive the desire for interoperability in software systems. 
+- Transition into modern instances of interoperability 
+	- Use this to jump into why this fascinated you about interop. 
+	- In a more contemporary context we have had a considerable evolution from the early days of interoperability. The increasing variations of hardware chipsets has led to a corresponding variety of instruction set architectures (ISAs). 
+	- Similarly when zooming out we have had a considerable increase in the number of programming languages, in large part supported by improvements in language execution models. 
+		- As languages and ISAs evolved over time compilers naturally adopted a modular architecture. 
+	- Furthermore just as language abstractions evolved so did the compilers which drove the creation and supported the execution of these languages on hardware.
+	- We saw the evolution of ahead of time (AOT) compilers used predominantly for statically typed languages with a greater focus on performance as opposed to language flexibility
+		- Likewise here we saw interoperability applied in various forms, most notably with the creation of LLVM Intermediate Representation (IR) the use of a language agnostic IR meant optimization passed could be preformed on arbitrary languages as long as developers implemented the corresponding IR generation.
+	- We also saw the creation of just in time (JIT) compilers, which themselves provided an abstraction to interpret languages and compile them to machine code at runtime. This generally comes at the cost of some performance through opened the door to a substantial field of research into different types of optimizations one could apply given information only accessible at runtime.
+		- A notable downside with effective JIT compilers has been their historically complex nature and inherent lack of modularity
+			- (reference the Julia JIT compiler paper here)
+		- JIT compilers generally exist alongside a language runtime, examples being the JVM for Java, V8 for JavaScript and CLR for C#, to execute said languages with an emphasis on dynamic behavior through lacking the modularity in their ability to work with a wider variety of languages as contrasted with AOT compilers they generally have no analogue to IR
+		- Nonetheless there has been a decently sized body of research dedicated into exploring improvements in both the performance characteristics of JIT compilers to more closely match those of AOT compilers, but also at various attempts for create language agnostic representations not only to yield a more modular architecture to support the development of new languages on the respective language platform, but also to allow for effect polyglot (multi-language) systems who's dynamics are all nicely understood and defined within the context of some language runtime.
+- Introduce the initial idea you wanted to test
+	- Transition this into the more abstract question you started to become curious about
+		- Something which then drove my particular interest in the more practical side of things is specifically the dynamics of how languages operating under entirely different execution models; namely the Julia JIT compiler; and the clang AOT compiler used with C++ interact in an applied example.
+	- Talk about the general applied aspects of interop and how they are interesting and worth exploring
+- Talk about the sort of two pronged approach you wanted to do with your research ultimately 
+	- First prong : Gaining a bit picture understanding of the modern state of interoperability and how different imaginings of polyglot systems are implemented 
+		- The main idea here is to gain and present a broad structural overview of the modern state of software interoperability.
+		- The primary motivation being that I wanted to myself understand how the practical implementation I worked on fit into the broader context of the field
+			- So for example how some of its techniques related to what is used in the industry 
+
+	- Second prong : Gain a practical understanding of how interoperability works in a very applied practical case 
+		- The main idea here being to both explore a unique instance of interop applying some modern programming techniques to present some of the benefits and drawbacks of these over legacy approaches.
+		- The idea here started as just a simple question of could I replace a performance intensive part of my program with with one written in a different language and kind of slot it into place of the old one
+
+	- Link -> I want to sort of try and go from the big picture understanding of how these systems work and then see how these abstract ideas and different versions relate or contrast with the practical case 
+- The ultimate purpose here being to attempt to link and contrast various aspects of interop theory; bridging and connecting various concepts with each other and with an interesting practical case.
+
+## Final Draft
+
+Abstractly speaking interoperability in the context of software is the simple notion of two or more systems, such as languages following different design paradigms in their execution models and linguistic properties, working together via some means of communication. Interoperability is by no means a new concept, in many ways it ties quite naturally into how systems we interact with evolve over time. If we take the most relevant example of such systems, programming languages, we can note that their evolution over time has in many was been based on the development of abstractions to make their usage easier to programmers. Naturally with the evolution of these abstractions we developed systems which must translate composited abstractions which define most software back into the basic codes which machines can apply to execute said abstractions. Two notable byproducts of this type of evolution are that
+1. The performance characteristics in kind evolved with the abstractions we developed to design new programming languages 
+2. Not all abstractions are created equal, so naturally had languages evolve in various different directions, built on various different execution models
+From the first point it would then be a natural question, sooner or later, for most programmers how one can create a balance between ease of use abstractions but still the desired performance characteristics of the granular low level control of hardware through languages which allow such control. For the second point a question one might ask is in what way do these abstractions differ, and furthermore in what ways are these differences more applicable to some domains then others. For both of the above questions I hope that it becomes clear how we then derive the desire for interoperability in software systems. 
+
+ In a more contemporary context we have had a considerable evolution from the early days of interoperability. The increasing variations of hardware chipsets has led to a corresponding variety of instruction set architectures (ISAs). Similarly when zooming out we have had a considerable increase in the number of programming languages, in large part supported by improvements in language execution models. As languages and ISAs evolved over time compilers naturally adopted a modular or specialized architecture to better fit the various designs people wanted to implement. We saw the evolution of ahead of time (AOT) compilers used predominantly for statically typed languages with a greater focus on performance as opposed to language flexibility Likewise here we saw interoperability applied in various forms, most notably with the creation of LLVM Intermediate Representation (IR) the use of a language agnostic IR meant optimization passed could be preformed on arbitrary languages as long as developers implemented the corresponding IR generation. We also saw the creation of just in time (JIT) compilers, which themselves provided an abstraction to interpret languages and compile them to machine code at runtime. This generally comes at the cost of some performance through opened the door to a substantial field of research into different types of optimizations one could apply given information only accessible at runtime. A notable downside with effective JIT compilers has been their historically complex nature and inherent lack of modularity. JIT compilers generally exist alongside a language runtime, examples being the JVM for Java, V8 for JavaScript and CLR for C#, to execute said languages with an emphasis on dynamic behavior through lacking the modularity in their ability to work with a wider variety of languages as contrasted with AOT compilers they generally have no analogue to IR Nonetheless there has been a decently sized body of research dedicated into exploring improvements in both the performance characteristics of JIT compilers to more closely match those of AOT compilers, but also at various attempts for create language agnostic representations not only to yield a more modular architecture to support the development of new languages on the respective language platform, but also to allow for effect polyglot (multi-language) systems who's dynamics are all nicely understood and defined within the context of some language runtime.
+ 
+The initial idea I wanted to test came from a curiosity about the interactions between languages operating under different execution models, particularly the dynamics of the Julia JIT compiler and the Clang AOT compiler used with C++ in a practical context. This interest gradually evolved into a broader inquiry about software interoperability, particularly exploring its practical aspects and why they are intriguing and warrant further investigation. My research followed a two-pronged approach: the first being to develop a comprehensive understanding of the modern state of software interoperability and the diverse ways polyglot systems are implemented. Here, my goal was to present a broad structural overview, motivated by a desire to understand how my practical work fit within the larger field and how its techniques compared to industry standards. The second prong involved acquiring hands-on knowledge by applying interoperability concepts to a specific case. I aimed to explore whether I could replace a performance-intensive segment of my program with one written in a different language, highlighting both the benefits and drawbacks of modern techniques compared to legacy methods. The crux was to bridge the gap between theoretical frameworks and practical applications, examining how abstract concepts contrast with real-world examples. Ultimately, this research sought to link and contrast various aspects of interoperability theory with an engaging practical case, providing insights into how these concepts connect and reinforce each other.

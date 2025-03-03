@@ -1,0 +1,29 @@
+\begin{tikzpicture}[subgraph text bottom=text centered, subgraph nodes={font=\itshape, black}, nodes=draw]
+  \graph [layered layout, grow=down, sibling sep=5mm, level sep=5mm, component align=center, component direction=270] {
+    // [component align=center] {
+      "(1) Parsing" -> {
+        "Lexing" -> [dashed] "Syntactic Analysis",
+        "Type Reflection" -> [dashed] "Reflection Analysis"
+      }
+    };
+
+    "compiler parsing"[draw] // [layered layout, grow=down] {
+      "Lexing",
+      "Syntactic Analysis"
+    },
+
+    "reflection parsing"[draw] // [layered layout, grow=down] {
+      "Type Reflection",
+      "Reflection Analysis"
+    },
+
+    % Ensure connections to "(2) Semantic Analysis" first
+    "compiler parsing" -> "(2) Semantic Analysis",
+    "reflection parsing" -> "(2) Semantic Analysis",
+
+    % Center "(2) Semantic Analysis" and continue path downward
+    "(2) Semantic Analysis" -> {
+      "(3) Transformation" -> "(4) Code Generation"
+    };
+  };
+\end{tikzpicture}

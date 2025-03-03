@@ -1,0 +1,12 @@
+\begin{fileminted}{src/cpp/usertype.cpp}{cpp}
+template <typename Ot, typename Ft, const char* name>
+struct P {
+    using obj_t = const Ot;
+    using field_t = Ft;
+    static constexpr const char* get_name() { 
+        return name; 
+    }
+    static std::function<Ft(Ot&)> get;
+    static std::function<void(Ot&, Ft)> set;
+};
+\end{fileminted}

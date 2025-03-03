@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{Usertype}\PYG{o}{\PYGZlt{}}\PYG{n}{sphere}\PYG{o}{\PYGZgt{}}\PYG{o}{:}\PYG{o}{:}\PYG{n}{initialize\PYGZus{}type}\PYG{p}{(}
+\PYG{+w}{    }\PYG{n}{tl}\PYG{o}{\PYGZlt{}}
+\PYG{+w}{        }\PYG{n}{sphere\PYGZus{}center}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{sphere\PYGZus{}radius}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{sphere\PYGZus{}r\PYGZus{}squared}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{sphere\PYGZus{}mat}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{sphere\PYGZus{}bbox}
+\PYG{+w}{    }\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,}
+\PYG{+w}{    }\PYG{n}{tl}\PYG{o}{\PYGZlt{}}\PYG{n}{lambertian}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{p}{)}
+\PYG{p}{)}\PYG{p}{;}
+
+\PYG{n}{Usertype}\PYG{o}{\PYGZlt{}}\PYG{n}{sphere}\PYG{o}{\PYGZgt{}}\PYG{o}{:}\PYG{o}{:}\PYG{n}{implement}\PYG{o}{\PYGZlt{}}\PYG{n}{Hittable}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\end{Verbatim}

@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{template}\PYG{o}{\PYGZlt{}}\PYG{k}{typename}\PYG{+w}{ }\PYG{n+nc}{T}\PYG{o}{\PYGZgt{}}
+\PYG{k}{template}\PYG{o}{\PYGZlt{}}\PYG{k}{typename}\PYG{+w}{ }\PYG{n+nc}{Field\PYGZus{}t}\PYG{o}{\PYGZgt{}}
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n}{Usertype}\PYG{o}{\PYGZlt{}}\PYG{n}{T}\PYG{o}{\PYGZgt{}}\PYG{o}{:}\PYG{o}{:}\PYG{n}{add\PYGZus{}property}\PYG{p}{(}
+\PYG{+w}{    }\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}
+\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{\PYGZus{}mapping}\PYG{p}{.}\PYG{n}{insert}\PYG{p}{(}\PYG{p}{\PYGZob{}}\PYG{n}{Symbol}\PYG{p}{(}\PYG{n}{name}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{p}{[}\PYG{n}{get}\PYG{p}{]}\PYG{p}{(}\PYG{n}{T}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{t\PYGZus{}inst}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{unsafe}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Value}\PYG{o}{*}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{jluna}\PYG{o}{:}\PYG{o}{:}\PYG{n}{box}\PYG{o}{\PYGZlt{}}\PYG{n}{Field\PYGZus{}t}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{get}\PYG{p}{(}\PYG{n}{t\PYGZus{}inst}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}\PYG{p}{,}
+\PYG{+w}{        }\PYG{p}{[}\PYG{n}{set}\PYG{p}{]}\PYG{p}{(}\PYG{n}{T}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{t\PYGZus{}inst}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{unsafe}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Value}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{val}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{set}\PYG{p}{(}\PYG{n}{t\PYGZus{}inst}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{jluna}\PYG{o}{:}\PYG{o}{:}\PYG{n}{unbox}\PYG{o}{\PYGZlt{}}\PYG{n}{Field\PYGZus{}t}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{val}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{Type}\PYG{p}{(}\PYG{p}{(}\PYG{n}{jl\PYGZus{}datatype\PYGZus{}t}\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{jl\PYGZus{}eval\PYGZus{}string}\PYG{p}{(}
+\PYG{+w}{            }\PYG{n}{as\PYGZus{}julia\PYGZus{}type}\PYG{o}{\PYGZlt{}}\PYG{n}{Field\PYGZus{}t}\PYG{o}{\PYGZgt{}}\PYG{o}{:}\PYG{o}{:}\PYG{n}{type\PYGZus{}name}\PYG{p}{.}\PYG{n}{c\PYGZus{}str}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}\PYG{p}{\PYGZcb{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

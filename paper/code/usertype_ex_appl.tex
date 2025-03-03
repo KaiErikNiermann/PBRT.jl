@@ -1,0 +1,14 @@
+\begin{fileminted}{src/cpp/usertype.cpp}{cpp}
+Usertype<sphere>::initialize_type(
+    tl<
+        sphere_center,
+        sphere_radius,
+        sphere_r_squared,
+        sphere_mat,
+        sphere_bbox
+    >(),
+    tl<lambertian>()
+);
+
+Usertype<sphere>::implement<Hittable>();
+\end{fileminted}

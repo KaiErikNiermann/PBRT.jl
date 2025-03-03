@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{template}\PYG{o}{\PYGZlt{}}
+\PYG{+w}{    }\PYG{k}{typename}\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{template}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{k}{typename}\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{k}{class}\PYG{+w}{ }\PYG{n+nc}{A}\PYG{p}{,}
+\PYG{+w}{    }\PYG{k}{typename}\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}\PYG{+w}{ }\PYG{n}{D\PYGZus{}t}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{template}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{k}{typename}\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{k}{class}\PYG{+w}{ }\PYG{n+nc}{B}
+\PYG{o}{\PYGZgt{}}
+\PYG{k}{static}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n}{initialize\PYGZus{}type}\PYG{p}{(}\PYG{n}{A}\PYG{o}{\PYGZlt{}}\PYG{n}{P}\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}\PYG{o}{\PYGZgt{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{B}\PYG{o}{\PYGZlt{}}\PYG{n}{D\PYGZus{}t}\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}\PYG{o}{\PYGZgt{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{k}{template}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{k}{typename}\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}\PYG{+w}{ }\PYG{n}{D\PYGZus{}t}\PYG{o}{\PYGZgt{}}
+\PYG{k}{static}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n}{initialize\PYGZus{}map}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\end{Verbatim}

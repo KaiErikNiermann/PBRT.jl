@@ -1,0 +1,83 @@
+\begin{fileminted}{libs/jluna/.src/usertype.inl}{cpp}
+template <typename T>
+template <typename... Derived_t>
+void Usertype<T>::initialize_map() {
+    Usertype<T>::tstr_hash[usertype_enabled<T>::name] = typeid(T).hash_code();
+    ((Usertype<T>::tstr_hash[usertype_enabled<Derived_t>::name] = typeid(Derived_t).hash_code()), ...);
+}
+
+template <typename T>
+template <
+    typename... Property, template <typename...> class A,
+    typename... Derived_t, template <typename...> class B
+>
+void Usertype<T>::initialize_type(A<Property...>, B<Derived_t...>) {
+    ([&]() -> void {
+        auto symbol = Symbol(Property::get_name());
+
+        if (_mapping.find(symbol) == _mapping.end())
+            _fieldnames_in_order.push_back(symbol);
+
+        _mapping.insert({symbol, {
+            [](T& instance, bool init) -> unsafe::Value* {
+                auto getter = Property::getter;
+                auto ret_val = getter(instance);
+
+                using field_t = std::remove_pointer_t<typename Property::field_t>;
+                unsafe::Value* res = nullptr;
+
+                if constexpr (std::is_abstract_v<field_t>) {
+                    if (!_implemented) {
+                        return Usertype<field_t>::_type->operator unsafe::Value*();
+                    }
+                }
+
+                ([&]() -> void {
+                    if constexpr (std::is_base_of_v<field_t, Derived_t>) {
+                        if (auto val = dynamic_cast<Derived_t*>(ret_val)) {
+                            res = jluna::box<Derived_t>(*val);
+                        }
+                    }
+                }(), ...);
+                
+                if (res != nullptr) return res;
+                
+                return jluna::box<typename Property::field_t>(ret_val);
+            },
+            [&](T& instance, unsafe::Value* value, std::string jl_type_as_str) -> void {
+                bool set = false;
+                auto setter = Property::setter;
+                using field_t = std::remove_pointer_t<typename Property::field_t>;
+
+                if (_inline_cache.find(jl_type_as_str) != _inline_cache.end()) {
+                    _inline_cache.at(jl_type_as_str)(instance, value);
+                    return;
+                } 
+
+                ([&]() -> void {
+                    if (Usertype<T>::tstr_hash[jl_type_as_str] == typeid(Derived_t).hash_code()) {
+                        if constexpr (std::is_base_of_v<field_t, Derived_t>) {
+                            _inline_cache.insert({jl_type_as_str, 
+                                [=](T& instance, unsafe::Value* value) -> void { 
+                                    Derived_t unboxed_val = jluna::unbox<Derived_t>(value);
+                                    setter(instance, &unboxed_val);
+                                }
+                            });
+                            _inline_cache.at(jl_type_as_str)(instance, value);
+                            set = true;
+                            return;
+                        }
+                    } 
+                }(), ...);
+
+                if (!set) {
+                    setter(instance, jluna::unbox<typename Property::field_t>(value));             
+                }
+            },
+            Type((jl_datatype_t*) jl_eval_string(as_julia_type<typename Property::field_t>::type_name.c_str()))
+        }});
+    }(), ...);
+
+    Usertype<T>::initialize_map<Derived_t...>();
+}
+\end{fileminted}

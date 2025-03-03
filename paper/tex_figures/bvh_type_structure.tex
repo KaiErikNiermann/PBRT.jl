@@ -1,0 +1,6 @@
+\begin{tikzpicture}[subgraph text bottom=text centered, subgraph nodes=black]
+    \graph [tree layout, nodes=draw] {
+        "node" [label=right:{ : Base Type}] -> { "$\text{shape} \in \text{shapes}$" [label=right:{ : Derived Type}] };
+    };
+    \draw [->] (node) to [loop above] (node);
+\end{tikzpicture}

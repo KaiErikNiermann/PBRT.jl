@@ -1,0 +1,19 @@
+\begin{fileminted}{jluna/usertype.inl}{cpp}
+template<typename T>
+template<typename Field_t>
+void Usertype<T>::add_property(
+    ...
+) {
+    _mapping.insert({Symbol(name), {
+        [get](T& t_inst) -> unsafe::Value* {
+            return jluna::box<Field_t>(get(t_inst));
+        },
+        [set](T& t_inst, unsafe::Value* val) -> void {
+            set(t_inst, jluna::unbox<Field_t>(val));
+        },
+        Type((jl_datatype_t*) jl_eval_string(
+            as_julia_type<Field_t>::type_name.c_str())
+        )
+    }});
+}
+\end{fileminted}

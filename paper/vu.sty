@@ -1,16 +1,40 @@
 \ProvidesPackage{vu}
 
-
 \usepackage{array}
+\usepackage{csquotes}
+\usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{booktabs}
+% \usepackage{syntax}
+\usepackage{tabularx}
+\usepackage{tikz-cd}
+\usepackage{mathpartir}
+
 \usepackage{caption}
+\captionsetup{
+  font=small,
+  textfont=normal,
+  aboveskip=0pt,
+  belowskip=0pt,
+}
+
+% \setlength{\textfloatsep}{0pt}
+% \setlength{\floatsep}{0pt}
+\setlength{\intextsep}{5pt}
+
 \usepackage{enumitem}
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{ifthen}
-\usepackage[utf8]{inputenc}
+\usepackage{longtable}
 \usepackage{lipsum}
+\usepackage{tikz-cd}
+
+% graph drawing libraries
+\usetikzlibrary{graphs, graphdrawing}
+\usegdlibrary{circular, layered, trees} % Use layered layout
+% \usetikzlibrary{graphs, shapes.multipart, fit, positioning}
+
 \usepackage{multirow}
 \usepackage[group-separator={,},per-mode=symbol,binary-units=true]{siunitx}
 \usepackage{subcaption}
@@ -22,7 +46,6 @@
 
 \usepackage{hyperref}
 
-
 \hypersetup{pdfstartview=FitH,
   pdfpagelayout=SinglePage,
   bookmarksnumbered=true,
@@ -30,7 +53,7 @@
   colorlinks=true,
   citecolor=blue,
   linkcolor= blue,
-  urlcolor=blue}
+urlcolor=blue}
 
 % If you use the hyperref package, please uncomment the following line to display
 % URLs in blue roman font according to Springer's eBook style.
@@ -40,7 +63,6 @@
 \def\UrlBreaks{\do\.\do-\do\/\do\_}
 
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
-
 
 %% ---( general text formatting )---
 %%
@@ -101,7 +123,6 @@
 %%
 %% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
 %% ---( predefined constants for figure widths )---
 %%
 
@@ -120,7 +141,6 @@
 
 %%
 %% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 %% ---( reviewing macros )---
 %%
@@ -150,12 +170,12 @@
 
 %% Issues to address.
 \newcommand{\FIXME}[2]{
-  \textcolor[HTML]{c0392b}{\textit{FIXME(#1): \textbf{#2}}}}
+\textcolor[HTML]{c0392b}{\textit{FIXME(#1): \textbf{#2}}}}
 \newcommand{\MISSING}[1]{\textcolor[HTML]{de2d26}{\textbf{#1}}}
 
 %% Recommendation to remove.
 \newcommand{\REMOVE}[1]{
-  {\small \textcolor{a65628}{#1\\--- Consider deleting.}}}
+{\small \textcolor{a65628}{#1\\--- Consider deleting.}}}
 
 \else
 %% Turn off all editing macros.
@@ -179,9 +199,8 @@
 %%
 %% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
 %% ---( draft customizations )---
-%% 
+%%
 
 %% Disable / remove copyright boxes
 \setcopyright{none}
@@ -193,13 +212,11 @@
 \acmDOI{}
 \acmISBN{}
 
-
 %% Graphics Path to find your figures and illustrations.
 \graphicspath{{./figures/}}
 
-%% 
+%%
 %% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 %% ---( workarounds )---
 %%
@@ -225,7 +242,6 @@
 
 %%
 %% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 %%% Local Variables:
 %%% mode: latex

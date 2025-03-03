@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{x}{template \PYGZlt{}typename Ot, typename Ft, const char* name\PYGZgt{}}
+\PYG{x}{struct Property \PYGZob{}}
+\PYG{x}{    using obj\PYGZus{}t = const Ot;}
+\PYG{x}{    using field\PYGZus{}t = Ft;}
+\PYG{x}{    static constexpr const char* get\PYGZus{}name() \PYGZob{} return name; \PYGZcb{}}
+\PYG{x}{    static std::function\PYGZlt{}Ft(Ot\PYGZam{})\PYGZgt{} getter;}
+\PYG{x}{    static std::function\PYGZlt{}void(Ot\PYGZam{}, Ft)\PYGZgt{} setter;}
+\PYG{x}{\PYGZcb{};}
+\end{Verbatim}

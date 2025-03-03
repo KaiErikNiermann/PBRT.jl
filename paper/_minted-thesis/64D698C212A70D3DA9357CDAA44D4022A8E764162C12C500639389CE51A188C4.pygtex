@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{class}\PYG{+w}{ }\PYG{n+nc}{FieldType}\PYG{p}{[}\PYG{n}{Label\PYGZus{}t}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{,} \PYG{n}{Out\PYGZus{}t}\PYG{p}{,} \PYG{n}{Rec\PYGZus{}t}\PYG{p}{]}\PYG{p}{:}
+    \PYG{n}{label}\PYG{p}{:} \PYG{n+nb}{type}\PYG{p}{[}\PYG{n}{Literal}\PYG{p}{[}\PYG{n}{Label\PYGZus{}t}\PYG{p}{]}\PYG{p}{]}
+    \PYG{n}{out\PYGZus{}t}\PYG{p}{:} \PYG{n+nb}{type}\PYG{p}{[}\PYG{n}{Out\PYGZus{}t}\PYG{p}{]}
+    \PYG{n}{rec\PYGZus{}t}\PYG{p}{:} \PYG{n+nb}{type}\PYG{p}{[}\PYG{n}{Rec\PYGZus{}t}\PYG{p}{]}
+    \PYG{n}{get\PYGZus{}t}\PYG{p}{:} \PYG{n+nb}{type}\PYG{p}{[}\PYG{n}{Callable}\PYG{p}{[}\PYG{p}{[}\PYG{n}{Rec\PYGZus{}t}\PYG{p}{]}\PYG{p}{,} \PYG{n}{Out\PYGZus{}t}\PYG{p}{]}\PYG{p}{]}
+    \PYG{n}{set\PYGZus{}t}\PYG{p}{:} \PYG{n+nb}{type}\PYG{p}{[}\PYG{n}{Callable}\PYG{p}{[}\PYG{p}{[}\PYG{n}{Rec\PYGZus{}t}\PYG{p}{,} \PYG{n}{Out\PYGZus{}t}\PYG{p}{]}\PYG{p}{,} \PYG{n}{Rec\PYGZus{}t}\PYG{p}{]}\PYG{p}{]}
+\end{Verbatim}

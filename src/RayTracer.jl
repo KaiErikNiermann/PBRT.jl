@@ -1,16 +1,16 @@
-rec_buf = hit_record()
-sd_buf = scatter_data(color(), ray())
+rec_buf = HitRecord()
+sd_buf = ScatterData(Color(), Ray())
 
-function ray_color(r::ray, world::hittable_list, depth)::color
+function ray_color(r::Ray, world::HittableList, depth)::Color
     rec = rec_buf
-    def_color = color([0.0, 0.0, 0.0])
+    def_color = Color([0.0, 0.0, 0.0])
 
     if(depth <= 0)
         return def_color
     end
     
     # 0.001 to avoid shadow acne
-    if(@wtime hit!(world, r, interval(0.001, Inf), rec))
+    if(@wtime hit!(world, r, Interval(0.001, Inf), rec))
         sd = sd_buf
         if(scatter(rec.mat, r, rec, sd))
             return sd.attenuation * ray_color(sd.scattered, world, depth - 1)
@@ -20,10 +20,10 @@ function ray_color(r::ray, world::hittable_list, depth)::color
 
     unit_direction = r.direction/norm(r.direction)
     t = 0.5 * (unit_direction[1] + 1.0)
-    color((1.0 - t) * [1.0, 1.0, 1.0] + t * [0.5, 0.7, 1.0])
+    Color((1.0 - t) * [1.0, 1.0, 1.0] + t * [0.5, 0.7, 1.0])
 end
 
-function write_color(file, c::color, scale)
+function write_color(file, c::Color, scale)
     # Divide the color by the number of samples and gamma-correct 
     r::Float16 = sqrt(scale * c.r)
     g::Float16 = sqrt(scale * c.g)
@@ -36,7 +36,7 @@ function write_color(file, c::color, scale)
     write(file, color)
 end
 
-function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::image, c::camera, scale) 
+function gen_img(width::Int64, height::Int64, file, world::HittableList, img::Image, c::camera, scale) 
     max_depth = img.max_depth
     spp = img.samples_per_pixel
     write_counter = 0
@@ -45,7 +45,7 @@ function gen_img(width::Int64, height::Int64, file, world::hittable_list, img::i
     for j in h_iter
         set_description(h_iter, "sl remaining: $j")
         for i in 0:1:width-1
-            pixel_color = color([0.0, 0.0, 0.0])
+            pixel_color = Color([0.0, 0.0, 0.0])
             for _ in 1:1:spp
                 u = ( Float64(i) + random_double() ) / (width - 1)
                 v = ( Float64(j) + random_double() ) / (height - 1)

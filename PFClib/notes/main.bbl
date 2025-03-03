@@ -1,0 +1,92 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{Czarnecki2009BidirectionalTA}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=f1f6c466d10fcdfff9c3a22ec5524ed6}{%
+           family={Czarnecki},
+           familyi={C\bibinitperiod},
+           given={K.},
+           giveni={K\bibinitperiod}}}%
+        {{hash=064359e769142696a1a3f1e21d444046}{%
+           family={Foster},
+           familyi={F\bibinitperiod},
+           given={J.\bibnamedelimi Nathan},
+           giveni={J\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=aa123f617e3811bba0121021e0329f91}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Zhenjiang},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=b7d3d74bce14662d8b790fde9a1cc58f}{%
+           family={Terwilliger},
+           familyi={T\bibinitperiod},
+           given={James\bibnamedelima F.},
+           giveni={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{5da9e0b71a33557e2f0a70f9c39f0265}
+      \strng{fullhash}{903645df2146b79b14ea10b2876a0d59}
+      \strng{bibnamehash}{903645df2146b79b14ea10b2876a0d59}
+      \strng{authorbibnamehash}{903645df2146b79b14ea10b2876a0d59}
+      \strng{authornamehash}{5da9e0b71a33557e2f0a70f9c39f0265}
+      \strng{authorfullhash}{903645df2146b79b14ea10b2876a0d59}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bidirectional Transformations: A Cross-Discipline Perspective GRACE Meeting Notes, State of the Art, and Outlook}
+      \field{year}{2009}
+      \verb{urlraw}
+      \verb https://api.semanticscholar.org/CorpusID:112946198
+      \endverb
+      \verb{url}
+      \verb https://api.semanticscholar.org/CorpusID:112946198
+      \endverb
+    \endentry
+    \entry{foster2008semantics}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=1272e86faa763606ae4dc6b2fbedae2a}{%
+           family={Foster},
+           familyi={F\bibinitperiod},
+           given={Nate},
+           giveni={N\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {University of Pennsylvania}%
+      }
+      \strng{namehash}{1272e86faa763606ae4dc6b2fbedae2a}
+      \strng{fullhash}{1272e86faa763606ae4dc6b2fbedae2a}
+      \strng{bibnamehash}{1272e86faa763606ae4dc6b2fbedae2a}
+      \strng{authorbibnamehash}{1272e86faa763606ae4dc6b2fbedae2a}
+      \strng{authornamehash}{1272e86faa763606ae4dc6b2fbedae2a}
+      \strng{authorfullhash}{1272e86faa763606ae4dc6b2fbedae2a}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{GRACE-BX '08S}
+      \field{title}{Semantics of Bidirectional Languages}
+      \field{year}{2008}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

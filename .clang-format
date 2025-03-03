@@ -1,0 +1,32 @@
+BasedOnStyle: WebKit
+IndentWidth: 4
+BreakBeforeBraces: Attach
+ColumnLimit: 100
+NamespaceIndentation: All
+
+# Improve handling of function-like expressions (e.g., nested maps, folds)
+BinPackArguments: false
+BinPackParameters: false
+
+# Keep long nested function calls readable
+AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# Improve readability of templated expressions (fold expressions, SFINAE)
+BreakTemplateDeclarations: true
+Cpp11BracedListStyle: true
+
+# Handle long chains of function calls better (e.g., map inserts, eval calls)
+AlignOperands: true
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: false
+AlignAfterOpenBracket: BlockIndent
+ContinuationIndentWidth: 4
+
+IndentPPDirectives: AfterHash
+
+# Preserve lambda formatting
+IndentWrappedFunctionNames: false
+LambdaBodyIndentation: Signature
+AllowShortLambdasOnASingleLine: All
+SortIncludes: false  # Avoid messing with custom include order

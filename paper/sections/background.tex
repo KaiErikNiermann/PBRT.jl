@@ -1,42 +1,20 @@
 \section{Background \& Related work}\label{s:background}
 
-To further gain insights into this world of interoperability I thought it best to continue on with the idea I had of rewriting a component in different languages and then applying some system of interoperability. Decomposing this idea into concrete steps we can develop a rough design of how this study will be conducted.
-\begin{enumerate}
-    \item Literature review \& Background
-    \begin{enumerate}
-        \item Review current landscape of language interoperability
-        \item Choose suitable libraries to explore our specific use case
-    \end{enumerate}
-    \item Implementation
-    \begin{enumerate}
-        \item Profile the Julia application to extract the most performance intensive piece of code
-        \item Rewrite this piece of code in different languages, preferably ones which have very different execution models
-        \item Write some type of glue layers utilizing the chosen libraries to enable this interoperability
-    \end{enumerate}
-    \item Analysis \& Development
-    \begin{enumerate}
-        \item Understand how the type systems of these different languages interact, especially considering types beyond primitives
-        \item Profile the programs for all given languages to understand the performance impacts
-        \begin{enumerate}
-            \item Understand the underlying nature of the performance impacts and how they relate to differences in execution models
-        \end{enumerate}
-        \item Understand how interop libraries are designed and enable communication between languages
-        \begin{enumerate}
-            \item Attempt to develop certain solutions for any limitations encountered
-        \end{enumerate}
-    \end{enumerate}
-\end{enumerate}
+\subsection{FFI \& Low Level Interop}
 
-\subtitle{Foreign Function Interface (FFI)}
+\subsubsection{Foreign Function Interface (FFI)}
 
-FFI is a generic term which describes any implementation which enables a piece of code written in one language to call functions written in another. As the name implies these implementations usually provide some interface; that is, abstractions; which enable a programmer to make calls into some binary compiled into some target language differing from the source. In practice FFI can be thought of as existing on two layers, the Application Binary Interface (ABI) level and the Application Programming Interface (API) level. The ABI level describes some common standard for how to compile source code into machine code. The API level then describes the corresponding high-level counterpart which comes in the form of libraries which expose means of working with this underlying shared ABI as to enable communication in a shared low level standard. By far the most common ABI which many languages can compile to and by extension have interoperability with is the C ABI.\@ One slight tangent, naturally when we talk about an ABI we are referring to machine level concepts, which is to say that while its become the de facto standard to say `C ABI' the underlying standard's we are talking about are the platform specific ABI standards which C compilers correspond to. It's just more straightforward to say there is a universal `C ABI' as superficially this is more or less accurate.
+FFI is a generic term which describes any implementation which enables a piece of code written in one language to call functions written in another. As the name implies these implementations usually provide some interface; that is, abstractions; which enable a programmer to make calls into some binary compiled into some target language differing from the source. In practice FFI can be thought of as existing on two layers, the Application Binary Interface (ABI) level and the Application Programming Interface (API) level. The ABI level describes some common standard for how to compile source code into machine code. The API level then describes the corresponding high-level counterpart which comes in the form of libraries which expose means of working with this underlying shared ABI as to enable communication in a shared low level standard. By far the most common ABI which many languages can compile to and by extension have interoperability with is the C ABI.\@ One slight tangent, naturally when we talk about an ABI we are referring to machine level concepts, which is to say that while its become the de-facto standard to say `C ABI' the underlying standard's we are talking about are the platform specific ABI standards which C compilers correspond to. It's just more straightforward to say there is a universal `C ABI' as practically speaking this is more or less accurate.
 
+To jump straight into a little demostration for how the programmer facing API version of something like this commonly works we can look at some examples.
+
+\begin{listing}[ht!]
 \begin{minted}[
     frame=lines,
-    fontsize=\footnotesize, 
+    fontsize=\footnotesize,
     linenos,
     numbersep=5pt,
-    xleftmargin=5pt
+    xleftmargin=5pt,
 ]{C}
 // mylib.c
 #include <stdio.h>
@@ -45,217 +23,276 @@ void greet(const char* name) {
     printf("Hello, %s!\n", name);
 }
 \end{minted}
+  \caption{FFI Example in C}
+  \label{listing:ffi_example_c}
+\end{listing}
 
+\begin{listing}[ht!]
 \begin{minted}[
     frame=lines,
-    fontsize=\footnotesize, 
+    fontsize=\footnotesize,
     linenos,
     numbersep=5pt,
-    xleftmargin=5pt
+    xleftmargin=5pt,
 ]{julia}
 ccall((:greet, "mylib"), Cvoid, (Cstring,), "World")
 \end{minted}
+  \caption{FFI Example in Julia}
+  \label{listing:ffi_example_julia}
+\end{listing}
 
+\begin{listing}[ht!]
 \begin{minted}[
     frame=lines,
-    fontsize=\footnotesize, 
+    fontsize=\footnotesize,
     linenos,
     numbersep=5pt,
     xleftmargin=5pt
 ]{rust}
-#[link(name = "mylib")] 
+#[link(name = "mylib")]
 extern "C" { fn greet(name: *const c_char); }
 
-fn main() { 
-    let name = "World"; 
-    let c_name = CString::new(name).expect("CString::new failed"); 
-    unsafe { 
-        greet(c_name.as_ptr()); 
-    } 
+fn main() {
+    let name = "World";
+    let c_name = CString::new(name).expect("CString::new failed");
+    unsafe {
+        greet(c_name.as_ptr());
+    }
 }
 \end{minted}
+  \caption{FFI Example in Rust}
+  \label{listing:ffi_example_rust}
+\end{listing}
 
+\begin{listing}[ht!]
 \begin{minted}[
     frame=lines,
-    fontsize=\footnotesize, 
+    fontsize=\footnotesize,
     linenos,
     numbersep=5pt,
     xleftmargin=5pt
 ]{python}
 mylib = ctypes.CDLL('./libmylib.so')
 
-mylib.greet.argtypes = [ctypes.c_char_p]  
-mylib.greet.restype = None                  
+mylib.greet.argtypes = [ctypes.c_char_p]
+mylib.greet.restype = None
 
-name = b"World"  
+name = b"World"
 mylib.greet(name)
 \end{minted}
+  \caption{FFI Example in Python}
+  \label{listing:ffi_example_python}
+\end{listing}
 
 One critical thing to observe is in all instance we must ensure the FFI boundary method and its arguments conform to the memory layout of the target language as specified by the ABI.\@ Since string types for example generally have different underlying representations depending on the language here we must ensure the string has the form of a C-string, that is its a basic pointer to an array of characters \textit{char*}.
 
 This in turn limits FFI boundary methods by the syntax and underlying ABI of our target language. For example, as C has no generics, we cannot utilize a generic method as an FFI boundary despite generics existing in our source language and Rust being compatible with the C ABI.\@
 
+\begin{listing}[ht!]
 \begin{minted}[
-    frame=lines,
-    fontsize=\footnotesize, 
-    linenos,
-    numbersep=5pt,
-    xleftmargin=5pt
+  frame=lines,
+  fontsize=\footnotesize,
+  linenos,
+  numbersep=5pt,
+  xleftmargin=5pt
 ]{rust}
-extern "C" { 
-    fn add<T>(a: T, b: T) -> T; 
+extern "C" {
+  fn add<T>(a: T, b: T) -> T;
 }
 \end{minted}
+  \caption{Pseudocode example of extern C generics}
+  \label{listing:extern_c_generics}
+\end{listing}
 
-Stated differently FFI boundary method signatures must mirror those of the target language. We can create some flexibility here by abstracting the boundary utilizing wrappers; commonly macros; which make defining the boundary closer to that of the source language while implicitly ensuring that the actual underlying boundary is valid, an example of this is the \texttt{@ccall} macro in Julia.
+Stated differently FFI boundary method signatures must mirror those of the target language. We can create some flexibility here by abstracting the boundary utilizing wrappers; which make defining the boundary closer to that of the source language while implicitly ensuring that the actual underlying boundary is valid, an example of this is the \texttt{@ccall} macro in Julia. But this doesn't really address the underlying issue that our FFI boundary limits the idiomatic application of our source and target languages.
 
-But this doesn't really address the underlying issue that our FFI boundary is limited by the target language. 
+\subsubsection{Application Binary Interface (ABI)}
 
-\subsection{Application Binary Interface (ABI)}
+ABI stability is a key factor to understanding the current landscape of not only interoperability between languages but also within different versions of languages themselves. As the name implies the stability of an ABI refers to its specification, that being how a compiler generates machine code, being stable or unchanging. An ABI being `fully stable' implies that all aspects of its specifications will not change with any future modification of its execution system (JIT compiler, AOT compiler, etc.). One of the primary reasons for so many languages having interop with C is due to the fact that it has full ABI stability, thus there exist essentially a promise that a compiler can always generate the same machine code for a given source language that conforms to the defined C ABI standard knowing this will never some day break due to changes in C's calling conventions, memory layout, etc.
 
-ABI stability is a key factor to understanding the current landscape of not only interoperability between languages but also within different versions of languages themselves. As the name implies the stability of an ABI refers to its specification, that being how a compiler generates machine code, being stable or unchanging. An ABI being `fully stable' implies that all aspects of its specifications will not change with any future modification of its execution system (JIT compiler, AOT compiler, etc.). One of the primary reasons for so many languages having interop with C is due to the fact that it has full ABI stability, thus there exist essentially a promise that a compiler can always generate the same machine code for a given source language that conforms to the defined C ABI standard knowing this will never some day break due to changes in C's calling conventions, memory layout, etc. 
+The other side of this is ABI instability, most languages currently have what could be considered partial ABI stability. What this means in practice is that most languages have some execution system which generates machine code, commonly this version or a set of versions have a common ABI.\@ Within this set of versions there exists stability, meaning shared library calls; which are reliant on ABI stability; can function with any other languages capable of producing machine code which conforms to this ABI.\@ Though across different ABI's this communication breaks down as we no longer have a homogenous standard generating the machine code but conflicting and often incompatible standards.
 
-The other side of this is ABI instability, most languages currently have what could be considered partial ABI stability. What this means in practice is that most languages have some execution system which generates machine code, commonly this version or a set of versions have a common ABI.\@ Within this set of versions there exists stability, meaning shared library calls; which are reliant on ABI stability; can function with any other languages capable of producing machine code which conforms to this ABI.\@ Though across different ABI's this communication breaks down as we no longer have a homogenous standard generating the machine code but conflicting and often incompatible standards. 
+This nature of partial stability in the ABI's of most languages creates one of the primary limitations to language interoperability with FFI, due to the rather complex and to an extent controversial nature of having an ABI which is both fully specified and consistent across versions there are not alot of languages which have this and by extension not alot of compilers which chose to implement an ABI for this. Furthermore there is the point that if for some set of languages there is an existing C ABI already implemented, this in turn implies we have communication between these two languages with the common language taking the form of the C ABI.\@ It should be clarified that while interop in many languages occurs with the C ABI as the basic common ground.
 
-This nature of partial stability in the ABI's of most languages creates one of the primary limitations to language interoperability with FFI, due to the rather complex and to an extent controversial nature of having an ABI which is both fully specified and consistent across versions there are not alot of languages which have this and by extension not alot of compilers which chose to implement an ABI for this. Furthermore there is the point that if for some set of languages there is an existing C ABI already implemented, this in turn implies we have communication between these two languages with the common language taking the form of the C ABI.\@ It should be clarified that while interop in many languages occurs with the C ABI as the basic common ground. 
+\subsubsection{C-ABI and Interop in practice}
 
-\subsection{C-ABI and Interop in practice}
+To describe how interop utilizing the C ABI actually plays out in practice lets express two arbitrary languages as $L_1$ and $L_2$. In the case of primitives the generated machine code usually produces matching layouts, thus little additional work is involved beyond defining the FFI boundaries in both languages \footnote{
+This is somewhat of an oversimplification but for the most part holds true as there is generally either a unform expectation of how primitives are represented for most languages or this is trivially apparent from the language specification (i.e. \texttt{uint64\_t}).}. As start wanting to pass more complex things across a language boundary that might not have as straightforward of a representation in C we run into the first issue with pure C ABI based interop. This being that it leads to considerable manual specification and redefining language specific syntax, otherwise called marshalling or boxing through the FFI boundary and in turn unmarshalling in the target language. Additionally we must ensure that the representation of our type in $L_1$ matches that in $L_2$ which for a large library could mean having to manually specific all types such that we establish a mirrored relationship; while this is somewhat obvious that it has to happen the manual nature of it would be less then desirable in the case of very large libraries we wish to interop with.
 
-To describe how interop utilizing the C ABI actually plays out in practice lets express two arbitrary languages as $L_1$ and $L_2$. In the case of primitives the generated machine code usually produces matching layouts, thus little additional work is involved beyond defining the FFI boundaries in both languages. As we start getting to more complex types we start wanting to pass more complex things across the FFI boundary that might not have as straightforward of a representation in C we run into the first issue with pure C ABI based interop. This being that it leads to considerable manual specification and redefining languages specific syntax, otherwise called marshalling or boxing through the FFI boundary and in turn unmarshalling in the target language. Additionally we must ensure that the representation of our type in $L_1$ matches that in $L_2$ which for a large library could mean having to manually specific all types such that we establish a mirrored relationship; while this is somewhat obvious that it has to happen the manual nature of it would be less then desirable in the case of very large libraries we wish to interop with.
+To address these issues of having to manually box everything such that it is compatible with the C ABI various language features and libraries exist as abstractions to enable more seamless and simplified interop between languages. The common features with these interoperability abstraction systems are usually automatic binding generation through parsing and implicit boxing and unboxing of complex types that cant be trivially passed through the FFI boundary. Examples of this are Rusts CXX library \cite{cxx} or the way Swift implemented interop as a direct part of its compiler.
 
-To address these issues of having to manually box everything such that it is compatible with the C ABI various language features and libraries exist as abstractions to enable more seamless and simplified interop between languages. The common features with these interoperability abstraction systems are usually automatic binding generation through parsing and implicit boxing and unboxing of complex types that cant be trivially passed through the FFI boundary. Examples of this are Rusts CXX library or the way Swift implemented interop as a direct part of its compiler.
-
-Through these abstractions interop between many languages has become a mostly trivial task, in that most of the manual activities are now generally automated in one way or another, though as stated before due to the fact that this is all ultimately still working through the C-ABI (or some slight modification of it) we are still very much limited in the things we can actually pass between languages. Though these limitations are generally not large enough to really discourage the usage of FFI as the primary means of interop. 
+Through these abstractions interop between many languages has become a mostly trivial task, in that most of the manual activities are now generally automated in one way or another, though as stated before due to the fact that this is all ultimately still working through the C-ABI (or some slight modification of it) we are still very much limited in the things we can actually pass between languages. Though these limitations are generally not large enough to really discourage the usage of FFI as the primary means of interop.
 
 So to briefly summarize we can see that FFI generally relies on a common denominator ABI between languages; often the C ABI;\@ and a set of tools to automate any manual boxing and unboxing such that the developer can; for the most part; simply define a boundary in both languages and use said boundary as if it were a regular call. An important final consideration with these FFI systems is how optimization works across language boundaries. Since the methods of shared libraries are only resolved at link time no optimizations except LTO can occur. The shared object file from the target language has optimizations applied from its own compiler then depending on if the compiler has Link Time Optimization (LTO) implemented we can optimize the whole program across the language boundary, otherwise no optimizations occurs across the language boundary.
 
-\subsection{WebAssembly (WASM)}
+\subsubsection{WebAssembly (WASM)}
 
-WASM offers an interesting insights into how language interop is developing on the web. First announced in 2015 and then released in 2017 WASM is a byte-code format designed to be executed within web-browsers using stack-based Virtual Machines (VM) though has now also been implemented to run both via AOT and JIT compilers. The WASM specification was designed by the World Wide Web Consortium (W3C) but has various compiler implementations by different groups.  WASM when used as a compilation target for other languages not only allows potentially arbitrary languages to run on the web, but through its ABI also allows for another common denominator of communication. To understand the state of its ABI we have to examine the different compiler toolchains that target WASM.\@ Currently the major ones are 
+WASM offers an interesting insights into how language interop is developing on the web. First announced in 2015 and then released in 2017 WASM is a byte-code format designed to be executed within web-browsers using stack-based Virtual Machines (VM) though has now also been implemented to run both via AOT and JIT compilers. The WASM specification was designed by the World Wide Web Consortium (W3C) but has various compiler implementations by different groups.  WASM when used as a compilation target for other languages not only allows potentially arbitrary languages to run on the web, but through its ABI also allows for another common denominator of communication. To understand the state of its ABI we have to examine the different compiler toolchains that target WASM.\@ Currently the major ones are
 
 \begin{table*}[ht!]
-\centering
-\begin{tabular}{|l|p{15cm}|}
-\hline
-\textbf{Compiler/Toolchain} & \textbf{Description} \\ \hline
-Emscripten & This was the first project to define a POSIX compliant ABI for WASM, though as of 2020 at least it is not stable. \\ \hline
-Cheerp & Seem to support WASI-WASM as a target for the compiler. Inherently has interop with JS because it literally compiles to JS uses \href{https://github.com/leaningtech/ts2cpp/}{ts2cpp} for creating C++ interfaces from TS types. \\ \hline
-WASI & A subgroup of the WASM community group which is aiming to define a set of APIs and a canonical WASM ABI, currently the actual implementation of this specification comes in the form of:
-\begin{itemize}
-    \item \href{https://github.com/wasienv/wasienv}{Wasienv}\cite{Akbary2023wasienv} which can compile Swift and C++ to wasm conforming to the WASI standard.
-    \item \href{https://github.com/WebAssembly/wasi-sdk}{wasi-sdk}\cite{Gohman2024WebAssembly} which seems to be some more low level compiler for wasi, i think the like backend, so you just need to implement the frontend for specific languages.
-    \item \href{https://wasmtime.dev/}{wasmtime}\cite{wasmtime_intro} another wasm runtime which also has WASI as a target specification it seems.
-    \item \href{https://github.com/singlestore-labs/wasix}{wasix}\cite{wasix} compatibility layer to make WASI POSIX compliant when built with the WASI SDK.
-    \item \href{https://github.com/bytecodealliance/cargo-wasi}{wasm32-wasi}\cite{cargo-wasi} seems to be a frontend for Rust again using WASI.
-\end{itemize}
-WASI with the component model seems to have the most thoroughly documented ABI. \\ \hline
-GoJS & Not much info on this, just seems that a \href{https://tinygo.org/}{go compiler}\cite{Ayke2024tinygo} has wasm as a target. \\ \hline
-\end{tabular}
-\caption{Major WASM Compiler Toolchains and Their Descriptions}
-\label{table:wasm_compilers}
+  \centering
+  \begin{tabular}{|l|p{15cm}|}
+    \hline
+    \textbf{Compiler/Toolchain} & \textbf{Description} \\ \hline
+    Emscripten & This was the initial project to define a POSIX-compliant ABI for WASM, although it has not achieved stability as of 2020. \\ \hline
+    Cheerp & Supports WASI-WASM as a target for the compiler. It inherently provides interoperability with JavaScript by compiling to JS and utilizes \href{https://github.com/leaningtech/ts2cpp/}{ts2cpp} for generating C++ interfaces from TypeScript types. \\ \hline
+    WASI & A subgroup within the WASM community group aiming to define a set of APIs and a canonical WASM ABI. The current implementations of this specification include:
+    \begin{itemize}
+      \item \href{https://github.com/wasienv/wasienv}{Wasienv}\cite{Akbary2023wasienv}, which compiles Swift and C++ to WASM conforming to the WASI standard.
+      \item \href{https://github.com/WebAssembly/wasi-sdk}{wasi-sdk}\cite{Gohman2024WebAssembly}, a lower-level compiler for WASI, requiring frontend implementation for specific languages.
+      \item \href{https://wasmtime.dev/}{wasmtime}\cite{wasmtime_intro}, a WASM runtime targeting the WASI specification.
+      \item \href{https://github.com/singlestore-labs/wasix}{wasix}\cite{wasix}, a compatibility layer to make WASI POSIX-compliant when built with the WASI SDK.
+      \item \href{https://github.com/bytecodealliance/cargo-wasi}{wasm32-wasi}\cite{cargo-wasi}, a frontend for Rust using WASI.
+    \end{itemize}
+    WASI, with its component model, appears to have the most thoroughly documented ABI. \\ \hline
+    GoJS & Limited information is available, but it appears that the \href{https://tinygo.org/}{TinyGo compiler}\cite{Ayke2024tinygo} targets WASM. \\ \hline
+  \end{tabular}
+  \caption{Major WASM Compiler Toolchains and Their Descriptions}
+  \label{table:wasm_compilers}
 \end{table*}
 
-What we can understand from this is that it seems WASI will be the ABI to which wasi-wasm will be the likely target most compilers aim to ultimately achieve, furthermore WASI seems to aim for stability with its canonical ABI, which could suggest that we might see a new common standard of interoperability, especially as wasm compilers evolve. One distinguishing feature of specifically WASI's canonical ABI is development of the \textbf{component model}, the component model refers to type definitions written in \textit{WASM Interface Type} (WIT), which is an interface description language (IDL) used to express interface; that is, types and functions; in a language agnostic manner\cite{WebAssemblyComponentModel}. From the defined WIT code we can generate the corresponding bindings in our language thus mitigating the need for any type-shenanigan's in the case of interop since our generated bindings will by default be compatible with the ABI.\@ It should be noted that as the documentation specifies WIT implements contracts, that is similar to how an \textit{extern} block expresses a function which must be ABI compatible so to do the generated bindings from the WIT code all inherently imply compatability with the underlying ABI.\@ 
+What we can understand from this is that it seems WASI will be the ABI to which wasi-wasm will be the likely target most compilers aim to ultimately achieve, furthermore WASI seems to aim for stability with its canonical ABI, which could suggest that we might see a new common standard of interoperability, especially as wasm compilers evolve. One distinguishing feature of specifically WASI's canonical ABI is development of the \textbf{component model}, the component model refers to type definitions written in \textit{WASM Interface Type} (WIT), which is an interface description language (IDL) used to express interface; that is, types and functions; in a language agnostic manner\cite{WebAssemblyComponentModel}. From the defined WIT code we can generate the corresponding bindings in our language thus mitigating the need for any type-shenanigan's in the case of interop since our generated bindings will by default be compatible with the ABI.\@ It should be noted that as the documentation specifies WIT implements contracts, that is similar to how an \textit{extern} block expresses a function which must be ABI compatible so to do the generated bindings from the WIT code all inherently imply compatability with the underlying ABI.\@
 
-Thus if you have say some library compiled to wasi-wasm which utilizes the component model to specify the API you can in turn use the library specification to generate ABI compliant bindings for your source code, then use a wasi-wasm compiler and have full cross-language interoperability without the need for any complex wrapper libraries. Though once again here we are limited by the expressiveness of the component model and corresponding ABI, meaning that if a library wants to make something available for use externally it has to conform to the component model thus potentially limiting certain language specific features for a cross language setting. Unless similarly to the C ABI we adjust the compiler to support these language specific features and in turn break compatibility with the ABI.\@ 
+Thus if you have say some library compiled to wasi-wasm which utilizes the component model to specify the API you can in turn use the library specification to generate ABI compliant bindings for your source code, then use a wasi-wasm compiler and have full cross-language interoperability without the need for any complex wrapper libraries. Though once again here we are limited by the expressiveness of the component model and corresponding ABI, meaning that if a library wants to make something available for use externally it has to conform to the component model thus potentially limiting certain language specific features for a cross language setting. Unless similarly to the C ABI we adjust the compiler to support these language specific features and in turn break compatibility with the ABI.\@
 
-\subsection{Binding generator designs}
+\subsection{Binding generators}
+
+\subsubsection{Binding generator designs}
 
 It should be clarified that in the previous instances of interop I for the most part avoided mentioning the exact details of how different type systems are mapped between languages. In the context of FFI based interop there are two key considerations in regards to types one must consider, that being the kind of type we are bridging and the parameter-passing strategy.
 
-To talk about the parameter passing strategy we have to first talk about how types are implemented to begin with. Usually the choice of parameter-passing is closely tied to the underlying execution method of a language. Managed languages and especially high level ones generally make the choice of implementing types through boxing which in turn means they implement the call by sharing parameter passing strategy; which means that types which are cheap to copy are passed by value (boxed or not) and types which arent are passed in a way where reassignments do not affect the caller but mutations are reflected in the caller. Languages generally termed `safe' which implement some form of memory usually implement both call by value and call by reference leaving it up to the user to decide which to use for what type through certain operator choices. Finally languages which do allow memory management as a native part also usually expose pass by address where you pass a pointer which you can then dereference to use in the calling function. 
+To talk about the parameter passing strategy we have to first talk about how types are implemented to begin with. Usually the choice of parameter-passing is closely tied to the underlying execution method of a language. Managed languages and especially high level ones generally make the choice of implementing types through boxing which in turn means they implement the call by sharing parameter passing strategy; which means that types which are cheap to copy are passed by value (boxed or not) and types which arent are passed in a way where reassignments do not affect the caller but mutations are reflected in the caller. Languages generally termed `safe' which implement some form of memory usually implement both call by value and call by reference leaving it up to the user to decide which to use for what type through certain operator choices. Finally languages which do allow memory management as a native part also usually expose pass by address where you pass a pointer which you can then dereference to use in the calling function.
 
-A common pattern we can spot with the design of languages is the approach that primitives; regardless of implementation; are copied, and usually user-defined types or just anything which would be unreasonably to copy can either be passed by reference by the programmer or is implicitly done so as the implemented parameter-passing strategy. One notable strategy which has gained particular notiaraiety in recent years in the case of pass by value is if you move the type by copying or by destroying it. Rust; similar to most other languages copies small stack allocated types; but in the case of anything heap allocated as a part of the rust borrow checker such values are destructively moved. When we talk about a move as opposed to a copy the simple idea is usually just that as opposed to copying heap allocated data when we pass something by value we instead simply; through some mechanism; invalidate the source object and create a new object which points to this underlying heap allocated data. The destinction being that we in essence only ever create a new owner for the heap data as opposed to creating a new owner with their own copy of the data. 
+A common pattern we can spot with the design of languages is the approach that primitives; regardless of implementation; are copied, and usually user-defined types or just anything which would be unreasonably to copy can either be passed by reference by the programmer or is implicitly done so as the implemented parameter-passing strategy. One notable strategy which has gained particular notiaraiety in recent years in the case of pass by value is if you move the type by copying or by destroying it. Rust; similar to most other languages copies small stack allocated types; but in the case of anything heap allocated as a part of the rust borrow checker such values are destructively moved. When we talk about a move as opposed to a copy the simple idea is usually just that as opposed to copying heap allocated data when we pass something by value we instead simply; through some mechanism; invalidate the source object and create a new object which points to this underlying heap allocated data. The destinction being that we in essence only ever create a new owner for the heap data as opposed to creating a new owner with their own copy of the data.
 
-Currently the two prominant implementations of these dynamics come from C++ with move constructors and Rust with its borrow checker. The main distinguishing feature of these implementations is that in principle with C++ the moved-from object is nullified but left in a valid state such that a destructor can be called on it when it goes out of scope, whereas in Rust the old moved-from object is in an invalid state and would raise errors if used after a move, Swift has similarly implemented destructive move since v5.9 with the introduction of the \texttt{consume} operator. How long a particular variable exists from the point of creation to it being either destructively or non-destructively moved is generally referred to as the variables lifetime. As Rust has destructive move semantics as a central feature of its borrow-checker and does not use Garbage Collection (GC) it relies on either implicit (via elision) or explicit lifetime annotations as a means of conveying how long a specific variable persists for usage before being destroyed. To then brielfy summarize, we end up with essentially 3 variants of how languages pass paramaters, we either copy, pass some type of reference (either with shared semantics or not), or we give ownership. 
+Currently the two prominant implementations of these dynamics come from C++ with move constructors and Rust with its borrow checker. The main distinguishing feature of these implementations is that in principle with C++ the moved-from object is nullified but left in a valid state such that a destructor can be called on it when it goes out of scope, whereas in Rust the old moved-from object is in an invalid state and would raise errors if used after a move, Swift has similarly implemented destructive move since v5.9 with the introduction of the \texttt{consume} operator. How long a particular variable exists from the point of creation to it being either destructively or non-destructively moved is generally referred to as the variables lifetime. As Rust has destructive move semantics as a central feature of its borrow-checker and does not use runtime Garbage Collection (GC) it relies on either implicit (via elision) or explicit lifetime annotations as a means of conveying how long a specific variable persists for usage before being destroyed or dropped. To then brielfy summarize, we end up with essentially 3 variants of how languages pass paramaters, we either copy, pass some type of reference (either with shared semantics or not), or we give ownership.
 
-A good question then becomes how do we effectively implement parameter-passing in an interoperability setting. The most obvious starting point would be that; just as we want for programming languages; types which are cheap to copy should be copied. Most languages do this by defining usually some set of ABI (usually C) compatible primitive datatypes. As most languages implement a decent set of primitives in a roughly similar fashion passing these by value across a shared ABI is generally not too complex and usually forms the initial implementation of most FFI based interop systems. Once we move past basic stack allocated primitives we start to get into the realm of some complexity. A common type introduced to new programmers after primitives is the struct. Or more abstractly speaking the user defined type (UDT). UDT's can broadly be described as types which generally group some set of more fundamental types along with sets of operations that can be prefromed on these types. Both of these attributes of UDT's are usually implemented as some form of property of our type. 
+A good question then becomes how do we effectively implement parameter-passing in an interoperability setting. The most obvious starting point would be that; just as we want for programming languages; types which are cheap to copy should be copied. Most languages do this by defining usually some set of ABI (usually C) compatible primitive datatypes. As most languages implement a decent set of primitives in a roughly similar fashion passing these by value across a shared ABI is generally not too complex and usually forms the initial implementation of most FFI based interop systems. Once we move past basic stack allocated primitives we start to get into the realm of some complexity. A common type introduced to new programmers after primitives is the struct. More formally a struct can also be classified as a product type \cite{product_type} with the inclusion of labels for access fields. More concretely we then call these labelled implementations of product types record types or more commonly in the context of Obejct Oriented Programming (OOP) classes, objects or the aforementioned structs.
 
 As FFI based interop generally concerns some low level intermediary an important question which has to be asked is how do different languages represent object properties at a low level. Enumerating all the different object representation models for all languages would be somewhat out of scope and meaningless so I will simply describe the abstract approaches which are generally taken. On a high level we can distinguish broadly between two types of objects; direct objects and indirect objects. Direct objects here refers to objects which are represented directly in memory and whos property access usually translate to basic pointer offset computations. Direct objects usually exist in most statically typed, AOT compiled languages generally denoted with the keyword \texttt{struct} or \texttt{class} as a convention. When it comes to bridging direct objects the aim is firstly that property accesses resolve to the same memory location and that the type of the property, or more specifically the underlying memory has some analogue in the target language.
 
-In cases where the memory does not align we start to encounter different implementation approaches one can take. The most trivial approach would be to simply expose property getters across the FFI boundary and then handle the property types as necessary. Though if we take this approach at face value its simply not feasable especially for large scale API's in some foreign language we wish to use in a different target. 
+In cases where the memory does not align we start to encounter different implementation approaches one can take. The most trivial approach would be to simply expose property getters across the FFI boundary and then handle the property types as necessary. Though if we take this approach at face value its simply not feasable especially for large scale API's in some foreign language we wish to use in a different target.
 
-- memory management    
-    - this is a big thing how we deal with memory management and variable lifetimes 
-        - dying when it goes out of scope 
-        - dying when its destroyed (destructive move)
-        - dying when its not used anymore (statically checked)
-    - so the question becomes how do you reconcile differences in memory management
-        - annotations seems to be a common approach 
-            - crubit lifetime annotations (uses like clangs annotations i think) based on clangs lifetime bounds i think
-                - they run static lifetime analysis on the c++ code basically they try to mirror Rust's lifetime system 
-            - clang lifetime bound annotation
-    - the main question is how do you deal with the lifetimes of objects 
-        - value types : copying 
-            - Here when passing things across the language boundary and between things in the target language we copy the object
-            - Obviously mutations to this object are not reflected in the source language 
-        - reference types
-            => so by this we mean pointers or references to objects 
-            - clearly here mutations will be reflected in the source language 
-            - types of references 
-                - raw pointers (*)
-                - reference types (&)
-                - "safe" pointer types (e.g. shared_ptr)
+\subsubsection{Memory management}
 
-% binding / blue code implementations 
-% - binding 
-%     - wrappers that allow you to use something in a target language
-% - binding construction (metadata phase)
-%     - since we need some representation of the types in both languages 
-%     - so the question is how do we generate these bindings 
-%     - automatically 
-%         - we parse the headers 
-%             => frontend compiler tools (clang AST parser)
-%             - alot more difficult to work with as we only need a very restricted portion of the ast, that is we just need the header information 
-%             => manually implemented header parsers (crubit I think)
-%             - easier to implement and apply in our binding generation tool but also means we have to basically reimplement existing frontend tooling
-%         - we use code reflection 
-%             => languages which implement strong reflection systems (AKA python)
-%             - reflect on the types and extract runtime type metadata to generat bindings for target language 
-%             -! issues: 
-%                 - reflection is not supported in many languages 
-%                 - many languages arent even designed to ever really accomodate it properly, 
-%                 - additionaly reflections systems can potentially not provide enough or just not the right information needed
-%                 - examples: Python, Java, C#
-%     - manual specification 
-%         - we can manually specificy the bindings
-%         => example: Boost.python (pybind11, CxxWrap) use manual specifications and then code generation from the specifications 
-%         -! issue: obvious fact that it requires manual specification
-%         -! benefit: we dont need to work with parsers at all, i mean idfk im not gonna enmerate on everything
+A critical low-level consideration in the design of cross-language systems is how we deal with memory management. There are two important considerations we have to make here, how long a specific variable should stay accessible, commonly known as the lifetime for a variable, and how we should deal with allocation, deallocation and access for different types across the language boundary. Naturally in the implementation of languages these concepts are strongly related as we generally want an allocation and deallocation to correspond with the expected lifetime so as not to persist unused memory. Generally speaking as a byproduct of the underlying platforms used to develop languages we usually end up with statically typed languages often relying more on manual control of memory and dynamically typed languages almost always implementing some form of runtime garbage collection mechanism. Though with time we have seen that various popular statically typed AOT compiled languages have various approaches to limit the application of low-level memory control due to its notorious risk and often problematic usage, examples include the Resource Acquisition is Initialization (RAII) paradigm most commonly associated with how C++ defined the lifetime behavior for its class implementation which is usually tied to their scope, Automatic Reference Counting which is referencing counting clang extension used in Objective-C and Swift, the Garbage Collector implementation which is bundled as the runtime for Go programs, the borrow Checker in Rust which either determines implicit lifetimes at compile time or uses explicit annotations from the programmer to determine when to deallocate an object in addition to being based strictly on destructive move semantics ensuring unique ownership of objects.
 
-% - binding generation 
-%     - once we have the type metadata how do we generate bindings 
-%     - depends on language compatability 
-%         - similar languages 
-%         => bindings form minimal interfaces, we might only need to apply slight transformations to the source type so its representable in the target language 
-%             - sometimes even no transformations at all but I think rarely
-%             - sometimes we have cases where compilers are like kinda designed with multiple languages in mind 
-%                 - Cython compiler can generate C code
+When we then look into the cross-language dynamics of different memory management systems there are a few observations to make. Despite the quite varied implementations that define memory management strategies we can create two broad categories, languages which manage memory primarily through static compile time constructs, and languages which employ runtime implementations of garbage collection. Now of note here is that while theoretically any statically typed AOT language could have a garbage collector historically there has been a preference to rely on management abstractions which more closely model the low level peformant control of memory but yield enough saftey and ease of use to provide a functional tradeoff. The question which we can then raise is how do we reconcile such systems. Here we can explore two key areas, firstly how can we bridge systems which employ very different strategies of memory management, and then how can we we bridge types which are implemented with specific mutation properties and levels of indirection in mind.
 
-%         - disimilar languages 
-%         => bindings are generally more complex in nature, here to my knowledge there are kinda two ways to implement things 
-%             - connected glue code layers 
-%             => this is what most implementations do, in that the generated bindings often dont really appear as idiomatically mirrored types but instead as clear wrappers which expose certain functionality that can be bridged 
+\subsubsection{Memory: AOT compiled cross-language systems}
 
-%             - disconnected glue code layers 
-%             => this seems to be alot less common, here the glue code layer is essentially hidden in that you have idiomatically mirrored types, naturally things are still restricted by what the library can mirror but for all types which can be bridged for the user end everything is completely exposed 
-%             - in this case the glue code layer instead of consiting of wrappers which hold memory it instantates those mirrored types which its capable of briding
+An important example to look at of statically typed cross-language systems are the different attempts at bridging C++ and Rust. C++ and Rust have been mentioned a fair bit in this paper already but for good reason, a considerable amount of software has been written in C++ but as new languages emerged it became quite evident that despite the iterative improvements to the memory safety of C++ its hard match the deterministic safety of the Rust borrow checker. Yet as mentioned before, despite these languages roughly falling into the same category of languages; with both being aimed at high performance through granular control, static typing and minimal overhead inducing abstractions; they employ some considerably different memory management models. Despite these differences one thing we can observe, not just in how C++ and Rust have evolved over time but also how languages more broadly evolve is that they often either through a deliberate effort or just through natural changes implement common features. C++ adopted the aforementioned destructive move semantics, albeit implemented in a slightly different manner to Rusts. Additionally there have been various approaches, implementations and proposals to introduce Rust-style lifetime annotations into clang to get similar benefits in term of statically derivable safety guarantees about code. Where we then commonly see interoperability layers come in is in their translation and mapping of these design approaches in a manner consistent with what the programmer would expect. In the case of crubit\cite{crubit}; Google's glue code generator for Rust and C++; we can see this take shape in the form of the application of clangs lifetime bounds to preform static analysis on C++ code headers to describe lifetimes in a language agnostic manner such that C++ APIs can be used on the Rust sided end with the lifetime properties of exposed methods sufficiently mapped.
 
-% - when do we do all of this 
-%     => preprocessor tool based generation
-%     - most tools have this as a separate build step usually reliant on some library to preform the binding generation, so this is usually a preprocessing step that happens before the actual execution of the application 
-    
-%     => static compiler based generation 
-%     - sometimes compilers themselves have interoperability baked in 
-%         - swiftc : swift compiler has clang embedded and has header parsing built in, this essentially forms a disconnected glue code layer in that it allows us on the developer level to use any bridagble type in an idiomatically mirrored fashion
-    
-%     => runtime based generation 
-%     - seems to be generally effective in languages focused on dynamism 
-%     - some tools aim to have runtime binding generation, only two instances i can find are javacpp and cppyy 
-%         - a key benefit of this is that you can utilize runtime information to dynamically work with constructs exposed by the API 
-%         - more or less just useful with monomorphization but also other stuff i think
-         
-\subsection{Generic types and metaprogramming models}
+% maybe insert an example of that here
 
+Something which becomes more complex to bridge are the different implementations of move semantics, despite their abstractly similar nature the aforementioned key difference of the C++ moved-from object needing to remain in a valid state while the Rust analogue does not leads us to the fact that we need a solution in our host language (Rust) such that we do not break the expected behavior of either Rust or C++. The attempts at solutions here have primarily relied on the use of rusts pin feature, the most important property of which is that data which is pinned remains in a fixed memory location, thus ensuring that the C++ side invariant of validity till destruction is met. One other notable consideration is the notion of things being trivially movable. Something being trivially movable implies that the compiler can statically preform a move operation; meaning that it knows implicitly how to change the ownership of an object, in Rust all objects are trivially movable, in C++ this is not the case. An example of C++ objects which are not trivially movable are Polymorphic types, which is to say classes which define virtual functions that are declared in inherited classes. As these functions rely on v-tables to work properly there is no trivial implementation which could safely define a move. The common way to deal with this discrepancy at least in the context of C++ and Rust is to simply limit interoperability to types which have sufficiently close analogues in the other language such that their move semantics sufficiently overlap as to limit the complexity of interoperability layers. Now despite these differences we can still observe that due to the languages existing and evolving in a somewhat similar domain, under a well defined set of constraints we can create systems which sufficiently bridge functionality. Furthermore, despite the constraints currently placed on most interoperability systems there is research and practical work aimed at widening these constraints. A natural aspect of language evolution especially when talking about a languages type system is the goal of creating a language which allows for systems that are well defined and behave deterministically under clear constraints but also exhibit enough features to be sufficiently expressive for the domain they are usually applied in. The point of this being as languages have become and will become increasingly better at translating ideas within their domain into concrete programs so too is there a desire within the context of cross-language systems to bridge these dynamics such that we aren't as limited by the minimal safe common subset when working through interoperability layers.
 
-\subsection{Metaprogramming in the wild}
+\subsubsection{Memory: JIT compiled cross-language systems}
+
+Languages which rely primarily on runtime GC implementations, namely JIT compiled languages exhibit certain unique distinctions in the context of cross-language systems. The nature of these distinctions stems primarily from the fact that JIT compilers commonly insert extensive metadata into types such that we have full reflection capabilities. Reflection as opposed to introspection refers to the ability to not only introspect or view the properties of type itself (as opposed to just being able to access them) but also manipulate said properties at runtime again through means aside from the direct access. Statically typed languages have adopted minimal forms of this usually as a means of expressing polymorphic types through either inserted metadata like v-tables variations in C++ and Rust or externally passed metadata commonly known as dictionary passing used in languages like Swift and Haskell. It should be noted though that due to the varied benefits that can come from having full reflection capabilities languages like C++ and Rust have made concerted efforts to introduce such features into the language. Reflection specifically the mutation and observability of types through the provided metadata is then naturally what is often used to implement rather expressive and performant interoperability layers. The benefit of applying reflection here comes from the fact that we in essence already have built in type wrappers, by which I mean that the metadata and exposed methods to modify types is in essence what often has to be custom built for statically typed interop. layers in the form of heading parsers and wrapper types for things we exposing as references across the language boundary. Bringing this all back to the point of memory management, we can see that as opposed to the need to reconcile different systems of memory management in the case of Rust and C++, in this instance we can use the metadata provided and property modifiers provided by the opposing language to expose an idiomatic API front-end. The back-end then uses some common denominator bridge, such as a CFFI-API, to perform mutations without ever having to deal with the potential complexities of reconciling different GC implementations. We generally implement bridging mechanisms in a manner such that we minimize the level of memory moves occurring across the language boundaries. Instead, we work at a higher level of abstraction with cross-language calls being dedicated to describing primarily the operations we wish to perform on the data as opposed to the data itself.
+
+\subsubsection{Memory: AOT $\leftrightarrow$ JIT cross-language systems}
+
+The third case we will look at is the instance where we want to bridge an AOT compiled language with a JIT compiled one. When talking about this instance in the context of memory management we see some fundamental commonalities with either of the above cases, as with communication between AOT languages and JIT'd languages we still are fundamentally reliant on some common denominator for the backend communication design, where this variant differentiates itself is in the ways we reconcile and utilize the different memory management approaches. As elaborated before we often see it that with JIT compiled languages we have metadata giving us reflective capabilities, an additional aspect of this is that especially in dynamically typed JIT compiled languages the focus on abstraction and dynamism in their design leads to the addition of having good metaprogramming tooling. Similarly to the case of two JIT compiled languages the presence of this metaprogramming tooling is then what allows us to usually have a highly generic and extensible interface for the language offering it. The same cannot be said for the AOT sided portion of this equation. The primary issue stems from the fact that if our AOT language does lack reflective capabilities to avoid copying we must fallback to the more rudimentary approach of copying over our data. While the difficulty in implementing a copy across the language boundary here is mitigated through the application of exposed metaprogramming techniques to construct the mirrored types, there are two rather painful issues we run into
+
+\begin{enumerate}
+  \item When working with values from the JIT compiled language we often have to manually take control of the GC.
+  \item In the case of AOT compiled languages we often lack the reflective capabilities to bridge more complex types.
+\end{enumerate}
+
+The first issue; and the one which will be focused on here; stems from the fact that to have the desired idiomatic usage of an object coming from another language we have the aforementioned two options. We either create a wrapper for a reference type or we copy over the object and map the data to the closest analogue type that exists in the other language. Now the former option is a somewhat natural choice when we can easily write idiomatic wrapper types using the abstractions provided by reflection, if we do not have these provided abstractions the resulting wrapper types can often be functional albeit limiting and therefore not very idiomatic to use. Going with the second option of copying we can can usually define a set of constrained well behaved conversion rules for generating idiomatic types coming from the JIT compiled language, though at a performance cost. Though in both approaches, reference type wrappers and copies we have the issue that data operating outside of the scope of a garbage collector is inherently not accounted for by it, thus we must manually instruct the GC to preserve any data used outside of its overview. Something to observe here is that this is somewhat akin to the issue we faced in C++ and Rust due to the nature of the disconnected ways we were bridging the data. Currently most implementations which bridge a runtime GC language with a non-GC language (i.e. one that uses reference counting, borrow checking etc.) utilize manual calls to an exposed GC API to replicate the implicit behavior it would exhibit where we operating within its domain. Though there are means of minimizing the extent to which a programmer has to manually make these calls. One example being the Jluna library for interop between C++ and Julia, its approach is to implement generic methods for boxing and unboxing (moving data between the languages) that implicitly tell the GC how to behave such that we have a constrained interface for which we can yield idiomatic C++ types without having to care about what the Julia GC does. The notable key point again here being "constrained" meaning that behaviors which go beyond the described constraints for what can be implicitly bridged given the libraries design the programmer must fall back to manual control of the GC. A potentially interesting direction to explore would be the application of implicit (through parsing and static analysis) and explicit lifetime annotations, specifically the addition of a reflective build step which can parse the annotations and either at compile time or runtime insert the necessary GC calls to preserve the liveness of a variable the GC itself cant manage.  While this is already being explored in the case of crubit through the use of an external parser over annotated C++ headers it would be interesting to see the implementation of such a mechanism compile time or runtime type reflection as a part of the language itself and not external tooling.
+
+As a final note on memory management it would make sense to discuss some of the different ways and approaches for dealing with the low level models of types and different mutability characteristics of parameter passing strategies. Throughout this paper, the term 'idiomatically' is mentioned at various points. When we talk about using a language idiomatically, we mean using it in a way that aligns with its intended design and application, as is characteristic of the language. From the perspective of a programmer we can break this down into 3 somewhat broad categories
+\begin{enumerate}
+  \item \textit{Liveness}: Any sort of memory used by the programmer should stay accessible corresponding to the defined conventions of the language we are using.
+  \item \textit{Utility}: Features of a particular language should be usable in ways and conventions we expect them to be used in.
+  \item \textit{Performance}: The performance both in terms of time and memory should be a function of the particular language and the degree to which a piece of code aims to be performant.
+\end{enumerate}
+While these categories might not encapsulate the entire notion of idiomatic usage they do cover significant ground when we constrain ourselves to cross-language programming. Previously we talked about liveness in the context of runtime and compilation systems, which took the more top down perspective, in the following I will try to elaborate more from the other angle, namely the more concrete perspective. While there are various ways in which one could categorize the memory models of types and levels of granular detail you could go into I will use the convention adopted by Egor Zhdan \cite{zhdan2024swiftcpp}, this being reference types and value types. The former being types with some level of indirection and the latter being ones without. Having talked a bit about value types before I will only mention them briefly. As mentioned previously there is the quite reasonable expectation that in a cross-language context the only things treated as value types are those which are cheap to copy, which usually ends up being some overlapping set of primitives between the languages. Reference types are those which usually form the bulk of the discussion when it comes to implementation approaches. For the mutability characteristics of reference types similarly to value types we would expect similar dynamics in a cross language setting as in our host language. Thus if we do pass pointers, across the language boundary either directly or though wrappers forming another layer of indirection, in mutations in the target or guest language should be reflected in the source language if the host implements pass/call by address. The more complex case is when language which implements call by sharing for reference types calls out to a language which doesn't implement the same dynamics. Call by sharing simply put just means we create copies of references when passing them to other functions, so in terms of mutability characteristics for properties as we do with with regular call by address (passing a pointer) but with the added aspect that assignments do not mutate the original memory location. If we would want call by sharing \footnote{As is often the case when it comes to naming things there is some debate in regards to the term call by sharing as its just treating a reference as a value type, but I feel this creates a unique set of properties that it warrants special consideration in the context discussed.} to function in a cross language context with a language that does not implement these types of parameter passing dynamics it would mean more or less re-implementing these dynamics by having wrapper types in our target language which behave like the corresponding defined value references in the host language. The somewhat non-traditional nature of this convention means that it could be considered what you could call a non-goal, in that despite it contributing to the idiomatic usage of the host language its not worth the tradeoff in implementing complexity, especially as our host language evolves and specifications change.Finally two notable types to mention which is often of particular importance in an interop setting are callbacks and closures. Callbacks, when able to be passed across a language boundary, offer a beneficial feature whereby a programmer can treat a call into another language as a first-class function which provides some nice flexibility when working with foreign function calls.
+
+In a somewhat similar fashion closures; which are functions that capture some lexical scope of an outer function; can provide certain unique flexibilites in their application. Unfortunately just as first-class functions offer greater flexibility in design choices they similarly compound the complexity in the design of interop systems. Callbacks are usually the most basic form in which most programmers use first-class functions; if we focus on the case of a callback which does not capture scope (i.e. is not a closure); there are still a few key points to consider. Firstly we have the somewhat intuitive point that similar to normal operations across the language boundary we have to ensure that things behave idiomatically in our host language, which is to say that we must ensure that any thing returned from the callback is either wrapped correctly prior to its usage. Another point to consider is what if something goes wrong in the callback, as languages can have different (or no implicit) ways of handling exceptions this must be taken into account. I could enumerate various other considerations for the case of callbacks but ultimately alot of them reduce to a similar fact mentioned earlier that if we want safe interop there must be well defined constraints or broadly speaking systems to prevent misuse or monitor for unpredictable behavior. An interesting development by in regards to safe memory dynamics in FFI based interop was the development by Turcotte et. al. \cite{Turcotte2019Reasoning} in their application of dynamic taint analysis in their implementation of Poseidon Lua, a variant of typed Lua with an integrated C-FFI in the form of a merged type system between Lua and C and taint analysis as a means of distinguishing between memory influenced by the non-deterministic nature of C and "safe" memory from the Lua side.
+
+Then we have the case of closures, these as already mentioned compound the issues that we get with callbacks by the fact that they capture things within their lexical environment. The manner in which closures capture variables in a lexical scope depends on the languages implementation of binding. We can broadly classify binding into two categories, when it occurred this being compile-time or run-time binding \cite{Henglein1991}, and how it occurs, either using value based semantics or location based semantics. There are more nuanced differences in implementations that should be considered but for the sake of context here we will limit ourselves to a more superficial overview. To elaborate on how these categories relate we can construct a table
+
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{3cm}|}
+    \hline
+    \textbf{Binding Type} & \textbf{Compile-Time} & \textbf{Runtime} \\ \hline
+    \textbf{Value} & Compiler replaces the variable with the value. & Value is computed at runtime and assigned. \\ \hline
+    \textbf{Location} & Compiler assigns a fixed memory address & Memory is allocated dynamically at runtime. \\ \hline
+  \end{tabular}
+  \caption{Compile-Time vs. Runtime Binding}
+  \label{table:binding_types}
+\end{table}
+
+While this is somewhat of simplification it does enumerate a few of the key scenarios that have to be taken account about variables closures capture when we think about dynamics across the language boundary. More broadly speaking a lot of the dynamics come down to a point we mentioned earlier being that we must consider how the memory is being managed, in this case, within the captured scope. A mostly safe instance is the case where we have compile time value based binding, as this usually just translates into inlined values, thus is largely excluded from memory management systems as they are usually more focused on heap allocation, or more abstractly speaking bindings with some level of indirection. Which brings us to the more complex case namely languages which implement location based binding, in other words languages which bind a memory location to a variable in some lexical scope which creates a level of indirection to some underlying piece of data. In this instance we must consider the same case as we did earlier with either implement implicit control of the GC to preserve memory via the binding generator, or explicit control either via annotations such as the aforementioned lifetime annotations we have with Rust or as a feature with clang, or explicit preservation through features like memory pinning or using the GC API to override default behaviors. Again its a fair point to question in an applied context if something like this is worth implementing as opposed to adding a static or runtime constraint to prevent this all-together. While we have listed here some mostly safe case and approaches for tackling the more complex instances in practice without clear formal specifications of language dynamics there is still considerable difficulty in create safe interop for scenarios where the level of determinism is harder to accurately determine. Certain languages such as Swift especially in its generics system \cite{pestov2024compiling} have taken great strides in creating a clear specification of behavior, but its nonetheless still difficult to create effectively safe bridges especially when we consider language features in which a semantic mismatch is considerably harder to define clear bounds of when we look at all the varied use cases of a specific feature.
+
+\subsubsection{Binding generator implementations}
+
+Having established a baseline for the low-level dynamics we can move onto some of the more high-level question when it comes to the design of binding generators. As is the case when we talk about most kinds of software we can broadly distinguish two important categories, the low-level and high-level aspects of our implementation. A very popular field in which this division is most commonly mentioned is the field of web development where we have a back-end usually running server sided code such as one which handles API requests and a front-end which deals with client actions such as making requests and rendering information. The division of back-end naturally extends to various other implementations of software systems, in the case of binding generators our back-end comes in the form of the low-level platform based considerations we have to make i.e. reconciling different memory layouts and execution models, the high-level or "front-end" is then what we actually expose to the programmer. A more apt descriptor of a binding generator front-end would be the API it exposes. An important distinction here is that when we talk about glue code generators there are two relevant API's:
+\begin{enumerate}
+  \item \textit{Generator API}: The generator itself, which includes the collection of methods and classes it exposes as features.
+  \item \textit{Bridging API}: The collection of types this generator is capable of bridging into different languages, often related to bridging an API for a library or framework written in another language.
+\end{enumerate}
+In the following I will focus primarily on (1) as its difficult to asses (2) in any meaningful fashion within the scope of this paper. It would make sense to establish some semantic clarity before we move on. When I talk about an interoperability layer this refers to the broadest possible descriptor of any software system which enables interoperability between languages which encompasses glue code, binding generators, foreign function interfaces, etc. The concrete piece of code which actually enables interop is usually a conjunction of a languages foreign function interface standard on which there are generally libraries which form abstraction proxies to enable easier and more flexible usage over having to deal with the more low level constructs. Binding generators as the name implies are pieces of software which generate a language binding, which is to say they are code generators for automating the creation of glue code. Having established the terminology now we can move on to the key question of how do these generators tend to actually produces the desired glue code ?
+
+Abstraction once again becomes a very central aspect to how different implementations tackle the problem of generating the desired glue code. Naturally it might become clear that if we want to generate bindings for an API across a language boundary we need some mechanism to actually understand both what this API expects as inputs and gives back as outputs. Expressing this expectation more formally there are 4 important stages we can define
+\begin{figure}[ht!]
+  \centering
+  \include{tex_figures/binding_generator_stages}
+  \caption{A high-level overview of the stages in a binding generator.}
+  \label{fig:binding_generator_stages}
+\end{figure}
+
+\begin{enumerate}
+  \item \textit{Parsing}: We need some means of turning the API (i.e. our collections of types) into a malleable format.
+  \item \textit{Semantic analysis}: Once we have our format, we need some way of understanding it to ensure we create a safe bridge.
+  \item \textit{Transformation}: Once we have developed an understanding of the API, we need to define constraints to not expose functionality which would be unsafe.
+  \item \textit{(Glue) code generation}: Finally, once we have defined the necessary constraints, we need to actually generate the necessary bindings to use the language bindings in our bridged language.
+\end{enumerate}
+
+\subsubsection{Binding implementation: Compiler based parsing}
+As these are dependent processes one of the most important implementation considerations becomes the choice of how we parse the API we wish to expose to the other language. An observation people familiar with compilers might have already made would be the similarity here to compilation processes of programming languages. The similarity to standard compilation leads into the first approach various glue code generators use for parsing, namely standard lexical and syntactic analysis based on a languages defined tokens and grammar. Despite superficially similar approaches being employed to front-end compiler design; as one approach of parsing; there is a common design paradigm of creating domain specific restricted parsers that naturally focus predominantly on parsing headers / type signatures as its ultimately not the entire language itself we aim to bridge, simply the interfaces this would make working with language parsers rather unwieldy as we would essentially have to extract only a minimal subset of the high level IR which actually refers to the information necessary for the glue code generation. Despite this the swift compiler team did implement the header parsing process utilizing the clang AST parser, though looking at some of the most popular glue code generators this approach appears to be an outlier.
+
+\subsubsection{Binding implementation: Reflection based parsing}
+The other approach we can observe for gathering the necessary information about the types we aim to bridge is to utilize code reflection. I want to clarify that, as with most design considerations discussed in this paper, the wide variety of implementations means that the approaches analyzed here are not mutually exclusive. While I discuss them separately, real-world implementations may combine multiple approaches. My goal is simply to assess different attributes of these implementations in a way that made the most sense given the constraints of the ones I examined. Code reflection, as opposed to parsing through lexing and syntactic analysis, is a much more language specific implementation choice as the glue code generator is now integrated with the languages runtime as opposed to existing aside it as an addition build step for example. As reflection is a primarily runtime based process it allows for certain unique approaches for generating glue code as we can utilize runtime information though comes with its fare share of drawbacks. Unlike the more traditional compiler based parsing code reflection is naturally only present in a subset of languages as its not an intrinsic property of a language rather a deliberate runtime implementation feature of the languages design. Furthermore, as reflection, more concretely type metadata, implies overhead in conjunction with its predominantly runtime based nature we have the fact that many languages arent even designed to accomodate reflection. Finally we have the fact that reflection systems can potentially provide not enough or just not the right information necessary, abstractly speaking we run into a similar issue of using a language AST in that we first need to parse the format into our domain specific usage as opposed to just developing a domain specific parsing solution from the get-go. Nonetheless as I will elaborate in the binding generation section there are some very interesting results that we get from the dynaism that comes with applying code reflection in this situation.
+
+\subsubsection{Binding implementation: Manual specification}
+Manual specification is the final approach for how to generate bindings. Complete manual specification, by which I mean using very low level FFI libraries is a largely outdated approach for most languages as by now even for the case of manual specification there exist means by which extreme low level specifications are abstracted by utilizing different code generation processes, a simple example being the use of macros to expand binding specifications into the more low level format which we can pass across the language boundary. One area in which we see manual specification often occur even with binding generator tools is in making certain more nuanced modifications to the generated code or the generation process in instances where the generator tools yield certain undesirable formats in the cross language setting.
+
+\subsubsection{Binding generation}
+Now that we have established some of the important low level considerations in the creation of binding generators, and furthermore how we manage to represent certain type properties through things like type metadata representation models we can move onto the final question of how and when to actually generate the bindings. Abstractly we can take a similar approach as we did when discussing some of the previous topics by looking firstly at the simpler case of overlap in certain design choices enabling an easier interop system and then the more complex scenario of languages which more substantial differences in design and implementation.
+
+\subsubsection{Binding generation: Similar languages}
+Firstly we can asses the case of similar languages. When we use the word similar here we mean similar in their implementation of specifically the type system and the underlying associated memory models for said types. It was already noted previously that commonly for interop implementations primitives, especially those in unmanaged languages; in other words primitives which aren't boxed; can often be trivially moved across the language boundary. We can see the same notion extend to record types for languages which represent these in roughly similar fashions, an instance of this would be moving structs between rust and C++ with crubit \cite{crubit} in which there is little modification applied as these types have a fundamentally similar layout given the ideological overlap in both languages being aimed at performance and hence limited runtime dynamism in tern leading to similar straightforward implementations of types. Something we can notice here when viewing things from a higher level perspective is the parallels to the case of memory management. Languages which where designed with a greater focus on compile time programming and less-so runtime features tend to have a minimal set of trivial overlap in their type design which allows often for a very constrained albeit quite functional and performant bridge to be formed. Though the constraint here being that the lack of runtime considerations lead to attempts at bridging more complex types being relegated to certain build step features, often the bidirectional header and wrapper generation process through the aforementioned parsing. When viewing this from a practical perspective it makes sense given the general application if these languages, but it unfortunately means that if we want to bridge say different implementations of generics we often cant rely on runtime flexibility or introspection as these are naturally somewhat underdeveloped features in languages which understandably aim to mitigate runtime overhead of things like detailed type metadata.
+
+\subsubsection{Binding generation: Dissimilar languages}
+Having assessed the binding generation for the case of similar languages we can no move on to the case of dissimilar languages. Again, as we saw in the case of memory management, this leads to some interesting implementation features. To recount its a somewhat natural desire when designing glue code layers to ensure that both languages can be idiomatically used, though this desire is unfortunately somewhat antithetical in the case where languages exhibit some fundamentally different design paradigms. The result of this tends to be classifiable into two design philosophies, connected and disconnected glue code layers. Connected glue code layers tend to form the most common type of implementation, or at least they usually make up the most dominant portion of glue code system implementations. What I mean with connected layers are systems of (partially or fully) bidirectional interoperability wrappers / bindings which expose the constrained set of features which can be safely bridged, often implement implicit assurances that would be expected from the language we are getting our binding from. This is a somewhat natural implementation as it provides a very explicit and safe proxy for interacting with foreign type information, the downside naturally being that for fully idiomatic usage the programmer is left with implementing a conversion of the bridged type to an idiomatic type and ensuring the foreign language has everything safely managed. A natural question that one might have then is can we just get the full idiomatic type from the glue code? Here we have to introduce some level of nuance, in that to clarify again its commonly the case that between two languages there is a set of types we can bridge idiomatically and a set which tend to be bridged via wrappers. A particularly though understandable rare implementation is the disconnected glue code layer, which is making any aspect of interoperability when talking strictly about type usage hidden to the programmer. Which is to say, instead of types which are not easily bridged being exposed via a managed wrapper we instead use the glue code layer to implicitly generate bidirectional idiomatic types such. While in theory this sounds quite nice is comes with various downsides, a large one being that as opposed to encoding constraints on types within wrappers we have to encode the constraints within the idiomatic generation process itself, which raises two main issues
+\begin{enumerate}
+  \item To even generate an idiomatic type with constraints that we only bridge well define aspects a language needs to support such a generation process, the implementation of which can be complex.
+  \item It naturally leads to limitations as wrapper types can expose language specific functionality that might not be shared by the common abstract idiomatic subset.
+\end{enumerate}
+
+\subsubsection{Binding generation: Phase of generation}
+Now we can move onto the final question of when do we actually generate the language bindings. In a sense this question somewhat mirrors the case of when to preform code generation for the concept of generics, as abstractly its a somewhat similar idea, in both cases we are in a sense generating instantiated representations of things like methods and classes based on a defined set of types, just in the case we are often generating these features as runtime wrappers, compile time cross-language headers, as opposed to instantiated generics. The 3 most relevant points at which bindings are generated are during pre-processing, compilation, or runtime. As is the case with most features discussed there aren't as clear delineations as some systems can and often do implement various of these aspects they are important to consider in their own right.
+
+The most common form we see is pre-processor based binding generation, as the name implies in this instance bindings are generated generally prior to compilation and execution of the program. Pre-processor based binding generation provides certain benefits, namely that we can preform the actual compilation with the bindings usually generated as code, not only does this mean we don't have to deal with complex runtime based implementations but as a programmer we can also get the benefit of static type auto-completion as we can directly work with the generated headers and wrapper types, as opposed to the runtime case which often inherently affords less static information. The main drawback of this is that it often comes in the form of increasing the build complexity, as we add an additional step into the process for generating the required interoperability code.
+
+Moving on we have static compiler-based generation, while less common we still see various instances of this, a common case being larger compilers which have implemented various approaches to interop in an effort to more naturally work with multi-language environments between older more legacy based languages and newer ones. One notable example being the \texttt{swiftc} compiler, which has a version of clang embedded which allows for implicit header parsing; which is to say header parsing not using a separate build tool but a feature native to the compiler itself. While it does require some minimal setup to get such a setup properly the resultant disconnected glue code layer creates an effective environment to work with Swift and C++ or Swift and its predecessor Objective-C \cite{swift2025swiftlang}.
+
+The final approach for when to generate bindings is runtime-based generation. It's been mentioned a few times now that languages designed with dynamism in mind tend to be more effective at bridging certain more complex features due to their commonly reflective features; we see a similar case for the situation of when to generate bindings. Despite the fact that with runtime based binding generation we naturally do have a greater overhead, we gain the key benefit of runtime type introspection, this allows for some unique features, an important among them being that it gives us the ability to say reflect over cross language generic API methods we are calling, and then generate concrete instantiations through recompilation that can be used in a cross language environment, essentially enabling cross-language generics by simulating the dynamic type instantions which you can often lack in languages based on compile time monomorphism for generics. [maybe include a nice little diagram here] Two systems which implement such features are the JavaCPP, and cppy library which allow interop from Java to cpp and python to cpp respectively \cite{javacpp} \cite{Kundu2023Efficient}.  
+
+% \subsection{Meta- approaches to interop}
+
+% \subsubsection{Generic types and metaprogramming models}
+
+% \subsubsection{Metaprogramming in the wild}
+
+% \subsubsection{Supercompliation and Partial Evaluation}
+
+% \subsubsection{Unified execution models}
+
+% \subsubsection{Interop in APIs}
+
+% \subsubsection{Domain Specific Languages (DSLs) in Interoperability}

@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{RGBA}\PYG{+w}{ }\PYG{n}{cpp\PYGZus{}rgba}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Main}\PYG{p}{.}\PYG{n}{safe\PYGZus{}eval}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{return RGBA()}\PYG{l+s}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\end{Verbatim}

@@ -1,0 +1,305 @@
+DIGEST 2a8148e6f068ec2cc1ed1bb9e7f9fc27
+FPFC.Tactics
+R15:22 PFC.Data <> <> lib
+R40:47 PFC.Core <> <> lib
+prf 59:64 <> silly1
+R68:72 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R82:86 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R79:81 Coq.Init.Datatypes <> nat ind
+binder 73:73 <> n:1
+R79:81 Coq.Init.Datatypes <> nat ind
+binder 75:75 <> m:2
+R92:98 PFC.Core <> ::basic_notations:x_'→'_x not
+R88:90 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R87:87 PFC.Tactics <> n:1 var
+R91:91 PFC.Tactics <> m:2 var
+R100:102 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R99:99 PFC.Tactics <> n:1 var
+R103:103 PFC.Tactics <> m:2 var
+prf 174:184 <> silly_apply
+R188:192 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R202:206 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R199:201 Coq.Init.Datatypes <> nat ind
+binder 193:193 <> n:3
+R199:201 Coq.Init.Datatypes <> nat ind
+binder 195:195 <> m:4
+R212:218 PFC.Core <> ::basic_notations:x_'→'_x not
+R208:210 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R207:207 PFC.Tactics <> n:3 var
+R211:211 PFC.Tactics <> m:4 var
+R220:222 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R219:219 PFC.Tactics <> n:3 var
+R223:223 PFC.Tactics <> m:4 var
+prf 275:280 <> silly2
+R284:288 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R302:306 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R299:301 Coq.Init.Datatypes <> nat ind
+binder 289:289 <> n:5
+R299:301 Coq.Init.Datatypes <> nat ind
+binder 291:291 <> m:6
+R299:301 Coq.Init.Datatypes <> nat ind
+binder 293:293 <> o:7
+R299:301 Coq.Init.Datatypes <> nat ind
+binder 295:295 <> p:8
+R312:318 PFC.Core <> ::basic_notations:x_'→'_x not
+R308:310 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R307:307 PFC.Tactics <> n:5 var
+R311:311 PFC.Tactics <> m:6 var
+R319:319 PFC.Core <> ::basic_notations:x_'→'_x not
+R343:350 PFC.Core <> ::basic_notations:x_'→'_x not
+R325:329 PFC.Core <> ::basic_notations:x_'→'_x not
+R321:323 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R320:320 PFC.Tactics <> n:5 var
+R324:324 PFC.Tactics <> m:6 var
+R335:337 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R330:330 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R332:332 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R334:334 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R331:331 PFC.Tactics <> n:5 var
+R333:333 PFC.Tactics <> o:7 var
+R338:338 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R340:340 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R342:342 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R339:339 PFC.Tactics <> m:6 var
+R341:341 PFC.Tactics <> p:8 var
+R356:358 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R351:351 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R353:353 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R355:355 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R352:352 PFC.Tactics <> n:5 var
+R354:354 PFC.Tactics <> o:7 var
+R359:359 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R361:361 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R363:363 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R360:360 PFC.Tactics <> m:6 var
+R362:362 PFC.Tactics <> p:8 var
+prf 437:443 <> silly2a
+R447:451 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R461:465 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R458:460 Coq.Init.Datatypes <> nat ind
+binder 452:452 <> n:9
+R458:460 Coq.Init.Datatypes <> nat ind
+binder 454:454 <> m:10
+R479:485 PFC.Core <> ::basic_notations:x_'→'_x not
+R471:473 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R466:466 PFC.Data NatList :::'('_x_','_x_')' not
+R468:468 PFC.Data NatList :::'('_x_','_x_')' not
+R470:470 PFC.Data NatList :::'('_x_','_x_')' not
+R467:467 PFC.Tactics <> n:9 var
+R469:469 PFC.Tactics <> n:9 var
+R474:474 PFC.Data NatList :::'('_x_','_x_')' not
+R476:476 PFC.Data NatList :::'('_x_','_x_')' not
+R478:478 PFC.Data NatList :::'('_x_','_x_')' not
+R475:475 PFC.Tactics <> m:10 var
+R477:477 PFC.Tactics <> m:10 var
+R486:486 PFC.Core <> ::basic_notations:x_'→'_x not
+R531:538 PFC.Core <> ::basic_notations:x_'→'_x not
+R487:491 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R501:503 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R498:500 Coq.Init.Datatypes <> nat ind
+binder 492:492 <> q:11
+R498:500 Coq.Init.Datatypes <> nat ind
+binder 494:494 <> r:12
+R517:521 PFC.Core <> ::basic_notations:x_'→'_x not
+R509:511 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R504:504 PFC.Data NatList :::'('_x_','_x_')' not
+R506:506 PFC.Data NatList :::'('_x_','_x_')' not
+R508:508 PFC.Data NatList :::'('_x_','_x_')' not
+R505:505 PFC.Tactics <> q:11 var
+R507:507 PFC.Tactics <> q:11 var
+R512:512 PFC.Data NatList :::'('_x_','_x_')' not
+R514:514 PFC.Data NatList :::'('_x_','_x_')' not
+R516:516 PFC.Data NatList :::'('_x_','_x_')' not
+R513:513 PFC.Tactics <> r:12 var
+R515:515 PFC.Tactics <> r:12 var
+R525:527 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R522:522 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R524:524 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R523:523 PFC.Tactics <> q:11 var
+R528:528 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R530:530 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R529:529 PFC.Tactics <> r:12 var
+R542:544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R539:539 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R541:541 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R540:540 PFC.Tactics <> n:9 var
+R545:545 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R547:547 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R546:546 PFC.Tactics <> m:10 var
+def 617:634 <> trans_eq_example''
+R638:642 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R660:667 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R657:659 Coq.Init.Datatypes <> nat ind
+binder 643:643 <> a:13
+R657:659 Coq.Init.Datatypes <> nat ind
+binder 645:645 <> b:14
+R657:659 Coq.Init.Datatypes <> nat ind
+binder 647:647 <> c:15
+R657:659 Coq.Init.Datatypes <> nat ind
+binder 649:649 <> d:16
+R657:659 Coq.Init.Datatypes <> nat ind
+binder 651:651 <> e:17
+R657:659 Coq.Init.Datatypes <> nat ind
+binder 653:653 <> f:18
+R681:690 PFC.Core <> ::basic_notations:x_'→'_x not
+R673:675 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R668:668 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R670:670 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R672:672 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R669:669 PFC.Tactics <> a:13 var
+R671:671 PFC.Tactics <> b:14 var
+R676:676 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R678:678 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R680:680 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R677:677 PFC.Tactics <> c:15 var
+R679:679 PFC.Tactics <> d:16 var
+R704:713 PFC.Core <> ::basic_notations:x_'→'_x not
+R696:698 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R691:691 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R693:693 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R695:695 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R692:692 PFC.Tactics <> c:15 var
+R694:694 PFC.Tactics <> d:16 var
+R699:699 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R701:701 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R703:703 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R700:700 PFC.Tactics <> e:17 var
+R702:702 PFC.Tactics <> f:18 var
+R719:721 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R714:714 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R716:716 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R718:718 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R715:715 PFC.Tactics <> a:13 var
+R717:717 PFC.Tactics <> b:14 var
+R722:722 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R724:724 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R726:726 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R723:723 PFC.Tactics <> e:17 var
+R725:725 PFC.Tactics <> f:18 var
+R781:781 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R783:783 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R785:785 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R781:781 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R783:783 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R785:785 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+def 829:832 <> pred
+R839:841 Coq.Init.Datatypes <> nat ind
+binder 835:835 <> n:19
+R846:848 Coq.Init.Datatypes <> nat ind
+R861:861 PFC.Tactics <> n:19 var
+R872:872 Coq.Init.Datatypes <> O constr
+R877:877 Coq.Init.Datatypes <> O constr
+R883:883 Coq.Init.Datatypes <> S constr
+prf 910:920 <> S_injective
+R924:928 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R938:942 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R935:937 Coq.Init.Datatypes <> nat ind
+binder 929:929 <> n:21
+R935:937 Coq.Init.Datatypes <> nat ind
+binder 931:931 <> m:22
+R952:958 PFC.Core <> ::basic_notations:x_'→'_x not
+R946:948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R943:943 Coq.Init.Datatypes <> S constr
+R945:945 PFC.Tactics <> n:21 var
+R949:949 Coq.Init.Datatypes <> S constr
+R951:951 PFC.Tactics <> m:22 var
+R960:962 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R959:959 PFC.Tactics <> n:21 var
+R963:963 PFC.Tactics <> m:22 var
+R1005:1007 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1008:1011 PFC.Tactics <> pred def
+R1014:1014 Coq.Init.Datatypes <> S constr
+R1005:1007 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1008:1011 PFC.Tactics <> pred def
+R1014:1014 Coq.Init.Datatypes <> S constr
+prf 1098:1109 <> S_injective'
+R1113:1117 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1127:1131 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1124:1126 Coq.Init.Datatypes <> nat ind
+binder 1118:1118 <> n:23
+R1124:1126 Coq.Init.Datatypes <> nat ind
+binder 1120:1120 <> m:24
+R1141:1147 PFC.Core <> ::basic_notations:x_'→'_x not
+R1135:1137 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1132:1132 Coq.Init.Datatypes <> S constr
+R1134:1134 PFC.Tactics <> n:23 var
+R1138:1138 Coq.Init.Datatypes <> S constr
+R1140:1140 PFC.Tactics <> m:24 var
+R1149:1151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1148:1148 PFC.Tactics <> n:23 var
+R1152:1152 PFC.Tactics <> m:24 var
+prf 1225:1229 <> S_inj
+R1233:1237 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1258:1262 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1244:1246 Coq.Init.Datatypes <> nat ind
+binder 1238:1238 <> n:25
+R1244:1246 Coq.Init.Datatypes <> nat ind
+binder 1240:1240 <> m:26
+R1254:1257 Coq.Init.Datatypes <> bool ind
+binder 1250:1250 <> b:27
+R1283:1287 PFC.Core <> ::basic_notations:x_'→'_x not
+R1263:1263 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1278:1281 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1264:1264 PFC.Core <> ::basic_notations:x_'=?'_x not
+R1268:1273 PFC.Core <> ::basic_notations:x_'=?'_x not
+R1277:1277 PFC.Core <> ::basic_notations:x_'=?'_x not
+R1265:1265 Coq.Init.Datatypes <> S constr
+R1267:1267 PFC.Tactics <> n:25 var
+R1274:1274 Coq.Init.Datatypes <> S constr
+R1276:1276 PFC.Tactics <> m:26 var
+R1282:1282 PFC.Tactics <> b:27 var
+R1288:1288 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1295:1298 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1290:1293 PFC.Core <> ::basic_notations:x_'=?'_x not
+R1289:1289 PFC.Tactics <> n:25 var
+R1294:1294 PFC.Tactics <> m:26 var
+R1299:1299 PFC.Tactics <> b:27 var
+prf 1363:1369 <> add_0_r
+R1373:1376 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1382:1383 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1379:1381 Coq.Init.Datatypes <> nat ind
+binder 1377:1377 <> n:28
+R1389:1391 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1385:1387 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1384:1384 PFC.Tactics <> n:28 var
+R1392:1392 PFC.Tactics <> n:28 var
+prf 1541:1548 <> add_comm
+R1552:1555 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1565:1568 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1562:1564 Coq.Init.Datatypes <> nat ind
+binder 1556:1556 <> n:29
+R1562:1564 Coq.Init.Datatypes <> nat ind
+binder 1558:1558 <> m:30
+R1574:1576 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1570:1572 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1569:1569 PFC.Tactics <> n:29 var
+R1573:1573 PFC.Tactics <> m:30 var
+R1578:1580 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1577:1577 PFC.Tactics <> m:30 var
+R1581:1581 PFC.Tactics <> n:29 var
+R1669:1675 PFC.Tactics <> add_0_r thm
+R1669:1675 PFC.Tactics <> add_0_r thm
+R1669:1675 PFC.Tactics <> add_0_r thm
+R1745:1753 Coq.Init.Peano <> plus_n_Sm thm
+R1745:1753 Coq.Init.Peano <> plus_n_Sm thm
+R1745:1753 Coq.Init.Peano <> plus_n_Sm thm
+prf 1783:1800 <> specialize_example
+R1803:1806 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1813:1816 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1810:1812 Coq.Init.Datatypes <> nat ind
+binder 1807:1807 <> n:31
+R1817:1817 PFC.Core <> ::basic_notations:x_'→'_x not
+R1840:1845 PFC.Core <> ::basic_notations:x_'→'_x not
+R1818:1821 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1828:1829 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1825:1827 Coq.Init.Datatypes <> nat ind
+binder 1822:1822 <> m:32
+R1836:1838 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1831:1834 PFC.Core <> ::basic_notations:x_'×'_x not
+R1830:1830 PFC.Tactics <> m:32 var
+R1835:1835 PFC.Tactics <> n:31 var
+R1847:1849 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1846:1846 PFC.Tactics <> n:31 var
+R1928:1935 PFC.Tactics <> add_comm thm
+R1928:1935 PFC.Tactics <> add_comm thm
+R1928:1935 PFC.Tactics <> add_comm thm

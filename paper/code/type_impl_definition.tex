@@ -1,0 +1,36 @@
+\begin{fileminted}{libs/jluna/include/usertype.inl}{cpp}
+template<typename T>
+template<typename U>
+void Usertype<T>::implement(unsafe::Module* module)
+{
+    if (_name.get() == nullptr)
+        initialize();
+
+    gc_pause;
+    static jl_function_t* implement = unsafe::get_function("jluna"_sym, "implement"_sym);
+    static jl_function_t* new_proxy = unsafe::get_function("jluna"_sym, "new_proxy"_sym);
+    static jl_function_t* setfield = jl_get_function(jl_base_module, "setindex!");
+    static jl_value_t* _abstract = jl_box_bool(Usertype<T>::is_abstract());
+
+    auto* template_proxy = jluna::safe_call(new_proxy, _name->operator unsafe::Value*());
+
+    // Instantiate default instance if not abstract
+    if constexpr (!std::is_abstract_v<T>) {
+        auto default_instance = T();
+        for (auto& field_name : _fieldnames_in_order) {
+            auto* type_or_instance = std::get<0>(_mapping.at(field_name))(default_instance, true);
+            jluna::safe_call(setfield, template_proxy, (unsafe::Value*) type_or_instance, (unsafe::Value*) field_name);
+        }
+    }
+
+    if constexpr (std::is_base_of_v<U, T> && !std::is_abstract_v<T> && !std::is_same_v<U, T>) {
+        auto* subtype = Usertype<U>::_type->operator unsafe::Value*();
+        _type = std::make_unique<Type>((jl_datatype_t*) jluna::safe_call(implement, template_proxy, module, _abstract, subtype));
+    } else {
+        _type = std::make_unique<Type>((jl_datatype_t*) jluna::safe_call(implement, template_proxy, module, _abstract));
+    }
+
+    _implemented = true;
+    gc_unpause;
+}
+\end{fileminted}

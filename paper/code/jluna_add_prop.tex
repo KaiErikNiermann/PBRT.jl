@@ -1,0 +1,9 @@
+\begin{fileminted}{jluna/.src/usertype.inl}{cpp}
+template<typename T>
+template<typename Field_t>
+void Usertype<T>::add_property(
+    const std::string& name,
+    std::function<Field_t(T&)> box_get,
+    std::function<void(T&, Field_t)> unbox_set
+);
+\end{fileminted}

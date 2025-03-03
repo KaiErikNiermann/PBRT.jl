@@ -1,0 +1,13 @@
+template<typename B, typename... D>
+bool assign_shared_ptr(std::shared_ptr<B>& val, B* in) {
+    bool assigned = false;
+    (..., [&]() -> void {
+        if (auto d = dynamic_cast<D*>(in)) {
+            val = std::shared_ptr<B>(
+                std::make_shared<D>(*d)
+            );
+            assigned = true;
+        }
+    }());
+    return assigned;
+}

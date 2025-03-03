@@ -1,0 +1,18 @@
+\begin{tikzpicture}[subgraph text bottom=text centered, subgraph nodes={font=\itshape, black}, nodes=draw]
+  \graph [layered layout, grow=down, sibling sep=5mm, level sep=5mm, component align=center, component direction=270] {
+    // [component align=center] {
+      "type specification" -> [dashed] {
+        "type implementation" -> "type generation", 
+      }
+    };
+
+    "type mirroring"[draw] // [layered layout, grow=down] {
+      "type implementation",
+      "type generation"
+    },
+
+    "type specification" -> "type registration",
+
+    "type mirroring" ->[dashed] "type registration",
+  };
+\end{tikzpicture}

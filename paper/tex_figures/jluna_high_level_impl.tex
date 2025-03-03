@@ -1,0 +1,24 @@
+\begin{tikzpicture}[subgraph text top=text centered, subgraph nodes={font=\itshape, black}]
+  \graph [layered layout, grow=down, components go right, sibling sep=5mm, level sep=2.5mm, component align=center] {
+    "\textbf{C++}"   ,
+    // [component direction=270, nodes=draw] {
+      "compile time"[draw] // [layered layout, grow=down] {
+        "type specification",
+        "type implementation"
+      },
+      "type specification" -> "type implementation",
+      "runtime"[draw] // [layered layout, grow=down] {
+        "unboxing",
+        "boxing"
+      },
+      % Connect compile time to runtime
+      "compile time" -> "runtime"
+    },
+    "\textbf{Julia}"
+  };
+  % Add external arrows for boxing/unboxing
+  \draw[->] (boxing) -- +(1,0);
+  \draw[-] (boxing) -- +(-1,0);
+  \draw[->] (unboxing) -- +(-1,0);
+  \draw[-] (unboxing) -- +(1,0);
+\end{tikzpicture}

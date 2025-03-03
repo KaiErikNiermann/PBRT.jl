@@ -1,33 +1,33 @@
 import Base.push!
 
-mutable struct hittable_list 
-    objects::Vector{hittable}
-    bbox::aabb
-    function hittable_list()
-        objects::Vector{hittable} = [] 
-        bbox::aabb = aabb()
+mutable struct HittableList 
+    objects::Vector{Hittable}
+    bbox::AABB
+    function HittableList()
+        objects::Vector{Hittable} = [] 
+        bbox::AABB = AABB()
         new(objects, bbox)
     end
-    function hittable_list(objects, bbox)
+    function HittableList(objects, bbox)
         new(objects, bbox)
     end
 end
 
-function push!(list::hittable_list, object::hittable)
+function push!(list::HittableList, object::Hittable)
     push!(list.objects, object)
-    list.bbox = aabb(list.bbox, object.bbox)
+    list.bbox = AABB(list.bbox, object.bbox)
 end
 
-function clear!(list::hittable_list)
+function clear!(list::HittableList)
     list.objects = []
 end
 
-function hit!(list::hittable_list, r::ray, ray_t::interval, rec::hit_record)
-    temp_rec = hit_record()
+function hit!(list::HittableList, r::Ray, ray_t::Interval, rec::HitRecord)
+    temp_rec = HitRecord()
     hit_anything = false
     closest_so_far = ray_t.hi
     for object in list.objects
-        if(hit!(object, r, interval(ray_t.lo, closest_so_far), temp_rec))
+        if(hit!(object, r, Interval(ray_t.lo, closest_so_far), temp_rec))
             hit_anything = true
             closest_so_far = temp_rec.t
 

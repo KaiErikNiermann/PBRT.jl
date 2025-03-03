@@ -1,0 +1,30 @@
+DIGEST 7b513c1e9153b10722e5f9a9692abe56
+FPFC.proofs2
+R24:27 PFC.Core <> <> lib
+prf 39:54 <> add_0_r_firsttry
+R58:61 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R67:72 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R64:66 Coq.Init.Datatypes <> nat ind
+binder 62:62 <> n:1
+R78:80 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R74:76 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R73:73 PFC.proofs2 <> n:1 var
+R81:81 PFC.proofs2 <> n:1 var
+prf 135:151 <> add_0_r_secondtry
+R155:158 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R164:167 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R161:163 Coq.Init.Datatypes <> nat ind
+binder 159:159 <> n:2
+R173:175 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R169:171 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R168:168 PFC.proofs2 <> n:2 var
+R176:176 PFC.proofs2 <> n:2 var
+prf 368:374 <> add_0_r
+R378:381 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R387:388 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R384:386 Coq.Init.Datatypes <> nat ind
+binder 382:382 <> n:3
+R394:396 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R390:392 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R389:389 PFC.proofs2 <> n:3 var
+R397:397 PFC.proofs2 <> n:3 var

@@ -1,19 +1,19 @@
-mutable struct interval{T<:Real}
+mutable struct Interval{T<:Real}
     lo::T
     hi::T
 end
 
-function size(a::interval)::Float64
+function size(a::Interval)::Float64
     return a.hi - a.lo
 end
 
-interval() = interval(Inf, -Inf)
+Interval() = Interval(Inf, -Inf)
 
-function interval(a::interval, b::interval)::interval
-    interval(min(a.lo, b.lo), max(a.hi, b.hi))
+function Interval(a::Interval, b::Interval)::Interval
+    Interval(min(a.lo, b.lo), max(a.hi, b.hi))
 end
 
-function expand(delta::Float64, intval::interval)::interval
+function expand(delta::Float64, intval::Interval)::Interval
     padding = delta / 2.0
-    interval(intval.lo - padding, intval.hi + padding)
+    Interval(intval.lo - padding, intval.hi + padding)
 end

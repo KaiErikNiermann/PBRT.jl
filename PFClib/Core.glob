@@ -1,0 +1,51 @@
+DIGEST 72f9ce8ebb0174f6863cf93d6608d5f5
+FPFC.Core
+R24:30 Coq.Program.Program <> <> lib
+R57:66 Coq.Classes.CMorphisms <> <> lib
+R368:370 Coq.Init.Logic <> and ind
+not 354:354 <> ::basic_notations:x_'∧'_x
+def 445:447 <> iff
+binder 450:450 <> P:1
+binder 452:452 <> Q:2
+R465:465 PFC.Core <> ::basic_notations:x_'∧'_x not
+R472:478 PFC.Core <> ::basic_notations:x_'∧'_x not
+R485:485 PFC.Core <> ::basic_notations:x_'∧'_x not
+R467:470 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R466:466 PFC.Core <> P:1 var
+R471:471 PFC.Core <> Q:2 var
+R480:483 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R479:479 PFC.Core <> Q:2 var
+R484:484 PFC.Core <> P:1 var
+binder 527:527 <> x:3
+binder 541:541 <> y:4
+not 498:498 <> ::basic_notations:'∀'_x_'..'_x_','_x
+R681:684 Coq.Init.Specif <> sigT ind
+binder 691:691 <> x:5
+R700:703 Coq.Init.Specif <> sigT ind
+binder 710:710 <> y:6
+not 655:655 <> ::basic_notations:'exists'_x_'..'_x_','_x
+R882:888 PFC.Core <> ::basic_notations:'exists'_x_'..'_x_','_x not
+R890:891 PFC.Core <> ::basic_notations:'exists'_x_'..'_x_','_x not
+binder 889:889 <> x:7
+R896:902 PFC.Core <> ::basic_notations:'exists'_x_'..'_x_','_x not
+R904:905 PFC.Core <> ::basic_notations:'exists'_x_'..'_x_','_x not
+binder 903:903 <> y:8
+not 860:860 <> ::basic_notations:'∃'_x_'..'_x_','_x
+R1032:1035 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+not 1017:1017 <> ::basic_notations:x_'→'_x
+R1134:1136 PFC.Core <> iff def
+not 1120:1120 <> ::basic_notations:x_'↔'_x
+R1218:1222 PFC.Core <> ::basic_notations:x_'→'_x not
+R1223:1227 Coq.Init.Logic <> False ind
+not 1206:1206 <> ::basic_notations:'¬'_x
+R1311:1314 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+not 1296:1296 <> ::basic_notations:x_'≠'_x
+R1542:1548 Coq.Init.Nat <> mul def
+not 1534:1534 <> ::basic_notations:x_'×'_x
+R1619:1621 Coq.Init.Datatypes <> sum ind
+not 1610:1610 <> ::basic_notations:x_'∑'_x
+R1700:1706 Coq.Init.Nat <> eqb def
+not 1687:1687 <> ::basic_notations:x_'=?'_x
+binder 1783:1783 <> x:9
+binder 1796:1796 <> y:10
+not 1756:1756 <> ::basic_notations:'λ'_x_'..'_x_','_x

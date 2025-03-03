@@ -1,15 +1,15 @@
-abstract type material end
+abstract type Material end
 
-struct lambertian <: material
-    albedo::color
+struct Lambertian <: Material
+    albedo::Color
 end
 
-struct metal <: material
-    albedo::color
+struct Metal <: Material
+    albedo::Color
     fuzz::Float64   
-    metal(a::color) = new(a, 0.0)
+    Metal(a::Color) = new(a, 0.0)
 
-    function metal(a::color, f::Float64)
+    function Metal(a::Color, f::Float64)
         if(f < 1)
             new(a, f)
         else
@@ -18,12 +18,10 @@ struct metal <: material
     end
 end
 
-
-struct dielectric <: material
+struct Dielectric <: Material
     ir::Float64
-    dielectric(i::Float64) = new(i)
-
-    dialectric() = new(0)
+    Dielectric(i::Float64) = new(i)
+    Dielectric() = new(0)
 end
 
 

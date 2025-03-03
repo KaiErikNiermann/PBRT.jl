@@ -30,7 +30,7 @@ end
 function get_ray(cam::camera, u::Float64, v::Float64)
     rd = cam.lens_radius * random_in_unit_disk()
     offset = (cam.u * rd[1]) + (cam.v * rd[2])
-    ray(
+    Ray(
         cam.origin + offset, 
         cam.lower_left_corner + (u * cam.horizontal) + (v * cam.vertical) - cam.origin - offset
     )

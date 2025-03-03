@@ -1,0 +1,27 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{initialize\PYGZus{}type}\PYG{p}{[}\PYG{n}{T}\PYG{p}{,} \PYG{n}{properties}\PYG{o}{...}\PYG{p}{,} \PYG{n}{derived}\PYG{o}{...}\PYG{p}{]()} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{void}\PYG{p}{:}
+    \PYG{n}{fold}\PYG{p}{(}
+        \PYG{n}{mapping}\PYG{o}{.}\PYG{n}{insert}\PYG{p}{(}\PYG{n+nb}{property}\PYG{p}{::}\PYG{n}{name}\PYG{p}{,}
+            \PYG{p}{\PYGZob{}}
+                \PYG{p}{[}\PYG{n}{instance}\PYG{p}{:} \PYG{n}{T}\PYG{p}{]()} \PYG{p}{\PYGZob{}}
+                    \PYG{n}{instance}\PYG{p}{[}\PYG{n}{T}\PYG{p}{](}\PYG{n+nb}{property}\PYG{p}{::}\PYG{n}{get}\PYG{p}{(}\PYG{n}{instance}\PYG{p}{))}
+                \PYG{p}{\PYGZcb{},}
+                \PYG{p}{[}\PYG{n}{instance}\PYG{p}{:} \PYG{n}{T}\PYG{p}{,} \PYG{n}{jl\PYGZus{}val}\PYG{p}{:} \PYG{n}{jlval}\PYG{p}{,} \PYG{n}{jl\PYGZus{}type\PYGZus{}string}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{]} \PYG{p}{\PYGZob{}}
+                    \PYG{n}{fold}\PYG{p}{(}
+                        \PYG{k}{if} \PYG{p}{(}\PYG{n}{f}\PYG{p}{(}\PYG{n}{st}\PYG{p}{(}\PYG{n}{jl\PYGZus{}type\PYGZus{}string}\PYG{p}{),} \PYG{n}{typeinfo}\PYG{p}{(}\PYG{n}{derived}\PYG{p}{))):}
+                            \PYG{n+nb}{property}\PYG{p}{::}\PYG{n+nb}{set}\PYG{p}{(}\PYG{n}{instance}\PYG{p}{,} \PYG{n}{instance}\PYG{p}{[}\PYG{n}{derived}\PYG{p}{](}\PYG{n}{jl\PYGZus{}val}\PYG{p}{))}
+                            \PYG{n}{matched} \PYG{o}{=} \PYG{n}{true}
+                    \PYG{p}{)}
+                    \PYG{k}{if} \PYG{p}{(}\PYG{err}{!}\PYG{n}{matched}\PYG{p}{):}
+                        \PYG{n+nb}{property}\PYG{p}{::}\PYG{n+nb}{set}\PYG{p}{(}\PYG{n}{instance}\PYG{p}{,} \PYG{n}{instance}\PYG{p}{[}\PYG{n}{T}\PYG{p}{](}\PYG{n}{jl\PYGZus{}val}\PYG{p}{))}
+                \PYG{p}{\PYGZcb{}}
+            \PYG{p}{\PYGZcb{}}
+        \PYG{p}{)}
+    \PYG{p}{)}
+\PYG{o}{...}
+\PYG{k}{def} \PYG{n+nf}{instance}\PYG{p}{[}\PYG{n}{T}\PYG{p}{](}\PYG{n}{jl\PYGZus{}val}\PYG{p}{):}
+    \PYG{n}{out} \PYG{o}{=} \PYG{n}{T}\PYG{p}{()}
+    \PYG{k}{for} \PYG{n}{name}\PYG{p}{,} \PYG{p}{(}\PYG{n}{setter}\PYG{p}{,} \PYG{n}{getter}\PYG{p}{)} \PYG{o+ow}{in} \PYG{n}{mapping}\PYG{p}{:}
+        \PYG{n}{setter}\PYG{p}{(}\PYG{n}{out}\PYG{p}{,} \PYG{n}{jlfield}\PYG{p}{(}\PYG{n}{name}\PYG{p}{,} \PYG{n}{jl\PYGZus{}val}\PYG{p}{))}
+    \PYG{k}{return} \PYG{n}{out}
+\end{Verbatim}

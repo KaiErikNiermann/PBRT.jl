@@ -1,0 +1,378 @@
+\documentclass[10pt]{article}
+\usepackage{pagestyle}
+\usepackage[style=ieee, sorting=nyt, urldate=long, date=long, backend=biber]{biblatex}
+
+\addbibresource{references.bib}
+
+\newtheorem{proposition}{Proposition} % Define a proposition environment
+\newtheorem{theorem}{Theorem} % Define a theorem environment
+\newtheorem{lemma}{Lemma} % Define a lemma environment
+
+\begin{document}
+\thispagestyle{empty}
+
+{\scshape CS } \hfill {\scshape \large notes - Category Theory} \hfill {\scshape 16.01.2025}
+
+\smallskip
+\hrule
+\bigskip
+
+\section{Notional Conventions}
+
+\subsection{Language}
+
+\begin{center}
+  \begin{longtable}{|p{0.2\textwidth}|p{0.8\textwidth}|}
+    \hline 
+    \textbf{Term} & \textbf{Definition} \\ \hline 
+    Definition & Introduces a new term or piece of notation \\ \hline
+    Example & Presents how this terminology appears in practice \\ \hline
+    Proposition & States a logical consequence of one or more definitions \\ \hline
+    Lemma & States an intermediate proposition that is meant to prove another theorem. \\ \hline
+    Theorem & States a "deeper" proposition which is meant to be more profound. \\ \hline
+    Corrolary & States a proposition that follows directly from a theorem. \\ \hline
+    Algorithm & Describes a sequence of steps to solve a problem. \\ \hline
+  \end{longtable}
+\end{center}
+
+\subsubsection{Category Theory Notation}
+
+\begin{center}
+  \begin{longtable}{|p{0.2\textwidth}|p{0.8\textwidth}|}
+    \hline 
+    \textbf{Notation} & \textbf{Meaning} \\ \hline 
+    $A\in C$ & $A$ is an object in category $C$ \\ \hline
+    $f : A \rightarrow B$ & $f$ is a morphism from object $A$ to object $B$ \\ \hline
+    $\text{dom}(f), \text{cod}(f)$ & The domain and codomain of morphism $f$ \\ \hline
+    $f \in C(A, B)$ & $f$ is a morphism from object $A$ to object $B$ in category $C$.\\ \hline
+    $f \circ g $ & Composition of morphisms $f$ and $g$ \\ \hline
+    $\text{id}_A \in C(A, A)$ & Identity morphism on object $A$.\\ \hline
+    $A \cong B \in C$ & Objects $A$ and $B$ are equivalent in the category $C$ up to unique isomorphism. \\ \hline
+    $F \simeq G$ & Functors $F$ and $G$ are naturally isomorphic. \\ \hline
+  \end{longtable}
+\end{center}
+
+\subsubsection{Set Theory Notation}
+\begin{center}
+  \begin{longtable}{|p{0.2\textwidth}|p{0.8\textwidth}|}
+    \hline 
+    \textbf{Notation} & \textbf{Meaning} \\ \hline
+    $\iota : A \rightarrow B$ & For a set $A$ and $B$ the identity function $\iota$ is is called the \textit{natural inclusion}. \\ \hline 
+    $A \simeq B$ & Sets $A$ and $B$ are isomorphic. \\ \hline 
+  \end{longtable}
+\end{center}
+
+\section{Category Theory}
+
+\begin{definition}[Category]
+  A category $C$ consists of the following:
+  \begin{enumerate}
+    \item Data: A collection of objects $\text{ob}(C)$ and a collection of morphisms $C (a, b)$ for each pair of objects $a, b \in \text{ob}(C)$.
+    \item Structure: For each object we have identity and composition, denoted by
+      \[
+        \begin{aligned}
+          \text{Identity} & : \forall a \in \text{ob}(C).\ a \xrightarrow{\text{1}_a} a \\
+          \text{Composition} & : \forall a, b, c \in \text{ob}(C).\ a \xrightarrow{f} b \xrightarrow{g} c\implies  \exists (a \xrightarrow{g \circ f} c)
+        \end{aligned}
+      \]
+    \item Properties: The following properties must hold:
+      \[
+        \begin{aligned}
+          \text{Associativity} & : \forall (a \xrightarrow{f} b), (b \xrightarrow g c), (c \xrightarrow h d).\ h \circ (g \circ f) = (h \circ g) \circ f \\
+          \text{Identity} & : \forall (a \xrightarrow{f} b).\ f \circ \textbf{1}_a = f = \textbf{1}_b \circ f
+        \end{aligned}
+      \]
+  \end{enumerate}
+\end{definition}
+
+\subsection{Morphisms in the Category of Sets}
+
+It would first make sense to establish some basic definitions the reader might be familiar with and them move to a more abstract territory.
+
+\begin{definition}[Image]
+  The image $\text{Im}$ of a function $f : A \rightarrow B$ is the set of all elements in $B$ that are mapped to by $f$. Formally we can express this as
+  \[
+    \text{Im}(f) = \{b \in B \mid \exists a \in A.\ f(a) = b\}
+  \]
+
+\end{definition}
+
+\begin{definition}[Surjective]
+  A function $f : A \rightarrow B$ is surjective if
+  \[
+    \forall b \in B.\ \exists a \in A.\  f(a) = b
+  \]
+\end{definition}
+
+\begin{definition}[Injective]
+  A function $f : A \rightarrow B$ is injective if
+  \[
+    \forall a, b \in A.\ f(a) = f(b) \implies a = b
+  \]
+\end{definition}
+
+\begin{definition}[Bijective]
+  A function $f : A \rightarrow B$ is bijective if it is both surjective and injective. Formally we can express this as
+  \[
+    \forall b \in B.\ \exists! a \in A.\ f(a) = b
+  \]
+  where $\exists!$ denotes the existence of a unique element.
+\end{definition}
+
+\subsection{Morphisms}
+
+\begin{definition}[Epimorphism (epi)]
+  A morphism $f : A \rightarrow B$ is an epimorphism if for any two morphisms $g, h : B \rightarrow C$ we have that
+  \[
+    g \circ f = h \circ f \implies g = h
+  \]
+  Expressing this in a diagram we have:
+  \[
+    \begin{tikzcd}
+      a \arrow[r, "f"] \arrow[rr, bend right=50, dotted, "h \circ f"] \arrow[rr, bend left=50, dotted, "g \circ f"] & b \arrow[r, shift left=1.5, "g"] \arrow[r, shift right=1.5, "h"'] & c
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{definition}[Split Epic]
+  A morphism $f : A \rightarrow B$ is a split epic if there exists a morphism $g : B \rightarrow A$ such that
+  \[
+    g \circ f = \textbf{1}_B
+  \]
+  Diagram representation:
+  \[
+    \begin{tikzcd}
+      b \arrow[rr, bend left=50, dotted, "g \circ f = \mathbf 1_B"] \arrow[r, "f"] & a \arrow[r, "g"] & b
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{definition}[Monomorphism]
+  A morphism $f : A \rightarrow B$ is a monomorphism if for any two morphisms $g, h : C \rightarrow A$ we have that
+  \[
+    f \circ g = f \circ h \implies g = h
+  \]
+  Diagram representation:
+  \[
+    \begin{tikzcd}
+      c \arrow[r, shift left=1.5, "g"] \arrow[r, shift right=1.5, "h"'] \arrow[rr, bend right=50, dotted, "f \circ g"] \arrow[rr, bend left=50, dotted, "f \circ h"] & a \arrow[r, "f"] & b
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{definition}[Split Monic]
+  A morphism $f : A \rightarrow B$ is a split monic if there exists a morphism $g : B \rightarrow A$ such that
+  \[
+    g \circ f = \textbf{1}_A
+  \]
+  Diagram representation:
+  \[
+    \begin{tikzcd}
+      a \arrow[rr, bend left=50, dotted, "g \circ f = \mathbf 1_A"] \arrow[r, "f"] & b \arrow[r, "g"] & a
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{definition}[Isomorphism]
+  A morphism $f : A \rightarrow B$ is an isomorphism if there exists a morphism $g : B \rightarrow A$ such that
+  \[
+    g \circ f = \textbf{1}_A \quad \text{and} \quad f \circ g = \textbf{1}_B
+  \]
+\end{definition}
+
+\begin{definition}[Commuting diagram]
+  A diagram is said to commute if for any two paths from one object to another, the composition of the morphisms along the paths are equal.
+  In this instance the diagram commutes if $h \circ f = k \circ g$.
+  \[
+    \begin{tikzcd}
+      A \arrow[r, "f"] \arrow[d, "g"'] & B \arrow[d, "h"] \\
+      C \arrow[r, "k"'] & D
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\subsection{Types of Categories}
+
+\begin{definition}[Arrow Category]
+  Given a category $C$, the arrow category denoted $C ^\rightarrow$ is the category such that
+  \begin{enumerate}
+    \item The objects are the morphisms of $C$ which is to say
+      \[
+        \forall a, b\in \text{ob}\mathcal (C).\ \text{ob}(C ^\rightarrow) = \text{C}(a, b)
+      \]
+    \item A morphism $\mathbf a \xrightarrow f \mathbf b$ in $C ^\rightarrow$ is a morphism between pairs of morphisms $h_1 : a_0 \rightarrow a_1$ and $h_2 : b_0 \rightarrow b_1$ in $C$ such that the following diagram commutes:
+      \[
+        \begin{tikzcd}
+          a_0 \arrow[r, "f_1"] \arrow[d, "h_1"'] & b_0 \arrow[d, "h_2"] \\
+          a_1 \arrow[r, "f_2"'] & b_1
+        \end{tikzcd}
+      \]
+      For completeness we can also express this morphism more fully in the following variations
+      \[
+        \begin{aligned}
+          & = (a_0 \xrightarrow{h_1} a_1) \xrightarrow{f} (b_0 \xrightarrow{h_2} b_1) && \text{(expanded)} \\
+          & = f : ( h_1 : a_0 \rightarrow a_1 ) \rightarrow ( h_2 : b_0 \rightarrow b_1 ) && \text{(functional notation)}
+        \end{aligned}
+      \]
+    \item Composition is defined by placing commutative diagrams side by side
+      \[
+        \begin{tikzcd}
+          a_0 \arrow[r, "f_1"] \arrow[d, "h_1"'] & b_0 \arrow[d, "h_2"] \arrow[r, "g_1"] & c_0 \arrow[d, "h_3"] \\
+          a_1 \arrow[r, "f_2"'] & b_1 \arrow[r, "g_2"'] & c_1
+        \end{tikzcd}
+      \]
+  \end{enumerate}
+\end{definition}
+
+\subsection{Products}
+
+\begin{definition}[Set product]
+  Given two sets $A$ and $B$, the product of $A$ and $B$ is the set of all pairs $(a, b)$ where $a \in A$ and $b \in B$. Formally we can express this as
+  \[
+    A \times B = \{(a, b) : a \in A\ \text{and}\ b \in B\}
+  \]
+\end{definition}
+
+\begin{definition}[Projection function]
+  When we have a product $A \times B$ we implicitly create two projection functions
+  \[
+    \begin{aligned}
+      \pi_1 & : A \times B \rightarrow A.\ & (a, b) \mapsto a \\
+      \pi_2 & : A \times B \rightarrow B.\ & (a, b) \mapsto b
+    \end{aligned}
+  \]
+  Thus a product can be defined as a tuple
+  \[
+    \langle A\times B, \pi_1, \pi_2 \rangle
+  \]
+\end{definition}
+
+\begin{definition}[Mediating morphism]
+  For every set $C$ and function $f : C \rightarrow A$ and $g : C \rightarrow B$ there exists a unique function $h : C \rightarrow A \times B$ called the \textit{mediating morphism} such that the following holds
+  \[
+    \begin{aligned}
+      \pi_1 \circ h & = f \\
+      \pi_2 \circ h & = g
+    \end{aligned}
+  \]
+  Which is to say that we have a mapping from some $x\in C$ to a pair $(f(x), g(x))$.
+  \[
+    x \mapsto (f(x), g(x))
+  \]
+\end{definition}
+
+\begin{definition}[Products]
+  Given two objects $A$ and $B$ in a category $C$, their product, $A \times B$, is an object of $C$, with two projection functions
+  \[
+    \begin{aligned}
+      \pi_1 & : A \times B \rightarrow A \\
+      \pi_2 & : A \times B \rightarrow B
+    \end{aligned}
+  \]
+  such that for every object $M$ and morphisms $f : M \rightarrow A$ and $g : M \rightarrow B$, there exists a unique morphism $\langle f, g \rangle : M \rightarrow A \times B$, called the mediating morphism, such that $\pi_1 \circ \langle f, g \rangle = f$ and $\pi_2 \circ \langle f, g \rangle = g$.
+
+  Formally we can state this as
+  \[
+    \begin{aligned}
+      \forall M \in \text{ob}(C), (M \xrightarrow{f} A), (M \xrightarrow{g} B).\ & \exists ! \langle f, g \rangle : M \rightarrow A \times B.\ \text{s.t.} \\
+      \pi_1 \circ \langle f, g \rangle = f \\
+      \pi_2 \circ \langle f, g \rangle = g
+    \end{aligned}
+  \]
+
+  This can be expressed in a diagram as
+  \begin{equation}
+    \begin{tikzcd}[row sep=large]
+      &
+      M  \arrow[dl,swap,"f"] \arrow[dr,"g"] \arrow[d, dashed, "\langle {f, g} \rangle"] &
+      \\
+      A & A\times B \arrow[l, "\pi_1"'] \arrow[r, "\pi_2"] & B
+    \end{tikzcd}
+    \label{eq:product}
+  \end{equation}
+  A category $C$ is said to have products if for any two objects $A$ and $B$ in $C$, their product $A \times B$ exists.
+\end{definition}
+
+\begin{proposition}
+  The product of two objects $A$ and $B$ in the category of sets is their cartesian product $A \times B$.
+  \begin{proof}
+    We must prove two properties of the mediating morphism, namely that it is unique and that it exists.
+
+    We define a set $X$ and functions
+    \[
+      \begin{aligned}
+        x_1 & : X \rightarrow A \\
+        x_2 & : X \rightarrow B \\
+        f & : X \rightarrow A \times B. \quad x \mapsto (x_1(x), x_2(x))
+      \end{aligned}
+    \]
+    By definition we have that 
+    \[
+      \begin{aligned}
+        \pi_1 \circ f & = x_1 \\
+        \pi_2 \circ f & = x_2
+      \end{aligned}
+    \]
+    To show that the mediating morphism is unique we assume another morphism $g : X \rightarrow A \times B$ such that $\pi_1 \circ g = x_1$ and $\pi_2 \circ g = x_2$. We must show that $f = g$. We can do this by showing that $f(x) = g(x)$ for all $x \in X$. Let $g(x) = (a, b)$ then we have that
+    \[
+      \begin{aligned}
+        a & = \pi_1(g(x)) = x_1(x) \\
+        b & = \pi_2(g(x)) = x_2(x) \\ 
+        \implies g(x) & = (x_1(x), x_2(x)) = f(x)
+      \end{aligned}
+    \]
+    Since $f$ is the unique morphism satisfying $\pi_1 \circ f = x_1$ and $\pi_2 \circ f = x_2$, $(A\times B, \pi_1, \pi_2)$ is the product of $A$ and $B$ in the category of sets.
+  \end{proof}
+\end{proposition}
+
+\begin{definition}[Same up to isomorphism]
+  Products are not unique. We can take $(A\times B, \pi_1, \pi_2)$ and $(B\times A, \pi_2', \pi_1')$, both being products of sets $A$ and $B$. However due to the fact that there are bijections between $A \times B$ and $B \times A$ we can say that they are the same up to isomorphism. In any category, every two products of the same objects are unique up to unique isomorphisms.
+\end{definition}
+
+\section{Lenses}
+
+To explain this problem I thought it would be nice to express this in a more rigorous formal manner. It was somehow only towards the end of the intial practical portion that I learned about the applicability of the concept of lenses to interoperability. Lenses are a concept which more broadly are used to enable bidirectional transformations. The concept of a bidirectional transformation is commonly associated with the instance in where we have a source $S$ and a a target or commonly referred to as a view $V$ in which we define a function get which describes some mapping from $S \rightarrow T$ and a function putback or just `put' which describes the mapping from the product of the source with the target back to the source, formally we express this as two functions.
+\begin{align}
+  \text{get} & : S \rightarrow V \\
+  \text{put} & : S \times V \rightarrow S
+\end{align}
+
+The `get' and `put' functions here together form a lens. The strictest of such lenses is called a bijective lens. The nature of a bijective lens implies that there is a one-to-one mapping between the source and the target. This is a very strong constraint and one not quite useful when we are thinking about mapping types between different languages. There are generally 4 imporant properties that we can use to describe the level of constraints placed on lenses, these are the following `GetPut', `PutGet', `PutPut', and finally totality as defined in \cite{foster2008semantics}. Formally we can define these properties as follows. \footnote{
+  Various sources use aliases for these properties, though due to inconsistencies in their application I will use the more concrete names as defined in \cite{foster2008semantics}. Naming convetions in the general domain of Bidirectional Transformations seem to be or at least have been a point of contention \cite{Czarnecki2009BidirectionalTA}
+}
+
+\begin{definition}[GetPut]
+  \[
+    \forall s.\ \text{put}\ s (\text{get}\ s) = s
+  \]
+\end{definition}
+
+The GetPut property, sometimes also intuitively known as `Stability', expresses that if $V$ does not change, then neither should $S$.
+
+\begin{definition}[PutGet]
+  \[
+    \forall s,v.\ \text{get}\ (\text{put}\ s\ v) = v
+  \]
+\end{definition}
+
+Conversely, the PutGet property asserts that if we have a modified view $v$ based on some source $s$, then the result of the get operation should be said modified view $v$.
+
+\begin{definition}[PutPut]
+  \[
+    \forall s,v,v'.\ \text{put}\ (\text{put}\ s\ v')\ v = \text{put}\ s\ v
+  \]
+\end{definition}
+
+The PutPut property can intuitively be understood as expressing idempotence, that is if we perform two put operations in succession, the result should be the same as if we had only performed the second put operation.
+
+\begin{definition}[Totality]
+  \[
+    \forall s, v, \exists s'.\ \text{put}\ s\ v = s'
+  \]
+\end{definition}
+
+Finally, the Totality property asserts that the put operation should always be defined, that is for any source and view, the put operation should always be defined. Lenses that satisfy at least totality, GetPut, and PutGet are known as \textit{reasonable} lenses.
+
+\printbibliography
+
+\end{document}

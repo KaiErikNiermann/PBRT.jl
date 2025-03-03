@@ -1,21 +1,21 @@
-struct Triangle <: hittable
+struct Triangle <: Hittable
     A::Vector{Float64}
     B::Vector{Float64}
     C::Vector{Float64}
     id::Int
     edges::Vector{Set{Vector{Float64}}}
-    mat::material
-    bbox::aabb
+    mat::Material
+    bbox::AABB
 end 
 
-Triangle() = Triangle([1.0, 0.0, 0.0], [2.0, 0.0, 0.0], [3.0, 0.0, 0.0], 0, [], lambertian(color()), aabb())
+Triangle() = Triangle([1.0, 0.0, 0.0], [2.0, 0.0, 0.0], [3.0, 0.0, 0.0], 0, [], Lambertian(Color()), AABB())
 
-Triangle(A::Vector{Float64}, B::Vector{Float64}, C::Vector{Float64}, mat::material) = begin 
+Triangle(A::Vector{Float64}, B::Vector{Float64}, C::Vector{Float64}, mat::Material) = begin 
     u = B - A
     v = C - A
-    bbox_diag1 = aabb(A, A + u + v)
-    bbox_diag2 = aabb(A + u, A + v)
-    bbox = aabb(bbox_diag1, bbox_diag2)
+    bbox_diag1 = AABB(A, A + u + v)
+    bbox_diag2 = AABB(A + u, A + v)
+    bbox = AABB(bbox_diag1, bbox_diag2)
     edges = [Set([A, B]), Set([B, C]), Set([C, A])]
     id = rand(1:10000000000000000)
     Triangle(A, B, C, id, edges, mat, bbox)
@@ -23,7 +23,7 @@ end
 
 Base.show(io::IO, t::Triangle) = print(io, "Triangle(id = $(t.id))")
 
-function hit!(t::Triangle, r::ray, ray_t::interval, rec::hit_record)::Bool
+function hit!(t::Triangle, r::Ray, ray_t::Interval, rec::HitRecord)::Bool
     e1 = t.B - t.A
     e2 = t.C - t.A
     normal = normalize(cross(e1, e2))

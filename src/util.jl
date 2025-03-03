@@ -1,14 +1,14 @@
 import Base: +, -, *
 
-struct color
+struct Color
     r::Float32
     g::Float32
     b::Float32
-    function color(c)
+    function Color(c)
         new(c[1], c[2], c[3])
     end
-    color() = new(0.0, 0.0, 0.0)
-    color(r::Float32, g::Float32, b::Float32) = new(r, g, b)
+    Color() = new(0.0, 0.0, 0.0)
+    Color(r::Float32, g::Float32, b::Float32) = new(r, g, b)
 end
 
 
@@ -18,11 +18,11 @@ end
 
 *(v::Vector{Float64}, sc::Float64) = [v[1] * sc, v[2] * sc, v[3] * sc]
 
-+(c1::color, c2::color)::color = color([c1.r .+ c2.r, c1.g .+ c2.g, c1.b .+ c2.b])
++(c1::Color, c2::Color)::Color = Color([c1.r .+ c2.r, c1.g .+ c2.g, c1.b .+ c2.b])
 
-*(t::Float64, c::color)::color = color([t .* c.r, t .* c.g, t .* c.b])
+*(t::Float64, c::Color)::Color = Color([t .* c.r, t .* c.g, t .* c.b])
 
-*(c1::color, c2::color)::color = color([c1.r .* c2.r, c1.g .* c2.g, c1.b .* c2.b])
+*(c1::Color, c2::Color)::Color = Color([c1.r .* c2.r, c1.g .* c2.g, c1.b .* c2.b])
 
 @inline function random()::Vector{Float64}
     Vector{Float64}(random_double(), random_double(), random_double())

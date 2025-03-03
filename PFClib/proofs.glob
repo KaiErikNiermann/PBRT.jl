@@ -1,0 +1,141 @@
+DIGEST 8018305243105e6e62efed58a3dc5c44
+FPFC.proofs
+R16:30 Coq.Arith.Arith <> <> lib
+R48:61 Coq.Logic.JMeq <> <> lib
+R79:93 Coq.Logic.Eqdep <> <> lib
+R112:129 Coq.Strings.String <> <> lib
+R192:198 Coq.Program.Program <> <> lib
+R225:234 Coq.Classes.CMorphisms <> <> lib
+def 385:387 <> iff
+binder 390:390 <> P:1
+binder 392:392 <> Q:2
+R405:405 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R412:417 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R424:424 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R407:410 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R406:406 PFC.proofs <> P:1 var
+R411:411 PFC.proofs <> Q:2 var
+R419:422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R418:418 PFC.proofs <> Q:2 var
+R423:423 PFC.proofs <> P:1 var
+binder 466:466 <> x:3
+binder 480:480 <> y:4
+not 437:437 <> ::basic_notations:'∀'_x_'..'_x_','_x
+R620:623 Coq.Init.Specif <> sigT ind
+binder 630:630 <> x:5
+R639:642 Coq.Init.Specif <> sigT ind
+binder 649:649 <> y:6
+not 594:594 <> ::basic_notations:'exists'_x_'..'_x_','_x
+R821:827 PFC.proofs <> ::basic_notations:'exists'_x_'..'_x_','_x not
+R829:830 PFC.proofs <> ::basic_notations:'exists'_x_'..'_x_','_x not
+binder 828:828 <> x:7
+R835:841 PFC.proofs <> ::basic_notations:'exists'_x_'..'_x_','_x not
+R843:844 PFC.proofs <> ::basic_notations:'exists'_x_'..'_x_','_x not
+binder 842:842 <> y:8
+not 799:799 <> ::basic_notations:'∃'_x_'..'_x_','_x
+R969:972 Coq.Init.Datatypes <> prod ind
+not 956:956 <> ::basic_notations:x_'×'_x
+R1058:1061 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+not 1043:1043 <> ::basic_notations:x_'→'_x
+R1159:1162 Coq.Classes.CRelationClasses <> iffT def
+not 1145:1145 <> ::basic_notations:x_'↔'_x
+R1243:1247 PFC.proofs <> ::basic_notations:x_'→'_x not
+R1248:1252 Coq.Init.Logic <> False ind
+not 1231:1231 <> ::basic_notations:'¬'_x
+R1335:1338 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+not 1320:1320 <> ::basic_notations:x_'≠'_x
+R1391:1394 Coq.Init.Datatypes <> prod ind
+not 1382:1382 <> ::basic_notations:x_'∏'_x
+R1465:1467 Coq.Init.Datatypes <> sum ind
+not 1456:1456 <> ::basic_notations:x_'∑'_x
+binder 1560:1560 <> x:9
+binder 1573:1573 <> y:10
+not 1533:1533 <> ::basic_notations:'λ'_x_'..'_x_','_x
+prf 1688:1695 <> plus_O_n
+R1699:1702 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1710:1711 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1707:1709 Coq.Init.Datatypes <> nat ind
+binder 1703:1703 <> n:11
+R1717:1719 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1713:1715 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1716:1716 PFC.proofs <> n:11 var
+R1720:1720 PFC.proofs <> n:11 var
+prf 1769:1776 <> plus_1_l
+R1780:1783 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1791:1792 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1788:1790 Coq.Init.Datatypes <> nat ind
+binder 1784:1784 <> n:12
+R1798:1800 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1794:1796 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1797:1797 PFC.proofs <> n:12 var
+R1801:1801 Coq.Init.Datatypes <> S constr
+R1803:1803 PFC.proofs <> n:12 var
+prf 1852:1866 <> plus_id_example
+R1870:1873 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1881:1884 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R1878:1880 Coq.Init.Datatypes <> nat ind
+binder 1874:1874 <> n:13
+R1878:1880 Coq.Init.Datatypes <> nat ind
+binder 1876:1876 <> m:14
+R1890:1896 PFC.proofs <> ::basic_notations:x_'→'_x not
+R1886:1888 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1885:1885 PFC.proofs <> n:13 var
+R1889:1889 PFC.proofs <> m:14 var
+R1902:1904 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1898:1900 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1897:1897 PFC.proofs <> n:13 var
+R1901:1901 PFC.proofs <> n:13 var
+R1906:1908 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1905:1905 PFC.proofs <> m:14 var
+R1909:1909 PFC.proofs <> m:14 var
+prf 2207:2227 <> plus_1_neq_0_firsttry
+R2231:2234 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R2242:2245 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R2239:2241 Coq.Init.Datatypes <> nat ind
+binder 2235:2235 <> n:15
+R2258:2260 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2246:2246 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2252:2256 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2248:2250 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2247:2247 PFC.proofs <> n:15 var
+R2261:2265 Coq.Init.Datatypes <> false constr
+prf 2422:2433 <> plus_1_neq_0
+R2437:2440 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R2448:2451 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R2445:2447 Coq.Init.Datatypes <> nat ind
+binder 2441:2441 <> n:16
+R2464:2466 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2452:2452 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2458:2462 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R2454:2456 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2453:2453 PFC.proofs <> n:16 var
+R2467:2471 Coq.Init.Datatypes <> false constr
+prf 3196:3212 <> andb_commutative'
+R3216:3219 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R3223:3224 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+binder 3220:3220 <> b:17
+binder 3222:3222 <> c:18
+R3233:3235 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3225:3228 Coq.Init.Datatypes <> andb def
+R3232:3232 PFC.proofs <> c:18 var
+R3230:3230 PFC.proofs <> b:17 var
+R3236:3239 Coq.Init.Datatypes <> andb def
+R3243:3243 PFC.proofs <> b:17 var
+R3241:3241 PFC.proofs <> c:18 var
+prf 3434:3447 <> andb3_exchange
+R3453:3456 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R3462:3463 PFC.proofs <> ::basic_notations:'∀'_x_'..'_x_','_x not
+binder 3457:3457 <> b:19
+binder 3459:3459 <> c:20
+binder 3461:3461 <> d:21
+R3481:3483 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3464:3467 Coq.Init.Datatypes <> andb def
+R3480:3480 PFC.proofs <> d:21 var
+R3470:3473 Coq.Init.Datatypes <> andb def
+R3477:3477 PFC.proofs <> c:20 var
+R3475:3475 PFC.proofs <> b:19 var
+R3484:3487 Coq.Init.Datatypes <> andb def
+R3500:3500 PFC.proofs <> c:20 var
+R3490:3493 Coq.Init.Datatypes <> andb def
+R3497:3497 PFC.proofs <> d:21 var
+R3495:3495 PFC.proofs <> b:19 var

@@ -1,0 +1,16 @@
+\begin{fileminted}{jluna/usertype.inl}{cpp}
+template<typename A>
+A Usertype<A>::bridge(B* in) {
+    auto out = A();
+
+    for (auto& pair : _mapping)
+        std::get<bridge_tool>(pair.tools)(out, 
+            jluna::safe_call(
+                B_get("accessor"), in,             
+                (B*) pair.symbol 
+            )
+        );
+        
+    return out;
+}
+\end{fileminted}

@@ -1,0 +1,269 @@
+DIGEST 859defde821643c2700947bb429895ca
+FPFC.Data
+mod 7:13 <> NatList
+R31:38 PFC.Core <> <> lib
+ind 52:58 NatList natprod
+constr 77:80 NatList pair
+R91:93 Coq.Init.Datatypes <> nat ind
+binder 83:84 <> n1:3
+binder 86:87 <> n2:4
+scheme 52:58 NatList natprod_rect
+scheme 52:58 NatList natprod_ind
+scheme 52:58 NatList natprod_rec
+scheme 52:58 NatList natprod_sind
+R105:108 PFC.Data NatList pair constr
+R122:125 PFC.Data NatList pair constr
+R138:141 PFC.Data NatList pair constr
+def 164:166 NatList fst
+R173:179 PFC.Data NatList natprod ind
+binder 169:169 <> p:5
+R183:185 Coq.Init.Datatypes <> nat ind
+R201:201 PFC.Data <> p:5 var
+R214:217 PFC.Data NatList pair constr
+def 249:251 NatList snd
+R258:264 PFC.Data NatList natprod ind
+binder 254:254 <> p:7
+R268:270 Coq.Init.Datatypes <> nat ind
+R285:285 PFC.Data <> p:7 var
+R298:301 PFC.Data NatList pair constr
+R331:333 PFC.Data NatList fst def
+R336:339 PFC.Data NatList pair constr
+R374:377 PFC.Data NatList pair constr
+not 358:358 NatList :::'('_x_','_x_')'
+R395:397 PFC.Data NatList fst def
+R399:399 PFC.Data NatList :::'('_x_','_x_')' not
+R401:402 PFC.Data NatList :::'('_x_','_x_')' not
+R404:404 PFC.Data NatList :::'('_x_','_x_')' not
+def 420:423 NatList fst'
+R430:436 PFC.Data NatList natprod ind
+binder 426:426 <> p:9
+R441:443 Coq.Init.Datatypes <> nat ind
+R456:456 PFC.Data <> p:9 var
+R467:467 PFC.Data NatList :::'('_x_','_x_')' not
+R469:470 PFC.Data NatList :::'('_x_','_x_')' not
+R472:472 PFC.Data NatList :::'('_x_','_x_')' not
+def 497:500 NatList snd'
+R507:513 PFC.Data NatList natprod ind
+binder 503:503 <> p:11
+R518:520 Coq.Init.Datatypes <> nat ind
+R533:533 PFC.Data <> p:11 var
+R544:544 PFC.Data NatList :::'('_x_','_x_')' not
+R546:547 PFC.Data NatList :::'('_x_','_x_')' not
+R549:549 PFC.Data NatList :::'('_x_','_x_')' not
+def 574:582 NatList swap_pair
+R589:595 PFC.Data NatList natprod ind
+binder 585:585 <> p:13
+R600:606 PFC.Data NatList natprod ind
+R619:619 PFC.Data <> p:13 var
+R630:630 PFC.Data NatList :::'('_x_','_x_')' not
+R632:633 PFC.Data NatList :::'('_x_','_x_')' not
+R635:635 PFC.Data NatList :::'('_x_','_x_')' not
+R640:640 PFC.Data NatList :::'('_x_','_x_')' not
+R642:643 PFC.Data NatList :::'('_x_','_x_')' not
+R645:645 PFC.Data NatList :::'('_x_','_x_')' not
+ind 1175:1181 NatList natlist
+constr 1196:1198 NatList nil
+constr 1203:1206 NatList cons
+R1213:1215 Coq.Init.Datatypes <> nat ind
+binder 1209:1209 <> n:17
+R1223:1229 PFC.Data <> natlist:15 ind
+binder 1219:1219 <> l:18
+scheme 1175:1181 NatList natlist_rect
+scheme 1175:1181 NatList natlist_ind
+scheme 1175:1181 NatList natlist_rec
+scheme 1175:1181 NatList natlist_sind
+R1256:1259 PFC.Data NatList cons constr
+not 1243:1243 NatList :::x_'::'_x
+R1342:1344 PFC.Data NatList nil constr
+not 1333:1333 NatList :::'['_']'
+R1378:1381 PFC.Data NatList cons constr
+R1389:1392 PFC.Data NatList cons constr
+R1396:1398 PFC.Data NatList nil constr
+not 1357:1357 NatList :::'['_x_';'_'..'_';'_x_']'
+def 1418:1423 NatList mylist
+R1428:1431 PFC.Data NatList cons constr
+R1436:1439 PFC.Data NatList cons constr
+R1444:1447 PFC.Data NatList cons constr
+R1451:1453 PFC.Data NatList nil constr
+def 1468:1473 NatList repeat
+R1486:1488 Coq.Init.Datatypes <> nat ind
+binder 1476:1476 <> n:19
+binder 1478:1482 <> count:20
+R1493:1499 PFC.Data NatList natlist ind
+R1511:1515 PFC.Data <> count:20 var
+R1525:1525 Coq.Init.Datatypes <> O constr
+R1530:1532 PFC.Data NatList nil constr
+R1537:1537 Coq.Init.Datatypes <> S constr
+R1550:1554 PFC.Data NatList :::x_'::'_x not
+R1570:1570 PFC.Data NatList :::x_'::'_x not
+R1549:1549 PFC.Data <> n:19 var
+R1555:1560 PFC.Data <> repeat:21 def
+R1562:1562 PFC.Data <> n:19 var
+def 1588:1593 NatList length
+R1598:1604 PFC.Data NatList natlist ind
+binder 1596:1596 <> l:23
+R1609:1611 Coq.Init.Datatypes <> nat ind
+R1624:1624 PFC.Data <> l:23 var
+R1635:1637 PFC.Data NatList nil constr
+R1642:1642 Coq.Init.Datatypes <> O constr
+R1649:1652 PFC.Data NatList :::x_'::'_x not
+R1658:1658 Coq.Init.Datatypes <> S constr
+R1661:1666 PFC.Data <> length:24 def
+def 1688:1690 NatList app
+R1701:1707 PFC.Data NatList natlist ind
+binder 1693:1694 <> l1:26
+binder 1696:1697 <> l2:27
+R1712:1718 PFC.Data NatList natlist ind
+R1731:1732 PFC.Data <> l1:26 var
+R1743:1745 PFC.Data NatList nil constr
+R1750:1751 PFC.Data <> l2:27 var
+R1758:1761 PFC.Data NatList :::x_'::'_x not
+R1768:1772 PFC.Data NatList :::x_'::'_x not
+R1781:1781 PFC.Data NatList :::x_'::'_x not
+R1773:1775 PFC.Data <> app:28 def
+R1779:1780 PFC.Data <> l2:27 var
+R1813:1815 PFC.Data NatList app def
+not 1800:1800 NatList :::x_'++'_x
+def 1877:1885 NatList test_app1
+R1904:1906 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1895:1898 PFC.Data NatList :::x_'++'_x not
+R1888:1888 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1890:1890 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1892:1892 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1894:1894 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1899:1899 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1901:1901 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1903:1903 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1907:1907 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1909:1909 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1911:1911 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1913:1913 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1915:1915 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1917:1917 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+def 1953:1961 NatList test_app2
+R1976:1978 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1967:1970 PFC.Data NatList :::x_'++'_x not
+R1964:1966 PFC.Data NatList nil constr
+R1971:1971 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1973:1973 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1975:1975 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1979:1979 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1981:1981 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R1983:1983 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+def 2019:2027 NatList test_app3
+R2044:2046 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2037:2040 PFC.Data NatList :::x_'++'_x not
+R2030:2030 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2032:2032 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2034:2034 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2036:2036 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2041:2043 PFC.Data NatList nil constr
+R2047:2047 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2049:2049 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2051:2051 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2053:2053 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+def 2093:2094 NatList hd
+R2107:2109 Coq.Init.Datatypes <> nat ind
+binder 2097:2103 <> default:30
+R2117:2123 PFC.Data NatList natlist ind
+binder 2113:2113 <> l:31
+R2128:2130 Coq.Init.Datatypes <> nat ind
+R2143:2143 PFC.Data <> l:31 var
+R2154:2156 PFC.Data NatList nil constr
+R2161:2167 PFC.Data <> default:30 var
+R2174:2177 PFC.Data NatList :::x_'::'_x not
+def 2204:2205 NatList tl
+R2212:2218 PFC.Data NatList natlist ind
+binder 2208:2208 <> l:33
+R2223:2229 PFC.Data NatList natlist ind
+R2242:2242 PFC.Data <> l:33 var
+R2253:2255 PFC.Data NatList nil constr
+R2260:2262 PFC.Data NatList nil constr
+R2269:2272 PFC.Data NatList :::x_'::'_x not
+def 2296:2303 NatList test_hd1
+R2318:2320 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2306:2307 PFC.Data NatList hd def
+R2311:2311 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2313:2313 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2315:2315 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2317:2317 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+def 2357:2364 NatList test_hd2
+R2374:2376 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2367:2368 PFC.Data NatList hd def
+R2372:2373 PFC.Data NatList :::'['_']' not
+def 2413:2419 NatList test_tl
+R2432:2434 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2422:2423 PFC.Data NatList tl def
+R2425:2425 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2427:2427 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2429:2429 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2431:2431 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2435:2435 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2437:2437 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+R2439:2439 PFC.Data NatList :::'['_x_';'_'..'_';'_x_']' not
+prf 2477:2485 NatList app_assoc
+R2489:2492 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R2511:2514 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R2504:2510 PFC.Data NatList natlist ind
+binder 2493:2494 <> l1:35
+R2504:2510 PFC.Data NatList natlist ind
+binder 2496:2497 <> l2:36
+R2504:2510 PFC.Data NatList natlist ind
+binder 2499:2500 <> l3:37
+R2531:2533 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2515:2515 PFC.Data NatList :::x_'++'_x not
+R2524:2528 PFC.Data NatList :::x_'++'_x not
+R2518:2521 PFC.Data NatList :::x_'++'_x not
+R2516:2517 PFC.Data <> l1:35 var
+R2522:2523 PFC.Data <> l2:36 var
+R2529:2530 PFC.Data <> l3:37 var
+R2536:2540 PFC.Data NatList :::x_'++'_x not
+R2549:2549 PFC.Data NatList :::x_'++'_x not
+R2534:2535 PFC.Data <> l1:35 var
+R2543:2546 PFC.Data NatList :::x_'++'_x not
+R2541:2542 PFC.Data <> l2:36 var
+R2547:2548 PFC.Data <> l3:37 var
+prf 2729:2750 NatList repeat_double_firsttry
+R2754:2757 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R2766:2769 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R2763:2765 Coq.Init.Datatypes <> nat ind
+binder 2758:2758 <> c:38
+R2763:2765 Coq.Init.Datatypes <> nat ind
+binder 2760:2760 <> n:39
+R2794:2796 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2780:2783 PFC.Data NatList :::x_'++'_x not
+R2770:2775 PFC.Data NatList repeat def
+R2777:2777 PFC.Data <> n:39 var
+R2779:2779 PFC.Data <> c:38 var
+R2784:2789 PFC.Data NatList repeat def
+R2791:2791 PFC.Data <> n:39 var
+R2793:2793 PFC.Data <> c:38 var
+R2797:2802 PFC.Data NatList repeat def
+R2804:2804 PFC.Data <> n:39 var
+R2808:2810 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2807:2807 PFC.Data <> c:38 var
+R2811:2811 PFC.Data <> c:38 var
+prf 3246:3256 NatList repeat_plus
+R3259:3262 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R3275:3280 PFC.Core <> ::basic_notations:'∀'_x_'..'_x_','_x not
+R3272:3274 Coq.Init.Datatypes <> nat ind
+binder 3263:3264 <> c1:40
+R3272:3274 Coq.Init.Datatypes <> nat ind
+binder 3266:3267 <> c2:41
+R3272:3274 Coq.Init.Datatypes <> nat ind
+binder 3269:3269 <> n:42
+R3307:3309 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3292:3295 PFC.Data NatList :::x_'++'_x not
+R3281:3286 PFC.Data NatList repeat def
+R3288:3288 PFC.Data <> n:42 var
+R3290:3291 PFC.Data <> c1:40 var
+R3296:3301 PFC.Data NatList repeat def
+R3303:3303 PFC.Data <> n:42 var
+R3305:3306 PFC.Data <> c2:41 var
+R3310:3315 PFC.Data NatList repeat def
+R3317:3317 PFC.Data <> n:42 var
+R3322:3324 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3320:3321 PFC.Data <> c1:40 var
+R3325:3326 PFC.Data <> c2:41 var
+R3473:3479 PFC.Data NatList <> mod
+R3489:3495 PFC.Data NatList <> mod

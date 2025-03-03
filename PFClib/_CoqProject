@@ -1,0 +1,10 @@
+# -R /workspaces/Thesis/formalisms/category_theory Category
+-Q /workspaces/Thesis/PFClib PFC
+Core.v
+proofs2.v
+proofs.v
+Data.v
+Tactics.v
+Record.v
+
+# -Q ./practice Practice

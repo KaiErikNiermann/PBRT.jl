@@ -1,8 +1,8 @@
 import MacroTools.rmlines
 
-mutable struct obj <: hittable
+mutable struct obj <: Hittable
     faces::Vector{Triangle}
-    bbox::aabb
+    bbox::AABB
 end
 
 mutable struct Face

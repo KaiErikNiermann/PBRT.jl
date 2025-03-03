@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{template}\PYG{o}{\PYGZlt{}}\PYG{k}{typename}\PYG{+w}{ }\PYG{n+nc}{A}\PYG{o}{\PYGZgt{}}
+\PYG{n}{A}\PYG{+w}{ }\PYG{n}{Usertype}\PYG{o}{\PYGZlt{}}\PYG{n}{A}\PYG{o}{\PYGZgt{}}\PYG{o}{:}\PYG{o}{:}\PYG{n}{bridge}\PYG{p}{(}\PYG{n}{B}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{in}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{auto}\PYG{+w}{ }\PYG{n}{out}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{A}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{p}{(}\PYG{k}{auto}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{pair}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n}{\PYGZus{}mapping}\PYG{p}{)}
+\PYG{+w}{        }\PYG{n}{std}\PYG{o}{:}\PYG{o}{:}\PYG{n}{get}\PYG{o}{\PYGZlt{}}\PYG{n}{bridge\PYGZus{}tool}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{pair}\PYG{p}{.}\PYG{n}{tools}\PYG{p}{)}\PYG{p}{(}\PYG{n}{out}\PYG{p}{,}
+\PYG{+w}{            }\PYG{n}{jluna}\PYG{o}{:}\PYG{o}{:}\PYG{n}{safe\PYGZus{}call}\PYG{p}{(}
+\PYG{+w}{                }\PYG{n}{B\PYGZus{}get}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{accessor}\PYG{l+s}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{in}\PYG{p}{,}
+\PYG{+w}{                }\PYG{p}{(}\PYG{n}{B}\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{pair}\PYG{p}{.}\PYG{n}{symbol}
+\PYG{+w}{            }\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{out}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

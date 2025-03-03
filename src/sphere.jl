@@ -1,21 +1,21 @@
-struct sphere <: hittable
+struct Sphere <: Hittable
     center::Vector{Float64}
     radius::Float64
     r_squared::Float64
-    mat::material
-    bbox::aabb
+    mat::Material
+    bbox::AABB
 end
 
-function sphere(center::Vector{Float64}, radius::Float64, mat::material)
+function Sphere(center::Vector{Float64}, radius::Float64, mat::Material)
     radius = max(0.0, radius)
     rvec = [radius, radius, radius]
-    bbox = aabb(center - rvec, center + rvec)
-    sphere(center, radius, radius^2, mat, bbox)
+    bbox = AABB(center - rvec, center + rvec)
+    Sphere(center, radius, radius^2, mat, bbox)
 end
 
-Base.show(io::IO, s::sphere) = print(io, "sphere($(s.center), $(s.radius), $(s.mat))")
+Base.show(io::IO, s::Sphere) = print(io, "sphere($(s.center), $(s.radius), $(s.mat))")
 
-function hit!(s::sphere, r::ray, ray_t::interval, rec::hit_record)
+function hit!(s::Sphere, r::Ray, ray_t::Interval, rec::HitRecord)
     oc = r.origin - s.center
     a = dot(r.direction, r.direction)
     half_b = dot(oc, r.direction)

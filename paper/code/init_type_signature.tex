@@ -1,0 +1,10 @@
+\begin{fileminted}{libs/jluna/include/usertype.hpp}{cpp}
+template<
+    typename... P, template <typename...> class A,
+    typename... D_t, template <typename...> class B
+>
+static void initialize_type(A<P...>, B<D_t...>);
+
+template <typename... D_t>
+static void initialize_map();
+\end{fileminted}

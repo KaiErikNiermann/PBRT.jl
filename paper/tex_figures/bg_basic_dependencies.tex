@@ -1,0 +1,7 @@
+\begin{tikzpicture}[subgraph text bottom=text centered, subgraph nodes={font=\itshape, black}, nodes=draw]
+    \graph [tree layout, grow=right, sibling sep=5mm, level sep=5mm, component align=center] {
+        meta constructors -> {type representation, type transformations},
+        type transformations -> {type representation, meta constructors},
+        meta constructors <-> type transformations
+    };
+\end{tikzpicture}

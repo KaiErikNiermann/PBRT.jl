@@ -3,13 +3,16 @@ macro that returns the time taken and writes it to a file for analysis, returns 
 """
 macro wtime(ex)
     quote
-        local t1 = time()
+        local t1 = round(Int64, time() * 1_000_000_000) 
         local val = $(esc(ex))
-        local t2 = time()
-        open("time.csv", "a") do io
-            local elapsed = round(1000 * (t2 - t1), sigdigits=3)
-            write(io, "$elapsed\n")
+        local t2 = round(Int64, time() * 1_000_000_000)
+
+        open("/workspaces/Thesis/benchmarks/jl_time.csv", "a") do io
+            write(io, "$t1\n")
+            write(io, "$t2\n")
+            write(io, "$(t2 - t1)\n")
         end
+        
         val
     end
 end

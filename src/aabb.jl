@@ -1,7 +1,7 @@
-mutable struct aabb
-    x::interval{Float64}
-    y::interval{Float64}
-    z::interval{Float64}
+mutable struct AABB
+    x::Interval{Float64}
+    y::Interval{Float64}
+    z::Interval{Float64}
 
     function pad_to_min(x, y, z)
         delta = 0.0001
@@ -19,24 +19,24 @@ mutable struct aabb
     end
 
     # constructors
-    aabb() = 
-        pad_to_min(interval(0.0, 0.0), interval(0.0, 0.0), interval(0.0, 0.0))
+    AABB() = 
+        pad_to_min(Interval(0.0, 0.0), Interval(0.0, 0.0), Interval(0.0, 0.0))
 
-    aabb(x::interval{Float64}, y::interval{Float64}, z::interval{Float64}) = 
+    AABB(x::Interval{Float64}, y::Interval{Float64}, z::Interval{Float64}) = 
         pad_to_min(x, y, z)
 
-    aabb(p0::Vector{Float64}, p1::Vector{Float64}) = 
+    AABB(p0::Vector{Float64}, p1::Vector{Float64}) = 
         pad_to_min(
-            interval(min(p0[1], p1[1]), max(p0[1], p1[1])),
-            interval(min(p0[2], p1[2]), max(p0[2], p1[2])),
-            interval(min(p0[3], p1[3]), max(p0[3], p1[3])
+            Interval(min(p0[1], p1[1]), max(p0[1], p1[1])),
+            Interval(min(p0[2], p1[2]), max(p0[2], p1[2])),
+            Interval(min(p0[3], p1[3]), max(p0[3], p1[3])
         ))
 
-    aabb(a::aabb, b::aabb) = 
-        pad_to_min(interval(a.x, b.x), interval(a.y, b.y), interval(a.z, b.z))
+    AABB(a::AABB, b::AABB) = 
+        pad_to_min(Interval(a.x, b.x), Interval(a.y, b.y), Interval(a.z, b.z))
 end
 
-function longest_axis(bbox::aabb)
+function longest_axis(bbox::AABB)
     if size(bbox.x) > size(bbox.y)
         return size(bbox.x) > size(bbox.z) ? 1 : 3
     else
@@ -44,7 +44,7 @@ function longest_axis(bbox::aabb)
     end
 end
 
-function axis_interval(bbox::aabb, axis::Int)::interval
+function axis_interval(bbox::AABB, axis::Int)::Interval
     if axis == 2
         return bbox.y
     elseif axis == 3
@@ -56,7 +56,7 @@ end
 """
 Slab method for AABB intersection
 """
-function hit!(bbox::aabb, r::ray, ray_t::interval)::Bool
+function hit!(bbox::AABB, r::Ray, ray_t::Interval)::Bool
     r_lo = ray_t.lo
     r_hi = ray_t.hi
     for axis in 1:3
