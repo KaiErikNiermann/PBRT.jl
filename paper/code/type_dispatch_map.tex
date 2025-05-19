@@ -1,0 +1,7 @@
+\begin{fileminted}{libs/jluna/include/usertype.hpp}{cpp}
+static inline std::unordered_map<
+    std::pair<std::string, std::string>, 
+    std::function<void(T&, unsafe::Value*)>
+> _type_dispatch_map = {}; 
+\end{fileminted}
+            

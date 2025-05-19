@@ -21,7 +21,7 @@
 /* clang-format off */
 struct Benchmark {
     struct Result {
-        using Clock = std::chrono::system_clock;  
+        using Clock = std::chrono::steady_clock;  // Use a monotonic clock
         using TimePoint = std::chrono::time_point<Clock>;
         using Duration = std::chrono::nanoseconds; 
     
@@ -47,31 +47,26 @@ struct Benchmark {
     template <typename Lambda_t>
     static void run(Lambda_t lambda, const std::string& name = "default") {
         auto before = Benchmark::_clock.now();
-        try {
-            lambda();
-        } catch (const std::exception& e) {
-            std::cerr << e.what() << std::endl;
-        }
+        lambda();
         auto after = Benchmark::_clock.now();
         _results.push_back(Result(name, before, after));
     }
 
-    static Benchmark::Result save(const std::string& path = "/workspaces/Thesis/benchmarks/cpp_time.csv") {
+    static void save(const std::string& path = "/workspaces/Thesis/benchmarks/cpp_time.csv") {
         std::ofstream file(path);
         for (const auto& result : _results) {
-            file << result._before.count() << std::endl; 
-            file << result._after.count() << std::endl;  
-            file << result._elapsed.count() << std::endl;
+            file << result._before.count() << ",";
+            file << result._after.count() << ",";
+            file << result._elapsed.count() << "\n";  // Save only elapsed time
         }
         file.close();
-        return _base;
     }
 
 private:
-    static inline Benchmark::Result _base = Benchmark::Result();
-    static inline std::chrono::system_clock _clock = std::chrono::system_clock(); 
+    static inline std::chrono::steady_clock _clock = std::chrono::steady_clock(); 
     static inline std::vector<Result> _results = {};
 };
+
 
 
 void init_pbrt() {
@@ -79,29 +74,28 @@ void init_pbrt() {
     jluna::Main.safe_eval("Pkg.activate(\"./\")");
     jluna::Main.safe_eval("Pkg.instantiate()");
     jluna::Main.safe_eval("Pkg.resolve()");
+    jluna::Main.safe_eval("ENV[\"JULIA_CPU_TARGET\"] = \"generic; native\"");
     jluna::Main.safe_eval("include(\"/workspaces/Thesis/src/PBRT.jl\")");
     jluna::Main.safe_eval("using .PBRT");
 }
 
 void register_functions() {
-    jluna::unsafe::Value* hit_bvh_f
-        = jluna::as_julia_function<HitRecord(BVHNode, RayData, HitRecord)>(
-            [](const BVHNode& bvh_tree, const RayData& ray_data, HitRecord&& hit_rec) -> HitRecord {
-                Benchmark::run([&]() { BVH_hit(bvh_tree, ray_data, hit_rec); });
-                return std::move(hit_rec);
-            }
-        );
-
-    jluna::Main.create_or_assign("hit_bvh", hit_bvh_f);
+    jluna::Main.create_or_assign("hit_bvh", jluna::as_julia_function<HitRecord(BVHNode, RayData, HitRecord)>(
+        [](const BVHNode& bvh_tree, const RayData& ray_data, HitRecord&& hit_record) -> HitRecord {
+            Benchmark::run([&]() { BVH_hit(bvh_tree, ray_data, hit_record); });
+            return hit_record;
+        }
+    ));
+    
     jluna::Main.safe_eval(funcs::hit_bvh);
 }
 
-void render_scene(const std::string& scene_path) {
+void render_scene(std::string scene_path) {
     jluna::Main["PBRT"]["example_render"](scene_path);
 }
 
 int main(int argc, char* argv[]) {
-    jluna::initialize();
+    jluna::initialize(1);
     init_pbrt();
 
     register_types();

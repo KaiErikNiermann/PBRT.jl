@@ -598,7 +598,7 @@ How we then use both this C++ sided initalization and its corresponding runtime 
   \label{listing:usertype_ex_appl}
 \end{listing}
 
-\subsubsection{The extension - Bridging}
+\subsubsection{The extension - unboxing}
 
 The final and most major part of the implementation was extending the actual bridging process, both by generalizing the logic to work over objects as opposed to fields and by accounting for how to handle abstract types. Before delving into any of the specifics we have to first introduce a final mechanism in C++ which was heavily used within this process, this being the \textit{fold expression}. As the name implies this mechanism enables the folding of a set of expressions into a single expression through some binary operation. In C++ this is divided into two forms of folding, binary and unary with there being a further subdivision into a left fold and a right fold. The relevance of this mechanism to our extension is that since we are generalizing our process to work over a template pack as opposed to just single type arguments we need a way to work with this pack. In our case we use a unary fold with a `,' operator. Per the specification an instantation of a left unary fold expression is expressed as follows 
 
@@ -606,20 +606,116 @@ The final and most major part of the implementation was extending the actual bri
   (\ldots\ op\ E) \rightarrow (((E_1\ op\ E_2)\ op\ \ldots)\ op\ E_n)
 \end{equation}    
 
-The comma operator can be understood in the context of a fold expression over a template pack as simply a way of chaining together or sequencing an expression over a set of types. So if we think of our expression $E$ as being parameterized by a set of types $T_i$ then the fold expression would simply be a way of applying $E$ to each $T_i$ in the pack. Expressed using the notation in \ref{eq:fold_expression} we could present this as follows
+The comma operator can be understood in the context of a fold expression over a template pack as a way of chaining together or sequencing an expression over a set of types. So if we think of our expression $E$ as being parameterized by a set of types $T_i$ then the fold expression would simply be a way of applying $E$ to each $T_i$ in the pack. Expressed using the notation in \ref{eq:fold_expression} we could present this as follows.
 
 \begin{equation}\label{eq:fold_expression_app}
-  (\ldots\ ,\ E\langle T_i\rangle) \rightarrow (((E\langle T_1\rangle\ ,\ E\langle T_2\rangle\ ,\ \ldots)\ ,\ E\langle T_n\rangle)
+  (\ldots\ ,\ E\langle T_i\rangle) \rightarrow (((E\langle T_1\rangle\ ,\ E\langle T_2\rangle\ ,\ \ldots)\ ,\ E\langle T_n\rangle))
 \end{equation}
 
-In the context of instantiating a template pack this can also be viewed as a form of explicit or user defined monomorphism, which is to say as opposed to the compiler implicitly instantiating concrete variants of generics depending on the necessary ones we force an instantiation over a pack. Of course this isn't exactly a 1:1 comparison but at least on a high level the underlying mechanisms are somewhat similar. 
+Starting with the unboxing process we can remind ourselves that the core issue here was that the unboxing mechanism we wanted to use for a field of an abstract type had to correspond to the underlying concrete type given the general design of the libary and resulting constraints. The key aspect to the solution in the unboxing case is that, since Julia uses structural subtyping fundamentally, we know always know the concrete type from the Julia-sided end, thus we can trivially derive the concrete unboxing mechanism within the library if we create a correspondence between a pair consiting of a field label and a valid subtype of this field to the unboxing mechanism for this subtype and field. More practically we can implement this mapping as follows
 
 \begin{listing}[ht!]
-  \include{code/assign_shared_ptr}
-  \caption{Variadic downcast and assignment}
-  \label{listing:assign_shared_ptr}
+  \include{code/type_dispatch_map}
+  \caption{Type dispatch map}
+  \label{listing:type_dispatch_map}
 \end{listing}
+
+The resulting unboxing mechanism is then a simple lookup into this map. The actual instantiation of this map then case two main cases, fields with concrete types and field with abstract types. If a field has a concrete type we want to create the trivial mapping of concrete type to concrete setter, if the field has an abstract type we want to resolve all valid derived types and then create a set of mappings to all valid derived types. In simple terms we create a map consisting of all valid concrete instantiations for all fields of an object. One notable feature which will play a role in the boxing process aswell is the type filtering mechanism. An early implementation design choice was that in the type specification all derived types relevant to a particular object would be passed as a grouped template pack, a benefit of this being that with manual specification we avoid forcing repeated specifications, so if two fields for example have the same abstract type we only need to specify the derived types once. Furthermore we reduce implementation complexity somewhat as the set of types doesnt exist as a member of a Lens but instead as just an auxillary pack. A key downside to this is that naturally we dont have a direct refrence of what field Lens has what relevant derived types thus, if we iterate over the fields, to avoid instantiating invalid setters we have to first filter out derived types which are irrelevant for a certain field. In simple terms, if a field for example has a concrete type $A$ then we dont want to instantiate setters for any derived types irrelevant to $A$. To avoid this process a type-level filtering mechanism was implemented which can be seen in listing \ref{listing:type_filter}.
+
+\begin{listing}[ht!]
+  \include{code/type_filter}
+  \caption{Type filter}
+  \label{listing:type_filter}
+\end{listing}
+
+The mechanism is for the most part pretty simple, it consits of an initial type $T$, a binary type predicate $P$ and a set of types $\mathbf T$, the resulting filtered type set $\mathbf T_f$ is then the set of types $\mathbf T$ for which the predicate $P(T_1, T_2)$ is true. There are various points to be made in regards to the pros and cons of this approach, the primary motivation in this case was to simplfy the type specification and religate the actual filtering process to the compiler. If we consider the automated case of parsing types then this mechanism might have less utility as we could implicitly construct the valid type specification as a part of the parsing algorithm itself, though it still does increase the complexity of the implementation somewhat regardless, as an implicit valid specification would mean the implementation does not act linearly but rather on a tree of types from the get go. Ultimately whats important to consider is the tradeoff in implementation complexity, compilation time (specifically template instantiation) and code bloat (i.e. limited the amount of code generated). Finally we have our unboxing function for usertypes which can be seen in listing \ref{listing:unbox_usertype}.
+
+\begin{listing}[ht!]
+  \include{code/unboxing}
+  \caption{Unboxing usertype}
+  \label{listing:unbox_usertype}
+\end{listing}
+
+Here \texttt{\_unbox} is the call to the map lookup, \texttt{gc\_safepoint} is a macro that preserves the julia-sided input \texttt{in} and \texttt{out} is the output of the unboxing process.
+
+\subsubsection{The extension - boxing}
+
+Similarly to the case of unboxing the boxing process requires that we know the underlying concrete type so we can use the correct mechanism to map to the julia sided type. The key difference here is that unlike in the case of Julia we do not trivially know the correct subtype given an abstract type in C++. The solution is then unfortunately a brute force one, we have to iterate over all valid derived types for a given abstract field and then box the derived type which has a valid downcast. There are a few optimization points to consider here, again similary to the type dispatch map we filter out the set of valid derived types for a given field to not preform unecessary downcast checks if we are boxing a concrete field. Furthermore we know that if a dynamic cast succeeds then we want to shortcut out cast checks for the remaining derived types. A final somewhat nuanced point to consider is that we also don't want to try to downcast a concrete type, so we have to ensure that for the case of a trivial boxing we preferably want to immediately box the concrete type without any additional runtime checks. We can achieve all of this through a combination of approaches. On a high level we can implement this as follows.
+
+\begin{figure*}[ht!]
+  \input{code/boxing}
+  \caption{Boxing usertype}
+  \label{figure:boxing}
+\end{figure*}
+
+On a high level there are 3 main components to the boxing process, the input; which we access via the generic Field getterl; the type switch statement \texttt{MatchTy} which specializes, or matches, on a particular generic lambda given a certain type predicate, and the finalizer which is a simple lambda that boxes the value we get from the matching process. The process of boxing is then roughly as follows, we use a fold expression to iterate over the set of fields, for each field we use a custom parameterized fold expression which discards any invalid derived types at compile time through the compile time type filtering mechanism. In the case of a concrete type we simply box the value, return it, and set it using the finalizer. If the value does have derived types, the fold expression internally iterates over the set of valid derived types and checks if a value is a valid downcast, to avoid unnecessary checks once we have a valid downcast we short circuit the fold expression.  
 
 \subsection{Part 4: How well does it work?}
 
-\subsection{Limitations and Future Practical Work}
+We can assess the performance of the library in a few different ways, we can look at the performance, the developer experience and how extensable and maintainable this degree of type level programming is, and finally we can assess the user experience of the library.
+
+\subsubsection{Performance and Optimizations}
+
+Overhead was the main performance metric that was evaluated for the library, as its generally the most critical factor in the performance of language interoperability especially in the applied case of a ray\-tracer where we want to ensure as minimal overhead as possible to be able to take advantage of the performance benefits of C++. To measure the overhead each ray\-cast had its time measured starting at the julia sided implementation calling the C++ sided code, then in the C++ sided code before we traverse the BVH tree, and finally at the end of the C++ sided code and once we return to the julia sided code. In simple terms the overhead for unboxing and boxing was computed as seen below.
+
+\begin{align}
+  \text{unboxing time} & = \text{cpp}_1 - \text{julia}_1 \\ 
+  \text{boxing time}   & = \text{julia}_2 - \text{cpp}_2
+\end{align}
+
+A noticable impact on peformance noted during the optimization process was the lack of type stable code in the julia sided portion of the library. Once this was resolved by adding type annotations which minimally constrained the implementation the performance improved considerably. Another optimization applied on the C++ end was based on the observation that to call the correct boxing or unboxing function for a given field the original implementation generated a map via a fold expression which was then used to lookup the correct function given the field. To get around the possible overhead from the map lookup the boxing and unboxing logic where turned into inlined isolated lambdas which were then called directly, and implemented such that they would generate the minimal necessary code to box/unbox the object as directly as possible to minimize any unecessary intermediate calls. 
+
+\begin{figure*}[th]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figures/boxing_unboxing_over_time.png}
+  \caption{Boxing and unboxing overhead over time; measured on a system with Intel Core i7-1065G7 and 16GB RAM}
+  \label{fig:boxing_unboxing_over_time}
+\end{figure*}
+
+We can observe the performance over the different ray\-casts in figure \ref{fig:boxing_unboxing_over_time}. Some notable observations to make, both the boxing and unboxing overhead are relatively stable towards the start and end of the execution, this represents the passes where a ray did not hit anything. When the ray did hit something we can notice spikes in the overhead, especially the unboxing as we need to update the hit record on the C++ then julia sided end to accurately render the pixel. One somewhat elusive observation is the consistent spike in the boxing process, due to the non-trivial nature of the entire pipeline this could be caused by various factors, though seems to be overall not too impactful on the average runtime.
+
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{lrr}
+    \toprule
+    \textbf{Metric} & \textbf{Average (µs)} & \textbf{Total (µs)} \\
+    \midrule
+    Unboxing & 128.459 & 12,554,152.684 \\
+    Boxing   & 6.010   & 587,352.831    \\
+    Actual   & 0.662   & 64,665.907     \\
+    Overhead & 134.469 & 13,141,505.515 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Summary of performance metrics}
+  \label{tab:perf_metrics}
+\end{table}
+
+Observing a summary of the metrics in \ref{tab:perf_metrics} we can notice that despite the optimizations the overhead is still quite considerable in our example. Naturally as we are working with more complex data\-structures; as this is the primary target of the exploration; the interoperability overhead will be more pronounced. It's difficult to asses the broader implications of these performance metrics its quite clear that the overhead in this instance undoes any possible performance gains we could have from the C++ sided code. This is not to say that the library is entirely useless, a quite effective usage of gluecode is in migration of certain codebases to another language or in the case where a library may not be performance ctritical. A main takeaway from this is that while we are able to achieve idiomatic interoperability between two languages in our applied task, its application must broadly speaking be carefully considered and benchmarked as to asses if the overhead is worth the performance gains.
+
+\subsubsection{Developer Experience}
+
+One aspect the original implementation had in mind which I tried to continue with my extension was utilizing modern C++ features to improve the developer experience of working with the code. The main aspects of this being the use of well documented and type safe template metaprogramming in addition to functional programming and more broadly declarative programming paradigms. What this meant in practice is that I tried to design the implementation, especially the more abstract portions of the code, such that they would clearly reflect the most critical parts of the implementation with as little noise as possible. Templates are somewhat notoriously well known for being complex to read, to mitigate this I followed the style of the original implementation in keeping heavy template or type predicate code separate from the main implementation, it was also ensured that types have clear and descriptive names. Functional or more complex compile time type constructs were integrated in a way to reflect a sort of 2 level language where abstractions of templates are used in a way more naturally akin to a functional compile-time programming language separate from the runtime implementation and with the underlying type logic being separated from the actual implemenation.
+
+\subsubsection{User Experience}
+
+The user experience is somewhat multifaceted depending on the priorities of the user. while the library is not on the level of having fully implicit interoperability it does provide a relatively simple interface to declare types and functions with it while in the current state this is a somewhat mundane action it could be automated with relative ease once reflection is introduced in C++26. A key benefit of this library is that despite requiring some explicit declarations these are largely separate from the main implementation, this isolation allows for more versatility in the application of the library as opposed to ones which require a tighter coupling between the interoperability code and the main implementations in either languages. As mentioned before the performance overhead is something that requires careful consideration when using the library, to aid in this a basic userfacing benchmarking tool was implemented for the C++ side, and julia being a dynamic high-level language has arious tools to trivially benchmark from its end.
+
+\subsection{Limitations}
+
+The limitations of this extension and more broadly the idea of expanding interoperability libraries to support more complex types can be understood by assessing first some important language level consierations and then looking at the broader landscape of the evolution of programming languages and their actual real-world applications.
+
+\subsubsection{Slow and varying generics support}
+
+Generics support or the more complex type level programming is a key aspect of building more implicit idiomatic interoperability libraries that aren't reliant on external scripts or tools to parse and generate the necessary code. C++ and Julia are both languages which have in their own ways developed considerably complex type systems, a benefit of this focus in their design is that we can leverage these systems especially on the C++ sided end to approach the problem of handling many different types in highly generic ways to minimize the amount of boilerplate code we need to write. Treating the problem of interoperability with this type level approach while quite ineresting in this case could pose a significantly larger challenge in languages which don't have as developed type systems. Furthermore its not even a guarantee if languages will continue to develop inreasingly complex type systems as even general purpose programming languages often end up having domain specific requirements or design choices which can deliberately limit a highly expressive type system. A type-level approach might then be a good approach in languages that easily support it, but could be detrimental in languages which are based on incompatable design philosophies.
+
+\subsubsection{Asymmetric metaprogramming features}
+
+As was briefly touched upon in the previous section, due to this varying development and design of different programming languages they often have very different metaprogramming features. As our implementation is heavily reliant on the metaprogramming features for things like, type level functional logic, reflection, type generation, specialization, and so on, similarly as to the previous point it could be difficult to use these design choices as a more general framework for interoperability systems. Metaprogramming does exist to various degrees in many languages but its featureset should be closely evaluated to see if its sufficient to use as the basis for an interop. library or if other approaches would be more suitable.
+
+\subsubsection{Decentralized language evolution}
+
+If we look at the broader landscape of programming languages we can see that a general trend is that languages tend to evolve within their own ecosystems. Naturally there are exceptions to this trend, and there have been various attempts to build languages and more abstractly frameworks that enable various different languages to exist within the same ecosystem. A key example of this being the JVM or CLR, and more recently the GraalVM, but we can observe that despite these developments many of the mainstream popular languages seem to evolve within their own community and ecosystem. This is not to say that these languages are entirely isolated, we do often see theoretical or practical aspects of their implementation being inspired by other languages or built on existing tools, a prime example of this being the set of languages developed on LLVM. Even with the often theoretical or technological overlap of languages a limiting factor in creating traditional interop libraries that enable the briding of more complex properties of languages, especially ones that diverge in their design philosophies is that the languages are often inherently not designed to interoperate as we often see them created and evolve to address either a deficit in another language or some completely different domain specific nieche. We have seen various developments to bridge separate language ecosystems such as WASM or the C-ABI, but these are often limited and as we established come with certain fundamental drawbacks. We have also observed that languages which are built on an inheretly unifying framework are able to overcome alot of the deficits of more traditional interop libraries, but the existing generally highly well established language ecosystems are continuing to often be the primary means by which people interact and work with these languages.  
+
+\subsubsection{Theoretical exploration vs practical needs}
+
+A final point to consider is the basic reality or question of "\textit{is interoperability past basic constructs even necessary in the first place?}". In an industry setting and especially at larger scales its a somewhat natural bypoduct of the environment to focus on the more short-mid term outcomes of a piece of software, what this tends to lead to is a preference for easy of use, saftey, reliability, and so on. An observation that can be made from this preference for safe, reliable and easy software in a practical setting is that it often rarely attempts to evolve beyond what is actually needed and what can be reliably trusted. Legacy systems and codebases tend to be the natural result of this preference, and while this is not inherently a bad thing, it does in many instances mean that as opposed to spending alot of time exploring or ruminating on what latest features in a language could be used the focus is more on simply working with what you have to get the job done. Exploration and being more open to newer technologies tends to be more common in either a research setting or sometimes only even possible in instances where something is fiscially viable. Bridging more complex language features while interesting to then explore in a theoretical sense is then not necessarily a real practical need for many developers. Research and academia being ahead of what is used in day to day life is not a new phenomenon, but in this instance there is quite simply more research needed to assess if this is a more broadly applicable approach to interoperability given the constraints elaborated on above.

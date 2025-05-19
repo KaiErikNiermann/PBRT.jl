@@ -236,6 +236,8 @@
         "paper/*.blx.bib": true,
         "paper/*.lua": true,
         "paper/*.cls": true,
+
+        "paper/code/*.aux": true,
         
         "coq/notes/*.aux": true,
         "coq/notes/*.bbl": true,
@@ -252,5 +254,5 @@
     "python.analysis.autoImportCompletions": true, 
     "vscoq.args": [
         "-Q", "${workspaceFolder}/PFClib", "PFC"
-    ]
+    ], 
 }

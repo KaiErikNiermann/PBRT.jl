@@ -1,13 +1,20 @@
-template<typename B, typename... D>
-bool assign_shared_ptr(std::shared_ptr<B>& val, B* in) {
-    bool assigned = false;
-    (..., [&]() -> void {
-        if (auto d = dynamic_cast<D*>(in)) {
-            val = std::shared_ptr<B>(
-                std::make_shared<D>(*d)
-            );
-            assigned = true;
+_box = [&](T& in, unsafe::Value* out) {
+    (fold<FilterType<FType<Field>, std::is_base_of, DerivedType...>>(
+        Field::getter(in),
+        [&](auto&& val) {
+            unsafe::call(setfield, out, _fsymbols[Field::label()], val.value());
+        },
+        MatchTy {
+            // Boxable type
+            [&]<typename DT = FType<Field>, is_boxable FT>(FT& v) -> unsafe::Value* {
+                return jluna::box<FT>(v);
+            },
+            // Not boxable, but base type
+            [&]<is_base_of<FType<Field>> DT, is_not_boxable FT>(FT& v) -> unsafe::Value* {
+                if (auto* val = dynamic_cast<DT*>(v.get()))
+                    return jluna::box<DT>(*val);
+                return nullptr;
+            }
         }
-    }());
-    return assigned;
-}
+    ), ...);
+};

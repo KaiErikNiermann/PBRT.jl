@@ -1,0 +1,14 @@
+\begin{fileminted}{libs/jluna/.src/usertype.inl}{cpp}
+template <typename T>
+T Usertype<T>::unbox(unsafe::Value* in) {
+    if (not _implemented) [[unlikely]]
+        implement();
+
+    gc_safepoint(
+        T out;
+        _unbox(out, in)
+    )
+    return out;
+}
+\end{fileminted}
+                

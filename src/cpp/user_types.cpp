@@ -46,62 +46,62 @@ static const char interval[]    = "interval";
 
 void register_type_properties() {
     Usertype<Ray>::initialize_type(
-        TL<Lens<origin, &Ray::origin>, Lens<direction, &Ray::direction>>(), TL<>()
+        TList<Lens<origin, &Ray::origin>, Lens<direction, &Ray::direction>>(), TList<>()
     );
 
     Usertype<Interval>::initialize_type(
-        TL<Lens<lo, &Interval::lo>, Lens<hi, &Interval::hi>>(), TL<>()
+        TList<Lens<lo, &Interval::lo>, Lens<hi, &Interval::hi>>(), TList<>()
     );
 
     Usertype<AABB>::initialize_type(
-        TL<Lens<x, &AABB::x>, Lens<y, &AABB::y>, Lens<z, &AABB::z>>(), TL<>()
+        TList<Lens<x, &AABB::x>, Lens<y, &AABB::y>, Lens<z, &AABB::z>>(), TList<>()
     );
 
-    Usertype<Lambertian>::initialize_type(TL<Lens<albedo, &Lambertian::albedo>>(), TL<>());
+    Usertype<Lambertian>::initialize_type(TList<Lens<albedo, &Lambertian::albedo>>(), TList<>());
 
     Usertype<Triangle>::initialize_type(
-        TL<Lens<A, &Triangle::A>,
+        TList<Lens<A, &Triangle::A>,
            Lens<B, &Triangle::B>,
            Lens<C, &Triangle::C>,
            Lens<id, &Triangle::id>,
            Lens<edges, &Triangle::edges>,
            Lens<mat, &Triangle::mat>,
            Lens<bbox, &Triangle::bbox>>(),
-        TL<Lambertian>()
+        TList<Lambertian>()
     );
 
     Usertype<Sphere>::initialize_type(
-        TL<Lens<center, &Sphere::center>,
-           Lens<radius, &Sphere::radius>,
-           Lens<r_squared, &Sphere::r_squared>,
-           Lens<mat, &Sphere::mat>,
-           Lens<bbox, &Sphere::bbox>>(),
-        TL<Lambertian>()
+        TList<Lens<center, &Sphere::center>,
+            Lens<radius, &Sphere::radius>,
+            Lens<r_squared, &Sphere::r_squared>,
+            Lens<mat, &Sphere::mat>,
+            Lens<bbox, &Sphere::bbox>>(),
+        TList<Lambertian>()
     );
 
     Usertype<HitRecord>::initialize_type(
-        TL<Lens<p, &HitRecord::p>,
+        TList<Lens<p, &HitRecord::p>,
            Lens<normal, &HitRecord::normal>,
            Lens<t, &HitRecord::t>,
            Lens<u, &HitRecord::u>,
            Lens<v, &HitRecord::v>,
-           Lens<hit, &HitRecord::hit>,
+           Lens<hit, &HitRecord::hit>,  
            Lens<mat, &HitRecord::mat>,
            Lens<front_face, &HitRecord::front_face>>(),
-        TL<Triangle, Sphere, Lambertian>()
+        TList<Triangle, Sphere, Lambertian>()
     );
 
     Usertype<Color>::initialize_type(
-        TL<Lens<r, &Color::r>, Lens<g, &Color::g>, Lens<b, &Color::b>>(), TL<>()
+        TList<Lens<r, &Color::r>, Lens<g, &Color::g>, Lens<b, &Color::b>>(), TList<>()
     );
 
     Usertype<RayData>::initialize_type(
-        TL<Lens<ray, &RayData::ray>, Lens<interval, &RayData::interval>>(), TL<>()
+        TList<Lens<ray, &RayData::ray>, Lens<interval, &RayData::interval>>(), TList<>()
     );
 
     Usertype<BVHNode>::initialize_type(
-        TL<Lens<left, &BVHNode::left>, Lens<right, &BVHNode::right>, Lens<bbox, &BVHNode::bbox>>(),
-        TL<Sphere, BVHNode, Triangle>()
+        TList<Lens<left, &BVHNode::left>, Lens<right, &BVHNode::right>, Lens<bbox, &BVHNode::bbox>>(),
+        TList<Sphere, BVHNode, Triangle>()
     );
 }
 

@@ -10,7 +10,7 @@ function ray_color(r::Ray, world::HittableList, depth)::Color
     end
     
     # 0.001 to avoid shadow acne
-    if(@wtime hit!(world, r, Interval(0.001, Inf), rec))
+    if(hit!(world, r, Interval(0.001, Inf), rec))
         sd = sd_buf
         if(scatter(rec.mat, r, rec, sd))
             return sd.attenuation * ray_color(sd.scattered, world, depth - 1)

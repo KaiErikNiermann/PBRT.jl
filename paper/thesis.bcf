@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bcf:controlfile version="3.8" bltxversion="3.17" xmlns:bcf="https://sourceforge.net/projects/biblatex">
+<bcf:controlfile version="3.10" bltxversion="3.19" xmlns:bcf="https://sourceforge.net/projects/biblatex">
   <!-- BIBER OPTIONS -->
   <bcf:options component="biber" type="global">
     <bcf:option type="singlevalued">
@@ -37,6 +37,11 @@
     <bcf:option type="singlevalued">
       <bcf:key>alphaothers</bcf:key>
       <bcf:value>+</bcf:value>
+    </bcf:option>
+    <bcf:option type="multivalued">
+      <bcf:key>extradatecontext</bcf:key>
+      <bcf:value order="1">labelname</bcf:value>
+      <bcf:value order="2">labeltitle</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>labelalpha</bcf:key>
@@ -135,6 +140,10 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>nosortothers</bcf:key>
+      <bcf:value>0</bcf:value>
+    </bcf:option>
+    <bcf:option type="singlevalued">
+      <bcf:key>pluralothers</bcf:key>
       <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
@@ -272,6 +281,11 @@
   </bcf:options>
   <!-- online -->
   <bcf:options component="biblatex" type="online">
+    <bcf:option type="multivalued">
+      <bcf:key>extradatecontext</bcf:key>
+      <bcf:value order="1">labelname</bcf:value>
+      <bcf:value order="2">labeltitle</bcf:value>
+    </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>labelalpha</bcf:key>
       <bcf:value>0</bcf:value>
@@ -372,11 +386,11 @@
       <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
-      <bcf:key>skiplab</bcf:key>
+      <bcf:key>skipbiblist</bcf:key>
       <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
-      <bcf:key>skipbiblist</bcf:key>
+      <bcf:key>skiplab</bcf:key>
       <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
@@ -491,6 +505,7 @@
     <bcf:option datatype="xml">sortingnamekeytemplate</bcf:option>
     <bcf:option datatype="xml">sortingtemplate</bcf:option>
     <bcf:option datatype="xml">extradatespec</bcf:option>
+    <bcf:option datatype="xml">extradatecontext</bcf:option>
     <bcf:option datatype="xml">labelnamespec</bcf:option>
     <bcf:option datatype="xml">labeltitlespec</bcf:option>
     <bcf:option datatype="xml">labeldatespec</bcf:option>
@@ -599,6 +614,7 @@
     <bcf:option datatype="boolean">labeltitle</bcf:option>
     <bcf:option datatype="boolean">labeltitleyear</bcf:option>
     <bcf:option datatype="boolean">labeldateparts</bcf:option>
+    <bcf:option datatype="boolean">pluralothers</bcf:option>
     <bcf:option datatype="boolean">nohashothers</bcf:option>
     <bcf:option datatype="boolean">nosortothers</bcf:option>
     <bcf:option datatype="boolean">noroman</bcf:option>
@@ -716,6 +732,7 @@
     <bcf:option datatype="xml">translit</bcf:option>
     <bcf:option datatype="xml">sortexclusion</bcf:option>
     <bcf:option datatype="xml">sortinclusion</bcf:option>
+    <bcf:option datatype="xml">extradatecontext</bcf:option>
     <bcf:option datatype="xml">labelnamespec</bcf:option>
     <bcf:option datatype="xml">labeltitlespec</bcf:option>
     <bcf:option datatype="xml">labeldatespec</bcf:option>
@@ -1047,7 +1064,7 @@
     <bcf:namepart order="3">given</bcf:namepart>
   </bcf:uniquenametemplate>
   <!-- SORTING NAME KEY TEMPLATES -->
-  <bcf:sortingnamekeytemplate name="global">
+  <bcf:sortingnamekeytemplate name="global" visibility="sort">
     <bcf:keypart order="1">
       <bcf:part type="namepart" order="1" use="1">prefix</bcf:part>
       <bcf:part type="namepart" order="2">family</bcf:part>
@@ -2348,65 +2365,36 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">references.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">cxx</bcf:citekey>
-    <bcf:citekey order="2">Akbary2023wasienv</bcf:citekey>
-    <bcf:citekey order="3">Gohman2024WebAssembly</bcf:citekey>
-    <bcf:citekey order="4">wasmtime_intro</bcf:citekey>
-    <bcf:citekey order="5">wasix</bcf:citekey>
-    <bcf:citekey order="6">cargo-wasi</bcf:citekey>
-    <bcf:citekey order="7">Ayke2024tinygo</bcf:citekey>
-    <bcf:citekey order="8">WebAssemblyComponentModel</bcf:citekey>
-    <bcf:citekey order="9">product_type</bcf:citekey>
-    <bcf:citekey order="10">crubit</bcf:citekey>
-    <bcf:citekey order="11">zhdan2024swiftcpp</bcf:citekey>
-    <bcf:citekey order="12">Turcotte2019Reasoning</bcf:citekey>
-    <bcf:citekey order="13">Henglein1991</bcf:citekey>
-    <bcf:citekey order="14">pestov2024compiling</bcf:citekey>
-    <bcf:citekey order="15">crubit</bcf:citekey>
-    <bcf:citekey order="16">swift2025swiftlang</bcf:citekey>
-    <bcf:citekey order="17">javacpp</bcf:citekey>
-    <bcf:citekey order="18">Kundu2023Efficient</bcf:citekey>
-    <bcf:citekey order="19">Shirley2024RTW1</bcf:citekey>
-    <bcf:citekey order="20">Shirley2024RTW2</bcf:citekey>
-    <bcf:citekey order="21">Rowley2025JuliaPy</bcf:citekey>
-    <bcf:citekey order="22">Janssens2025JuliaInterop</bcf:citekey>
-    <bcf:citekey order="23">jluna</bcf:citekey>
-    <bcf:citekey order="24">Futamura1983</bcf:citekey>
-    <bcf:citekey order="25">Veldhuizen1998</bcf:citekey>
-    <bcf:citekey order="26">unruh1994prime</bcf:citekey>
-    <bcf:citekey order="27">Fulton2025swig</bcf:citekey>
-    <bcf:citekey order="28">10.1145/3550454.3555463</bcf:citekey>
-    <bcf:citekey order="29">Cooper2005Records</bcf:citekey>
-    <bcf:citekey order="30">Zappa2018Julia</bcf:citekey>
-    <bcf:citekey order="31">cxx</bcf:citekey>
-    <bcf:citekey order="32">Akbary2023wasienv</bcf:citekey>
-    <bcf:citekey order="33">Gohman2024WebAssembly</bcf:citekey>
-    <bcf:citekey order="34">wasmtime_intro</bcf:citekey>
-    <bcf:citekey order="35">wasix</bcf:citekey>
-    <bcf:citekey order="36">cargo-wasi</bcf:citekey>
-    <bcf:citekey order="37">Ayke2024tinygo</bcf:citekey>
-    <bcf:citekey order="38">WebAssemblyComponentModel</bcf:citekey>
-    <bcf:citekey order="39">product_type</bcf:citekey>
-    <bcf:citekey order="40">crubit</bcf:citekey>
-    <bcf:citekey order="41">zhdan2024swiftcpp</bcf:citekey>
-    <bcf:citekey order="42">Turcotte2019Reasoning</bcf:citekey>
-    <bcf:citekey order="43">Henglein1991</bcf:citekey>
-    <bcf:citekey order="44">pestov2024compiling</bcf:citekey>
-    <bcf:citekey order="45">swift2025swiftlang</bcf:citekey>
-    <bcf:citekey order="46">javacpp</bcf:citekey>
-    <bcf:citekey order="47">Kundu2023Efficient</bcf:citekey>
-    <bcf:citekey order="48">Shirley2024RTW1</bcf:citekey>
-    <bcf:citekey order="49">Shirley2024RTW2</bcf:citekey>
-    <bcf:citekey order="50">Rowley2025JuliaPy</bcf:citekey>
-    <bcf:citekey order="51">Janssens2025JuliaInterop</bcf:citekey>
-    <bcf:citekey order="52">jluna</bcf:citekey>
-    <bcf:citekey order="53">Futamura1983</bcf:citekey>
-    <bcf:citekey order="54">Veldhuizen1998</bcf:citekey>
-    <bcf:citekey order="55">unruh1994prime</bcf:citekey>
-    <bcf:citekey order="56">Fulton2025swig</bcf:citekey>
-    <bcf:citekey order="57">10.1145/3550454.3555463</bcf:citekey>
-    <bcf:citekey order="58">Cooper2005Records</bcf:citekey>
-    <bcf:citekey order="59">Zappa2018Julia</bcf:citekey>
+    <bcf:citekey order="1" intorder="1">cxx</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">Akbary2023wasienv</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">Gohman2024WebAssembly</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">wasmtime_intro</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">wasix</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">cargo-wasi</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">Ayke2024tinygo</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">WebAssemblyComponentModel</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">product_type</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">crubit</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">zhdan2024swiftcpp</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">Turcotte2019Reasoning</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">Henglein1991</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">pestov2024compiling</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">crubit</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">swift2025swiftlang</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">javacpp</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">Kundu2023Efficient</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">Shirley2024RTW1</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">Shirley2024RTW2</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">Rowley2025JuliaPy</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">Janssens2025JuliaInterop</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">jluna</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">Futamura1983</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">Veldhuizen1998</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">unruh1994prime</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">Fulton2025swig</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">10.1145/3550454.3555463</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">Cooper2005Records</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">Zappa2018Julia</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

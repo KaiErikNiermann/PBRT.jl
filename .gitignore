@@ -8,6 +8,7 @@ benchmarks/*.perf
 benchmarks/*.data
 benchmarks/FlameGraph
 benchmarks/*.folded
+benchmarks/*out*
 
 # conda env
 .CondaPkg/
@@ -33,3 +34,4 @@ paper/*.bbl
 paper/*.blg
 paper/*.log
 paper/*.out
+paper/_minted-thesis/

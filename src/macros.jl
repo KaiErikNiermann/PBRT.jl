@@ -3,9 +3,9 @@ macro that returns the time taken and writes it to a file for analysis, returns 
 """
 macro wtime(ex)
     quote
-        local t1 = round(Int64, time() * 1_000_000_000) 
+        local t1 = round(Int64, time() * 1_000_000) * 1_000 
         local val = $(esc(ex))
-        local t2 = round(Int64, time() * 1_000_000_000)
+        local t2 = round(Int64, time() * 1_000_000) * 1_000
 
         open("/workspaces/Thesis/benchmarks/jl_time.csv", "a") do io
             write(io, "$t1\n")
@@ -16,7 +16,6 @@ macro wtime(ex)
         val
     end
 end
-
 
 """
 macro to emulate a switch statement for nicer file parsing, allows for boolean matching
