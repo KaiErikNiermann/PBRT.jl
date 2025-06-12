@@ -1,0 +1,27 @@
+[project]
+name = "py-src"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Kai Erik Niermann",email = "kai.niermann@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "cppyy (>=3.5.0,<4.0.0)",
+    "cppyy-backend (>=1.15.3,<2.0.0)",
+    "cppyy-cling (>=6.32.8,<7.0.0)",
+]
+
+[tool.poetry]
+packages = [
+    { include = "my_module", from = "."}
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pyright]
+strict = ["strict"]
+stubPath = "."

@@ -19,6 +19,62 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global}
+    \entry{boost_python_1_72}{manual}{}
+      \name{author}{2}{}{%
+        {{hash=6dba733961246dde0e559b3fe6c163fb}{%
+           family={Abrahams},
+           familyi={A\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=b385e24e31407d620d5c7632a3296b21}{%
+           family={Seefeld},
+           familyi={S\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{568e42bff12bd3afb6346d23995564b3}
+      \strng{fullhash}{568e42bff12bd3afb6346d23995564b3}
+      \strng{bibnamehash}{568e42bff12bd3afb6346d23995564b3}
+      \strng{authorbibnamehash}{568e42bff12bd3afb6346d23995564b3}
+      \strng{authornamehash}{568e42bff12bd3afb6346d23995564b3}
+      \strng{authorfullhash}{568e42bff12bd3afb6346d23995564b3}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Version 1.72.0, Accessed: 2025-06-01}
+      \field{title}{Boost.Python Library Documentation}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb https://www.boost.org/doc/libs/1_72_0/libs/python/doc/html/index.html
+      \endverb
+      \verb{url}
+      \verb https://www.boost.org/doc/libs/1_72_0/libs/python/doc/html/index.html
+      \endverb
+    \endentry
+    \entry{akbary_wasienv_2019}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=ffe70034755e63dd20af994f0a7a9c81}{%
+           family={Akbary},
+           familyi={A\bibinitperiod},
+           given={Syrus},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{ffe70034755e63dd20af994f0a7a9c81}
+      \strng{fullhash}{ffe70034755e63dd20af994f0a7a9c81}
+      \strng{bibnamehash}{ffe70034755e63dd20af994f0a7a9c81}
+      \strng{authorbibnamehash}{ffe70034755e63dd20af994f0a7a9c81}
+      \strng{authornamehash}{ffe70034755e63dd20af994f0a7a9c81}
+      \strng{authorfullhash}{ffe70034755e63dd20af994f0a7a9c81}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://blog.wasmer.io/wasienv-wasi-development-workflow-for-humans-1811d9a50345}}
+      \field{note}{Accessed: 2025-05-27}
+      \field{title}{Wasienv: WASI Development Workflow for Humans}
+      \field{year}{2019}
+    \endentry
     \entry{Akbary2023wasienv}{misc}{}
       \name{author}{9}{}{%
         {{hash=ffe70034755e63dd20af994f0a7a9c81}{%
@@ -87,6 +143,36 @@
       \endverb
       \verb{url}
       \verb https://github.com/wasienv/wasienv
+      \endverb
+    \endentry
+    \entry{cffi}{manual}{}
+      \name{author}{1}{}{%
+        {{hash=cd4bc08dc75a66f14c13e5201ccfb9ea}{%
+           family={{Armin Rigo and contributors}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{cd4bc08dc75a66f14c13e5201ccfb9ea}
+      \strng{fullhash}{cd4bc08dc75a66f14c13e5201ccfb9ea}
+      \strng{bibnamehash}{cd4bc08dc75a66f14c13e5201ccfb9ea}
+      \strng{authorbibnamehash}{cd4bc08dc75a66f14c13e5201ccfb9ea}
+      \strng{authornamehash}{cd4bc08dc75a66f14c13e5201ccfb9ea}
+      \strng{authorfullhash}{cd4bc08dc75a66f14c13e5201ccfb9ea}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{C Foreign Function Interface for Python}
+      \field{title}{CFFI Documentation}
+      \field{urlday}{25}
+      \field{urlmonth}{5}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://cffi.readthedocs.io/en/latest/
+      \endverb
+      \verb{url}
+      \verb https://cffi.readthedocs.io/en/latest/
       \endverb
     \endentry
     \entry{javacpp}{manual}{}
@@ -280,7 +366,50 @@
       \verb https://github.com/tinygo-org/tinygo
       \endverb
     \endentry
-    \entry{cargo-wasi}{misc}{}
+    \entry{Barrett2015}{article}{}
+      \name{author}{3}{}{%
+        {{hash=ef423277d9fde86573bb75a8b0b76c1b}{%
+           family={Barrett},
+           familyi={B\bibinitperiod},
+           given={Edd},
+           giveni={E\bibinitperiod}}}%
+        {{hash=7e36f5a9ba71e9cebbc97caba1d4d427}{%
+           family={Bolz},
+           familyi={B\bibinitperiod},
+           given={Carl\bibnamedelima Friedrich},
+           giveni={C\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=04251aecd27674162b4593c62f368f52}{%
+           family={Tratt},
+           familyi={T\bibinitperiod},
+           given={Laurence},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier BV}%
+      }
+      \strng{namehash}{1a25bbf1a71b27d05c3bcfa7a8e6a284}
+      \strng{fullhash}{1a25bbf1a71b27d05c3bcfa7a8e6a284}
+      \strng{bibnamehash}{1a25bbf1a71b27d05c3bcfa7a8e6a284}
+      \strng{authorbibnamehash}{1a25bbf1a71b27d05c3bcfa7a8e6a284}
+      \strng{authornamehash}{1a25bbf1a71b27d05c3bcfa7a8e6a284}
+      \strng{authorfullhash}{1a25bbf1a71b27d05c3bcfa7a8e6a284}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1477-8424}
+      \field{journaltitle}{{Computer Languages Systems and Structures}}
+      \field{month}{12}
+      \field{title}{Approaches to interpreter composition}
+      \field{volume}{44}
+      \field{year}{2015}
+      \field{pages}{199\bibrangedash 217}
+      \range{pages}{19}
+      \verb{doi}
+      \verb 10.1016/j.cl.2015.03.001
+      \endverb
+    \endentry
+    \entry{bytecodealliance_projects}{misc}{}
       \name{author}{1}{}{%
         {{hash=dc1c148ccefcd50085f5595050e8bcb3}{%
            family={{Bytecode Alliance}},
@@ -297,18 +426,17 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Provides tools for building, running, testing, and benchmarking Rust code for the wasm32-wasi target. Licensed under Apache-2.0 with LLVM exception.}
-      \field{title}{cargo-wasi: A Lightweight Cargo Subcommand for the wasm32-wasi Target}
-      \field{year}{2024}
-      \field{dateera}{ce}
+      \field{note}{Accessed: 2025-05-27}
+      \field{title}{Bytecode Alliance Projects}
+      \field{year}{2023}
       \verb{urlraw}
-      \verb https://github.com/bytecodealliance/cargo-wasi
+      \verb https://bytecodealliance.org/projects
       \endverb
       \verb{url}
-      \verb https://github.com/bytecodealliance/cargo-wasi
+      \verb https://bytecodealliance.org/projects
       \endverb
     \endentry
-    \entry{WebAssemblyComponentModel}{misc}{}
+    \entry{cargo-wasi}{misc}{}
       \name{author}{1}{}{%
         {{hash=dc1c148ccefcd50085f5595050e8bcb3}{%
            family={{Bytecode Alliance}},
@@ -325,17 +453,15 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{The WebAssembly Component Model provides an architecture for creating interoperable Wasm libraries, applications, and environments. Aimed at developers of Wasm libraries and applications, this guide covers component-based development and usage for languages such as C, C++, Rust, Python, Go, and JavaScript. The model supports a stable WASI 0.2.0 release, allowing users to target consistent WIT definitions and contribute via GitHub.}
-      \field{howpublished}{\url{https://component-model.bytecodealliance.org/}}
-      \field{note}{Accessed: 2024-11-15}
-      \field{title}{The WebAssembly Component Model}
+      \field{note}{Provides tools for building, running, testing, and benchmarking Rust code for the wasm32-wasi target. Licensed under Apache-2.0 with LLVM exception.}
+      \field{title}{cargo-wasi: A Lightweight Cargo Subcommand for the wasm32-wasi Target}
       \field{year}{2024}
       \field{dateera}{ce}
       \verb{urlraw}
-      \verb https://component-model.bytecodealliance.org/
+      \verb https://github.com/bytecodealliance/cargo-wasi
       \endverb
       \verb{url}
-      \verb https://component-model.bytecodealliance.org/
+      \verb https://github.com/bytecodealliance/cargo-wasi
       \endverb
     \endentry
     \entry{wasmtime_intro}{misc}{}
@@ -365,6 +491,120 @@
       \verb{url}
       \verb https://github.com/bytecodealliance/wasmtime
       \endverb
+    \endentry
+    \entry{bytecodealliance_component_model_concepts}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=dc1c148ccefcd50085f5595050e8bcb3}{%
+           family={{Bytecode Alliance}},
+           familyi={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{dc1c148ccefcd50085f5595050e8bcb3}
+      \strng{fullhash}{dc1c148ccefcd50085f5595050e8bcb3}
+      \strng{bibnamehash}{dc1c148ccefcd50085f5595050e8bcb3}
+      \strng{authorbibnamehash}{dc1c148ccefcd50085f5595050e8bcb3}
+      \strng{authornamehash}{dc1c148ccefcd50085f5595050e8bcb3}
+      \strng{authorfullhash}{dc1c148ccefcd50085f5595050e8bcb3}
+      \field{extraname}{4}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://component-model.bytecodealliance.org/design/component-model-concepts.html}}
+      \field{note}{Accessed: 2025-05-27}
+      \field{title}{Component Model Concepts}
+      \field{year}{2025}
+    \endentry
+    \entry{p1144r13}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=30817cae003c07bf6148fde5938dfb30}{%
+           family={Carruth},
+           familyi={C\bibinitperiod},
+           given={Chandler},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{30817cae003c07bf6148fde5938dfb30}
+      \strng{fullhash}{30817cae003c07bf6148fde5938dfb30}
+      \strng{bibnamehash}{30817cae003c07bf6148fde5938dfb30}
+      \strng{authorbibnamehash}{30817cae003c07bf6148fde5938dfb30}
+      \strng{authornamehash}{30817cae003c07bf6148fde5938dfb30}
+      \strng{authorfullhash}{30817cae003c07bf6148fde5938dfb30}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/p1144r13.html}}
+      \field{note}{ISO/IEC JTC1/SC22/WG21 P1144R13}
+      \field{title}{Object relocation in terms of move plus destroy}
+      \field{year}{2025}
+    \endentry
+    \entry{clang_arc}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=2a26d0890a51c1af83adff7e639d00a0}{%
+           family={{Clang Documentation}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{2a26d0890a51c1af83adff7e639d00a0}
+      \strng{fullhash}{2a26d0890a51c1af83adff7e639d00a0}
+      \strng{bibnamehash}{2a26d0890a51c1af83adff7e639d00a0}
+      \strng{authorbibnamehash}{2a26d0890a51c1af83adff7e639d00a0}
+      \strng{authornamehash}{2a26d0890a51c1af83adff7e639d00a0}
+      \strng{authorfullhash}{2a26d0890a51c1af83adff7e639d00a0}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2025-06-02}
+      \field{title}{Objective-C Automatic Reference Counting (ARC)}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://clang.llvm.org/docs/AutomaticReferenceCounting.html
+      \endverb
+      \verb{url}
+      \verb https://clang.llvm.org/docs/AutomaticReferenceCounting.html
+      \endverb
+    \endentry
+    \entry{clang-trivial-abi}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=57321ea313f37467a1c1f080ef6e2045}{%
+           family={{Clang Team}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{57321ea313f37467a1c1f080ef6e2045}
+      \strng{fullhash}{57321ea313f37467a1c1f080ef6e2045}
+      \strng{bibnamehash}{57321ea313f37467a1c1f080ef6e2045}
+      \strng{authorbibnamehash}{57321ea313f37467a1c1f080ef6e2045}
+      \strng{authornamehash}{57321ea313f37467a1c1f080ef6e2045}
+      \strng{authorfullhash}{57321ea313f37467a1c1f080ef6e2045}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://clang.llvm.org/docs/AttributeReference.html\#trivial-abi}}
+      \field{note}{Accessed: 2025-06-04}
+      \field{title}{Clang Attribute Reference: \texttt{trivial\_abi}}
+      \field{year}{2025}
+    \endentry
+    \entry{juliacall-gc}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=ed84e8c66a8720d13d344ec90f49457b}{%
+           family={contributors},
+           familyi={c\bibinitperiod},
+           given={JuliaInterop},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{ed84e8c66a8720d13d344ec90f49457b}
+      \strng{fullhash}{ed84e8c66a8720d13d344ec90f49457b}
+      \strng{bibnamehash}{ed84e8c66a8720d13d344ec90f49457b}
+      \strng{authorbibnamehash}{ed84e8c66a8720d13d344ec90f49457b}
+      \strng{authornamehash}{ed84e8c66a8720d13d344ec90f49457b}
+      \strng{authorfullhash}{ed84e8c66a8720d13d344ec90f49457b}
+      \field{sortinit}{c}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://juliainterop.github.io/JavaCall.jl/gc.html}}
+      \field{note}{Accessed: 2025-06-05}
+      \field{title}{Garbage Collection and JavaCall}
     \endentry
     \entry{Cooper2005Records}{article}{}
       \name{author}{1}{}{%
@@ -438,6 +678,184 @@
       \endverb
       \verb{url}
       \verb https://www.github.com/clemapfel/jluna
+      \endverb
+    \endentry
+    \entry{cppreference_class}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=ccb2e96d41753ca525a50baa0f70c147}{%
+           family={{cppreference.com}},
+           familyi={c\bibinitperiod}}}%
+      }
+      \strng{namehash}{ccb2e96d41753ca525a50baa0f70c147}
+      \strng{fullhash}{ccb2e96d41753ca525a50baa0f70c147}
+      \strng{bibnamehash}{ccb2e96d41753ca525a50baa0f70c147}
+      \strng{authorbibnamehash}{ccb2e96d41753ca525a50baa0f70c147}
+      \strng{authornamehash}{ccb2e96d41753ca525a50baa0f70c147}
+      \strng{authorfullhash}{ccb2e96d41753ca525a50baa0f70c147}
+      \field{sortinit}{c}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2025-06-02}
+      \field{title}{C++ language: class specifier}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://en.cppreference.com/w/cpp/language/class
+      \endverb
+      \verb{url}
+      \verb https://en.cppreference.com/w/cpp/language/class
+      \endverb
+    \endentry
+    \entry{crubit-struct-layout}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=ce7da8fc1e245a71745a83bff8136c94}{%
+           family={{Crubit Contributors}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{ce7da8fc1e245a71745a83bff8136c94}
+      \strng{fullhash}{ce7da8fc1e245a71745a83bff8136c94}
+      \strng{bibnamehash}{ce7da8fc1e245a71745a83bff8136c94}
+      \strng{authorbibnamehash}{ce7da8fc1e245a71745a83bff8136c94}
+      \strng{authornamehash}{ce7da8fc1e245a71745a83bff8136c94}
+      \strng{authorfullhash}{ce7da8fc1e245a71745a83bff8136c94}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://github.com/google/crubit/blob/8d6b38fd9ab044ab7595a7df9752e62eb84345c7/docs/design/struct_layout.md}}
+      \field{note}{Accessed: 2025-06-04}
+      \field{title}{Struct Layout}
+      \field{year}{2023}
+    \endentry
+    \entry{crubit-cxx-design}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=585e64238ccf9342aaffc10a414aeeba}{%
+           family={Developers},
+           familyi={D\bibinitperiod},
+           given={The\bibnamedelimb Crubit\bibnamedelima Project},
+           giveni={T\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \strng{namehash}{585e64238ccf9342aaffc10a414aeeba}
+      \strng{fullhash}{585e64238ccf9342aaffc10a414aeeba}
+      \strng{bibnamehash}{585e64238ccf9342aaffc10a414aeeba}
+      \strng{authorbibnamehash}{585e64238ccf9342aaffc10a414aeeba}
+      \strng{authornamehash}{585e64238ccf9342aaffc10a414aeeba}
+      \strng{authorfullhash}{585e64238ccf9342aaffc10a414aeeba}
+      \field{extraname}{1}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://github.com/google/crubit/blob/main/docs/design/design.md\#cxx}
+      \field{note}{Accessed: 2025-05-29}
+      \field{title}{Crubit Design Document: CXX Section}
+      \field{year}{2025}
+    \endentry
+    \entry{libcxxwrap-julia}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=f6954a2e58d590c82dca541c570ddae4}{%
+           family={Developers},
+           familyi={D\bibinitperiod},
+           given={The\bibnamedelima JuliaInterop},
+           giveni={T\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {GitHub}%
+      }
+      \strng{namehash}{f6954a2e58d590c82dca541c570ddae4}
+      \strng{fullhash}{f6954a2e58d590c82dca541c570ddae4}
+      \strng{bibnamehash}{f6954a2e58d590c82dca541c570ddae4}
+      \strng{authorbibnamehash}{f6954a2e58d590c82dca541c570ddae4}
+      \strng{authornamehash}{f6954a2e58d590c82dca541c570ddae4}
+      \strng{authorfullhash}{f6954a2e58d590c82dca541c570ddae4}
+      \field{extraname}{2}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://github.com/JuliaInterop/libcxxwrap-julia}}
+      \field{note}{Accessed: 2025-06-01}
+      \field{title}{libcxxwrap-julia: C++ Library for Backing CxxWrap.jl}
+      \field{year}{2025}
+    \endentry
+    \entry{digitalocean-jvm-memory-2020}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=463c2d40cf8e4c93f7125e69719596be}{%
+           family={{DigitalOcean Community}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{463c2d40cf8e4c93f7125e69719596be}
+      \strng{fullhash}{463c2d40cf8e4c93f7125e69719596be}
+      \strng{bibnamehash}{463c2d40cf8e4c93f7125e69719596be}
+      \strng{authorbibnamehash}{463c2d40cf8e4c93f7125e69719596be}
+      \strng{authornamehash}{463c2d40cf8e4c93f7125e69719596be}
+      \strng{authorfullhash}{463c2d40cf8e4c93f7125e69719596be}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2025-06-05}
+      \field{title}{Java {JVM} Memory Model - Memory Management in Java}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb \url{https://www.digitalocean.com/community/tutorials/java-jvm-memory-model-memory-management-in-java}
+      \endverb
+      \verb{url}
+      \verb %5Curl%7Bhttps://www.digitalocean.com/community/tutorials/java-jvm-memory-model-memory-management-in-java%7D
+      \endverb
+    \endentry
+    \entry{DutChen182024leaningtech}{book}{}
+      \name{author}{1}{}{%
+        {{hash=d277225f912f4c5ba37b987bb39520a3}{%
+           family={DutChen18},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{d277225f912f4c5ba37b987bb39520a3}
+      \strng{fullhash}{d277225f912f4c5ba37b987bb39520a3}
+      \strng{bibnamehash}{d277225f912f4c5ba37b987bb39520a3}
+      \strng{authorbibnamehash}{d277225f912f4c5ba37b987bb39520a3}
+      \strng{authornamehash}{d277225f912f4c5ba37b987bb39520a3}
+      \strng{authorfullhash}{d277225f912f4c5ba37b987bb39520a3}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{2}
+      \field{month}{9}
+      \field{title}{leaningtech/ts2cpp}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/leaningtech/ts2cpp
+      \endverb
+      \verb{url}
+      \verb https://github.com/leaningtech/ts2cpp
+      \endverb
+    \endentry
+    \entry{emscripten_fs_overview}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=79539e6527c3a9481faa3be12be21202}{%
+           family={{Emscripten Project}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{79539e6527c3a9481faa3be12be21202}
+      \strng{fullhash}{79539e6527c3a9481faa3be12be21202}
+      \strng{bibnamehash}{79539e6527c3a9481faa3be12be21202}
+      \strng{authorbibnamehash}{79539e6527c3a9481faa3be12be21202}
+      \strng{authornamehash}{79539e6527c3a9481faa3be12be21202}
+      \strng{authorfullhash}{79539e6527c3a9481faa3be12be21202}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2025-05-27}
+      \field{title}{File System Overview — Emscripten Documentation}
+      \field{year}{n.d.}
+      \verb{urlraw}
+      \verb https://emscripten.org/docs/porting/files/file_systems_overview.html#file-system-overview
+      \endverb
+      \verb{url}
+      \verb https://emscripten.org/docs/porting/files/file_systems_overview.html#file-system-overview
       \endverb
     \endentry
     \entry{Fulton2025swig}{book}{}
@@ -633,6 +1051,112 @@
       \range{pages}{35}
       \verb{doi}
       \verb 10.1007/3-540-11980-9_13
+      \endverb
+    \endentry
+    \entry{Goffart2024mystor}{book}{}
+      \name{author}{19}{}{%
+        {{hash=946c69e3567f440f6136d38f7924c339}{%
+           family={Goffart},
+           familyi={G\bibinitperiod},
+           given={Olivier},
+           giveni={O\bibinitperiod}}}%
+        {{hash=579b0894d03ba81b4e8620375b3b6eb7}{%
+           family={Layzell},
+           familyi={L\bibinitperiod},
+           given={Nika},
+           giveni={N\bibinitperiod}}}%
+        {{hash=b413e54242818b9e8d4fdf02b11ff22e}{%
+           family={twistedfall},
+           familyi={t\bibinitperiod}}}%
+        {{hash=ec8c076a3283d87de1c53db0474a364b}{%
+           family={VanDyke},
+           familyi={V\bibinitperiod},
+           given={Jeff},
+           giveni={J\bibinitperiod}}}%
+        {{hash=7b8477430d238ad277eb32c156002eae}{%
+           family={Meadows},
+           familyi={M\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod}}}%
+        {{hash=b9e701339e56fd0b171145b08288a1b7}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Edward},
+           giveni={E\bibinitperiod}}}%
+        {{hash=cea814b856b6795fed4e76155a00b372}{%
+           family={ratijas},
+           familyi={r\bibinitperiod}}}%
+        {{hash=56b6b2452485e346c17d1a49983ea911}{%
+           family={Markert},
+           familyi={M\bibinitperiod},
+           given={Leonhard},
+           giveni={L\bibinitperiod}}}%
+        {{hash=24055e7b2b2b7061f2ae6fa7dc3aae9e}{%
+           family={Hunger},
+           familyi={H\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+        {{hash=0f985954198a7b935dcc43274a0dae38}{%
+           family={rumblefrog},
+           familyi={r\bibinitperiod}}}%
+        {{hash=8631dc6fba813e900c7aeba84858bee0}{%
+           family={wicast},
+           familyi={w\bibinitperiod}}}%
+        {{hash=ba93b7a17b5778319a924334f4cd16b6}{%
+           family={Masud},
+           familyi={M\bibinitperiod},
+           given={Ahmed},
+           giveni={A\bibinitperiod}}}%
+        {{hash=51af4642b13706238a1ed7c5bfc134e9}{%
+           family={aprilwade},
+           familyi={a\bibinitperiod}}}%
+        {{hash=1ae2c087d4e08252a8b9106948a84ed5}{%
+           family={Mitchener},
+           familyi={M\bibinitperiod},
+           given={Bruce},
+           giveni={B\bibinitperiod}}}%
+        {{hash=b1f1557070b3a6fcfef9472004f1b2ae}{%
+           family={S.},
+           familyi={S\bibinitperiod},
+           given={Eddy},
+           giveni={E\bibinitperiod}}}%
+        {{hash=391820b4e47c47f997f57f0afc6abbda}{%
+           family={Chamberlain},
+           familyi={C\bibinitperiod},
+           given={Ian},
+           giveni={I\bibinitperiod}}}%
+        {{hash=cc56718d2998dacb8384fa6af6cab70f}{%
+           family={Thiele},
+           familyi={T\bibinitperiod},
+           given={Sven},
+           giveni={S\bibinitperiod}}}%
+        {{hash=4f82c9a8867ae967e668c06706452b92}{%
+           family={SpaceManiac},
+           familyi={S\bibinitperiod}}}%
+        {{hash=9d82c020791543f21d7b22514bc1d7e5}{%
+           family={inokawa},
+           familyi={i\bibinitperiod}}}%
+      }
+      \strng{namehash}{6ce3dc8384515e5a4657d9f2191878b6}
+      \strng{fullhash}{64257232dd316ed9ef0379b44be7d96f}
+      \strng{bibnamehash}{6ce3dc8384515e5a4657d9f2191878b6}
+      \strng{authorbibnamehash}{6ce3dc8384515e5a4657d9f2191878b6}
+      \strng{authornamehash}{6ce3dc8384515e5a4657d9f2191878b6}
+      \strng{authorfullhash}{64257232dd316ed9ef0379b44be7d96f}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{20}
+      \field{month}{11}
+      \field{title}{mystor/rust-cpp}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/mystor/rust-cpp
+      \endverb
+      \verb{url}
+      \verb https://github.com/mystor/rust-cpp
       \endverb
     \endentry
     \entry{Gohman2024WebAssembly}{misc}{}
@@ -861,6 +1385,76 @@
       \verb https://cxx.rs/
       \endverb
     \endentry
+    \entry{graalvmLanguagesManual}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=4b8d49f537eff7d89f5e7e12bab04efc}{%
+           family={{GraalVM Contributors}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \strng{fullhash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \strng{bibnamehash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \strng{authorbibnamehash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \strng{authornamehash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \strng{authorfullhash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \field{extraname}{1}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.graalvm.org/latest/reference-manual/languages/}}
+      \field{note}{Accessed: 2025-05-27}
+      \field{title}{GraalVM Languages Reference Manual}
+      \field{year}{2025}
+    \endentry
+    \entry{graalvmWebAssembly}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=4b8d49f537eff7d89f5e7e12bab04efc}{%
+           family={{GraalVM Contributors}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \strng{fullhash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \strng{bibnamehash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \strng{authorbibnamehash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \strng{authornamehash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \strng{authorfullhash}{4b8d49f537eff7d89f5e7e12bab04efc}
+      \field{extraname}{2}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.graalvm.org/webassembly/}}
+      \field{note}{Accessed: 2025-05-27}
+      \field{title}{GraalVM WebAssembly Documentation}
+      \field{year}{2025}
+    \endentry
+    \entry{graalvm2025introduction}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=2af99c1fb546556eada4a46cdbdd4ead}{%
+           family={{GraalVM Team}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{2af99c1fb546556eada4a46cdbdd4ead}
+      \strng{fullhash}{2af99c1fb546556eada4a46cdbdd4ead}
+      \strng{bibnamehash}{2af99c1fb546556eada4a46cdbdd4ead}
+      \strng{authorbibnamehash}{2af99c1fb546556eada4a46cdbdd4ead}
+      \strng{authornamehash}{2af99c1fb546556eada4a46cdbdd4ead}
+      \strng{authorfullhash}{2af99c1fb546556eada4a46cdbdd4ead}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2025-05-25}
+      \field{title}{Introduction to GraalVM}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.graalvm.org/latest/introduction/
+      \endverb
+      \verb{url}
+      \verb https://www.graalvm.org/latest/introduction/
+      \endverb
+    \endentry
     \entry{Henglein1991}{inbook}{}
       \name{author}{1}{}{%
         {{hash=3ad5d3ed3df574265dadd8a7e9fce664}{%
@@ -891,6 +1485,169 @@
       \range{pages}{25}
       \verb{doi}
       \verb 10.1007/3540543961_22
+      \endverb
+    \endentry
+    \entry{Jakob2024pybind}{misc}{}
+      \name{author}{30}{}{%
+        {{hash=5f630e56bb6a31ced5d442a3b40cc68d}{%
+           family={Jakob},
+           familyi={J\bibinitperiod},
+           given={Wenzel},
+           giveni={W\bibinitperiod}}}%
+        {{hash=1adc26db1cd0ba1d44d8148b8125f3af}{%
+           family={Schreiner},
+           familyi={S\bibinitperiod},
+           given={Henry},
+           giveni={H\bibinitperiod}}}%
+        {{hash=7b5bbc3e9da721ccf6118389b7de93ff}{%
+           family={Rhinelander},
+           familyi={R\bibinitperiod},
+           given={Jason},
+           giveni={J\bibinitperiod}}}%
+        {{hash=1609194478ae9b17e7b1496b327a44f5}{%
+           family={Moldovan},
+           familyi={M\bibinitperiod},
+           given={Dean},
+           giveni={D\bibinitperiod}}}%
+        {{hash=5f649cac7cd37bc3f4c1ca345959c74a}{%
+           family={Smirnov},
+           familyi={S\bibinitperiod},
+           given={Ivan},
+           giveni={I\bibinitperiod}}}%
+        {{hash=32d646b70ccc5f94db9b60a7773f82c4}{%
+           family={Gokaslan},
+           familyi={G\bibinitperiod},
+           given={Aaron},
+           giveni={A\bibinitperiod}}}%
+        {{hash=f9ced31f44d9d7e7f4deb2a147065663}{%
+           family={pre-commit-ci[bot]},
+           familyi={p\bibinithyphendelim c\bibinithyphendelim c\bibinitperiod}}}%
+        {{hash=2bdbb6c0833ae687a057993a1f88d566}{%
+           family={dependabot[bot]},
+           familyi={d\bibinitperiod}}}%
+        {{hash=837022506b7a02ab2a29e7ba03afca7e}{%
+           family={Jadoul},
+           familyi={J\bibinitperiod},
+           given={Yannick},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=1953d7fce3c923d7453987373d4eb02e}{%
+           family={Huebl},
+           familyi={H\bibinitperiod},
+           given={Axel},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8ded603579a13e1eeceb47ed8a532767}{%
+           family={Staletic},
+           familyi={S\bibinitperiod},
+           given={Boris},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c4bd39c296e15868ac57c27b2211491d}{%
+           family={Izmailov},
+           familyi={I\bibinitperiod},
+           given={Sergei},
+           giveni={S\bibinitperiod}}}%
+        {{hash=88123d907f0c54d03563b005be97ba8a}{%
+           family={Cousineau},
+           familyi={C\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+        {{hash=0c7ddcffae537ccea5309669c447ab1a}{%
+           family={Merry},
+           familyi={M\bibinitperiod},
+           given={Bruce},
+           giveni={B\bibinitperiod}}}%
+        {{hash=9efff2dec3e267df7756cff90a1ff28f}{%
+           family={Spicuzza},
+           familyi={S\bibinitperiod},
+           given={Dustin},
+           giveni={D\bibinitperiod}}}%
+        {{hash=983b7e23a76250681fa9f1b243743ee6}{%
+           family={Corlay},
+           familyi={C\bibinitperiod},
+           given={Sylvain},
+           giveni={S\bibinitperiod}}}%
+        {{hash=66a10017a89513b8272bcedcc279b8b4}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Antony},
+           giveni={A\bibinitperiod}}}%
+        {{hash=2249807d442f52fd691c00ddbcdd7300}{%
+           family={Burns},
+           familyi={B\bibinitperiod},
+           given={Lori\bibnamedelima A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=97c8e6d0d14f4e242c3c37af68cc376c}{%
+           family={Dan},
+           familyi={D\bibinitperiod}}}%
+        {{hash=c7d48362d360e81fac591a4d464ebe5b}{%
+           family={Lyskov},
+           familyi={L\bibinitperiod},
+           given={Sergey},
+           giveni={S\bibinitperiod}}}%
+        {{hash=53ee98e51dce526049ebf38e28c5273c}{%
+           family={Houliston},
+           familyi={H\bibinitperiod},
+           given={Trent},
+           giveni={T\bibinitperiod}}}%
+        {{hash=ef74edf0f488f7ad9f9bc7a990e0ede6}{%
+           family={bennorth},
+           familyi={b\bibinitperiod}}}%
+        {{hash=d79971113ca33a32b99efbd15082edc0}{%
+           family={Carlstrom},
+           familyi={C\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=b013f0fb02bd150b439174bb0ea0780d}{%
+           family={jbarlow},
+           familyi={j\bibinitperiod}}}%
+        {{hash=36867934bc60ff6a8b9c477d9308b17c}{%
+           family={Steinberg},
+           familyi={S\bibinitperiod},
+           given={Ethan},
+           giveni={E\bibinitperiod}}}%
+        {{hash=da7e8d301c8f61b48083a08ef47f1232}{%
+           family={Pritchard},
+           familyi={P\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+        {{hash=4b7ce6946c1a7dc711e466bb5a03c705}{%
+           family={Leavitt},
+           familyi={L\bibinitperiod},
+           given={Laramie},
+           giveni={L\bibinitperiod}}}%
+        {{hash=d73d714019593a711528b746e970cb9b}{%
+           family={Haschke},
+           familyi={H\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+        {{hash=d3f62ad8e444115875ef6ad402828d6c}{%
+           family={luzpaz},
+           familyi={l\bibinitperiod}}}%
+        {{hash=a61442728fe77e43c2556f062d96a100}{%
+           family={Mabille},
+           familyi={M\bibinitperiod},
+           given={Johan},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{4fd45a3a4d6746a3ba950a67bca6aee0}
+      \strng{fullhash}{e57ec45ea77a3fc92c2369466177d862}
+      \strng{bibnamehash}{4fd45a3a4d6746a3ba950a67bca6aee0}
+      \strng{authorbibnamehash}{4fd45a3a4d6746a3ba950a67bca6aee0}
+      \strng{authornamehash}{4fd45a3a4d6746a3ba950a67bca6aee0}
+      \strng{authorfullhash}{e57ec45ea77a3fc92c2369466177d862}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{14}
+      \field{month}{11}
+      \field{title}{pybind/pybind11}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/pybind/pybind11
+      \endverb
+      \verb{url}
+      \verb https://github.com/pybind/pybind11
       \endverb
     \endentry
     \entry{Janssens2025JuliaInterop}{book}{}
@@ -1064,6 +1821,250 @@
       \verb https://github.com/JuliaInterop/CxxWrap.jl
       \endverb
     \endentry
+    \entry{Johnson2024JuliaPy}{book}{}
+      \name{author}{30}{}{%
+        {{hash=f271cef1e5ae0aff0d07deccf21fd368}{%
+           family={Johnson},
+           familyi={J\bibinitperiod},
+           given={Steven\bibnamedelima G.},
+           giveni={S\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=1153af45c5c0ca9eb1abf22b67b3187e}{%
+           family={Arakaki},
+           familyi={A\bibinitperiod},
+           given={Takafumi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=d78e6d0b17a905084611ef504755e130}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Yichao},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=b99c5c81808fe8e70c42056a113ba833}{%
+           family={Haraldsson},
+           familyi={H\bibinitperiod},
+           given={Páll},
+           giveni={P\bibinitperiod}}}%
+        {{hash=7fc0edf04cce351dda404579ede3d0d1}{%
+           family={Kornblith},
+           familyi={K\bibinitperiod},
+           given={Simon},
+           giveni={S\bibinitperiod}}}%
+        {{hash=396a970eabcf6403208f4fa48b43c589}{%
+           family={Fischer},
+           familyi={F\bibinitperiod},
+           given={Keno},
+           giveni={K\bibinitperiod}}}%
+        {{hash=8d2efde2fb1529d294aabdd8920368e4}{%
+           family={Malmaud},
+           familyi={M\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=2d9b6f55a0f097588e0aa720d1cea109}{%
+           family={St-Jean},
+           familyi={S\bibinithyphendelim J\bibinitperiod},
+           given={Cédric},
+           giveni={C\bibinitperiod}}}%
+        {{hash=09762fd814827630c41fe2c905d2d28e}{%
+           family={Bolewski},
+           familyi={B\bibinitperiod},
+           given={Jake},
+           giveni={J\bibinitperiod}}}%
+        {{hash=7088def2b7923fef7beb34b1fbf2b09d}{%
+           family={Mason},
+           familyi={M\bibinitperiod},
+           given={Joel},
+           giveni={J\bibinitperiod}}}%
+        {{hash=8571379228664c62f134e4108cf11bda}{%
+           family={Nash},
+           familyi={N\bibinitperiod},
+           given={Jameson},
+           giveni={J\bibinitperiod}}}%
+        {{hash=df0a9d84d37da74684e5c4cdc1bb7263}{%
+           family={Darakananda},
+           familyi={D\bibinitperiod},
+           given={Darwin},
+           giveni={D\bibinitperiod}}}%
+        {{hash=5fc59c99e1f29923febab255896b2218}{%
+           family={Anantharaman},
+           familyi={A\bibinitperiod},
+           given={Ranjan},
+           giveni={R\bibinitperiod}}}%
+        {{hash=987d3dced51a437a02e32a98445c2893}{%
+           family={Cranmer},
+           familyi={C\bibinitperiod},
+           given={Miles},
+           giveni={M\bibinitperiod}}}%
+        {{hash=9be5e0de3fc3523340b672c7adf33b2d}{%
+           family={Millea},
+           familyi={M\bibinitperiod},
+           given={Marius},
+           giveni={M\bibinitperiod}}}%
+        {{hash=6a09fd9d4b66412cec2802755aa5942e}{%
+           family={Dunning},
+           familyi={D\bibinitperiod},
+           given={Iain},
+           giveni={I\bibinitperiod}}}%
+        {{hash=f6587a9f87d1a5146cb18bd537d5f143}{%
+           family={Aluthge},
+           familyi={A\bibinitperiod},
+           given={Dilum},
+           giveni={D\bibinitperiod}}}%
+        {{hash=5c4a2d635c481a169f61b9d34388da40}{%
+           family={Lynch},
+           familyi={L\bibinitperiod},
+           given={Galen},
+           giveni={G\bibinitperiod}}}%
+        {{hash=07e510bc1c9ab1cbb71e56715cabcc60}{%
+           family={Norton},
+           familyi={N\bibinitperiod},
+           given={Isaiah},
+           giveni={I\bibinitperiod}}}%
+        {{hash=570337c4b1914843ef8deb7ced6b2d34}{%
+           family={Squire},
+           familyi={S\bibinitperiod},
+           given={Kevin},
+           giveni={K\bibinitperiod}}}%
+        {{hash=4507eeafc8b2ae7a4fa05330d843c3fd}{%
+           family={Mohamad},
+           familyi={M\bibinitperiod},
+           given={Mustafa},
+           giveni={M\bibinitperiod}}}%
+        {{hash=e9a5d3b973f0cd88aa7c6f1493ff07f7}{%
+           family={Høegh},
+           familyi={H\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=836254958eac09b30d45dd67a75ce4fa}{%
+           family={Beyer},
+           familyi={B\bibinitperiod},
+           given={Lucas},
+           giveni={L\bibinitperiod}}}%
+        {{hash=a87df581945290ba88e42fd622beb273}{%
+           family={Kelman},
+           familyi={K\bibinitperiod},
+           given={Tony},
+           giveni={T\bibinitperiod}}}%
+        {{hash=eb61461e8781e5a7fea365c6d5731383}{%
+           family={Arabas},
+           familyi={A\bibinitperiod},
+           given={Sylwester},
+           giveni={S\bibinitperiod}}}%
+        {{hash=1e17a7666a3f947224bebd72984bb63a}{%
+           family={Goretkin},
+           familyi={G\bibinitperiod},
+           given={Gustavo},
+           giveni={G\bibinitperiod}}}%
+        {{hash=3959cd35c56f75f9ca3183129ece6096}{%
+           family={Anthoff},
+           familyi={A\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=1e8c6e67fa2863e4f390eeef9dd633e7}{%
+           family={Ranocha},
+           familyi={R\bibinitperiod},
+           given={Hendrik},
+           giveni={H\bibinitperiod}}}%
+        {{hash=5306dd0ef3e803ead6f5765fd399193d}{%
+           family={Weidner},
+           familyi={W\bibinitperiod},
+           given={Jan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f282ac3a262c3b37f7e72a7a206aae24}{%
+           family={Bromberger},
+           familyi={B\bibinitperiod},
+           given={Seth},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{f10ef44919d48a33a352b98d71522fdb}
+      \strng{fullhash}{7add5d501cb0ecee6631b612b1263398}
+      \strng{bibnamehash}{f10ef44919d48a33a352b98d71522fdb}
+      \strng{authorbibnamehash}{f10ef44919d48a33a352b98d71522fdb}
+      \strng{authornamehash}{f10ef44919d48a33a352b98d71522fdb}
+      \strng{authorfullhash}{7add5d501cb0ecee6631b612b1263398}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{11}
+      \field{month}{3}
+      \field{title}{JuliaPy/PyCall.jl}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/JuliaPy/PyCall.jl
+      \endverb
+      \verb{url}
+      \verb https://github.com/JuliaPy/PyCall.jl
+      \endverb
+    \endentry
+    \entry{JuliaInterop_Cxxjl}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=591b97de6bfd4e0bd65402b4b510c77f}{%
+           family={JuliaInterop},
+           familyi={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{591b97de6bfd4e0bd65402b4b510c77f}
+      \strng{fullhash}{591b97de6bfd4e0bd65402b4b510c77f}
+      \strng{bibnamehash}{591b97de6bfd4e0bd65402b4b510c77f}
+      \strng{authorbibnamehash}{591b97de6bfd4e0bd65402b4b510c77f}
+      \strng{authornamehash}{591b97de6bfd4e0bd65402b4b510c77f}
+      \strng{authorfullhash}{591b97de6bfd4e0bd65402b4b510c77f}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://github.com/JuliaInterop/Cxx.jl}}
+      \field{note}{Accessed: 2025-06-01}
+      \field{title}{Cxx.jl: The Julia C++ Interface}
+      \field{year}{2025}
+    \endentry
+    \entry{zngur2025}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=31ec899b16f52623c12c3ecf9b13ad88}{%
+           family={Kalbasi},
+           familyi={K\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{31ec899b16f52623c12c3ecf9b13ad88}
+      \strng{fullhash}{31ec899b16f52623c12c3ecf9b13ad88}
+      \strng{bibnamehash}{31ec899b16f52623c12c3ecf9b13ad88}
+      \strng{authorbibnamehash}{31ec899b16f52623c12c3ecf9b13ad88}
+      \strng{authornamehash}{31ec899b16f52623c12c3ecf9b13ad88}
+      \strng{authorfullhash}{31ec899b16f52623c12c3ecf9b13ad88}
+      \field{extraname}{1}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://github.com/HKalbasi/zngur}}
+      \field{note}{Accessed: 2025-05-29}
+      \field{title}{Zngur: A C++/Rust Interop Tool}
+      \field{year}{2025}
+    \endentry
+    \entry{zngur_philosophy}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=b00f131092e7895b00b6e465e3e2374f}{%
+           family={Kalbasi},
+           familyi={K\bibinitperiod},
+           given={Hadi},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{b00f131092e7895b00b6e465e3e2374f}
+      \strng{fullhash}{b00f131092e7895b00b6e465e3e2374f}
+      \strng{bibnamehash}{b00f131092e7895b00b6e465e3e2374f}
+      \strng{authorbibnamehash}{b00f131092e7895b00b6e465e3e2374f}
+      \strng{authornamehash}{b00f131092e7895b00b6e465e3e2374f}
+      \strng{authorfullhash}{b00f131092e7895b00b6e465e3e2374f}
+      \field{extraname}{2}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://hkalbasi.github.io/zngur/philosophy.html}}
+      \field{note}{Accessed: 2025-05-31}
+      \field{title}{Design decisions}
+      \field{year}{2025}
+    \endentry
     \entry{Kundu2023Efficient}{article}{}
       \name{author}{3}{}{%
         {{hash=5f9c50c2750a19e775021ee0d6e9fe79}{%
@@ -1108,27 +2109,135 @@
       \verb https://arxiv.org/abs/2304.02712
       \endverb
     \endentry
-    \entry{product_type}{misc}{}
+    \entry{p2786r11}{misc}{}
       \name{author}{1}{}{%
-        {{hash=5c61cc0c29f93f36a5bbdae36df1a81b}{%
-           family={{nLab authors}},
-           familyi={n\bibinitperiod}}}%
+        {{hash=044e6b56c39d150a41619bed5b540524}{%
+           family={Maurer},
+           familyi={M\bibinitperiod},
+           given={Jens},
+           giveni={J\bibinitperiod}}}%
       }
-      \strng{namehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
-      \strng{fullhash}{5c61cc0c29f93f36a5bbdae36df1a81b}
-      \strng{bibnamehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
-      \strng{authorbibnamehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
-      \strng{authornamehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
-      \strng{authorfullhash}{5c61cc0c29f93f36a5bbdae36df1a81b}
-      \field{sortinit}{n}
-      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \strng{namehash}{044e6b56c39d150a41619bed5b540524}
+      \strng{fullhash}{044e6b56c39d150a41619bed5b540524}
+      \strng{bibnamehash}{044e6b56c39d150a41619bed5b540524}
+      \strng{authorbibnamehash}{044e6b56c39d150a41619bed5b540524}
+      \strng{authornamehash}{044e6b56c39d150a41619bed5b540524}
+      \strng{authorfullhash}{044e6b56c39d150a41619bed5b540524}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{howpublished}{\url{https://ncatlab.org/nlab/show/product+type}}
-      \field{month}{1}
-      \field{note}{\href{https://ncatlab.org/nlab/revision/product+type/24}{Revision 24}}
-      \field{title}{product type}
-      \field{year}{2025}
+      \field{howpublished}{\url{https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r11.html}}
+      \field{note}{ISO/IEC JTC1/SC22/WG21 P2786R11}
+      \field{title}{Trivial relocatability}
+      \field{year}{2024}
+    \endentry
+    \entry{microsoft2023clr}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=b9a8b868588ad4bc6b36c29936e26423}{%
+           family={{Microsoft Corporation}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{fullhash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{bibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authorbibnamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authornamehash}{b9a8b868588ad4bc6b36c29936e26423}
+      \strng{authorfullhash}{b9a8b868588ad4bc6b36c29936e26423}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2025-05-25}
+      \field{title}{Common Language Runtime (CLR) Overview}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://learn.microsoft.com/en-us/dotnet/standard/clr
+      \endverb
+      \verb{url}
+      \verb https://learn.microsoft.com/en-us/dotnet/standard/clr
+      \endverb
+    \endentry
+    \entry{microsoft_raii}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=614e7789840996b5d882c0cad1ad0971}{%
+           family={{Microsoft Learn}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{614e7789840996b5d882c0cad1ad0971}
+      \strng{fullhash}{614e7789840996b5d882c0cad1ad0971}
+      \strng{bibnamehash}{614e7789840996b5d882c0cad1ad0971}
+      \strng{authorbibnamehash}{614e7789840996b5d882c0cad1ad0971}
+      \strng{authornamehash}{614e7789840996b5d882c0cad1ad0971}
+      \strng{authorfullhash}{614e7789840996b5d882c0cad1ad0971}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2025-06-02}
+      \field{title}{Object lifetime and resource management (RAII)}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://learn.microsoft.com/en-us/cpp/cpp/object-lifetime-and-resource-management-modern-cpp?view=msvc-170
+      \endverb
+      \verb{url}
+      \verb https://learn.microsoft.com/en-us/cpp/cpp/object-lifetime-and-resource-management-modern-cpp?view=msvc-170
+      \endverb
+    \endentry
+    \entry{ONCD2024}{report}{}
+      \name{author}{1}{}{%
+        {{hash=277f6274457a91de155d42e5929405db}{%
+           family={{Office of the National Cyber Director}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {The White House}%
+      }
+      \strng{namehash}{277f6274457a91de155d42e5929405db}
+      \strng{fullhash}{277f6274457a91de155d42e5929405db}
+      \strng{bibnamehash}{277f6274457a91de155d42e5929405db}
+      \strng{authorbibnamehash}{277f6274457a91de155d42e5929405db}
+      \strng{authornamehash}{277f6274457a91de155d42e5929405db}
+      \strng{authorfullhash}{277f6274457a91de155d42e5929405db}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{2}
+      \field{note}{Accessed: 2025-05-29}
+      \field{title}{Back to the Building Blocks: A Path Toward Secure and Measurable Software}
+      \field{type}{techreport}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://bidenwhitehouse.archives.gov/wp-content/uploads/2024/02/Final-ONCD-Technical-Report.pdf
+      \endverb
+      \verb{url}
+      \verb https://bidenwhitehouse.archives.gov/wp-content/uploads/2024/02/Final-ONCD-Technical-Report.pdf
+      \endverb
+    \endentry
+    \entry{pestov2020library}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=45c0b77685e49fd51c5ea683e72cbee7}{%
+           family={Pestov},
+           familyi={P\bibinitperiod},
+           given={Slava},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{45c0b77685e49fd51c5ea683e72cbee7}
+      \strng{fullhash}{45c0b77685e49fd51c5ea683e72cbee7}
+      \strng{bibnamehash}{45c0b77685e49fd51c5ea683e72cbee7}
+      \strng{authorbibnamehash}{45c0b77685e49fd51c5ea683e72cbee7}
+      \strng{authornamehash}{45c0b77685e49fd51c5ea683e72cbee7}
+      \strng{authorfullhash}{45c0b77685e49fd51c5ea683e72cbee7}
+      \field{extraname}{1}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://swift.org/blog/library-evolution/}}
+      \field{note}{Accessed: 2025-05-27}
+      \field{title}{Library Evolution in Swift}
+      \field{year}{2020}
     \endentry
     \entry{pestov2024compiling}{book}{}
       \name{author}{1}{}{%
@@ -1144,6 +2253,7 @@
       \strng{authorbibnamehash}{45c0b77685e49fd51c5ea683e72cbee7}
       \strng{authornamehash}{45c0b77685e49fd51c5ea683e72cbee7}
       \strng{authorfullhash}{45c0b77685e49fd51c5ea683e72cbee7}
+      \field{extraname}{2}
       \field{sortinit}{P}
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{labelnamesource}{author}
@@ -1216,6 +2326,122 @@
       \verb{url}
       \verb https://raytracing.github.io/books/RayTracingTheNextWeek.html
       \endverb
+    \endentry
+    \entry{Piovesan2025leaningtech}{book}{}
+      \name{author}{9}{}{%
+        {{hash=8a7a16eb5e00e6cd382e0d28534e9838}{%
+           family={Piovesan},
+           familyi={P\bibinitperiod},
+           given={Carlo},
+           giveni={C\bibinitperiod}}}%
+        {{hash=cf45821ceb6519059a0357b0e31ff6ef}{%
+           family={De\bibnamedelima Rossi},
+           familyi={D\bibinitperiod\bibinitdelim R\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod}}}%
+        {{hash=a08372b70196c21a9229cf04db6b7ceb}{%
+           family={Alex},
+           familyi={A\bibinitperiod}}}%
+        {{hash=8b60cc2949f76aa5191b407e4b1c6cfd}{%
+           family={Pignotti},
+           familyi={P\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=cbc13ce98e151afeb7e93a8a1c910d7d}{%
+           family={Ziviani},
+           familyi={Z\bibinitperiod},
+           given={Serena},
+           giveni={S\bibinitperiod}}}%
+        {{hash=e6c18101a02a5428d3e531b6618090c0}{%
+           family={Iozzelli},
+           familyi={I\bibinitperiod},
+           given={Yuri},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=a96e8f71351fbe70573b70189c0dd2bb}{%
+           family={Lorenzo},
+           familyi={L\bibinitperiod}}}%
+        {{hash=92b129c07027a10eb3f11614c6336522}{%
+           family={Peerdeman},
+           familyi={P\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+        {{hash=2bdbb6c0833ae687a057993a1f88d566}{%
+           family={dependabot[bot]},
+           familyi={d\bibinitperiod}}}%
+      }
+      \strng{namehash}{262bf5cbbd89da89e34402f48919fe61}
+      \strng{fullhash}{547d8b20ec5a57be8a7dc1a5565195ed}
+      \strng{bibnamehash}{262bf5cbbd89da89e34402f48919fe61}
+      \strng{authorbibnamehash}{262bf5cbbd89da89e34402f48919fe61}
+      \strng{authornamehash}{262bf5cbbd89da89e34402f48919fe61}
+      \strng{authorfullhash}{547d8b20ec5a57be8a7dc1a5565195ed}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{29}
+      \field{month}{3}
+      \field{title}{leaningtech/cheerp-meta}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/leaningtech/cheerp-meta
+      \endverb
+      \verb{url}
+      \verb https://github.com/leaningtech/cheerp-meta
+      \endverb
+    \endentry
+    \entry{rose2019abistability}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=4d1f98e9ef8b7121f1594bc3ddc70345}{%
+           family={Rose},
+           familyi={R\bibinitperiod},
+           given={Jordan},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{4d1f98e9ef8b7121f1594bc3ddc70345}
+      \strng{fullhash}{4d1f98e9ef8b7121f1594bc3ddc70345}
+      \strng{bibnamehash}{4d1f98e9ef8b7121f1594bc3ddc70345}
+      \strng{authorbibnamehash}{4d1f98e9ef8b7121f1594bc3ddc70345}
+      \strng{authornamehash}{4d1f98e9ef8b7121f1594bc3ddc70345}
+      \strng{authorfullhash}{4d1f98e9ef8b7121f1594bc3ddc70345}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{2}
+      \field{note}{Accessed: 2025-05-25}
+      \field{title}{ABI Stability and More}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb https://swift.org/blog/abi-stability-and-more/
+      \endverb
+      \verb{url}
+      \verb https://swift.org/blog/abi-stability-and-more/
+      \endverb
+    \endentry
+    \entry{juliacall}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=9702038a20b0ee146d3bc4898e818cf8}{%
+           family={Rowley},
+           familyi={R\bibinitperiod},
+           given={Christopher},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{9702038a20b0ee146d3bc4898e818cf8}
+      \strng{fullhash}{9702038a20b0ee146d3bc4898e818cf8}
+      \strng{bibnamehash}{9702038a20b0ee146d3bc4898e818cf8}
+      \strng{authorbibnamehash}{9702038a20b0ee146d3bc4898e818cf8}
+      \strng{authornamehash}{9702038a20b0ee146d3bc4898e818cf8}
+      \strng{authorfullhash}{9702038a20b0ee146d3bc4898e818cf8}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://pypi.org/project/juliacall/}}
+      \field{note}{Version 0.9.25, released on May 14, 2025. Accessed: 2025-05-27}
+      \field{title}{JuliaCall: Seamless Integration of Julia and Python}
+      \field{year}{2025}
     \endentry
     \entry{Rowley2025JuliaPy}{book}{}
       \name{author}{30}{}{%
@@ -1388,6 +2614,33 @@
       \verb https://github.com/JuliaPy/PythonCall.jl
       \endverb
     \endentry
+    \entry{RustFoundation2024}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=14bff4ee7aa30cd785033cefde15b4ea}{%
+           family={{Rust Foundation}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{14bff4ee7aa30cd785033cefde15b4ea}
+      \strng{fullhash}{14bff4ee7aa30cd785033cefde15b4ea}
+      \strng{bibnamehash}{14bff4ee7aa30cd785033cefde15b4ea}
+      \strng{authorbibnamehash}{14bff4ee7aa30cd785033cefde15b4ea}
+      \strng{authornamehash}{14bff4ee7aa30cd785033cefde15b4ea}
+      \strng{authorfullhash}{14bff4ee7aa30cd785033cefde15b4ea}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{2}
+      \field{note}{Accessed: 2025-05-29}
+      \field{title}{Google Contributes \$1M to Rust Foundation to Support C++/Rust “Interop Initiative”}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb \url{https://rustfoundation.org/media/google-contributes-1m-to-rust-foundation-to-support-c-rust-interop-initiative/}
+      \endverb
+      \verb{url}
+      \verb %5Curl%7Bhttps://rustfoundation.org/media/google-contributes-1m-to-rust-foundation-to-support-c-rust-interop-initiative/%7D
+      \endverb
+    \endentry
     \entry{wasix}{misc}{}
       \name{author}{1}{}{%
         {{hash=c732562c0471cb2c442c39bcdf713b38}{%
@@ -1415,172 +2668,380 @@
       \verb https://github.com/singlestore-labs/wasix
       \endverb
     \endentry
-    \entry{swift2025swiftlang}{book}{}
+    \entry{Taylor2025google}{book}{}
       \name{author}{30}{}{%
-        {{hash=ec3807272a21beb603e848176824bb52}{%
-           family={swift-ci},
-           familyi={s\bibinithyphendelim c\bibinitperiod}}}%
-        {{hash=3913bd144a1816db770c628d0f7016d8}{%
-           family={Gregor},
-           familyi={G\bibinitperiod},
-           given={Doug},
-           giveni={D\bibinitperiod}}}%
-        {{hash=45c0b77685e49fd51c5ea683e72cbee7}{%
-           family={Pestov},
-           familyi={P\bibinitperiod},
-           given={Slava},
-           giveni={S\bibinitperiod}}}%
-        {{hash=c94ccc920bfce432643922f7ea022701}{%
-           family={Gottesman},
-           familyi={G\bibinitperiod},
-           given={Michael},
-           giveni={M\bibinitperiod}}}%
-        {{hash=55c03ea0cca63873e723acc62aa1e3ed}{%
-           family={Groff},
-           familyi={G\bibinitperiod},
-           given={Joe},
-           giveni={J\bibinitperiod}}}%
-        {{hash=41ebb543914ee7cd64c1157c3a1beda6}{%
-           family={Yaskevich},
-           familyi={Y\bibinitperiod},
-           given={Pavel},
-           giveni={P\bibinitperiod}}}%
-        {{hash=082d304bf1444853e07be11590d172a2}{%
-           family={Lattner},
-           familyi={L\bibinitperiod},
-           given={Chris},
-           giveni={C\bibinitperiod}}}%
-        {{hash=b42fcbd75ac113d95e22c6807d04804e}{%
-           family={Gribenko},
-           familyi={G\bibinitperiod},
-           given={Dmitri},
-           giveni={D\bibinitperiod}}}%
-        {{hash=dd43519a42a18fc679df630cd891ed02}{%
-           family={eeckstein},
-           familyi={e\bibinitperiod}}}%
-        {{hash=4d1f98e9ef8b7121f1594bc3ddc70345}{%
-           family={Rose},
-           familyi={R\bibinitperiod},
-           given={Jordan},
-           giveni={J\bibinitperiod}}}%
-        {{hash=c6aecde65584228f05dc03081f374ed1}{%
-           family={Abdulrasool},
-           familyi={A\bibinitperiod},
-           given={Saleem},
-           giveni={S\bibinitperiod}}}%
-        {{hash=ccbab458a4f433287797f2052d0a1161}{%
-           family={Schwaighofer},
-           familyi={S\bibinitperiod},
-           given={Arnold},
-           giveni={A\bibinitperiod}}}%
-        {{hash=e666057059c03249199c252f52b67104}{%
-           family={McCall},
-           familyi={M\bibinitperiod},
-           given={John},
-           giveni={J\bibinitperiod}}}%
-        {{hash=691204040292ea197b878ecfcf8a14eb}{%
-           family={Ishizaki},
-           familyi={I\bibinitperiod},
-           given={Rintaro},
-           giveni={R\bibinitperiod}}}%
-        {{hash=c93ca25f493b670772518f4763fe9e3a}{%
-           family={nate-chandler},
-           familyi={n\bibinithyphendelim c\bibinitperiod}}}%
-        {{hash=2b69ab073d3a36e20bae1a649ab86042}{%
-           family={Trick},
+        {{hash=c21cd7a2ae54e7fb5cb5743523bbc742}{%
+           family={Taylor},
            familyi={T\bibinitperiod},
-           given={Andrew},
-           giveni={A\bibinitperiod}}}%
-        {{hash=d7c018da78201853a68625c801d810a3}{%
-           family={J)},
-           familyi={J\bibinitperiod}}}%
-        {{hash=eecd93485463f4024080106e6437aa65}{%
-           family={Ge},
-           familyi={G\bibinitperiod},
-           given={Xi},
-           giveni={X\bibinitperiod}}}%
-        {{hash=064913e5bbbc85a9133a19ab14028035}{%
-           family={Knight},
-           familyi={K\bibinitperiod},
-           given={Hamish},
-           giveni={H\bibinitperiod}}}%
-        {{hash=ce39321a2100b10f0cdad9d41404729e}{%
-           family={Lacey},
-           familyi={L\bibinitperiod},
-           given={Mark},
-           giveni={M\bibinitperiod}}}%
-        {{hash=398cf92415c175a6afd0efcce106cd16}{%
-           family={Hoppen},
-           familyi={H\bibinitperiod},
-           given={Alex},
-           giveni={A\bibinitperiod}}}%
-        {{hash=6c40afb16e1b5fb3105630825290e9e0}{%
-           family={Shortlidge},
-           familyi={S\bibinitperiod},
-           given={Allan},
-           giveni={A\bibinitperiod}}}%
-        {{hash=2a9c82aa849970348fb195897e71a140}{%
-           family={Prantl},
-           familyi={P\bibinitperiod},
            given={Adrian},
            giveni={A\bibinitperiod}}}%
-        {{hash=4b46411fdecb2f3fc8e850f84bad0027}{%
-           family={Shah},
+        {{hash=fd4650d469acaa159baae5a5fdedc694}{%
+           family={Craig},
+           familyi={C\bibinitperiod},
+           given={Philip},
+           giveni={P\bibinitperiod}}}%
+        {{hash=7774a75ded80a2cb4d96fe9d19a77c32}{%
+           family={Silverman},
            familyi={S\bibinitperiod},
-           given={Mishal},
-           giveni={M\bibinitperiod}}}%
-        {{hash=9cef55e7764e931fcb429e13d92d840c}{%
-           family={Borla},
-           familyi={B\bibinitperiod},
-           given={Holly},
-           giveni={H\bibinitperiod}}}%
-        {{hash=63624013ed1a0fa273041d63841e372e}{%
-           family={Lorentey},
-           familyi={L\bibinitperiod},
-           given={Karoy},
-           giveni={K\bibinitperiod}}}%
-        {{hash=25224450eba3d9c5c229e3affb2987a4}{%
-           family={Langmuir},
-           familyi={L\bibinitperiod},
-           given={Ben},
+           given={Brian},
            giveni={B\bibinitperiod}}}%
-        {{hash=5cf6c2dae0af8391b4c2b0731552beb4}{%
-           family={Kyrtzidis},
-           familyi={K\bibinitperiod},
-           given={Argyrios},
-           giveni={A\bibinitperiod}}}%
-        {{hash=fefe5cd81b725c9f339cf69742ca2bd8}{%
-           family={Zhdan},
-           familyi={Z\bibinitperiod},
-           given={Egor},
+        {{hash=7f29b19d73f9a8e28c508f927298e169}{%
+           family={martinboehme},
+           familyi={m\bibinitperiod}}}%
+        {{hash=e401559958354a52c0297d7b01df52ef}{%
+           family={Nakayama},
+           familyi={N\bibinitperiod},
+           given={Kenjiro},
+           giveni={K\bibinitperiod}}}%
+        {{hash=5483869eb12f018b3c229c639e0ae4f0}{%
+           family={Greene},
+           familyi={G\bibinitperiod},
+           given={Russell},
+           giveni={R\bibinitperiod}}}%
+        {{hash=6c1baa1a1c6018b915ab49a6e8d08672}{%
+           family={Jeanpierre},
+           familyi={J\bibinitperiod},
+           given={Devin},
+           giveni={D\bibinitperiod}}}%
+        {{hash=0b43b92aabd775e9cf102333befb511e}{%
+           family={Kitlith},
+           familyi={K\bibinitperiod}}}%
+        {{hash=52b3f9610c459b75fa4025c213c5d4e8}{%
+           family={Perry},
+           familyi={P\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=276e44487fb867d55725ededaf6668df}{%
+           family={silvanshade},
+           familyi={s\bibinitperiod}}}%
+        {{hash=572d4bc912c532c5110e65e67a218857}{%
+           family={milahu},
+           familyi={m\bibinitperiod}}}%
+        {{hash=2749af0f987efc9b336ab7c1161c456a}{%
+           family={Viviani},
+           familyi={V\bibinitperiod},
+           given={Gabriel},
+           giveni={G\bibinitperiod}}}%
+        {{hash=70595b800a3edcfe8612067adb1a3779}{%
+           family={Carvalho},
+           familyi={C\bibinitperiod},
+           given={Wes},
+           giveni={W\bibinitperiod}}}%
+        {{hash=1bb863656c1628cde1120525bf6763e1}{%
+           family={Hebb},
+           familyi={H\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod}}}%
+        {{hash=65d8b492bb9a302f6f7482e59494cf83}{%
+           family={YunKun},
+           familyi={Y\bibinitperiod},
+           given={Huang},
+           giveni={H\bibinitperiod}}}%
+        {{hash=6be90efba6c8adf5fc6085fd7bf5d3d0}{%
+           family={Tolnay},
+           familyi={T\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=879fe126eae6e8ecaf1be8588327ca94}{%
+           family={Baker},
+           familyi={B\bibinitperiod},
+           given={Collin},
+           giveni={C\bibinitperiod}}}%
+        {{hash=82057c12f11dc34d8ae01fb75673bc0f}{%
+           family={yuxuan-xie},
+           familyi={y\bibinithyphendelim x\bibinitperiod}}}%
+        {{hash=f9a96bf8022f13fa987def4b81de286d}{%
+           family={Uttarayan},
+           familyi={U\bibinitperiod}}}%
+        {{hash=7697094a02443b214c60c7289c214ffc}{%
+           family={fzyzcjy},
+           familyi={f\bibinitperiod}}}%
+        {{hash=2bdbb6c0833ae687a057993a1f88d566}{%
+           family={dependabot[bot]},
+           familyi={d\bibinitperiod}}}%
+        {{hash=cfffd653d18b27ad08abf4446074129a}{%
+           family={Bieniek},
+           familyi={B\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+        {{hash=cd8b84923422d50856f86e6e93580ac1}{%
+           family={Cramer},
+           familyi={C\bibinitperiod},
+           given={Taylor},
+           giveni={T\bibinitperiod}}}%
+        {{hash=dc67ff8df030219556ab5418252a31e4}{%
+           family={Sneeringer},
+           familyi={S\bibinitperiod},
+           given={Luke},
+           giveni={L\bibinitperiod}}}%
+        {{hash=3f03cf70bd5e05ee45f33c6533808496}{%
+           family={Veilleux},
+           familyi={V\bibinitperiod},
+           given={Eric},
            giveni={E\bibinitperiod}}}%
-        {{hash=a16e7a1982a3607bb8b5a05566edd7a9}{%
-           family={Mracek},
+        {{hash=7e5241dc4fe1da9549343fb6ffa57de6}{%
+           family={Durham},
+           familyi={D\bibinitperiod},
+           given={Crystal},
+           giveni={C\bibinitperiod}}}%
+        {{hash=c32ae14c091b31318f97c776b62e5fe6}{%
+           family={Badics},
+           familyi={B\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod}}}%
+        {{hash=703bc51707ed09346210e056763e80a2}{%
+           family={Hellstrom},
+           familyi={H\bibinitperiod},
+           given={Maddison},
+           giveni={M\bibinitperiod}}}%
+        {{hash=c004dddac7125ca5ce1ca39752d07597}{%
+           family={Maurer},
            familyi={M\bibinitperiod},
-           given={Kuba\bibnamedelima (Brecka)},
-           giveni={K\bibinitperiod\bibinitdelim (\bibinitperiod}}}%
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+        {{hash=955301d79a377912aad371df46df3561}{%
+           family={Lubinets},
+           familyi={L\bibinitperiod},
+           given={Mike},
+           giveni={M\bibinitperiod}}}%
       }
-      \strng{namehash}{1feba2ad0b613820b20472b981513afc}
-      \strng{fullhash}{8687a2208d50270eabd86e43b78c7440}
-      \strng{bibnamehash}{1feba2ad0b613820b20472b981513afc}
-      \strng{authorbibnamehash}{1feba2ad0b613820b20472b981513afc}
-      \strng{authornamehash}{1feba2ad0b613820b20472b981513afc}
-      \strng{authorfullhash}{8687a2208d50270eabd86e43b78c7440}
-      \field{sortinit}{s}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \strng{namehash}{768f68ef514332c81bda2231aab2b502}
+      \strng{fullhash}{310897f9a87f3bd91f8838a87868d2e8}
+      \strng{bibnamehash}{768f68ef514332c81bda2231aab2b502}
+      \strng{authorbibnamehash}{768f68ef514332c81bda2231aab2b502}
+      \strng{authornamehash}{768f68ef514332c81bda2231aab2b502}
+      \strng{authorfullhash}{310897f9a87f3bd91f8838a87868d2e8}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{day}{8}
-      \field{month}{2}
-      \field{title}{swiftlang/swift}
+      \field{day}{5}
+      \field{month}{3}
+      \field{title}{google/autocxx}
       \field{year}{2025}
       \field{dateera}{ce}
       \verb{urlraw}
-      \verb https://github.com/swiftlang/swift
+      \verb https://github.com/google/autocxx
       \endverb
       \verb{url}
-      \verb https://github.com/swiftlang/swift
+      \verb https://github.com/google/autocxx
       \endverb
+    \endentry
+    \entry{chromium-rust-cpp-interop}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=d2e11dae8252c29608ae41303b409525}{%
+           family={{The Chromium Project Developers}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{d2e11dae8252c29608ae41303b409525}
+      \strng{fullhash}{d2e11dae8252c29608ae41303b409525}
+      \strng{bibnamehash}{d2e11dae8252c29608ae41303b409525}
+      \strng{authorbibnamehash}{d2e11dae8252c29608ae41303b409525}
+      \strng{authornamehash}{d2e11dae8252c29608ae41303b409525}
+      \strng{authorfullhash}{d2e11dae8252c29608ae41303b409525}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.chromium.org/Home/chromium-security/memory-safety/rust-and-c-interoperability/}}
+      \field{note}{Accessed: 2025-05-29}
+      \field{title}{Rust and C++ Interoperability}
+      \field{year}{2020}
+    \endentry
+    \entry{juliaEmbedding}{manual}{}
+      \name{author}{1}{}{%
+        {{hash=420425dd3405f2388115207fc2e395dd}{%
+           family={{The Julia Language}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{420425dd3405f2388115207fc2e395dd}
+      \strng{fullhash}{420425dd3405f2388115207fc2e395dd}
+      \strng{bibnamehash}{420425dd3405f2388115207fc2e395dd}
+      \strng{authorbibnamehash}{420425dd3405f2388115207fc2e395dd}
+      \strng{authornamehash}{420425dd3405f2388115207fc2e395dd}
+      \strng{authorfullhash}{420425dd3405f2388115207fc2e395dd}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Julia 1.x Documentation}
+      \field{title}{Embedding Julia}
+      \field{urlday}{25}
+      \field{urlmonth}{5}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.julialang.org/en/v1/manual/embedding/
+      \endverb
+      \verb{url}
+      \verb https://docs.julialang.org/en/v1/manual/embedding/
+      \endverb
+    \endentry
+    \entry{juliaJITdocs}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=2075f31a0d5a1a1790ef08ae76a1abdf}{%
+           family={{The Julia Programming Language}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{2075f31a0d5a1a1790ef08ae76a1abdf}
+      \strng{fullhash}{2075f31a0d5a1a1790ef08ae76a1abdf}
+      \strng{bibnamehash}{2075f31a0d5a1a1790ef08ae76a1abdf}
+      \strng{authorbibnamehash}{2075f31a0d5a1a1790ef08ae76a1abdf}
+      \strng{authornamehash}{2075f31a0d5a1a1790ef08ae76a1abdf}
+      \strng{authorfullhash}{2075f31a0d5a1a1790ef08ae76a1abdf}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2025-05-27}
+      \field{title}{Just-In-Time (JIT) Compilation — Julia Documentation}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://docs.julialang.org/en/v1/devdocs/jit/
+      \endverb
+      \verb{url}
+      \verb https://docs.julialang.org/en/v1/devdocs/jit/
+      \endverb
+    \endentry
+    \entry{julia_object_model}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=bb1656a488057c4641f4034d6197251e}{%
+           family={{The Julia Project}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb1656a488057c4641f4034d6197251e}
+      \strng{fullhash}{bb1656a488057c4641f4034d6197251e}
+      \strng{bibnamehash}{bb1656a488057c4641f4034d6197251e}
+      \strng{authorbibnamehash}{bb1656a488057c4641f4034d6197251e}
+      \strng{authornamehash}{bb1656a488057c4641f4034d6197251e}
+      \strng{authorfullhash}{bb1656a488057c4641f4034d6197251e}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://docs.julialang.org/en/v1/devdocs/object/}}
+      \field{note}{Accessed: 2025-05-31}
+      \field{title}{Julia Documentation: The Julia Object Model}
+      \field{year}{2024}
+    \endentry
+    \entry{clangjl-tutorial}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=16e1443669ccc145c22cbccb95a980a9}{%
+           family={{The JuliaInterop Developers}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{16e1443669ccc145c22cbccb95a980a9}
+      \strng{fullhash}{16e1443669ccc145c22cbccb95a980a9}
+      \strng{bibnamehash}{16e1443669ccc145c22cbccb95a980a9}
+      \strng{authorbibnamehash}{16e1443669ccc145c22cbccb95a980a9}
+      \strng{authornamehash}{16e1443669ccc145c22cbccb95a980a9}
+      \strng{authorfullhash}{16e1443669ccc145c22cbccb95a980a9}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://juliainterop.github.io/Clang.jl/stable/tutorial/}}
+      \field{note}{Accessed: 2025-05-29}
+      \field{title}{Clang.jl Tutorial}
+      \field{year}{2025}
+    \endentry
+    \entry{rustFFINomicon}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=f0d5fb5b87cc52e92b8ca896555849a5}{%
+           family={{The Rust Project Developers}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \strng{fullhash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \strng{bibnamehash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \strng{authorbibnamehash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \strng{authornamehash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \strng{authorfullhash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \field{extraname}{1}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Rustonomicon: Unsafe Rust Guidelines}
+      \field{title}{Foreign Function Interface (FFI)}
+      \field{urlday}{25}
+      \field{urlmonth}{5}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://doc.rust-lang.org/nomicon/ffi.html
+      \endverb
+      \verb{url}
+      \verb https://doc.rust-lang.org/nomicon/ffi.html
+      \endverb
+    \endentry
+    \entry{rust-pinning}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=f0d5fb5b87cc52e92b8ca896555849a5}{%
+           family={{The Rust Project Developers}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \strng{fullhash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \strng{bibnamehash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \strng{authorbibnamehash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \strng{authornamehash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \strng{authorfullhash}{f0d5fb5b87cc52e92b8ca896555849a5}
+      \field{extraname}{2}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://doc.rust-lang.org/std/pin/index.html\#what-is-pinning}}
+      \field{note}{Accessed: 2025-06-04}
+      \field{title}{What is pinning?}
+      \field{year}{2025}
+    \endentry
+    \entry{rust-bindgen}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=f6898522c1c3d85e213f39e0f908c861}{%
+           family={{The rust-bindgen Developers}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{f6898522c1c3d85e213f39e0f908c861}
+      \strng{fullhash}{f6898522c1c3d85e213f39e0f908c861}
+      \strng{bibnamehash}{f6898522c1c3d85e213f39e0f908c861}
+      \strng{authorbibnamehash}{f6898522c1c3d85e213f39e0f908c861}
+      \strng{authornamehash}{f6898522c1c3d85e213f39e0f908c861}
+      \strng{authorfullhash}{f6898522c1c3d85e213f39e0f908c861}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://github.com/rust-lang/rust-bindgen}}
+      \field{note}{Accessed: 2025-05-29}
+      \field{title}{rust-bindgen}
+      \field{year}{2025}
+    \endentry
+    \entry{cxx2025}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=6be90efba6c8adf5fc6085fd7bf5d3d0}{%
+           family={Tolnay},
+           familyi={T\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{6be90efba6c8adf5fc6085fd7bf5d3d0}
+      \strng{fullhash}{6be90efba6c8adf5fc6085fd7bf5d3d0}
+      \strng{bibnamehash}{6be90efba6c8adf5fc6085fd7bf5d3d0}
+      \strng{authorbibnamehash}{6be90efba6c8adf5fc6085fd7bf5d3d0}
+      \strng{authornamehash}{6be90efba6c8adf5fc6085fd7bf5d3d0}
+      \strng{authorfullhash}{6be90efba6c8adf5fc6085fd7bf5d3d0}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://github.com/dtolnay/cxx}}
+      \field{note}{Accessed: 2025-05-29}
+      \field{title}{cxx: Safe Interop Between Rust and C++}
+      \field{year}{2025}
     \endentry
     \entry{Turcotte2019Reasoning}{misc}{}
       \name{author}{3}{}{%
@@ -1657,6 +3118,167 @@
       \verb https://stackoverflow.com/questions/48849447/does-example-of-erwin-unruh-work-today
       \endverb
     \endentry
+    \entry{Vassilev2025root}{book}{}
+      \name{author}{30}{}{%
+        {{hash=ecad9b9c52a9f3cc3dc99c31109e8110}{%
+           family={Vassilev},
+           familyi={V\bibinitperiod},
+           given={Vassil},
+           giveni={V\bibinitperiod}}}%
+        {{hash=69468675b977fa53eadd3e2f7984bd2c}{%
+           family={Naumann},
+           familyi={N\bibinitperiod},
+           given={Axel},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8d5f949346f1de9fe58a7140660f273d}{%
+           family={marsupial},
+           familyi={m\bibinitperiod}}}%
+        {{hash=3d58ec38a1f6975f526eb558f32fb2d3}{%
+           family={Canal},
+           familyi={C\bibinitperiod},
+           given={Philippe},
+           giveni={P\bibinitperiod}}}%
+        {{hash=b5eccb576e872cdefebe551c7631cdb7}{%
+           family={Bose},
+           familyi={B\bibinitperiod},
+           given={Anirudha},
+           giveni={A\bibinitperiod}}}%
+        {{hash=e20d7ca9f8ca3440a42bb2636f900616}{%
+           family={Bellenot},
+           familyi={B\bibinitperiod},
+           given={Bertrand},
+           giveni={B\bibinitperiod}}}%
+        {{hash=58fc1980fd58e04ca1aaf1872241aeac}{%
+           family={Hahnfeld},
+           familyi={H\bibinitperiod},
+           given={Jonas},
+           giveni={J\bibinitperiod}}}%
+        {{hash=79f56212620095d0dbf16a8843395da3}{%
+           family={CristinaCristescu},
+           familyi={C\bibinitperiod}}}%
+        {{hash=b94e1c2ed9f725674fed0c686df69923}{%
+           family={Lopez-Gomez},
+           familyi={L\bibinithyphendelim G\bibinitperiod},
+           given={Javier},
+           giveni={J\bibinitperiod}}}%
+        {{hash=2052cc3afe371aac83e5bb24ac7c295c}{%
+           family={Mukherjee},
+           familyi={M\bibinitperiod},
+           given={Manasij},
+           giveni={M\bibinitperiod}}}%
+        {{hash=e7df7bedab16b480fcbc4999b020ff45}{%
+           family={Ehrig},
+           familyi={E\bibinitperiod},
+           given={Simeon},
+           giveni={S\bibinitperiod}}}%
+        {{hash=9fe007c498eea65107016fd653a69863}{%
+           family={Devajith},
+           familyi={D\bibinitperiod}}}%
+        {{hash=826fea80aa99a9e6d60c08474b4aab99}{%
+           family={Das},
+           familyi={D\bibinitperiod},
+           given={Pratyush},
+           giveni={P\bibinitperiod}}}%
+        {{hash=12a46cf3af6568bcb867446e9c0cff8e}{%
+           family={Somayyajula},
+           familyi={S\bibinitperiod},
+           given={Surya},
+           giveni={S\bibinitperiod}}}%
+        {{hash=82ac78fc8363ec85803d1741c3c8ac9b}{%
+           family={Piparo},
+           familyi={P\bibinitperiod},
+           given={Danilo},
+           giveni={D\bibinitperiod}}}%
+        {{hash=fb62f776ac4b32a9c493b0b0597819ba}{%
+           family={Isemann},
+           familyi={I\bibinitperiod},
+           given={Raphael},
+           giveni={R\bibinitperiod}}}%
+        {{hash=2a83a6f3acaced41e235ee13cc74cefa}{%
+           family={sploving},
+           familyi={s\bibinitperiod}}}%
+        {{hash=1095f27e9d00de7bfc3a0bbabb2a52f4}{%
+           family={Mato},
+           familyi={M\bibinitperiod},
+           given={Pere},
+           giveni={P\bibinitperiod}}}%
+        {{hash=22b16703b798f6b8a51d93c133ee7fab}{%
+           family={TimurP},
+           familyi={T\bibinitperiod}}}%
+        {{hash=0bb6ab6967ddb26fee9f427d8bee6eb1}{%
+           family={ferdymercury},
+           familyi={f\bibinitperiod}}}%
+        {{hash=5eec1c52f21c8b51b0e447fe297979cd}{%
+           family={Ikarashi},
+           familyi={I\bibinitperiod},
+           given={Yuka},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=7dc0b9b194ab6d31c27d765180d1401d}{%
+           family={RK},
+           familyi={R\bibinitperiod},
+           given={Min},
+           giveni={M\bibinitperiod}}}%
+        {{hash=61138befdf1bcb6c8547caffc651f07f}{%
+           family={esakellari},
+           familyi={e\bibinitperiod}}}%
+        {{hash=7572096067d0feaf2c88185b53dd1db1}{%
+           family={Yi},
+           familyi={Y\bibinitperiod},
+           given={Jiang},
+           giveni={J\bibinitperiod}}}%
+        {{hash=63ceb90b904d72dbd7288e6c124f1cef}{%
+           family={Garg},
+           familyi={G\bibinitperiod},
+           given={Vaibhav},
+           giveni={V\bibinitperiod}}}%
+        {{hash=885eb0b1c5addb6217f5f987dd235757}{%
+           family={Linev},
+           familyi={L\bibinitperiod},
+           given={Sergey},
+           giveni={S\bibinitperiod}}}%
+        {{hash=420d5e12a5888075e5349dfb80e46c23}{%
+           family={Amadio},
+           familyi={A\bibinitperiod},
+           given={Guilherme},
+           giveni={G\bibinitperiod}}}%
+        {{hash=8c009e4724301c05a182b966c57403c4}{%
+           family={Rademakers},
+           familyi={R\bibinitperiod},
+           given={Fons},
+           giveni={F\bibinitperiod}}}%
+        {{hash=22b007486577aef6822dec947ddf6276}{%
+           family={Rembser},
+           familyi={R\bibinitperiod},
+           given={Jonas},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b6d9923276d74b75936d5a2e4fdc8074}{%
+           family={Shadura},
+           familyi={S\bibinitperiod},
+           given={Oksana},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{1aa869950ee2440e479cf5c307e9e864}
+      \strng{fullhash}{56dc6f82bb59bac0b6596ae2ae04e1b1}
+      \strng{bibnamehash}{1aa869950ee2440e479cf5c307e9e864}
+      \strng{authorbibnamehash}{1aa869950ee2440e479cf5c307e9e864}
+      \strng{authornamehash}{1aa869950ee2440e479cf5c307e9e864}
+      \strng{authorfullhash}{56dc6f82bb59bac0b6596ae2ae04e1b1}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{7}
+      \field{month}{3}
+      \field{title}{root-project/cling}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/root-project/cling
+      \endverb
+      \verb{url}
+      \verb https://github.com/root-project/cling
+      \endverb
+    \endentry
     \entry{Veldhuizen1998}{misc}{}
       \name{author}{1}{}{%
         {{hash=458a2cb529610dd86e202af60ae21f62}{%
@@ -1684,6 +3306,277 @@
       \verb 10.48550/ARXIV.CS/9810010
       \endverb
       \keyw{Programming Languages (cs.PL),Performance (cs.PF),FOS: Computer and information sciences,FOS: Computer and information sciences,F.3.2; D.3.3; D.3.4}
+    \endentry
+    \entry{wasi_dev}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=f750ff3868086392fa2414f509eeeee0}{%
+           family={{WASI Subgroup, W3C WebAssembly Community Group}},
+           familyi={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{f750ff3868086392fa2414f509eeeee0}
+      \strng{fullhash}{f750ff3868086392fa2414f509eeeee0}
+      \strng{bibnamehash}{f750ff3868086392fa2414f509eeeee0}
+      \strng{authorbibnamehash}{f750ff3868086392fa2414f509eeeee0}
+      \strng{authornamehash}{f750ff3868086392fa2414f509eeeee0}
+      \strng{authorfullhash}{f750ff3868086392fa2414f509eeeee0}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://wasi.dev/}}
+      \field{note}{Accessed: 2025-05-27}
+      \field{title}{WASI.dev: The WebAssembly System Interface}
+      \field{year}{2025}
+    \endentry
+    \entry{wasmedgeAOT}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=c1d839ffeed616dbd76708efa38d4b92}{%
+           family={{WasmEdge Contributors}},
+           familyi={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{c1d839ffeed616dbd76708efa38d4b92}
+      \strng{fullhash}{c1d839ffeed616dbd76708efa38d4b92}
+      \strng{bibnamehash}{c1d839ffeed616dbd76708efa38d4b92}
+      \strng{authorbibnamehash}{c1d839ffeed616dbd76708efa38d4b92}
+      \strng{authornamehash}{c1d839ffeed616dbd76708efa38d4b92}
+      \strng{authorfullhash}{c1d839ffeed616dbd76708efa38d4b92}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://wasmedge.org/docs/start/build-and-run/aot/}}
+      \field{note}{Accessed: 2025-05-27}
+      \field{title}{Build and Run with Ahead-of-Time Compilation}
+      \field{year}{2025}
+    \endentry
+    \entry{webassemblyFeatures}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=a76d091753d08838e97965cb7ac788f3}{%
+           family={{WebAssembly Community Group}},
+           familyi={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{a76d091753d08838e97965cb7ac788f3}
+      \strng{fullhash}{a76d091753d08838e97965cb7ac788f3}
+      \strng{bibnamehash}{a76d091753d08838e97965cb7ac788f3}
+      \strng{authorbibnamehash}{a76d091753d08838e97965cb7ac788f3}
+      \strng{authornamehash}{a76d091753d08838e97965cb7ac788f3}
+      \strng{authorfullhash}{a76d091753d08838e97965cb7ac788f3}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://webassembly.org/features/}}
+      \field{note}{Accessed: 2025-05-27}
+      \field{title}{WebAssembly Features}
+      \field{year}{2025}
+      \field{dateera}{ce}
+    \endentry
+    \entry{Young2023google}{book}{}
+      \name{author}{3}{}{%
+        {{hash=975d863c3870bba7c759887beda8456e}{%
+           family={Young},
+           familyi={Y\bibinitperiod},
+           given={Miguel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=276e44487fb867d55725ededaf6668df}{%
+           family={silvanshade},
+           familyi={s\bibinitperiod}}}%
+        {{hash=c21cd7a2ae54e7fb5cb5743523bbc742}{%
+           family={Taylor},
+           familyi={T\bibinitperiod},
+           given={Adrian},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{71c19a5c002cf3bee10c9c5d86ff336e}
+      \strng{fullhash}{71c19a5c002cf3bee10c9c5d86ff336e}
+      \strng{bibnamehash}{71c19a5c002cf3bee10c9c5d86ff336e}
+      \strng{authorbibnamehash}{71c19a5c002cf3bee10c9c5d86ff336e}
+      \strng{authornamehash}{71c19a5c002cf3bee10c9c5d86ff336e}
+      \strng{authorfullhash}{71c19a5c002cf3bee10c9c5d86ff336e}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{15}
+      \field{month}{6}
+      \field{title}{google/moveit}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/google/moveit
+      \endverb
+      \verb{url}
+      \verb https://github.com/google/moveit
+      \endverb
+    \endentry
+    \entry{Zakai2025emscripten}{book}{}
+      \name{author}{30}{}{%
+        {{hash=c4cfe1bc600036ecf862fcbdf7b6d1cf}{%
+           family={Zakai},
+           familyi={Z\bibinitperiod},
+           given={Alon},
+           giveni={A\bibinitperiod}}}%
+        {{hash=44d7f809fde69bf4116f51e2bffba51c}{%
+           family={Clegg},
+           familyi={C\bibinitperiod},
+           given={Sam},
+           giveni={S\bibinitperiod}}}%
+        {{hash=b0a76c955e6672dad1119cba043ca505}{%
+           family={juj},
+           familyi={j\bibinitperiod}}}%
+        {{hash=1ae2c087d4e08252a8b9106948a84ed5}{%
+           family={Mitchener},
+           familyi={M\bibinitperiod},
+           given={Bruce},
+           giveni={B\bibinitperiod}}}%
+        {{hash=503295bd60f2c9917cf48eca8ff9ca84}{%
+           family={Akhgari},
+           familyi={A\bibinitperiod},
+           given={Ehsan},
+           giveni={E\bibinitperiod}}}%
+        {{hash=41eb58e094f3404f91f58a0eab772f87}{%
+           family={Schuff},
+           familyi={S\bibinitperiod},
+           given={Derek},
+           giveni={D\bibinitperiod}}}%
+        {{hash=9ca56d1c09bfafa117849c841568ceb7}{%
+           family={Lively},
+           familyi={L\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=b913104e389f45f830689735f686e2af}{%
+           family={Ahn},
+           familyi={A\bibinitperiod},
+           given={Heejin},
+           giveni={H\bibinitperiod}}}%
+        {{hash=d8c2a7b416e357307faa8dd3a3567e43}{%
+           family={Shawabkeh},
+           familyi={S\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod}}}%
+        {{hash=07094a945f6c4a0de352a3298ddf19a8}{%
+           family={azakai},
+           familyi={a\bibinitperiod}}}%
+        {{hash=7c78b61111984b6cd2d19707c58ff1d1}{%
+           family={Kalintiris},
+           familyi={K\bibinitperiod},
+           given={Vasilis},
+           giveni={V\bibinitperiod}}}%
+        {{hash=1705cc071a185474add186335cec1c04}{%
+           family={Dahl},
+           familyi={D\bibinitperiod},
+           given={Brendan},
+           giveni={B\bibinitperiod}}}%
+        {{hash=d729c4706aa238aca614e9f243472182}{%
+           family={Pesch},
+           familyi={P\bibinitperiod},
+           given={Anthony},
+           giveni={A\bibinitperiod}}}%
+        {{hash=f402101ebf2deef4b72bdd8a22bca570}{%
+           family={Stepanyan},
+           familyi={S\bibinitperiod},
+           given={Ingvar},
+           giveni={I\bibinitperiod}}}%
+        {{hash=9cc2548b6454cb6936bc06a07c112bb4}{%
+           family={Austin},
+           familyi={A\bibinitperiod},
+           given={Chad},
+           giveni={C\bibinitperiod}}}%
+        {{hash=1214e8677ca5393d084c1051d0f86167}{%
+           family={Sayers},
+           familyi={S\bibinitperiod},
+           given={Aidan\bibnamedelima Hobson},
+           giveni={A\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=ad6c8c1cd96c442fd65d0647414df2f5}{%
+           family={Wolthuizen},
+           familyi={W\bibinitperiod},
+           given={Kleis\bibnamedelima Auke},
+           giveni={K\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=0033c00a4ac7e8d28588850ff2892879}{%
+           family={Gohman},
+           familyi={G\bibinitperiod},
+           given={Dan},
+           giveni={D\bibinitperiod}}}%
+        {{hash=bfa747e6d1209bcfa1f495917c695722}{%
+           family={Gravelle},
+           familyi={G\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod}}}%
+        {{hash=0de3d1ef62b6ba97dd2a4b7c8db47e5d}{%
+           family={Willee},
+           familyi={W\bibinitperiod},
+           given={Hamish},
+           giveni={H\bibinitperiod}}}%
+        {{hash=e5b1d8e16ed25821305421e6f5ba02a3}{%
+           family={Rosylight},
+           familyi={R\bibinitperiod},
+           given={Kagami\bibnamedelima Sascha},
+           giveni={K\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=f56edf7cb762c92de10c5731331eb25e}{%
+           family={Ng},
+           familyi={N\bibinitperiod},
+           given={Jez},
+           giveni={J\bibinitperiod}}}%
+        {{hash=974e84ece728f36cbf50db5cf6e7118f}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Guanzhong},
+           giveni={G\bibinitperiod}}}%
+        {{hash=fe869a6a282cbd2f857ca38598a8f115}{%
+           family={Birks},
+           familyi={B\bibinitperiod},
+           given={Charlie},
+           giveni={C\bibinitperiod}}}%
+        {{hash=06c4ba8aaec69428f9b81ca7b9817dff}{%
+           family={Chatham},
+           familyi={C\bibinitperiod},
+           given={Hood},
+           giveni={H\bibinitperiod}}}%
+        {{hash=04c1d8d7cdbfce2e9726ed63c02ceb17}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Ethan},
+           giveni={E\bibinitperiod}}}%
+        {{hash=ce9724f7ebfeda894668c8205d08e0bf}{%
+           family={Esfahbod},
+           familyi={E\bibinitperiod},
+           given={Behdad},
+           giveni={B\bibinitperiod}}}%
+        {{hash=6d6342b83264ebef3e93607f728016a4}{%
+           family={Guryanov},
+           familyi={G\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=3cb95b5512884559d5f6403d73a0c20e}{%
+           family={Pujante},
+           familyi={P\bibinitperiod},
+           given={Yan},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=17b6fe4ac547c529428edbe3bffeb1c5}{%
+           family={BillWelden},
+           familyi={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{1b8ada241f919f6685af933c480f908f}
+      \strng{fullhash}{4d48755e72e320762b13e0072168e5d3}
+      \strng{bibnamehash}{1b8ada241f919f6685af933c480f908f}
+      \strng{authorbibnamehash}{1b8ada241f919f6685af933c480f908f}
+      \strng{authornamehash}{1b8ada241f919f6685af933c480f908f}
+      \strng{authorfullhash}{4d48755e72e320762b13e0072168e5d3}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{24}
+      \field{month}{5}
+      \field{title}{emscripten-core/emscripten}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/emscripten-core/emscripten
+      \endverb
+      \verb{url}
+      \verb https://github.com/emscripten-core/emscripten
+      \endverb
     \endentry
     \entry{Zappa2018Julia}{article}{}
       \name{author}{6}{}{%

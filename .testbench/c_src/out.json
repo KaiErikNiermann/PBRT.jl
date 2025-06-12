@@ -1,0 +1,235 @@
+{
+  "id": "0x649fd743d168",
+  "kind": "TranslationUnitDecl",
+  "loc": {},
+  "range": {
+    "begin": {},
+    "end": {}
+  },
+  "inner": [
+    {
+      "id": "0x649fd743d998",
+      "kind": "TypedefDecl",
+      "loc": {},
+      "range": {
+        "begin": {},
+        "end": {}
+      },
+      "isImplicit": true,
+      "name": "__int128_t",
+      "type": {
+        "qualType": "__int128"
+      },
+      "inner": [
+        {
+          "id": "0x649fd743d730",
+          "kind": "BuiltinType",
+          "type": {
+            "qualType": "__int128"
+          }
+        }
+      ]
+    },
+    {
+      "id": "0x649fd743da08",
+      "kind": "TypedefDecl",
+      "loc": {},
+      "range": {
+        "begin": {},
+        "end": {}
+      },
+      "isImplicit": true,
+      "name": "__uint128_t",
+      "type": {
+        "qualType": "unsigned __int128"
+      },
+      "inner": [
+        {
+          "id": "0x649fd743d750",
+          "kind": "BuiltinType",
+          "type": {
+            "qualType": "unsigned __int128"
+          }
+        }
+      ]
+    },
+    {
+      "id": "0x649fd743dd10",
+      "kind": "TypedefDecl",
+      "loc": {},
+      "range": {
+        "begin": {},
+        "end": {}
+      },
+      "isImplicit": true,
+      "name": "__NSConstantString",
+      "type": {
+        "qualType": "struct __NSConstantString_tag"
+      },
+      "inner": [
+        {
+          "id": "0x649fd743dae0",
+          "kind": "RecordType",
+          "type": {
+            "qualType": "struct __NSConstantString_tag"
+          },
+          "decl": {
+            "id": "0x649fd743da60",
+            "kind": "RecordDecl",
+            "name": "__NSConstantString_tag"
+          }
+        }
+      ]
+    },
+    {
+      "id": "0x649fd743ddb8",
+      "kind": "TypedefDecl",
+      "loc": {},
+      "range": {
+        "begin": {},
+        "end": {}
+      },
+      "isImplicit": true,
+      "name": "__builtin_ms_va_list",
+      "type": {
+        "qualType": "char *"
+      },
+      "inner": [
+        {
+          "id": "0x649fd743dd70",
+          "kind": "PointerType",
+          "type": {
+            "qualType": "char *"
+          },
+          "inner": [
+            {
+              "id": "0x649fd743d210",
+              "kind": "BuiltinType",
+              "type": {
+                "qualType": "char"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0x649fd743e0b0",
+      "kind": "TypedefDecl",
+      "loc": {},
+      "range": {
+        "begin": {},
+        "end": {}
+      },
+      "isImplicit": true,
+      "name": "__builtin_va_list",
+      "type": {
+        "qualType": "struct __va_list_tag[1]"
+      },
+      "inner": [
+        {
+          "id": "0x649fd743e050",
+          "kind": "ConstantArrayType",
+          "type": {
+            "qualType": "struct __va_list_tag[1]"
+          },
+          "size": 1,
+          "inner": [
+            {
+              "id": "0x649fd743de90",
+              "kind": "RecordType",
+              "type": {
+                "qualType": "struct __va_list_tag"
+              },
+              "decl": {
+                "id": "0x649fd743de10",
+                "kind": "RecordDecl",
+                "name": "__va_list_tag"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0x649fd749d418",
+      "kind": "FunctionDecl",
+      "loc": {
+        "offset": 37,
+        "file": "mylib.h",
+        "line": 4,
+        "col": 5,
+        "tokLen": 3
+      },
+      "range": {
+        "begin": {
+          "offset": 33,
+          "col": 1,
+          "tokLen": 3
+        },
+        "end": {
+          "offset": 53,
+          "col": 21,
+          "tokLen": 1
+        }
+      },
+      "name": "add",
+      "mangledName": "add",
+      "type": {
+        "qualType": "int (int, int)"
+      },
+      "inner": [
+        {
+          "id": "0x649fd749d2b0",
+          "kind": "ParmVarDecl",
+          "loc": {
+            "offset": 45,
+            "col": 13,
+            "tokLen": 1
+          },
+          "range": {
+            "begin": {
+              "offset": 41,
+              "col": 9,
+              "tokLen": 3
+            },
+            "end": {
+              "offset": 45,
+              "col": 13,
+              "tokLen": 1
+            }
+          },
+          "name": "a",
+          "type": {
+            "qualType": "int"
+          }
+        },
+        {
+          "id": "0x649fd749d330",
+          "kind": "ParmVarDecl",
+          "loc": {
+            "offset": 52,
+            "col": 20,
+            "tokLen": 1
+          },
+          "range": {
+            "begin": {
+              "offset": 48,
+              "col": 16,
+              "tokLen": 3
+            },
+            "end": {
+              "offset": 52,
+              "col": 20,
+              "tokLen": 1
+            }
+          },
+          "name": "b",
+          "type": {
+            "qualType": "int"
+          }
+        }
+      ]
+    }
+  ]
+}

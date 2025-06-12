@@ -1,4 +1,4 @@
-\section{Implementation}\label{s:implementation}
+\section{Implementation and System Design}\label{s:implementation}
 
 So to begin this exploration of the practical side language interoperability I had to first think of a piece of software I could use to test this idea. Before doing so I thought it would be important to further refine my idea beyond just wanting to test out my `lego idea'. As said before the concept of rewriting code is by no means new, I don't believe it would be absurd by any means to suggest that most programmers at one point or another, while writing some piece of code, or even after the fact, recognized ways in which their solution can be improved. Often improvements or iterations on the original piece of code just naturally have to occur to fit the evolving goal for a given piece of software. So it would make sense that there should be some type of reason as to why we want to rewrite a specific piece of code, in our case performance would be a pretty natural choice. While most programming languages of course aim to be performant, respective to their application, due to differences in their design and execution methods they naturally exhibit differences.
 
@@ -14,9 +14,8 @@ We've now established that we have a piece of performance-critical software writ
 
 In the following I'll briefly start by giving an overview o the ray tracer itself and then how I approached integrated the two different languages Python and C++ into this system. I'll then also motivate or give some insights into the reasoning behind why I chose the binding generators that I did, and some of their internal architecture and how it relates to some of the things discussed previously. Once all this is established I will elaborate on the issue which I encountered as a byproduct of the design of this raytracer when working with the C++ rewrite. From this I will go into the nature of the problem and by extension the constraints that came with the design of the C++ $\leftrightarrow$ Python bridge Jluna. With this information I will explain how I came to my approach for a solution and some of the pitfalls I had in its design. Finally I will do some benchmarking of my solution and compare and constrast this with the approach that PythonCall employs. Ending things on a discussion about the limitations and possible future directions.
 
-\subsection{Part 1: We want to do something}
 
-\subsubsection{System Overview}
+\subsection{System Overview and Setup}
 
 As one of the objectives of this paper is not only to research the theoretical underpinnings of interoperability but also asses their viability in practice we can move on to describing how a lot of the topics previously discussed have relevance in practice. In the preamble the decision was made to use a ray-tracer implementation written in Julia as the main subject for this exploration. Before delving into the implementation of the actual cross language aspects it would make sense to give some motivation as to why a ray-tracer serves as a good subject. The decision; despite being initially somewhat ad-hoc; does present some potentially insightful attributes. Ray-tracers, especially more developed legacy implementations, are somewhat well-known for being complex pieces of software, not only due to their foundation in mathematical modelling but also their interconnectedness of various different systems to enable the actual image generation. The complexity of even somewhat minimal ray-tracer implementations; as in the case of the one im using; nicely presents a situation analogous enough to more complex systems giving potentially some broader insights into the effects of interop as opposed to some domain specific minimal example. Performance is another key aspect of ray-tracers, while they had their roots in drawing simple images nowadays ray-tracers or more broadly speaking physcially based rendering (PBR) frameworks are used in real time in video-games, in turn creating a massive demand for high performance PBR systems, while the ray-tracer used in this paper only implements a very minimal subset it still relates directly to a domain in which performance is critical, again serving as an indicator of the viability of the applied interop techniques in performance demanding scenarios. Finally, despite the aforementioned complexity of ray-tracers they do tend to be very modular systems in some respects, this modularity should allow for an easier time separating predominantly logically distinct components and thus make the rewriting process easier. A high-level overview of the ray-tracer can be seen in Figure \ref{fig:simple_rt_impl}.
 
@@ -45,9 +44,9 @@ The implementation setup to test the component rewritten in Python and C++ can b
   \label{fig:main_interface}
 \end{figure*}
 
-\subsection{Part 2: We have a problem}
+\subsection{Challenges and Design Decisions}
 
-\subsubsection{The problem}
+\subsubsection{Problem Statement}
 
 Now while in theory the implementation here was straightforward a major issue I encountered was related to the constraints placed in the binding generator between Julia and C++. To explain the cause of this issue it makes sense to first go into what our implementation actually needs to do, or more specifically what we are bridging in our case. As the hit detection functions; the functions which made up the BVH traversal; served as the nicest component to isolate due to their aforementioned logical separation from other aspects I chose them to serve as the bridge. Now broadly speaking the 3 main things needed when we are trying to do hit detection is our BVH which spatially structures the objects in our scene, the actual ray for which we are trying to compute a hit, and finally a hit record which stores the actual information from the hit (e.g. material, normal vector to the surface, etc.). Assessing the complexity of these types the simplest one is the ray at is just stores an object and direction, next we have the hit record; which despite being a struct; does have polymorphic attributes, namely the material of the object which the ray hit, finally we have the BVH tree which as implied in the name is a tree structure which adds another layer of complexity as we now have recursive polymorphic attributes with the left and right child being BVH nodes which subtypes that define the underlying type of the shape represent (e.g. Triangle, Sphere, etc.). Visually we can represent this as follows.
 
@@ -66,7 +65,6 @@ In both of these instance the type of polymorphism we are talking about is subty
   \item \textit{Feasibility Exploration:} I was generally curious about the feasibility as a whole, given that it's a lot rarer to see complex type bridging for cross-language systems involving statically typed languages, especially ones where the statically typed language is in focus (as opposed to relying heavily on the dynamic language). I felt this would potentially provide some interesting insights.
 \end{enumerate}
 
-\subsubsection{The more concrete considerations}
 
 With the broad idea in mind of what we want to achieve now and some motivation as to why it makes sense to establish a more concrete approach. Before we asses the details for how to extend the Jluna library it makes sense to first asses in detail how the library works currently. As was discussed throughout \ref{s:background} if we think of C++ as our host language and Julia as the target then boxing would be the operation of representing a C++ type in Julia, and unboxing the reverse. In Jluna the boxing and unboxing have multiple steps, we can give a high level overview of it as follows. With a general breakdown of what each step entails.
 
@@ -115,7 +113,7 @@ With this in mind we can make few key observations already. As stated before the
   \item \textit{Constraints - How do we loosen constraints while retaining saftey?} Finally we need to make sure that we can not only represent arbitrary BVH trees but also that we establish a means of ensuring that the constraints placed on the type specification are loosened in a way that does not compromise the safety of the system. Which is to say that we should define a new set of constraints for what constitutes a valid type polymorphic type specification.
 \end{enumerate}
 
-\subsubsection{What is metaprogramming?}
+\subsubsection{Metaprogramming and Partial Evaluation}
 
 Before getting into the actual code which implements this extension there are two points I feel are important to establish in more detail before we move on. I've mentioned a few times by now the use of compile-time metaprogramming in the Jluna library, and while I've given a high level overview of what this means I want to dedicate some time to explaining some of the aspects of this design paradigm in the original implemenation and furthermore how these aspects were applied to address some of the questions which were raised in the process of developing the extension. We can start by giving a quick overview of templates in C++ and how they are used in the Jluna library.
 
@@ -153,8 +151,6 @@ We can see a basic example of a particularly relevant construct of template meta
   \label{listing:template_meta_func}
 \end{listing}
 
-\subsubsection{Binding generators as partial evaluators}
-
 While constrained generics are a somewhat standard feature in many different programming languages an interesting observation to make; even with just these basic constructs; is that we in essence have two different programs. The first being the program consisting of the source code the programmer interacts with, the second being the instantiated program which is generated at compile time given the statically defined type specifications. The code generation process by itself is a natural byproduct of how instantiating generics works, whats interesting to consider here is the extent to which we can use maximally utilize this code generation process when designing libraries. An important notion here is the idea of metaprogramming, which is the idea that, as opposed to writing programs directly, as we might in a more traditional sense, we write a program which generates a program; as the name implies working on a `meta' or simply higher-level of control and abstraction. To be more specific we can introduce the concept of partial computation also known as partial evaluation. Partial computation, first introduced by Futamura \cite{Futamura1983}, states that given a function $f$ processing some known data $k$, and unknown data $u$ we can generate an intermediate program $f_k$ which is the result of computing everything in $f$ with $k$ and then computing $f_k(u)$ we can get a final result. Visually we can represent this as follows.
 
 \begin{figure}[ht!]
@@ -186,7 +182,7 @@ The complexity of implementing a full second futamura projection is in large par
 
 An important thing to take away from the idea of thinking about binding generators as partial evaluators is that it we end up with a more well defined separation of concerns between different steps of the binding generation process which can offer up a more effective foundation for implementing future generators in a more uniform and preformant manner by isolating the statically known specifications from the actual implementation logic and viewing the implementation itself as a specializer over the specification as opposed to being a direct implementation of interop logic. The relevance here being that it supports the fact that any extensions made to the type specification should be done in a way that does not compromise the existing logic of the binding generator to ensure we maintain this quality of separation of concerns.
 
-\subsubsection{Approach to a solution}
+\subsubsection{A Record Type Formalism}
 
 If we take this idea of viewing Jluna as an interperter of a type specification grammar we can create a basic formalism which can help us in providing a more rigorous basis for our extension. First we establish the existing specification grammar and application rules, from which we can build a basic formal model of the relevant algorithms. From this we can expand the syntax and incorporate the new rules which would allow for briding abstract types.
 \begin{equation}\label{eq:pair_type}
@@ -301,8 +297,6 @@ Injection then has a correspondence to the idea of structural subtyping. Structu
 
 Of course this is somewhat of an oversimplification as type systems don't necessarily implement these ideas in mutually exclusive ways or even in the most direct way. Nonetheless for the applications of our extension we can use these ideas to develop at least a somewhat more precise language to discuss the steps taken to extend the Jluna library. To then summarize and elaborate on how we can proceed, we have now developed a basic way we can more precisely use to speak about record types; the primary focus of our extension; furthermore we have a way of understanding how we can express subtyping in terms of the same theory we used to talk about record types, namely dependent type theory. We also more broadly have established that metaprogramming and binding generators for that matter can be understood as partial evaluators on some static specification. Using this groundwork we can build some key ideas which we can directly apply in the construction of our extension, these ideas or takeaways will be developed in the next section.
 
-\subsubsection{Application: Types of Record types}
-
 We can first look at the record type again, specifically lets deconstruct what we can consider the field type.
 \begin{definition}[Field Type]
   A field type is the dependent type which is indexed by the set of labels. We can interpret this as the function we formed in the record indexing formation
@@ -402,7 +396,7 @@ To express this formally we can define the lens type as follows.
 
 With this we have a basline for how we can talk about the structure and dynamics of our record type from the more abstract perspective that we work with in the case of binding generators. Particular relevance in our definition of the Lens is the base type, i.e. the abstract record type. The abstract record type represents basic the language agnostic model of objects with both languages need to comform to in order to be bridged. There are various different approaches to ensuring this comformance to an abstract model that typically depend on the languages being bridged. A very basic approach if you have compatible languages is to simply generate bindings in a comformant manner as a preprocessing step via header parsing, in this instance a binding generator would usually either ensure that the generation process is implicitly conformant and expose idiomatic types, or it would generate wrappers which have the aforementioned added flexibility at the cost of idiomatic usage and depending on the implementation performance. The approach taken by Jluna is to generate idiomatic bindings where the conformance rules for the types structure are defined implicitly through the application of the type specification in the runtime generation process. Julia allows for this through its implementation of metaprogramming enabling the ability to define or specialize a set of types at runtime given an abstract description of different properties of this type. 
 
-\subsubsection{Application: Jluna's Internals}
+\subsubsection{Case Study: Jluna's Internals}
 
 In the most abstract basic sense we can think of boxing and unboxing to simply express the idea of a cross language assignment. The general goal with binding generators, at least those which focus on very idiomatic language usage, is to provide enough abstractions such that working with two languages feels as if you are working with one. More concretely we can say that the goal is to mitigate, as much as is possible within certian constraints, the manual specification of bindings and type marshalling code for handling incompatibilities. Hence if we go back to our basic idea what we would then strive for would be something in the following form.
 
@@ -457,11 +451,9 @@ In listing \ref{listing:add_property} we can see how the author related the type
 
 The briding code in \ref{listing:bridge} is the simplified representation of box and unbox whereby we simply iterate over the fields as specified in the mapping and for each field pass of our briding logic to the meta constructors within the map who then either bridge the type directly by calling to the fundamental bridging code or as mentioned before call to the corresponding bridge method for the record type of a particular field and so on.
 
-\subsubsection{So whats the issue?}
-
 A very core attribute of the implementation is that it fundamentally relies on nested records existing as fully walkable trees, in other words the bridging functions must always be supplied with concrete types such that there exists a path over an object which can be fully traced. Hence this implementation does not account for the case where we encounter an abstract type. The problematic nature then being that our implementation of the BVH tree is fundamentally based on abstraction for its representation, or more concretely as stated before we have polymorphic nodes represented by an abstract class. The aim of the extension is then first and foremost to find a way of how we can tell this process what it should do if it does encounter an abstract type. 
 
-\subsection{Part 3: We have a solution}
+\subsection{Solution and Language Extension}
 
 Let's start off our solution by creating a high level breakdown of the user-facing and internal flow of the library which can be seen in \ref{fig:jluna_stages}. We could tackle this problem in a linear fashion though this could end up being somewhat problematic since we could end up defining a specification which is misaligned with the actual type mirroring process. The issue here goes back to the different dependencies we have in the binding generator as shown in \ref{fig:bg_basic_dependencies}. Intuitively it makes sense to start with the abstract type representation, ensuring that it can even be mirrored in any functional sense, as both the meta constructors to create this type and the type transformations rely on there existing some fundamental analogue for type representation in both languages.
 
@@ -472,7 +464,7 @@ Let's start off our solution by creating a high level breakdown of the user-faci
   \label{fig:jluna_stages}
 \end{figure}
 
-\subsubsection{Abstract Types and Substitutability}
+\subsubsection{Abstract Types \& Substitutability}
 
 In our case there are two key inter-related things we wish to extend the library with. Firstly a support for abstract types, and from this a support for concrete types which implement this abstract representation. Abstract Data Type's (ADTs) in the theoretical sense simply means to express a type which encodes a contract or model for a set of behaviors and properties which a concrete variant of this type must adhere to. A basic example could be the abstract definition of a list which is commonly parameterized with a type argument representing various concrete variants such a list of ints or a list of strings, the common semantic properties then being things like the ability to add, remove or access elements. A somewhat trivial benefit of this is that unless we must know the concrete type of a list we can work with this abstract definition and hence write more generic code which can work for a variety of concrete variants. Polymorphism is a natural byproduct that comes from the idea of substiutability of ADTs, if an ADT represents an abstract contract which a set of concrete types model then we can say that any type following this contract could reasonably be substituted in place of this ADT without any change in behavior, this is the general idea of polymorphism or more specifically behavioral subtyping. A very strong condition of this idea was formalized by Liskov in her Substitution Principle. 
 
@@ -556,7 +548,7 @@ Having this defined lets finally approach how we can express inheritance based s
 
 Firstly it should be stated again that this is obviously a very abstract way of thinking about subtyping, but it offers some unique insights into how at least from a birdseye view certain attributes of type sytems only have very subtle differences in actuality but these differences can have a considerable impact on the actual practical day to day usage of a programming language. In this case the key takeaway is that inheritance based subtyping which enforces concrete implementations of abstract methods can be understood as a special case of structural subtyping in which we collapse all valid structural subtypes into their intersection which forms the abstract representation. 
 
-\subsubsection{The extension - Fields}
+\subsubsection{Representing Fields \& Types}
 
 Given the above formalisms we can now approach how we can extend the library to support abstract types. We can work in a kind of top down fashion starting from the fundamental type representation to the actual bridging code. To bring us back to where we started we had the most basic form of our record represented as a type family indexed by a set of labels. We had 3 main components to this, the the label, the object type, and the dependent field type. The corresponding representation in C++ can then be seen in the template parameter list for the $P$ template metafunction in listing \ref{listing:type_meta_func}.
 
@@ -569,8 +561,6 @@ Given the above formalisms we can now approach how we can extend the library to 
 As a reminder, contrary to a typical function, a template metafunction is one which takes in a set of statically bound types as its arguments and returns a type as its result. The parameter list in this case is analgous to the base type component of the lens we developed in \ref{eq:lens_structure}. The \texttt{obj\_t} and \texttt{field\_t} types are just trivial access mechanisms which reflect the parameterized type back. The function \texttt{get\_name} is required to access the field name from a static context. Finally we have the getter and setter methods, similarly to the name reflection these are declared as static methods. The only distinction in our case from the traditional implementation of a lens is that we do not return the updated object when setting a field as its just not necessary for our purposes.
 
 To contrast this with the original implementation here instead of binding the field properties to the context of the \texttt{add\_property} function we isolate them as an entirely static metafunction. There are a few benefits to this, but the core motivation being to simply create a further separation between how we specify a type and the tools to construct said type, and the actual logic applying these tools. Another benefit of this is that, while currently there exists no native reflection within C++ it should be possible to replace the manual specification of these metafunctions with automated ones with the full addition of reflection.   
-
-\subsubsection{The extension - Types}
 
 A full type, or more concretely in our case object is then a composition of these fields. As metafunctions usually act on the type level as opposed to the value level we pass them to functions as template arguments. Here we have variadic templates come into play which allow us to pass an arbitrary number of our metafunctions to a function, in turn allowing us to construct this composition of fields. The original implementation divided this process of defining types into two parts, the C++ sided definition i.e. the type registration through the \texttt{add\_property} function, and the Julia sided definition i.e. the type implementation and mirroring. As I wanted to generalize the field or property definition as a function which registers a type over a group of fields as opposed to for each field individually I adapted the logic into the \texttt{initalize\_type} function, the signature of which can be seen in listing \ref{listing:init_type_signature}.  
 
@@ -598,7 +588,7 @@ How we then use both this C++ sided initalization and its corresponding runtime 
   \label{listing:usertype_ex_appl}
 \end{listing}
 
-\subsubsection{The extension - unboxing}
+\subsubsection{Semantics of Unboxing \& Boxing}
 
 The final and most major part of the implementation was extending the actual bridging process, both by generalizing the logic to work over objects as opposed to fields and by accounting for how to handle abstract types. Before delving into any of the specifics we have to first introduce a final mechanism in C++ which was heavily used within this process, this being the \textit{fold expression}. As the name implies this mechanism enables the folding of a set of expressions into a single expression through some binary operation. In C++ this is divided into two forms of folding, binary and unary with there being a further subdivision into a left fold and a right fold. The relevance of this mechanism to our extension is that since we are generalizing our process to work over a template pack as opposed to just single type arguments we need a way to work with this pack. In our case we use a unary fold with a `,' operator. Per the specification an instantation of a left unary fold expression is expressed as follows 
 
@@ -638,7 +628,6 @@ The mechanism is for the most part pretty simple, it consits of an initial type 
 
 Here \texttt{\_unbox} is the call to the map lookup, \texttt{gc\_safepoint} is a macro that preserves the julia-sided input \texttt{in} and \texttt{out} is the output of the unboxing process.
 
-\subsubsection{The extension - boxing}
 
 Similarly to the case of unboxing the boxing process requires that we know the underlying concrete type so we can use the correct mechanism to map to the julia sided type. The key difference here is that unlike in the case of Julia we do not trivially know the correct subtype given an abstract type in C++. The solution is then unfortunately a brute force one, we have to iterate over all valid derived types for a given abstract field and then box the derived type which has a valid downcast. There are a few optimization points to consider here, again similary to the type dispatch map we filter out the set of valid derived types for a given field to not preform unecessary downcast checks if we are boxing a concrete field. Furthermore we know that if a dynamic cast succeeds then we want to shortcut out cast checks for the remaining derived types. A final somewhat nuanced point to consider is that we also don't want to try to downcast a concrete type, so we have to ensure that for the case of a trivial boxing we preferably want to immediately box the concrete type without any additional runtime checks. We can achieve all of this through a combination of approaches. On a high level we can implement this as follows.
 
@@ -650,7 +639,7 @@ Similarly to the case of unboxing the boxing process requires that we know the u
 
 On a high level there are 3 main components to the boxing process, the input; which we access via the generic Field getterl; the type switch statement \texttt{MatchTy} which specializes, or matches, on a particular generic lambda given a certain type predicate, and the finalizer which is a simple lambda that boxes the value we get from the matching process. The process of boxing is then roughly as follows, we use a fold expression to iterate over the set of fields, for each field we use a custom parameterized fold expression which discards any invalid derived types at compile time through the compile time type filtering mechanism. In the case of a concrete type we simply box the value, return it, and set it using the finalizer. If the value does have derived types, the fold expression internally iterates over the set of valid derived types and checks if a value is a valid downcast, to avoid unnecessary checks once we have a valid downcast we short circuit the fold expression.  
 
-\subsection{Part 4: How well does it work?}
+\subsection{Evaluation}
 
 We can assess the performance of the library in a few different ways, we can look at the performance, the developer experience and how extensable and maintainable this degree of type level programming is, and finally we can assess the user experience of the library.
 

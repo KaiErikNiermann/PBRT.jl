@@ -1,0 +1,50 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{Contents}{2}{section*.2}%
+\contentsline {section}{Abstract}{1}{section*.3}%
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Background and Motivation}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Objectives}{2}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Research questions}{2}{subsubsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.3}Scope and Limitations}{2}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Structure of the paper}{2}{subsection.1.4}%
+\contentsline {section}{\numberline {2}Background and Tooling}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Language Interoperability Foundations}{2}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Foreign Function Interface (FFI)}{2}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Application Binary Interface (ABI)}{3}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Practical Interop: C-ABI and Wasm}{4}{subsubsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.2}Interoperability Tool Architectures}{5}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Tool Design Patterns}{5}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Similar languages}{6}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Dissimilar languages}{7}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}Memory Management Strategies}{8}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Static strategies}{8}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Dynamic strategies}{9}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Hybrid strategies}{10}{subsubsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.4}Type Interpretation Strategies}{10}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Static interpreting}{11}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Dynamic interpreting}{11}{subsubsection.2.4.2}%
+\contentsline {section}{\numberline {3}Implementation and System Design}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}System Overview and Setup}{12}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Implementation approach}{12}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Choice of Binding Generators}{12}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Implementation setup}{13}{subsubsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.2}Challenges and Design Decisions}{13}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Problem Statement}{13}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Metaprogramming and Partial Evaluation}{15}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}A Record Type Formalism}{17}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Case Study: Jluna's Internals}{21}{subsubsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.3}Solution and Language Extension}{22}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Abstract Types \& Substitutability}{23}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Substitutability in Julia and C++}{24}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Representing Fields \& Types}{25}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Semantics of Unboxing \& Boxing}{26}{subsubsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.4}Evaluation}{28}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Performance and Optimizations}{28}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Developer Experience}{28}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}User Experience}{29}{subsubsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.5}Limitations}{30}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Slow and varying generics support}{30}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Asymmetric metaprogramming features}{30}{subsubsection.3.5.2}%
+\contentsline {subsubsection}{\numberline {3.5.3}Decentralized language evolution}{30}{subsubsection.3.5.3}%
+\contentsline {subsubsection}{\numberline {3.5.4}Theoretical exploration vs practical needs}{30}{subsubsection.3.5.4}%
+\contentsline {section}{\numberline {4}Conclusion}{30}{section.4}%
