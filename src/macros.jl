@@ -1,6 +1,3 @@
-"""
-macro that returns the time taken and writes it to a file for analysis, returns the value of the expression
-"""
 macro wtime(ex)
     quote
         local t1 = round(Int64, time() * 1_000_000) * 1_000 
@@ -18,8 +15,14 @@ macro wtime(ex)
 end
 
 """
-macro to emulate a switch statement for nicer file parsing, allows for boolean matching
+    guard(cond, val)
+    
+Macro that simplifies the syntax for early conditional returns
 """
+macro guard(cond, val)
+    return :( $(esc(cond)) && return $(esc(val)) )
+end
+
 macro match(v, block)
     block = rmlines(block)
     pairs = block.args
@@ -34,4 +37,12 @@ macro match(v, block)
     end
 
     ex
+end
+
+macro vec2(xs...) 
+    return :(V2([$(xs...)...]))
+end
+
+macro vec3(xs...)
+    return :(V3([$(xs...)...]))
 end

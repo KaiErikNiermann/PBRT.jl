@@ -214,7 +214,14 @@
         "thread": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "cstring": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "unordered_set": "cpp",
+        "shared_mutex": "cpp",
+        "cfenv": "cpp",
+        "typeindex": "cpp"
     },
     "files.exclude": {
         "**/.git": true,
@@ -225,6 +232,9 @@
         "**/Thumbs.db": true, 
         "paper/*.aux": true,
         "paper/*.bbl": true,
+        "paper/*.blg": true,
+        "paper/*.listing": true,
+        "paper/*.bbl-SAVE-ERROR": true,
         "paper/*.fdb_latexmk": true,
         "paper/*.fls": true,
         "paper/*.log": true,

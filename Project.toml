@@ -1,3 +1,6 @@
+name = "MiniRT"
+uuid = "5e078529-e047-443c-b340-f155d16dba65"
+
 [deps]
 BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
 CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"

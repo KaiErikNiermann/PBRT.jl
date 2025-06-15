@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 import numpy as np
-from .color import Color
+from .color import RGBVec3
 
 
 @dataclass
@@ -10,15 +10,15 @@ class Material:
 
 @dataclass
 class Lambertian(Material):
-    albedo: Color
+    albedo: RGBVec3
 
 
+@dataclass
 class Metal(Material):
-    def __init__(self, albedo: Color = np.array([0.0, 0.0, 0.0]), fuzz: float = 0.0):
-        self.albedo = albedo
-        self.fuzz = fuzz
+    albedo: RGBVec3 = field(default_factory=lambda: RGBVec3(0.0, 0.0, 0.0))
+    fuzz: float = 0.0
 
 
+@dataclass
 class Dialectric(Material):
-    def __init__(self, ref_idx: float = 0.0):
-        self.ref_idx = ref_idx
+    ref_idx: float = 0.0

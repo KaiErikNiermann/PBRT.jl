@@ -8,15 +8,13 @@
 
 class BVHNode;
 
-bool BVH_hit(const BVHNode& node, const RayData& rd, HitRecord& rec);
-
 class BVHNode : public Hittable {
 public:
     std::shared_ptr<Hittable> left;
     std::shared_ptr<Hittable> right;
     AABB bbox;
 
-    bool hit(const RayData& rd, HitRecord& rec) const override { return BVH_hit(*this, rd, rec); }
+    bool hit(const Ray&, const Interval&, HitRecord&) const override;
 };
 
 set_usertype_enabled(BVHNode);

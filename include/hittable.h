@@ -43,7 +43,7 @@ class Hittable {
 public:
     Hittable()                                                  = default;
     virtual ~Hittable()                                         = default;
-    virtual bool hit(const RayData& rd, HitRecord& rec) const = 0;
+    virtual bool hit(const Ray& ray, const Interval& interval, HitRecord& record) const = 0;
 };
 
 std::vector<double> scale(std::vector<double> v, double s);

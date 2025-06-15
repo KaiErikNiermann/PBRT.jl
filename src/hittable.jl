@@ -1,71 +1,84 @@
 mutable struct HitRecord
-    p::Vector{Float64}
-    normal::Vector{Float64}
+    p::V3
+    normal::V3
     mat::Material
     t::Float64
     front_face::Bool
     u::Float64
     v::Float64
     hit::Bool
-    HitRecord() = new([0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Lambertian(Color([0.0, 0.0, 0.0])), 0.0, false, 0.0, 0.0, false)
 end
 
-mutable struct ScatterData
-    attenuation::Color
+HitRecord() = HitRecord(
+    V3([0.0, 0.0, 0.0]),
+    V3([0.0, 0.0, 0.0]),
+    Lambertian(RGBVec3()),
+    0.0,
+    false,
+    0.0,
+    0.0,
+    false
+)
+
+mutable struct ScatterRecord
+    attenuation::RGBVec3
     scattered::Ray
 end
 
-function set_face_normal!(rec::HitRecord, r::Ray, outward_normal::Vector{Float64})
-    rec.front_face = dot(r.direction, outward_normal) < 0
-    if(rec.front_face)
-        # ray is outside
-        rec.normal = outward_normal
-    else
-        # ray is inside
-        rec.normal = -outward_normal
-    end
-end
+const HRecord  = HitRecord
+const SDRecord = ScatterRecord
 
-function scatter(mat::Lambertian, ray::Ray, rec::HitRecord, sd::ScatterData)::Bool
-    scatter_direction = rec.normal + random_unit_vector()
+function set_face_normal!(h_record::HRecord, r::Ray, outward_normal::V3)
+    h_record.front_face = r.direction ⋅ outward_normal < 0
     
-    # Catch degenerate scatter direction
-    if(near_zero(scatter_direction))
-        scatter_direction = rec.normal
+    if(h_record.front_face)
+        h_record.normal = outward_normal
+    else
+        h_record.normal = -outward_normal
+    end
+end
+
+function scatter(material::Lambertian, h_record::HRecord, s_data::SDRecord, ray::Ray)::Bool
+    s_direction = h_record.normal .+ rand_unit_v()
+    
+    if(near_zero(s_direction))
+        s_direction = h_record.normal
     end
     
-    sd.scattered = Ray(rec.p, scatter_direction)
-    sd.attenuation = mat.albedo
-    return true
+    s_data.scattered   = Ray(h_record.p, s_direction)
+    s_data.attenuation = material.albedo
+    
+    true
 end
 
-function scatter(material::Metal, ray::Ray, rec::HitRecord, sd::ScatterData)::Bool
-    reflected = reflect(ray.direction/norm(ray.direction), rec.normal)
-    sd.scattered = Ray(rec.p, reflected + material.fuzz * random_in_unit_sphere())
-    sd.attenuation = material.albedo
-    return (dot(sd.scattered.direction, rec.normal) > 0)
+function scatter(material::Metal, h_record::HRecord, s_data::SDRecord, ray::Ray)::Bool
+    reflected          = reflect(unit_v(ray.direction), h_record.normal)
+
+    s_data.scattered   = Ray(h_record.p, reflected .+ (material.fuzz * random_in_unit_sphere()))
+    s_data.attenuation = material.albedo
+    
+    (s_data.scattered.direction ⋅ h_record.normal) > 0
 end
 
-function scatter(material::Dielectric, ray::Ray, rec::HitRecord, sd::ScatterData)::Bool
-    sd.attenuation = Color([1.0, 1.0, 1.0])
-    refraction_ratio = rec.front_face ? (1.0 / material.ir) : material.ir
-
-    unit_direction = ray.direction/norm(ray.direction)
-    cos_theta = min(dot(-unit_direction, rec.normal), 1.0)
-    sin_theta = sqrt(1.0 - cos_theta^2)
-
-    cannot_refract = refraction_ratio * sin_theta > 1.0
-    dir = [0.0, 0.0, 0.0]
-    if(cannot_refract || reflectance(cos_theta, refraction_ratio) > random_double())
-        dir = reflect(unit_direction, rec.normal)
-    else
-        dir = refract(unit_direction, rec.normal, refraction_ratio)
-    end
-
-    sd.scattered = Ray(rec.p, dir)
-    return true
+function scatter(material::Dielectric, h_record::HRecord, s_data::SDRecord, ray::Ray)::Bool
+    refraction_ratio = h_record.front_face ? (1.0 / material.ir) : material.ir
+    
+    unit_direction   = unit_v(ray.direction)
+    cosθ             = min((-unit_direction ⋅ h_record.normal), 1.0)
+    sinθ             = sqrt(1.0 - cosθ^2)
+    
+    cannot_refract = (refraction_ratio * sinθ) > 1.0
+    
+    direction = cannot_refract || reflectance(cosθ, refraction_ratio) > rand_f64() ? 
+    reflect(unit_direction, h_record.normal) :
+    refract(unit_direction, h_record.normal, refraction_ratio)
+    
+    s_data.scattered = Ray(h_record.p, direction)
+    s_data.attenuation = RGBVec3(V3[1.0, 1.0, 1.0])
+    
+    true
 end
 
 abstract type Hittable end
 
-struct NULLHittable <: Hittable end
+export HitRecord, ScatterRecord, Hittable, set_face_normal!, scatter, HRecord, SDRecord

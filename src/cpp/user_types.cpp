@@ -19,9 +19,9 @@ static const char x[]          = "x";
 static const char y[]          = "y";
 static const char z[]          = "z";
 static const char albedo[]     = "albedo";
-static const char A[]          = "A";
-static const char B[]          = "B";
-static const char C[]          = "C";
+static const char v1[]          = "v1";
+static const char v2[]          = "v2";
+static const char v3[]          = "v3";
 static const char id[]         = "id";
 static const char edges[]      = "edges";
 static const char mat[]        = "mat";
@@ -36,13 +36,11 @@ static const char v[]          = "v";
 static const char t[]          = "t";
 static const char hit[]        = "hit";
 static const char front_face[] = "front_face";
-static const char r[]          = "r";
-static const char g[]          = "g";
-static const char b[]          = "b";
 static const char left[]       = "left";
 static const char right[]      = "right";
 static const char ray[]        = "ray";
 static const char interval[]    = "interval";
+static const char data[]       = "data";
 
 void register_type_properties() {
     Usertype<Ray>::initialize_type(
@@ -60,9 +58,9 @@ void register_type_properties() {
     Usertype<Lambertian>::initialize_type(TList<Lens<albedo, &Lambertian::albedo>>(), TList<>());
 
     Usertype<Triangle>::initialize_type(
-        TList<Lens<A, &Triangle::A>,
-           Lens<B, &Triangle::B>,
-           Lens<C, &Triangle::C>,
+        TList<Lens<v1, &Triangle::v1>,
+           Lens<v2, &Triangle::v2>,
+           Lens<v3, &Triangle::v3>,
            Lens<id, &Triangle::id>,
            Lens<edges, &Triangle::edges>,
            Lens<mat, &Triangle::mat>,
@@ -91,12 +89,12 @@ void register_type_properties() {
         TList<Triangle, Sphere, Lambertian>()
     );
 
-    Usertype<Color>::initialize_type(
-        TList<Lens<r, &Color::r>, Lens<g, &Color::g>, Lens<b, &Color::b>>(), TList<>()
-    );
+   Usertype<RGBVec3>::initialize_type(
+        TList<Lens<data, &RGBVec3::data>>(), TList<>()
+   );
 
-    Usertype<RayData>::initialize_type(
-        TList<Lens<ray, &RayData::ray>, Lens<interval, &RayData::interval>>(), TList<>()
+    Usertype<RayPath>::initialize_type(
+        TList<Lens<ray, &RayPath::ray>, Lens<interval, &RayPath::interval>>(), TList<>()
     );
 
     Usertype<BVHNode>::initialize_type(
@@ -115,8 +113,8 @@ void implement_types() {
     Usertype<Sphere>::implement<Hittable>();
     Usertype<Triangle>::implement<Hittable>();
     Usertype<HitRecord>::implement();
-    Usertype<Color>::implement();
-    Usertype<RayData>::implement();
+    Usertype<RGBVec3>::implement();
+    Usertype<RayPath>::implement();
     Usertype<BVHNode>::implement<Hittable>();
 }
 

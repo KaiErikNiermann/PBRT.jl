@@ -1,68 +1,72 @@
 
-mutable struct BVHNode <: Hittable
+"""
+    BVHNode(left::Hittable, right::Hittable, bbox::AABB)
+
+A struct representing a node in a Bounding Volume Hierarchy (BVH) for efficient ray tracing.
+
+- `left` , `right` are the left and right child nodes, which can be either individual hittable objects or other BVH nodes.
+- `bbox` is the axis-aligned bounding box that encompasses both child nodes.
+"""
+@kwdef mutable struct BVHNode <: Hittable
     left::Hittable
     right::Hittable
     bbox::AABB
-    function BVHNode(left::Hittable, right::Hittable, bbox::AABB)
-        new(left, right, bbox)
-    end
-    BVHNode() = new(NULLHittable(), NULLHittable(), AABB())
 end
 
-function box_compare(a, b)
-    a.lo < b.lo
-end
+BVHNode(object::Hittable, bbox::AABB) =
+    BVHNode(object, object, bbox)
 
-box_x_compare(a, b) = box_compare(a.bbox.x, b.bbox.x)
-box_y_compare(a, b) = box_compare(a.bbox.y, b.bbox.y)
-box_z_compare(a, b) = box_compare(a.bbox.z, b.bbox.z)
+box_compare(a, b) = a.lo < b.lo
 
-function BVHNode(objects::Vector{Hittable}, start, end_, node::BVHNode)::BVHNode
-    bbox = AABB()
-    for i in start:end_
-        bbox = AABB(bbox, objects[i].bbox)
+const comparators = Dict(
+    1 => (a, b) -> box_compare(a.bbox.x, b.bbox.x),
+    2 => (a, b) -> box_compare(a.bbox.y, b.bbox.y),
+    3 => (a, b) -> box_compare(a.bbox.z, b.bbox.z)
+)
+
+function compute_bvh(objects::Vector{Hittable}, range::UnitRange{Int})::BVHNode
+    bbox = reduce(
+        (a, i) -> AABB(a, objects[i].bbox),
+        collect(range), 
+        init = AABB()
+    )
+
+    len = length(range)
+
+    if !(len == 1 || len == 2)
+        sorted_view = @view objects[range]
+
+        sort!(
+            sorted_view,
+            lt  = comparators[longest_axis(bbox)],
+            rev = false
+        )
+
+        mid = first(range) + (len ÷ 2) - 1
+
+        return BVHNode(
+            compute_bvh(objects, first(range):mid), 
+            compute_bvh(objects, (mid + 1):last(range)), 
+            bbox
+        )
     end
 
-    axis = longest_axis(bbox)
-
-    comparator = if axis == 1 
-                    box_x_compare
-                elseif axis == 2
-                    box_y_compare
-                else
-                    box_z_compare
-                end
-    
-    object_span = end_ - start
-
-    if object_span == 1
-        node.left = objects[start]
-        node.right = objects[start]
-        BVHNode(node.left, node.right, bbox)
-    elseif object_span == 2
-        node.left = objects[start]
-        node.right = objects[start + 1]
-        BVHNode(node.left, node.right, bbox)
-    else
-        objects[start:end_] = sort(objects[start:end_], lt=comparator)
-        mid = start + trunc(Int, object_span / 2)
-
-        node.left = BVHNode(objects, start, mid, BVHNode())
-        node.right = BVHNode(objects, mid, end_, BVHNode())
-        BVHNode(node.left, node.right, bbox)
-    end
-
+    BVHNode(objects[range]..., bbox)
 end
 
-BVHNode(list::HittableList, node::BVHNode) = BVHNode(list.objects, 1, length(list.objects), node)
+compute_bvh(h_list::HList) = begin
+    @info "Computing BVH for $(length(h_list.objects)) objects"
+    compute_bvh(h_list.objects, 1:length(h_list.objects))
+end 
 
-function hit!(node::BVHNode, r::Ray, ray_t::Interval, rec::HitRecord)::Bool
-    if(!hit!(node.bbox, r, ray_t))
-        return false
-    end
+function hit!(node::BVHNode, ray::Ray, interval::Interval, record::HRecord)::Bool
+    @guard !hit!(node.bbox, ray, interval) false
 
-    hit_left = hit!(node.left, r, ray_t, rec)
-    hit_right = hit!(node.right, r, Interval(ray_t.lo, ifelse(hit_left, rec.t, ray_t.hi)), rec)
+    hit_left  = hit!(node.left, ray, interval, record)
+    hit_right = hit!(node.right, ray, Interval(interval.lo, ifelse(hit_left, record.t, interval.hi)), record)
 
-    return (hit_left || hit_right)
+    hit_left || hit_right
 end
+
+export BVHNode, compute_bvh, hit!
+export box_compare, comparators

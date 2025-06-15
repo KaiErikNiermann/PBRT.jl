@@ -1,0 +1,5 @@
+\begin{align}
+  s:S & \vdash \text{put} ( \text{get} (s), s ) = s \label{eq:get-put} \tag{Get-Put} \\
+  v:V, s:S & \vdash \text{get} ( \text{put} (v, s) ) = v \label{eq:put-get} \tag{Put-Get} \\
+  v_1, v_2: V, s: S & \vdash \text{put} (v_2, \text{put} (v_1, s)) = \text{put} (v_2, s) \label{eq:put-put} \tag{Put-Put}
+\end{align}

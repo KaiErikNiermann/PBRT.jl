@@ -1,33 +1,30 @@
 from dataclasses import dataclass
 from .hittable import Hittable, HitRecord
-from .aabb import aabb, ray_itval, hit_aabb, interval
-import time
+from .aabb import AABB, RayPath, hit, Interval, Ray
+from functools import singledispatch
 
 
 @dataclass
-class bvh_node(Hittable):
+class BVHNode(Hittable):
     left: Hittable
     right: Hittable
-    bbox: aabb
-
-    def __repr__(self) -> str:
-        return f"bvh_node"
+    bbox: AABB
 
 
-def hit_bvh(node: bvh_node, rt: ray_itval, rec: HitRecord) -> bool:
-    def hit(node: bvh_node, rt: ray_itval, rec: HitRecord) -> bool:
-        from .abs_hit import hit
+@singledispatch
+def hit(node: BVHNode, ray: Ray, interval: Interval[float], record: HitRecord) -> bool:
+    if not hit(node.bbox, ray, interval, record):
+        return False
 
-        if not hit(node.bbox)(rt.r, rt.t):
-            return False
+    hit_left = hit(node.left, ray, interval, record)
 
-        hit_left = hit(node.left)(rt, rec)
-        hit_right = hit(node.right)(
-            ray_itval(rt.r, interval(rt.t.lo, rec.t if hit_left else rt.t.hi)), rec
-        )
+    hit_right = hit(
+        node.right,
+        RayPath(
+            ray, Interval(
+                interval.lo, record.t if hit_left else interval.hi)
+        ),
+        record,
+    )
 
-        return hit_left or hit_right
-
-    res = hit(node, rt, rec)
-
-    return res
+    return hit_left or hit_right

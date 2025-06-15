@@ -1,66 +1,71 @@
-struct Triangle <: Hittable
-    A::Vector{Float64}
-    B::Vector{Float64}
-    C::Vector{Float64}
+"""
+    Triangle(v1::Vector{Float64}, v2::Vector{Float64}, v3::Vector{Float64}, material::Material)
+
+A triangle defined by three vertices in 3D space, with a material and an axis-aligned bounding box (AABB).
+
+- `v1`, `v2`, `v3` are the vertices of the triangle, represented as vectors of type `Vector{Float64}`.
+- `id` is a unique identifier for the triangle.
+- `edges` is a vector of sets, each containing two vertices that form the edges of the triangle.
+- `mat` is the material of the triangle, which can be of type `Material`.
+- `bbox` is the axis-aligned bounding box that encompasses the triangle.
+"""
+@kwdef struct Triangle <: Hittable
+    v1::V3
+    v2::V3
+    v3::V3
     id::Int
-    edges::Vector{Set{Vector{Float64}}}
+    edges::Vector{Set{V3}}
     mat::Material
     bbox::AABB
 end 
 
-Triangle() = Triangle([1.0, 0.0, 0.0], [2.0, 0.0, 0.0], [3.0, 0.0, 0.0], 0, [], Lambertian(Color()), AABB())
-
-Triangle(A::Vector{Float64}, B::Vector{Float64}, C::Vector{Float64}, mat::Material) = begin 
-    u = B - A
-    v = C - A
-    bbox_diag1 = AABB(A, A + u + v)
-    bbox_diag2 = AABB(A + u, A + v)
-    bbox = AABB(bbox_diag1, bbox_diag2)
-    edges = [Set([A, B]), Set([B, C]), Set([C, A])]
-    id = rand(1:10000000000000000)
-    Triangle(A, B, C, id, edges, mat, bbox)
+function compute_triangle(v1::Vector{Float64}, v2::Vector{Float64}, v3::Vector{Float64}, material::Material)::Triangle 
+    u = v2 - v1
+    v = v3 - v1
+    
+    Triangle(
+        v1 = V3([v1...]), 
+        v2 = V3([v2...]),
+        v3 = V3([v3...]),
+        id = rand(1:10000000000000000),
+        edges = [Set([v1, v2]), Set([v2, v3]), Set([v3, v1])],
+        mat = material,
+        bbox = AABB(AABB(v1, v1 + u + v), AABB(v1 + u, v1 + v)), 
+    )
 end
 
-Base.show(io::IO, t::Triangle) = print(io, "Triangle(id = $(t.id))")
+function hit!(triangle::Triangle, ray::Ray, interval::Interval, record::HitRecord)::Bool
+    edge1     = triangle.v2 - triangle.v1
+    edge2     = triangle.v3 - triangle.v1
+    normal    = normalize(cross(edge1, edge2))
 
-function hit!(t::Triangle, r::Ray, ray_t::Interval, rec::HitRecord)::Bool
-    e1 = t.B - t.A
-    e2 = t.C - t.A
-    normal = normalize(cross(e1, e2))
+    ray_cross_edge2 = cross(ray.direction, edge2)
+    det             = edge1 ⋅ ray_cross_edge2
 
-    ray_cross_e2 = cross(r.direction, e2)
-    det = dot(e1, ray_cross_e2)
-
-    if det > -0.0001 && det < 0.0001
-        return false
-    end
+    @guard abs(det) < ϵ false 
 
     inv_det = 1.0 / det
-    s = r.origin - t.A
-    u = inv_det * dot(s, ray_cross_e2)
-    if u < 0.0 || u > 1.0
-        return false
-    end
+    s       = ray.origin - triangle.v1
+    u       = inv_det * (s ⋅ ray_cross_edge2)
 
-    s_cross_e1 = cross(s, e1)
-    v = inv_det * dot(r.direction, s_cross_e1)
+    @guard !(0.0 < u < 1.0) false
 
-    if v < 0.0 || u + v > 1.0
-        return false
-    end
+    s_cross_edge1 = cross(s, edge1)
+    v             = inv_det * (ray.direction ⋅ s_cross_edge1)
 
-    t_val = inv_det * dot(e2, s_cross_e1)
+    @guard v < 0.0 || u + v > 1.0 false
 
-    if t_val < ray_t.lo || t_val > ray_t.hi
-        return false
-    end
+    t = inv_det * edge2 ⋅ s_cross_edge1
+
+    @guard !(interval.lo < t < interval.hi) false
+
+    record.t   = t
+    record.p   = at(ray, record.t)
+    record.mat = triangle.mat
     
-    # Update the hit record with intersection information
-    rec.t = t_val
-    rec.p = at(r, rec.t)
-    set_face_normal!(rec, r, normal)
-    rec.mat = t.mat
+    set_face_normal!(record, ray, normal)
     
     true
 end
 
+export Triangle, compute_triangle, hit!

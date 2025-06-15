@@ -1,24 +1,25 @@
 #include "bvh.h"
 
-bool BVH_hit(const BVHNode& node, const RayData& rd, HitRecord& rec) {
-    if (!AABB_hit(node.bbox, rd.ray, rd.interval)) {
-        rec.hit = false;
+bool BVHNode::hit(const Ray& ray, const Interval& interval, HitRecord& record) const {
+    if (!hit_bbox(this->bbox, ray, interval)) {
+        record.hit = false;
         return false;
     }
 
     bool hit_left  = false;
     bool hit_right = false;
 
-    if (node.left != nullptr) {
-        hit_left = node.left.get()->hit(rd, rec);
+    if (this->left != nullptr) {
+        hit_left = this->left.get()->hit(ray, interval, record);
     }
     
-    if (node.right != nullptr) {
-        hit_right = node.right.get()->hit(
-            RayData(Interval(rd.interval.lo, hit_left ? rec.t : rd.interval.hi), rd.ray), rec
+    if (this->right != nullptr) {
+        hit_right = this->right.get()->hit(
+            ray, Interval(interval.lo, hit_left ? record.t : interval.hi), record
         );
     }
 
-    rec.hit = hit_left || hit_right;
-    return rec.hit;
+    record.hit = hit_left || hit_right;
+
+    return record.hit;
 }

@@ -1,92 +1,138 @@
 import Base: +, -, *
 
-struct Color
-    r::Float32
-    g::Float32
-    b::Float32
-    function Color(c)
-        new(c[1], c[2], c[3])
-    end
-    Color() = new(0.0, 0.0, 0.0)
-    Color(r::Float32, g::Float32, b::Float32) = new(r, g, b)
-end
+const ϵ                = 1e-8
+const DEF_ASPECT_RATIO = 16.0 / 9.0
 
-
--(v::Vector{Float64}, sc::Float64) = [v[1] - sc, v[2] - sc, v[3] - sc]
-
-+(v::Vector{Float64}, sc::Float64) = [v[1] + sc, v[2] + sc, v[3] + sc]
-
-*(v::Vector{Float64}, sc::Float64) = [v[1] * sc, v[2] * sc, v[3] * sc]
-
-+(c1::Color, c2::Color)::Color = Color([c1.r .+ c2.r, c1.g .+ c2.g, c1.b .+ c2.b])
-
-*(t::Float64, c::Color)::Color = Color([t .* c.r, t .* c.g, t .* c.b])
-
-*(c1::Color, c2::Color)::Color = Color([c1.r .* c2.r, c1.g .* c2.g, c1.b .* c2.b])
-
-@inline function random()::Vector{Float64}
-    Vector{Float64}(random_double(), random_double(), random_double())
-end
-
-@inline function random(min::Float64, max::Float64)::Vector{Float64}
-    [random_double(min, max), random_double(min, max), random_double(min, max)]
-end
-
-random_double()::Float64 = rand(Uniform(0.0, 1.0))
-
-random_double(min::Float64, max::Float64)::Float64 = min + (max - min) * random_double() 
-
-random_int(min::Int, max::Int)::Int = trunc(Int, random_double(min, max + 1))
-
-random_unit_vector() = normalize(random_in_unit_sphere())
-
-@inline function random_in_unit_sphere()
-    while true
-        p = random(-1.0, 1.0)
-        if(norm(p) >= 1.0)  
-            continue
-        end
-        return p
-    end
-end
-
-@inline function random_in_unit_disk()
-    while(true)
-        p = [random_double(-1.0, 1.0), random_double(-1.0, 1.0), 0]
-        if(dot(p, p) >= 1)
-            continue
-        end
-        return p
-    end
-end
-
-@inline function random_in_hemisphere(normal::Vector{Float64})::Vector{Float64}
-    in_unit_sphere = random_in_unit_sphere()
-    ifelse(dot(in_unit_sphere, normal) > 0.0, in_unit_sphere, -in_unit_sphere)
+struct RGBVec3
+    data::V3
 end 
 
-const EPSILON = 1e-8
+RGBVec3() = RGBVec3(@vec3 0.0, 0.0, 0.0)
+RGBVec3(r::Float64, g::Float64, b::Float64) = RGBVec3(@vec3 r, g, b)
 
-@inline function near_zero(vec::Vector{Float64})::Bool
-    (abs(vec[1]) < EPSILON) && (abs(vec[2]) < EPSILON) && (abs(vec[3]) < EPSILON)
++(c1::RGBVec3, c2::RGBVec3)::RGBVec3 = 
+    RGBVec3(c1.data + c2.data)
+-(c1::RGBVec3, c2::RGBVec3)::RGBVec3 =
+    RGBVec3(c1.data - c2.data)
+*(c::RGBVec3, s::Float64)::RGBVec3 =
+    RGBVec3(c.data * s)
+*(s::Float64, c::RGBVec3)::RGBVec3 =
+    RGBVec3(c.data * s)
+*(c1::RGBVec3, c2::RGBVec3)::RGBVec3 =
+    RGBVec3(c1.data .* c2.data)
+
+Base.getproperty(c::RGBVec3, s::Symbol) = 
+    s === :r ? c.data[1] :
+    s === :g ? c.data[2] :
+    s === :b ? c.data[3] :
+    getfield(c, s)
+
+function split_quad(vertices)
+    v1, v2, v3, v4 = vertices
+
+    mat() = Metal(rand_rgbvec3(), 0.0)
+
+    return norm(v1 - v3) <= norm(v2 - v4) ? [
+        compute_triangle(v1, v2, v3, mat()),
+        compute_triangle(v1, v4, v3, mat())
+    ] : [
+        compute_triangle(v1, v2, v4, mat()),
+        compute_triangle(v2, v4, v3, mat())
+    ]
 end
 
-reflect(v::Vector{Float64}, n::Vector{Float64})::Vector{Float64} = v + 2.0 * dot(-n, v) * n
+unit_v(v::V3)::V3 = v ./ norm(v)
+
+norm_coords(pos::V2, dims::Vector{Int64})::V2 = 
+    (pos .+ rand_f64()) ./ (dims .- 1)
+
+rand_rgbvec3()::RGBVec3 = 
+    RGBVec3(@vec3 rand([0.0, 1.0]), rand([0.0, 1.0]), rand([0.0, 1.0]))
+
+rand_f64vec3()::V3 = 
+    @vec3 rand_f64(), rand_f64(), rand_f64()
+
+rand_f64vec3(min::Float64, max::Float64)::V3 = 
+    @vec3 rand_f64(min, max), rand_f64(min, max), rand_f64(min, max)
+
+rand_f64()::Float64 = 
+    rand(Uniform(0.0, 1.0))
+
+rand_f64(min::Float64, max::Float64)::Float64 = 
+    min + (max - min) * rand_f64() 
+
+rand_i64(min::Int64, max::Int64)::Int64 = 
+    trunc(Int64, rand_f64(Float64(min), Float64(max)))
+
+rand_unit_v() = 
+    normalize(random_in_unit_sphere())
+
+near_zero(vec::V3)::Bool = 
+    all(abs.(vec) .< ϵ)
+
+reflect(v::V3, n::V3)::V3 = 
+    v + 2.0 * (-n ⋅ v) * n
+
+function random_in_unit_sphere()
+    while true
+        p = rand_f64(-1.0, 1.0)
+        if norm(p) >= 1.0  
+            continue
+        end
+        return p
+    end
+end
+
+function random_in_unit_disk()
+    while true
+        p = @vec3 rand_f64(-1.0, 1.0), rand_f64(-1.0, 1.0), 0.0
+        if p ⋅ p >= 1
+            continue
+        end
+        return p
+    end
+end
+
+function random_in_hemisphere(normal::V3)::V3
+    in_unit_sphere = random_in_unit_sphere()
+
+   (in_unit_sphere ⋅ normal) > 0.0 ? in_unit_sphere : -in_unit_sphere
+end 
 
 @doc raw"""
-    refract(uv::Vector{Float64}, n::Vector{Float64}, r::Float64)::Vector{Float64}
+    refract(uv::V3, n::V3, r::Float64)::V3
 
-Refract a vector `uv` through a normal `n` with a refractive index `r`. Uses Snell's Law to calculate the refracted vector.
+Refract a vector `uv` with respect to a normal `n` and a refraction index `r`.
 
+```math
+\begin{equation}
+    \underbrace{\frac{\eta}{\eta '}(\mathbf R + |\mathbf R|\cos \theta \mathbf n)}_{\mathbf R'_\perp\text{ - perpendicular ray}} + \underbrace{-\sqrt{1 - |\mathbf R'_\perp|^2 \mathbf n}}_{\mathbf R'_\parallel \text{ - parallel ray}}
+\end{equation}
+```
 """
-@inline function refract(uv::Vector{Float64}, n::Vector{Float64}, r)::Vector{Float64} 
-    cos_theta = min(dot(-uv, n), 1)
-    r_out_perp = r * (uv + cos_theta * n)
-    r_out_parallel = -sqrt(abs(1.0 - r^2 * (1 - cos_theta^2))) * n
+function refract(uv::V3, n::V3, r)::V3 
+    cosθ            = min((-uv ⋅ n), 1)
+    r_out_perp      = r * (uv + cosθ * n)
+    r_out_parallel  = -sqrt(abs(1.0 - r^2 * (1 - cosθ^2))) * n
+
     r_out_perp + r_out_parallel
 end
 
-@inline function reflectance(cosine, ref_idx)::Float64
+@doc raw"""
+    reflectance(cosθ::Float64, ref_idx::Float64)::Float64
+
+Schlick's approximation for reflectance. 
+
+```math 
+\begin{equation}
+    R(\theta) = R_0 + (1 - R_0) \cdot (1 - \cos \theta)^5 \quad \text{where} \quad R_0 = \left(\frac{1 - n}{1 + n}\right)^2
+\end{equation}
+```
+"""
+function reflectance(cosθ, ref_idx)::Float64
     r0 = ((1 - ref_idx) / (1 + ref_idx))^2
-    r0 + (1 - r0) * (1 - cosine)^5
+    (r0 + (1 - r0) * (1 - cosθ)^5) # R(θ)
 end
+
+export RGBVec3
+export rand_f64, rand_f64vec3, rand_rgbvec3, rand_unit_v, norm_coords, unit_v, rand_f64, rand_f64vec3, rand_f64vec3, rand_i64   

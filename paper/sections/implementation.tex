@@ -2,7 +2,7 @@
 
 So to begin this exploration of the practical side language interoperability I had to first think of a piece of software I could use to test this idea. Before doing so I thought it would be important to further refine my idea beyond just wanting to test out my `lego idea'. As said before the concept of rewriting code is by no means new, I don't believe it would be absurd by any means to suggest that most programmers at one point or another, while writing some piece of code, or even after the fact, recognized ways in which their solution can be improved. Often improvements or iterations on the original piece of code just naturally have to occur to fit the evolving goal for a given piece of software. So it would make sense that there should be some type of reason as to why we want to rewrite a specific piece of code, in our case performance would be a pretty natural choice. While most programming languages of course aim to be performant, respective to their application, due to differences in their design and execution methods they naturally exhibit differences.
 
-Ok, so we want to choose a piece of software, preferably one with a performance-critical component, which we want to rewrite. Looking back at my previous projects one specifically came to mind, my implementation of a simple Ray Tracer in the Julia programming languages based on Peter Shirley's wonderful guide and C++ implementation \cite{Shirley2024RTW1}\cite{Shirley2024RTW2}. My initial goal with this project was to learn Julia as I had heard and seen that if written in a very idiomatic manner it can exhibit performance characteristics close to that of C while offering the dynamically-typed high-level simplicity of Python. Naturally, when benchmarking my final implementation my results were less than desirable. To elaborate on why my program exhibited these performance characteristics it makes sense to briefly go into the core of how Julia's code is run. There is a very nice quote on the Julia forums which I believe effectively conveys this.
+Ok, so we want to choose a piece of software, preferably one with a performance-critical component, which we want to rewrite. Looking back at my previous projects one specifically came to mind, my implementation of a simple Ray Tracer in the Julia programming languages based on Peter Shirley's wonderful guide and C++ implementation \cite{Shirley2024RTW1, Shirley2024RTW2}. My initial goal with this project was to learn Julia as I had heard and seen that if written in a very idiomatic manner it can exhibit performance characteristics close to that of C while offering the dynamically-typed high-level simplicity of Python. Naturally, when benchmarking my final implementation my results were less than desirable. To elaborate on why my program exhibited these performance characteristics it makes sense to briefly go into the core of how Julia's code is run. There is a very nice quote on the Julia forums which I believe effectively conveys this.
 
 \begin{quote}
   \textit{in short, it's a reasonably good static compiler but a terrible JIT}
@@ -24,6 +24,7 @@ As one of the objectives of this paper is not only to research the theoretical u
   \include{tex_figures/simple_rt_impl}
   \caption{Ray-Tracer high level control flow}
   \label{fig:simple_rt_impl}
+  \Description{}
 \end{figure}
 
 \subsubsection{Implementation approach}
@@ -42,6 +43,7 @@ The implementation setup to test the component rewritten in Python and C++ can b
   \include{tex_figures/main_interface}
   \caption{Cross-language implementation of the ray-tracer}
   \label{fig:main_interface}
+  \Description{}
 \end{figure*}
 
 \subsection{Challenges and Design Decisions}
@@ -55,16 +57,17 @@ Now while in theory the implementation here was straightforward a major issue I 
   \include{tex_figures/bvh_type_structure}
   \caption{BVH Type Structure}
   \label{fig:bvh_type_structure}
+  \Description{}
 \end{figure}
 
 In both of these instance the type of polymorphism we are talking about is subtyping polymorphism, while both C++ and Julia; abstractly speaking; implement similar conventions in terms of enabling subtyping polymorphism, namely some abstract type and a means of specifying a type hierarchy, there are considerable differences when it comes to the practical case of interop. A very distinction between the high level notions of interop and the low level practicalities is how types are actually represented, as we are still fundamentally working through the C-ABI or more accurately through an abstraction (Jluna) over the Julia C-API before we do anything we need to actually parse the underlying representation of Julia types. Pleasantly enough this process is elegantly implemented within Jluna for all types up to structs. The manner in which Jluna does this is largely by using generics to recursively deconstruct the low level representation of a Julia type. To ensure constraints on the implementation, by which I mean rejecting types which it cannot parse for some C++ analogue the implementation utilizes constraints (the implementation being concepts in this case) on its generic deconstruction methods which ensure certain invariants hold that constrain the set of bridgeable types to only those specified by the programmer. One of these constraints was a static assertion which prevent bridging abstract types, in other words types which exhibited subtyping polymorphism, which brings us back to the issue I ran into. The question then becomes how does one solve this problem. To contrast this with the case of Python and Julia; somewhat expectedly; the story was a lot easier. JuliaCall, which is the library I chose for bridging between these two languages simply wraps Julia types with python objects that idiomatically mirror their Julia counterparts, which in turn means that we retain all the means to easily replicate the polymorphic behavior in Python. Trivially a straightforward solution to the C++ and Julia interop. would have been to simply rewrite the ray tracer such that the BVH and hit record represent everything in a non polymorphic format, though there a few reasons I was curious about trying to bridge these types.
+
 \begin{enumerate}
   \item \textit{Challenging Common Notions:} It's a somewhat common notion when you look at the interoperability goals for bigger companies to simply constrain the set of bridgeable behaviors to minimal things. I was curious to challenge this notion; with the increasingly expansive type systems even mainstream languages implement, sooner or later, a hyper restrictive approach to cross-language systems will substantially limit libraries which apply more complex aspects of their type system in library design.
   \item \textit{Flexibility Discrepancy:} Furthermore, I wanted some clarity on to what extent the general discrepancy in flexibility between dynamic languages and statically compiled languages in the context of cross-language systems spoke to some basic nature of type systems and execution models or was more a function of certain implementation philosophies or limited applications of a language's features.
   \item \textit{Viability of Loosening Constraints:} I was curious to test the viability of loosening the constraints both in terms of implementation complexity of the system and the resulting performance effects that come from bridging these types.
   \item \textit{Feasibility Exploration:} I was generally curious about the feasibility as a whole, given that it's a lot rarer to see complex type bridging for cross-language systems involving statically typed languages, especially ones where the statically typed language is in focus (as opposed to relying heavily on the dynamic language). I felt this would potentially provide some interesting insights.
 \end{enumerate}
-
 
 With the broad idea in mind of what we want to achieve now and some motivation as to why it makes sense to establish a more concrete approach. Before we asses the details for how to extend the Jluna library it makes sense to first asses in detail how the library works currently. As was discussed throughout \ref{s:background} if we think of C++ as our host language and Julia as the target then boxing would be the operation of representing a C++ type in Julia, and unboxing the reverse. In Jluna the boxing and unboxing have multiple steps, we can give a high level overview of it as follows. With a general breakdown of what each step entails.
 
@@ -73,6 +76,7 @@ With the broad idea in mind of what we want to achieve now and some motivation a
   \include{tex_figures/jluna_high_level_impl}
   \caption{High-level overview of Jluna application}
   \label{fig:jluna_high_level_impl}
+  \Description{}
 \end{figure}
 
 \begin{enumerate}
@@ -105,6 +109,7 @@ A first rather obvious question would be how do we implement our extension witho
 \end{table}
 
 With this in mind we can make few key observations already. As stated before the library was designed to fully disallow abstract types, hence this would likely form the first step to our extension. Furthermore as this library was not designed with abstract types in mind it naturally did not implement a way to accomodate such types, or attributes of such types, in the type implementation (Julia instantiation), boxing or unboxing. From this there are a few interesting questions which arise as to how we proceed.
+
 \begin{enumerate}
   \item \textit{How do we encode the abstract base class?} Given that the library was designed to fully disallow abstract types, the type specification needs to implement a mechanism to express subtyping relationships.
   \item \textit{What are the effects of this constraint on the implementation of the library as a whole?} More broadly this is a question of extensibility in library design often appears. One interesting aspect of Jluna specifically is its heavy usage of compile-time metaprogramming and highly generic type encodings as opposed to for example concrete wrappers or more traditional parsing approaches as a means of generating bindings. A natural question which then arises is how does the extensive application of these paradigms effect the ease of extensibility given the constraints placed on the inital implementation.
@@ -158,24 +163,23 @@ While constrained generics are a somewhat standard feature in many different pro
   \include{tex_figures/partial_eval_graph}
   \caption{Partial Evaluation Process}
   \label{fig:partial_eval_graph}
+  \Description{}
 \end{figure}
 
 Expressing this in more rigorous terms we can define a partial evaluator $p_e$ as a function which maps a program $p$ and some collection of statically known information $I_s$ to a program $p'$ called the "residual" via speciaization, with $p'$ then mapping the dynamic information $I_d$ i.e. runtime information to a given output $O$. Formally we can express this as follows
 
-\begin{equation*}
-  p_e : \langle p, I_s \rangle \rightarrow p' : I_d \rightarrow O
-\end{equation*}
+\input{equations/partial_eval}
 
 Bringing this back to metaprogramming an observation which was noted by \cite{Veldhuizen1998} is that this act of specializing based on the static binding of types to templates, is quite analogous to the process of partial evaluation. Something which gave further ground to this idea was the fact that templates allow non-type parameters, recursion and partial specialization. As the recursion implies self-reference and the combination of non-type parameters and partial specializations can be used to express a base case, we can define various control flow structures in the template or more broadly type level, something which was first discovered by \cite{unruh1994prime}. Due to the somewhat accidental nature of the discovery template metaprogramming and the notoriously cumbersum syntax of C++ templates, the idea of applying this paradigm in any extreme length has largely been relegated to nieche instances as only more recent versions of C++ have tried to really focus on expanding the feature set of templates.
 
 Some important observations we can take away from this similarity between template metaprogramming and partial evaluation is that firstly we can view the process Jluna defines to specify and implement types as a form of partial evaluation. Specifically we can consider jluna as a binding generator-generator which is to say that jluna represents a partial evaluator which takes the type specifications and the generic logic used for bidirectional transformations and defines a specialized binding generator which is then compiled. Expressed in formal terms if we consider jluna as a function $G^1_{L_1,L_2}$ which maps a a set of types specifications $\mathbf T$ and a set of binding generator logic $C$ to a binding generator $C_{\mathbf T}$ we can express this as follows.
-\begin{equation}
-  G^1_{L_1,L_2} : \langle \mathbf T, C \rangle \rightarrow C_{\mathbf T}
-\end{equation}
+
+\input{equations/first_futurama_proj.tex}
+
 If we view $G^1_{L_1,L_2}$ as being an interpreter for a given type specification then we can see this as representing the first futamura projection. Abstractly speaking futamura projections express different stages of `meta' computation, the first projection represents what was described above, a partial evaluator which specializes a program based on some known information. The second projection then represents the notion of specializing the specializer for the interpreter. In the context of binding generators this would be the process of specializing the binding generator for a particular set of languages. Formally we could define this specializer as a function $G^2$ which maps a pair of languages $\langle L_1, L_2 \rangle$ to a binding generator $G^1_{L_1,L_2}$ as follows.
-\begin{equation}
-  G^2 : \langle L_1, L_2 \rangle \rightarrow G^1_{L_1,L_2}
-\end{equation}
+
+\input{equations/first_futurama_proj.tex}
+
 In practice implementing $G^2$ would require us to work at a higher level of abstraction, now instead of generic logic which is meant to apply to the set of types we wish to bridge we define the abstract attributes of a binding generator itself. What this means for example is that boxing and unboxing logic would now be defined as specializers methods given statically bound language specifications by the programmer whereby the logic would to create concrete variants which functioned over some set of bridgable type specifications. Currently no binding generator I am aware of implements a full second futamura projection, an example which comes is a framework like Simplified Wrapper and Interface Generator (SWIG) \cite{Fulton2025swig} though while this tool technically accept arbitrary target language specifications it's host languages are limited to C and C++, furthermore the tool does not specialize a binding generator for the languages instead it directly generates the bindings based on the parsed C/C++ headers.
 
 The complexity of implementing a full second futamura projection is in large part a function on the degree to which the language specifications describe the required interoperability operations. In the most trivial case the language specifications would describe most of the underlying logic in which case $G^2$ would only have to ensure that the specification of this logic exists in a form which can be form which can be specialized. Conversely the most extreme case would require the specializer to implicitly derive or account for the entire interop logic by figuring out what would constitute the set of valid type specifications and the corresponding logic to bridge them. A reasonable middle ground would be to define a a Domain Specific Language (DSL) which could transpile to a more complete language specification essentially serving as a proxy between the programmer and $G^2$. Using a DSL as a means of abstracting away complexity has already been seen in the work of Zhang et. al. \cite{10.1145/3550454.3555463} which used a DSL to unify kernel programming. A notable feature of this DSL was that it is defined entirely within C++ by using template metaprogramming in addition to macro expansion. The nature of having a DSL embedded which is based on compile time constructs means that we can provide custom high level abstractions while reusing all existing language functionality and having intrinsically seamless interop with the host language.
@@ -185,37 +189,33 @@ An important thing to take away from the idea of thinking about binding generato
 \subsubsection{A Record Type Formalism}
 
 If we take this idea of viewing Jluna as an interperter of a type specification grammar we can create a basic formalism which can help us in providing a more rigorous basis for our extension. First we establish the existing specification grammar and application rules, from which we can build a basic formal model of the relevant algorithms. From this we can expand the syntax and incorporate the new rules which would allow for briding abstract types.
-\begin{equation}\label{eq:pair_type}
-  p_t \langle x, y \rangle = \lambda x.\ \lambda y.\ \lambda f.\ f\ x\ y
-\end{equation}
+
+\input{equations/pair_type.tex}
 
 Expanding this to support typed pairs we introduce the notation from System F
-\begin{equation}\label{eq:typed_pair}
-  p_t \langle x : \tau_x, y : \tau_y \rangle = \lambda x : \tau_x.\ \lambda y : \tau_y.\ \lambda f.\ f\ x\ y
-\end{equation}
+
+\input{equations/typed_pair.tex}
 
 Furthermore we define accessor functions for the pair as follows
-\[
-  \begin{aligned}
-    (a_1 : p_t \rightarrow x) \leftrightarrow (\lambda p.\ p\ (\lambda x.\ \lambda y.\ x)) \\
-    (a_2 : p_t \rightarrow y) \leftrightarrow (\lambda p.\ p\ (\lambda x.\ \lambda y.\ y))
-  \end{aligned}
-\]
+
+\input{equations/pair_accessors.tex}
 
 Now with this we have the notion of a idea of a field type defined but we still need to actually define how we can represent some collection of these fields. Informally we cand describe a record type as being a collection of labels and corresponding types, with the instantiation associating values with these labels \cite{Cooper2005Records}. One drawback with this approach is that it does not express the nuance of what record types actually represent. In a more nuanced perspective we can think of record types as being dependent n-ary product types which are indexed by a set of labels. To break this down into different parts we can first consider n-ary product types.
+
 \begin{definition}[n-ary Product Type]
   An n-ary product type, generalizes the notion of a standard product type between two types to n types. Which is to say that it expresses the sets of all possible n-tuples of types. Formally given a set of types $\mathbf T$ we can define the n-ary product type as follows.
-  \begin{equation}
-    T_1\times \ldots \times T_n = \{(\tau_1, \ldots, \tau_n) \mid \tau_i \in T_i.\ \forall i\in [1, n]\}
-  \end{equation}
+  
+  \input{equations/n-ary_product_type.tex}
+
 \end{definition}
 
 We can then consider a dependent type can be thought of as a type which can vary over a set of values, as we saw before with the case of non-type template parameters for C++.
+
 \begin{definition}[Dependent Type]
   Expressing this formally we can say that a dependent type is a type which is indexed by a set of values belonging to another type, formally this idea is represented as follows.
-  \begin{equation}
-    x : A \vdash B(x) : \text{type}
-  \end{equation}
+
+  \input{equations/dependent_type.tex}
+
   Which is to say that for some value of type $A$ we can define a type $B(x)$.
 \end{definition}
 
@@ -223,45 +223,34 @@ A dependent type by itself only describes the family of types indexed by another
 
 \begin{definition}[Dependent product type]
   A dependent product type denoted $\prod _{x : A} B(x)$ is a type which represents the collection of all functions which assign each $x : A$ to an element of $B(x)$. We can represent the formation of this type using the following rule
-  \begin{mathpar}
-    \inferrule [Dependent-Product-Formation]
-    {\Gamma, x : A \\ \vdash B(x) : \text{type}}
-    {\Gamma \vdash \Pi _{x : A} B(x) : \text{type}}
-  \end{mathpar}
+  
+  \input{equations/dependent-product/dp-formation.tex}
+  
   For completeness we can demonstrate what application of a dependent product type looks like for a given input.
-  \begin{mathpar}
-    \inferrule [Dependent-Product-Application]
-    {\Gamma \vdash f : \Pi _{x : A} B(x) : \text{type} \\ \Gamma \vdash a : A}
-    {\Gamma \vdash f(a) : B(a) }
-  \end{mathpar}
+  
+  \input{equations/dependent-product/dp-application.tex}
+  
   This should hopefully make the idea clear that once we actually apply some input we can see quite trivially the dependet nature that is being expressed here in the return type of the function $f$. From this it might already be clear how we can apply this to formalize the idea of indexing into a record type. To get the last piece of the puzzle we have to describe how indexing would work for an arbitrary input. Which is to say we want to derive a $\lambda$-abstraction which contains a term of type $B(x)$ and a free variable $x : A$. We can express this as follows.
-  \begin{mathpar}
-    \inferrule [Dependent-Product-Indexing]
-    {\Gamma \vdash x : A \vdash b : B(x)}
-    {\Gamma \vdash \lambda x.\ b : \Pi _{x : A} B(x)}
-  \end{mathpar}
+  
+  \input{equations/dependent-product/dp-indexing.tex}
+
   Finally we can express the trivial $\beta$-reduction rule applied to the $\lambda$-abstraction.
-  \begin{equation}
-    (\lambda x.\ b)\ a \rightarrow_\beta b[x:=a]
-  \end{equation}
+
+  \input{equations/dependent-product/dp-reduction.tex}
+
 \end{definition}
 
 With this we can now express the idea of a record type formally.
 
 \begin{definition}[Record Type]
   If we now assume that we have a set of labels defined by a type $L : \mathcal U$ and a family of types $T : L \rightarrow \mathcal U$. We can define a record type as being a dependent product type indexed by the set of labels, substituting the new notation in for the created $\lambda$-abstraction we can express the constructor for a record type as follows.
-  \begin{equation}
-    \Lambda L, T.\ \lambda x^{L}.\ \lambda \tau^{T(x)} : \prod _{x : L} T(x)
-  \end{equation}
+  
+  \input{equations/record-type/formation_introduction.tex}
+
   To show how this lambda function arises we can express the formation rule for dependent product types using more functional but equivalent semantics.
-  \begin{mathpar}
-    \inferrule [Record-Indexing-Formation]
-    {\Gamma \vdash L : \text{type} \\ \Gamma, x: L \vdash T_x : \text{type}}
-    {\Gamma \vdash (x : L) \rightarrow T_x : \text{type}} \\ 
-    \inferrule [Record-Term-Introduction]
-    {\Gamma, l : L \vdash \tau : T_l}
-    {\Gamma \vdash (l \rightarrow \tau) : (l : L) \rightarrow T_l}
-  \end{mathpar}
+  
+  \input{equations/record-type/formation_introduction.tex}
+  
   From this it should be trivially clear how application then acts as just an instantiation of the record indexing process. Stated differently we can now see how on the type level a record represents an abstract mapping between a label set and type set, with the instantiation then representing the actual concrete mappings between labels of this set and values of the corresponding types.
 \end{definition}
 
@@ -269,18 +258,16 @@ To incorporate the idea of subtyping into our description we can describe a high
 
 \begin{definition}[Fiber of a Morphism]
   The fiber of a morphism or function $f : A \rightarrow B$ over a point $B$ is the collection of elements of $A$ that are mapped by $f$ to this point. Informally we can denote this as.
-  \[
-    \text{fiber}(f, b) = \{a : A \mid f(a) = b\}
-  \]
+  \input{equations/fiber_of_morphism.tex}
 \end{definition}
 
 We can then move on to defining the idea of injectivity and surjectivity in the context of dependent types. From which we can form a connection between our formalism of record types and the idea of nominal and structural subtyping.
 
 \begin{definition}[Surjective Function]
   A function $f : A \rightarrow B$ is said to be surjective if for all terms $b : B$ the fiber of $f$ over $b$ is inhabited. Here all we mean to express is that for every element in the codomain there is some element in the domain which is mapped to it. On a high level we can think of this expressing the quantifier of existence or in the set theoretic sense `\textit{at least} one'.
-  \begin{equation}
-    \text{isSurjection}(f) := \prod_{b : B} \parallel \text{fiber}(f, b) \parallel
-  \end{equation}
+  
+  \input{equations/surjective_function.tex}
+  
   The notation $\parallel \text{fiber}(f, b) \parallel$ is the propositional truncation of the type expressing the fiber of $f$ over $b$. For our purposes its sufficient to understand this as expressing the predicate that the fiber of $f$ over $b$ is inhabited, which is to say that there exists some element or term in the domain which is mapped to $b$. In essence it simply states the aforementioned quality of existence.
 \end{definition}
 
@@ -288,9 +275,7 @@ Surjection has a general correspondence to the more concrete idea of nominal sub
 
 \begin{definition}[Injective Function]
   A function $f : A \rightarrow B$ is said to be injective if for all terms $b : B$ the fiber of $f$ over $b$ is a subsingleton. By which we mean to express that the collection of elements $A$ which are mapped to $b$ consists of either a single element or no elements at all. Here again on a high level we can think of this expressing the quantifier of uniqueness or in the set theoretic sense `\textit{at most} one'.
-  \begin{equation}
-    \text{isInjection}(f) := \prod_{b : B} \prod _{a: A} f(a) = b
-  \end{equation}
+  \input{equations/injective_function.tex}
 \end{definition}
 
 Injection then has a correspondence to the idea of structural subtyping. Structural subtyping; often seen more in dynamically typed languages; relies on implicit structural comparisons to express the idea of substiutability. The key distinction to nominal subtyping being that we preserve the uniqueness quality of objects, in practice this idea is often leveraged in allowing for more flexible usages of existing implementations. Uniqueness of object mappings means that unlike in the case of nominal subtyping where we typically have to downcast to access the full set of properties of an object, in the case of structural subtyping excess properties are preserved and at least in theory can be accessed without any downcasting as there is a unique mapping back to the original object which preserves the structure.
@@ -300,9 +285,9 @@ Of course this is somewhat of an oversimplification as type systems don't necess
 We can first look at the record type again, specifically lets deconstruct what we can consider the field type.
 \begin{definition}[Field Type]
   A field type is the dependent type which is indexed by the set of labels. We can interpret this as the function we formed in the record indexing formation
-  \begin{equation}
-    (x : L) \rightarrow T(x)
-  \end{equation}
+  
+  \input{equations/field_type.tex}
+  
   We can see that this field type is an abstract view over the more concrete mapping we think of as labels to values of a particular type. When we instantiate this type we specialize it to some concrete mapping of labels to value. Or more accurately a compiler or interpreter would specialize this type to a concrete mapping of labels to values. If we go back to the analogy between a binding generator as an interpreter and put ourselves in the shoes of this binding generator then a field type as shown above would be considered already specialized for some set of labels and types. A question which we must ask ourselves then, what is the type of this field type?.
 \end{definition}
 
@@ -324,12 +309,12 @@ Informally a natural way we might then represent a constructor for this type cou
 A few notes we can make here is that firstly as labels are generally strings we can express them as being concrete value types bounded by strings. Concrete value types bounded by some more abstract type such as strings or integers are commonly also called literals and can be understood as a form of static narrowing of a type. Secondly as we are working on an aforementioned higher level of abstraction the types of the attributes of field types are descriptions of the underlying types which is expressed via the `\texttt{type[T]}' notation representing the type of the type.
 
 A key issue we find with this is that while we have described a kind of recipe for how we might represent the type of a field, currenly the description in \ref{listing:type_constructor_pseudo} does not actually tell us anything about how we are supposed to \textit{use} a field. So we need to expand this description, the somewhat trivial question which then appears is what does it mean to use a field type? We can quite easily say this as being some operation to get a value from the field, and some way to set a value to the field. So it would be reasonable to think that we want to expand our description to include two functions, namely a getter and a setter. To be more rigorous we can express these functions as follows.
+
 \begin{definition}[Field Accessors AKA Lenses]
   We can describe the getter of a field as a function which takes a record of type $T$ and returns the value of the field in the record defined by $T_x$. A setter conversly is a function which takes as an input a record and some value of type $T_x$ and returns a new record with the value of the field set to this value.
-  \begin{align}
-    \text{get} & : T \rightarrow T_x \\
-    \text{set} & : T \times T_x \rightarrow T
-  \end{align}
+  
+  \input{equations/field_accessors.tex}
+  
   Unsurprisingly this notion of field accessors has already been extensively studied, in various contexts. A common first way lenses are described is through the idea of database transformations in terms of the view (get) and update (set) problem. Commonly this is then placed in a more genral context within functional programming to describe the aforementioned idea of just getting and setting values. The abstract idea of different forms of data accessors is generalized to the concept of \textit{families of optics} of which lenses are the most well known part.
 \end{definition}
 
@@ -337,17 +322,17 @@ In our case for the case of field getters and setters its sufficient to constrai
 
 \begin{definition}[Lawful Lenses]
   Since we don't want our getters and setters to just behave arbitrarily as that would be a bit absurd we can define a set of laws which we expect our lenses to follow. Specifically we can enumerate what is defined as a lawful or well-behaved lens. There are 3 main rules which characterize a lawful lens. If we consider a source $S$ (analogous to our record type) and a view $V$ (analogous to our field type) we can define the following laws. One note on notation is that different literature uses different notations for getting and setting, in this case we will use the notation $\text{get}$ and $\text{put}$.
-  \begin{align}
-    s:S & \vdash \text{put} ( \text{get} (s), s ) = s \label{eq:get-put} \tag{Get-Put} \\
-    v:V, s:S & \vdash \text{get} ( \text{put} (v, s) ) = v \label{eq:put-get} \tag{Put-Get} \\
-    v_1, v_2: V, s: S & \vdash \text{put} (v_2, \text{put} (v_1, s)) = \text{put} (v_2, s) \label{eq:put-put} \tag{Put-Put}
-  \end{align}
+  
+  \input{equations/lawful_lenses.tex}
+  
   In plain english the rules translate to the following.
+  
   \begin{enumerate}
     \item \textit{Get-Put}: If we read a value then write this value there should be no change.
     \item \textit{Put-Get}: If we write a value then read a value we should get the value we wrote.
     \item \textit{Put-Put}: If we write a value then write another value we should only get the last value we wrote.
   \end{enumerate}
+  
   The first two qualities describe lenses which are \textit{well-behaved} with the inclusion of the third rule giving us a \textit{lawful} lens.
 \end{definition}
 
@@ -370,27 +355,19 @@ As this pattern is broadly based on well studied and somewhat intuitive principl
 In the case of Jluna the upper template parameter $T$ is that of the abstract record type, in Jluna these are called $\texttt{Usertype<T>}$. As the name implies $\texttt{Field\_t}$ is the type of the field, in our case this corresponds to $T_x$. The function then takes 3 arguments, a name of the property i.e. the label, the getter $\texttt{box\_get}$ and the setter $\texttt{unbox\_set}$. An important takeaway from this example is that as all information is statically known the compiler specializes all property specifications of $T$ at compile-time.
 
 Given that we now have a way of expressing record types, and an informal way of describing thier fields we can use the idea of lenses introduced to create a more precise descriptor of how we would express the type of a record type. The first thing we introduced when starting to talk about the formal semantics was the idea of the dependent product type, just as we applied this as a means of defining a record structure so too can we apply it to define the structure of a lens. We can deliniate the structure of our lens into 3 parts.
+
 \begin{enumerate}
   \item \textit{Type}: The type on which the lens operates.
   \item \textit{Semantics}: The semantics of the lens, i.e. the getter and setter.
   \item \textit{Laws}: The laws which the lens must follow, i.e. the lens must be lawful.
 \end{enumerate}
+
 To express this formally we can define the lens type as follows.
 \begin{definition}[Lens Structure]
   Given a dependent $T(x)$ indexed over a set of labels $L$ we can define the structure of a lawful record lens for this type as follows
-  \begin{align}\label{eq:lens_structure}
-    \text{Lens}_{L} =
-    \begin{cases}
-      T: ( l:L\vdash T_{l}) :\text{type}\\
-      \times\ (\text{get}_{T_l} :T\rightarrow T_{l})\\
-      \times\ (\text{set}_{T_l} :T \times T_l\rightarrow T)\\
-      \times\ (\text{rw} :( x:T_{l} ,\tau :T)\rightarrow \text{Id}_{T_l}\left(\text{get}_{T_l}\left(\text{set}_{T_l}( x,\ \tau )\right) ,\ x\right) \ )\\
-      \times\ (\text{wr} :( \tau :T)\rightarrow \text{Id}_{T}\left(\text{set}_{T_l}\left(\text{get}_{T_l}( \tau ) ,\ \tau \right) ,\ \tau \right))\\
-      \times\ (\text{ww} : (x_1: T_l, x_2: T_l, \tau: T) \rightarrow \text{Id}_T(\ldots)) \footnote{
-        The full definition of $\text{ww}$ is omitted for brevity, the definition is semantically equivalent to Put-Put. 
-      } \\ 
-    \end{cases}
-  \end{align}
+  
+  \input{equations/lens_structure.tex}
+  
   A new construct introduce here is the idea of the identity type `$\text{Id}_T$', this expresses the idea of equality between two terms of type $T$. Hence the inclusion of the functions `$\text{wr}$', `$\text{rw}$' and `$\text{ww}$' act as laws over the type $T$. In other words we are encoding the laws that we want our lens to follow into the structure of the type over the records. 
 \end{definition}
 
@@ -424,6 +401,7 @@ Some important takeaways from this are that a type representation; regardless of
   \include{tex_figures/bg_basic_dependencies}
   \caption{Basic dependencies of the binding generator}
   \label{fig:bg_basic_dependencies}
+  \Description{}
 \end{figure}
 
 In \ref{fig:bg_basic_dependencies}, `meta constructors' are just the type construction tools (e.g. lenses) and `type transformations', in this context, is just boxing and unboxing. What follows from this is that, if we do want to extend a type representation; which in our case we do; we have to consider a few points.
@@ -462,6 +440,7 @@ Let's start off our solution by creating a high level breakdown of the user-faci
   \include{tex_figures/jluna_stages}
   \caption{Stages of Jluna's type binding generation process; $\dashrightarrow$ represents user facing flow in how the user interacts with the library; $\rightarrow$ represents the internal flow of the library}
   \label{fig:jluna_stages}
+  \Description{}
 \end{figure}
 
 \subsubsection{Abstract Types \& Substitutability}
@@ -470,9 +449,7 @@ In our case there are two key inter-related things we wish to extend the library
 
 \begin{definition}[Liskov Substitution Principle]
   We denote $\phi (\tau_T)$ as a property provable about objects $\tau_T$ of type $T$. Then $\phi (\tau_S)$ should be true for objects $\tau_S$ of type $S$ where $S$ is a subtype of $T$ denoted $S <: T$.
-  \[
-    S <: T \rightarrow (\forall \tau_T : T) \vdash \phi (\tau_T) \rightarrow \phi (\tau_S)
-  \]
+  \input{equations/liskov_sub_p.tex}
   As this is a quite strong condition its often relaxed in implementations of subtyping, it nonetheless serves as a good basic formalism for how to think about the idea of substiutability.
 \end{definition}  
 
@@ -486,19 +463,13 @@ What we see in Julia is that it enforces nominal subtyping of abstract types in 
 
 \begin{definition}[Julia Subtyping]
   As defined by Zappa et. al. we can denote the type level representation of a user-defined type as follows
-  \begin{equation}
-    attr\ name\{t_1 <: T <: t_1',\ldots,t_m <: T <: t_m'\} <: t'' \in tds
-  \end{equation}
+  
+  \input{equations/julia-subtyping/jl_type_def.tex}
+  
   Here $attr$ expresses if a type is \texttt{concrete} or \texttt{abstract}, $name$ is the name of the type. Following this we have the type parameters $T$ each which have their defined lower bound $t_i$ and upper bound $t_i'$, in addition to any type bounds applied to the type itself $t''$. The type definition is then a part of global type declarations $tds$. The inference rule for application of subtyping is then defined as follows for a given typing context $\Gamma$
-  \begin{mathpar}
-    \inferrule [App-Super]
-    {name\{T_1,\ldots,T_m\} <: t'' \in tds \\ \Gamma \vdash t''[a_1/T_1 \ldots a_m/T_m] <: t' \vdash \Gamma' }
-    {\Gamma \vdash name\{a_1,\ldots,a_m\} <: t' \vdash \Gamma'} \\ 
-
-    \inferrule [App-Inv]
-    {n\leq m\ , \Gamma_0 = add(\text{Barrier}, \Gamma)\ , \forall i\in [0, n] \\ \Gamma_{i-1} \vdash a_i <: a_i' \vdash \Gamma_i \land \Gamma_i \vdash a_i' <: a_i \vdash \Gamma_{i}}
-    {\Gamma \vdash name\{a_1,\ldots,a_n\} <: name\{a_1',\ldots,a_n'\} \vdash del(\text{Barrier}, \Gamma_n)}
-  \end{mathpar}
+  
+  \input{equations/julia-subtyping/jl_subtyping.tex}
+  
   Here the rule \textsc{App-Super} expresses the application of a subtype to a supertype, the rule \textsc{App-Inv} expresses the application of a subtype to an inverse subtype. \textsc{App-Inv} introduce some new notation, namely $add$ and $del$ of a `Barrier'; a `Barrier' represents a tag which is used to deliniate or distinguish between type variable introduced before and after the constructor. The check itself then simply ensures the constructor application is invariant.
 \end{definition}
 
@@ -506,18 +477,14 @@ The case of C++ is somewhat more complex, as its a statically typed language asi
 
 \begin{definition}[Type of all propositions]
     The type of all propositions for a type $S$ denoted $\text{Prop}$ or $\Omega$ expresses a set of elements which are characterized by propositions which are true for $S$. In a simpler sense we can think of the type of all propositions as being the set of all possible descriptions about a part of the whole of $S$ which are true. For the most general definition we say that $\Omega$ is a type with a type family $T$ such that for all propositions $P : \Omega$ the type $T(P)$ is inhabited, which is to say that it has a single member which acts as a proof of the proposition asserting that it is true. 
-    \begin{equation}
-      \Omega : \prod _{P : \Omega} \prod_{a: T(P)} \prod_{b: T(P)} a =_{T(P)} b
-    \end{equation}
+    \input{equations/type_of_prop.tex}
 \end{definition} 
 
 The idea of subtyping then somewhat naturally follows from the idea of having a type subtype $S$ of a type $T$ if this type corresponds to some proposition in the set of all propositions of $T$. We can then define subtyping as follows.
 
 \begin{definition}[Subtyping]
   Given a type $S$ and a type $T$ having a type of all propositions $\Omega$ we can define a subtype of $T$ as being a member $p$ of the function type $P : S \rightarrow \Omega$ expressing a predicate which characterizes a subset of $T$ i.e. the subtype. So we can say that 
-  \begin{equation}
-    S \equiv \sum_{x: T} \text{El}(p(x)) \vdash S <: T 
-  \end{equation}
+  \input{equations/subtyping.tex}
   The notation $\text{El}(p(x))$ in this instance returns the element of the type family $T$ which is inhabited by the proposition $p(x)$, in other words it returns $x$ if $p(x)$ is true.
 \end{definition}
 
@@ -525,9 +492,7 @@ We can then elaborate and apply the general definition of subtyping to better un
 
 \begin{definition}[Structural Subtyping]
   A structural subtype $S$ of a type $T$ is a type with an injection / embedding $i : S \hookrightarrow T$, which is to say that $S$ can be represent as a subset of $T$. The predicate which asserts this quality can be expressed as follows 
-  \begin{equation}
-    x : T \vdash \sum_{y: S} i(y) =_T x  
-  \end{equation}
+  \input{equations/structural_subtyping.tex}
   The analogy to structural subtyping in dynamically typed languages here being again that $T$ represents our implicit structural supertype and substiutability is determined if this type exists within the supertype $T$. It should be clarified that this is not an expression of any type checking mechanism but rather an analogous formalism for how we can think about the dynamics of structural subtyping.
 \end{definition}
 
@@ -535,15 +500,9 @@ Having this defined lets finally approach how we can express inheritance based s
 
 \begin{definition}[I-Indexed Intersection]
   Given a type $T$, an index type $I$, and a family of structural subtypes $i: I \vdash S_i <: T$ with a family of embeddings $i_S: \prod_{i: I} S_i \hookrightarrow T$, we can define the intersection of these subtypes as being those members of $S_i$ for which there exists a corresponding member in $T$.
-  \begin{equation}
-    \bigcap _{i: I} S(i) = \sum_{x: T} \prod_{i: I} \sum_{y: S(i)} i_S(i, y) =_T x
-  \end{equation}
+  \input{equations/i-indexed-intersection/intersection.tex}
   We can see that this intersection, is representative of a non-concrete subtype of $T$, with its concrete counterpart being represented by the depent product $\prod_{i: I} S(i)$. A valid downcast can then be understood as a function which takes the unified representation i.e. the intersection and returns the concrete representation. Presented informally as an inference rule we could express this as follows.
-  \begin{mathpar}
-    \inferrule [Downcast]
-    {\Gamma \vdash i: I \vdash S_i <: T \vdash \textstyle \bigcap _{i: I} S(i) }
-    {\Gamma, \textstyle \prod_{i: I} S(i) <: T}
-  \end{mathpar}  
+  \input{equations/i-indexed-intersection/downcast.tex}
 \end{definition} 
 
 Firstly it should be stated again that this is obviously a very abstract way of thinking about subtyping, but it offers some unique insights into how at least from a birdseye view certain attributes of type sytems only have very subtle differences in actuality but these differences can have a considerable impact on the actual practical day to day usage of a programming language. In this case the key takeaway is that inheritance based subtyping which enforces concrete implementations of abstract methods can be understood as a special case of structural subtyping in which we collapse all valid structural subtypes into their intersection which forms the abstract representation. 
@@ -592,15 +551,13 @@ How we then use both this C++ sided initalization and its corresponding runtime 
 
 The final and most major part of the implementation was extending the actual bridging process, both by generalizing the logic to work over objects as opposed to fields and by accounting for how to handle abstract types. Before delving into any of the specifics we have to first introduce a final mechanism in C++ which was heavily used within this process, this being the \textit{fold expression}. As the name implies this mechanism enables the folding of a set of expressions into a single expression through some binary operation. In C++ this is divided into two forms of folding, binary and unary with there being a further subdivision into a left fold and a right fold. The relevance of this mechanism to our extension is that since we are generalizing our process to work over a template pack as opposed to just single type arguments we need a way to work with this pack. In our case we use a unary fold with a `,' operator. Per the specification an instantation of a left unary fold expression is expressed as follows 
 
-\begin{equation}\label{eq:fold_expression}
-  (\ldots\ op\ E) \rightarrow (((E_1\ op\ E_2)\ op\ \ldots)\ op\ E_n)
-\end{equation}    
+\begin{definition}[Fold Expression]
+  \input{equations/fold-expression/fold_expr.tex}  
 
-The comma operator can be understood in the context of a fold expression over a template pack as a way of chaining together or sequencing an expression over a set of types. So if we think of our expression $E$ as being parameterized by a set of types $T_i$ then the fold expression would simply be a way of applying $E$ to each $T_i$ in the pack. Expressed using the notation in \ref{eq:fold_expression} we could present this as follows.
+  The comma operator can be understood in the context of a fold expression over a template pack as a way of chaining together or sequencing an expression over a set of types. So if we think of our expression $E$ as being parameterized by a set of types $T_i$ then the fold expression would simply be a way of applying $E$ to each $T_i$ in the pack. Expressed using the notation in \ref{eq:fold_expression} we could present this as follows.
 
-\begin{equation}\label{eq:fold_expression_app}
-  (\ldots\ ,\ E\langle T_i\rangle) \rightarrow (((E\langle T_1\rangle\ ,\ E\langle T_2\rangle\ ,\ \ldots)\ ,\ E\langle T_n\rangle))
-\end{equation}
+  \input{equations/fold-expression/fold_expr_app.tex}
+\end{definition}
 
 Starting with the unboxing process we can remind ourselves that the core issue here was that the unboxing mechanism we wanted to use for a field of an abstract type had to correspond to the underlying concrete type given the general design of the libary and resulting constraints. The key aspect to the solution in the unboxing case is that, since Julia uses structural subtyping fundamentally, we know always know the concrete type from the Julia-sided end, thus we can trivially derive the concrete unboxing mechanism within the library if we create a correspondence between a pair consiting of a field label and a valid subtype of this field to the unboxing mechanism for this subtype and field. More practically we can implement this mapping as follows
 
@@ -635,6 +592,7 @@ Similarly to the case of unboxing the boxing process requires that we know the u
   \input{code/boxing}
   \caption{Boxing usertype}
   \label{figure:boxing}
+  \Description{}
 \end{figure*}
 
 On a high level there are 3 main components to the boxing process, the input; which we access via the generic Field getterl; the type switch statement \texttt{MatchTy} which specializes, or matches, on a particular generic lambda given a certain type predicate, and the finalizer which is a simple lambda that boxes the value we get from the matching process. The process of boxing is then roughly as follows, we use a fold expression to iterate over the set of fields, for each field we use a custom parameterized fold expression which discards any invalid derived types at compile time through the compile time type filtering mechanism. In the case of a concrete type we simply box the value, return it, and set it using the finalizer. If the value does have derived types, the fold expression internally iterates over the set of valid derived types and checks if a value is a valid downcast, to avoid unnecessary checks once we have a valid downcast we short circuit the fold expression.  
@@ -659,6 +617,7 @@ A noticable impact on peformance noted during the optimization process was the l
   \includegraphics[width=0.9\textwidth]{figures/boxing_unboxing_over_time.png}
   \caption{Boxing and unboxing overhead over time; measured on a system with Intel Core i7-1065G7 and 16GB RAM}
   \label{fig:boxing_unboxing_over_time}
+  \Description{}
 \end{figure*}
 
 We can observe the performance over the different ray\-casts in figure \ref{fig:boxing_unboxing_over_time}. Some notable observations to make, both the boxing and unboxing overhead are relatively stable towards the start and end of the execution, this represents the passes where a ray did not hit anything. When the ray did hit something we can notice spikes in the overhead, especially the unboxing as we need to update the hit record on the C++ then julia sided end to accurately render the pixel. One somewhat elusive observation is the consistent spike in the boxing process, due to the non-trivial nature of the entire pipeline this could be caused by various factors, though seems to be overall not too impactful on the average runtime.

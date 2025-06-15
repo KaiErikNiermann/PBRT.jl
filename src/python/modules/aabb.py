@@ -1,45 +1,46 @@
 import numpy as np
 from dataclasses import dataclass
+from functools import singledispatch
+from bvh import hit
 
 
-# ray
 @dataclass
-class ray:
-    origin: np.ndarray
-    direction: np.ndarray
+class Ray:
+    origin: np.ndarray = np.zeros(3, dtype=np.float64)
+    direction: np.ndarray = np.zeros(3, dtype=np.float64)
 
 
-def at(ray: ray, t: float) -> np.ndarray:
+def at(ray: Ray, t: float) -> np.ndarray:
     return ray.origin + t * ray.direction
 
 
-# generic interval
 @dataclass
-class interval[T]:
+class Interval[T]:
     lo: T
     hi: T
 
 
-# aabb
 @dataclass
-class aabb:
-    x: interval[float]
-    y: interval[float]
-    z: interval[float]
+class AABB:
+    x: Interval[float]
+    y: Interval[float]
+    z: Interval[float]
 
 
 @dataclass
-class ray_itval:
-    r: ray
-    t: interval[float]
+class RayPath:
+    ray: Ray
+    interval: Interval[float]
 
 
-def hit_aabb(bbox: aabb, r: ray, ray_t: interval[float]) -> bool:
-    r_lo = ray_t.lo
-    r_hi = ray_t.hi
+@hit.register
+def _(bbox: AABB, r: Ray, Interval: Interval[float]) -> bool:
+    r_lo = Interval.lo
+    r_hi = Interval.hi
     for axis in range(3):
         ax = [bbox.x, bbox.y, bbox.z][axis]
-        adinv = 1.0 / r.direction[axis] if r.direction[axis] != 0 else float("inf")
+        adinv = 1.0 / \
+            r.direction[axis] if r.direction[axis] != 0 else float("inf")
 
         t0 = (ax.lo - r.origin[axis]) * adinv
         t1 = (ax.hi - r.origin[axis]) * adinv

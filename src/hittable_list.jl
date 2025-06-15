@@ -1,43 +1,45 @@
 import Base.push!
 
-mutable struct HittableList 
+"""
+    HittableList.jl
+
+A module that defines a list of hittable objects, which can be used for ray tracing.
+
+- `objects` is a vector of `Hittable` objects.
+- `bbox` is the axis-aligned bounding box that encompasses all objects in the list.
+"""
+mutable struct HittableList
     objects::Vector{Hittable}
     bbox::AABB
-    function HittableList()
-        objects::Vector{Hittable} = [] 
-        bbox::AABB = AABB()
-        new(objects, bbox)
-    end
-    function HittableList(objects, bbox)
-        new(objects, bbox)
-    end
 end
 
-function push!(list::HittableList, object::Hittable)
-    push!(list.objects, object)
-    list.bbox = AABB(list.bbox, object.bbox)
+HittableList() = HittableList([], AABB())
+HittableList(object::Hittable) = HittableList([object], object.bbox)
+
+const HList = HittableList
+
+function push!(h_list::HList, object::Hittable)
+    push!(h_list.objects, object)                 
+    h_list.bbox = AABB(h_list.bbox, object.bbox)    
+    return h_list
 end
 
-function clear!(list::HittableList)
-    list.objects = []
+function clear!(h_list::HList)
+    h_list.objects = []
 end
 
-function hit!(list::HittableList, r::Ray, ray_t::Interval, rec::HitRecord)
-    temp_rec = HitRecord()
+function hit!(h_list::HList, ray::Ray, interval::Interval, record::HRecord)::Bool
     hit_anything = false
-    closest_so_far = ray_t.hi
-    for object in list.objects
-        if(hit!(object, r, Interval(ray_t.lo, closest_so_far), temp_rec))
-            hit_anything = true
-            closest_so_far = temp_rec.t
+    closest_so_far = interval.hi
 
-            rec.front_face = temp_rec.front_face
-            rec.normal = temp_rec.normal
-            rec.mat = temp_rec.mat
-            rec.p = temp_rec.p
-            rec.t = temp_rec.t
+    for obj in h_list.objects
+        if(hit!(obj, ray, Interval(interval.lo, closest_so_far), record))
+            hit_anything = true
+            closest_so_far = record.t
         end
     end
 
     return hit_anything
 end
+
+export  HittableList, HList, push!, clear!, hit!

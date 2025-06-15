@@ -1,47 +1,53 @@
-struct Sphere <: Hittable
-    center::Vector{Float64}
+@kwdef struct Sphere <: Hittable
+    center::V3
     radius::Float64
     r_squared::Float64
     mat::Material
     bbox::AABB
 end
 
-function Sphere(center::Vector{Float64}, radius::Float64, mat::Material)
-    radius = max(0.0, radius)
-    rvec = [radius, radius, radius]
-    bbox = AABB(center - rvec, center + rvec)
-    Sphere(center, radius, radius^2, mat, bbox)
+function compute_sphere(center::V3, radius::Float64, material::Material = Lambertian(RGBVec3(1.0, 0.0, 0.0)))::Sphere
+    radius  = max(0.0, radius)
+    rvec    = @vec3 radius, radius, radius
+    
+    Sphere(
+        center    = center, 
+        radius    = radius, 
+        r_squared = radius^2, 
+        material  = material, 
+        bbox      = AABB(center - rvec, center + rvec)
+    )
 end
 
-Base.show(io::IO, s::Sphere) = print(io, "sphere($(s.center), $(s.radius), $(s.mat))")
+function hit!(s::Sphere, ray::Ray, interval::Interval, record::HitRecord)
+    oc     = ray.origin - s.center
+    a      = ray.direction ⋅ ray.direction
+    half_b = oc ⋅ ray.direction
 
-function hit!(s::Sphere, r::Ray, ray_t::Interval, rec::HitRecord)
-    oc = r.origin - s.center
-    a = dot(r.direction, r.direction)
-    half_b = dot(oc, r.direction)
+    c      = (oc ⋅ oc) - s.r_squared
+    Δ      = half_b^2 - a * c
 
-    c = dot(oc, oc) - s.r_squared
-    discriminant = half_b^2 - a * c
-    if (discriminant < 0)
-        return false
+    @guard Δ < 0 false
+
+    sqrt_Δ = sqrt(Δ)
+    root   = (-half_b - sqrt_Δ) / a
+
+    in_interval(n) = interval.lo < n < interval.hi
+
+    if !in_interval(root)
+        root = (-half_b + sqrt_Δ) / a
+        @guard !in_interval(root) false
     end
 
-    sqrtd = sqrt(discriminant)
 
-    # Nearest root that lies in the acceptable range
-    root = (-half_b - sqrtd) / a
-    if (root < ray_t.lo || root > ray_t.hi)
-        root = (-half_b + sqrtd) / a
-        if (root < ray_t.lo || root > ray_t.hi)
-            return false
-        end
-    end
-
-    rec.t = root
-    rec.p = at(r, rec.t)
-    outward_normal::Vector{Float64} = (rec.p - s.center) / s.radius
-    set_face_normal!(rec, r, outward_normal)
-    rec.mat = s.mat
+    record.t   = root
+    record.p   = at(ray, record.t)
+    out_norm   = (record.p - s.center) / s.radius
+    record.mat = s.mat
+    
+    set_face_normal!(record, ray, out_norm)
 
     return true
 end
+
+export compute_sphere, Sphere

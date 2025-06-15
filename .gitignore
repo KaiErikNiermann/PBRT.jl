@@ -35,3 +35,7 @@ paper/*.blg
 paper/*.log
 paper/*.out
 paper/_minted-thesis/
+
+# docs 
+docs/build/
+docs/site/

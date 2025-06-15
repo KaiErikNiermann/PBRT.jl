@@ -1,37 +1,48 @@
-struct camera 
-    origin::Vector{Float64}
-    lower_left_corner::Vector{Float64}
-    horizontal::Vector{Float64}
-    vertical::Vector{Float64}
-    u::Vector{Float64}
-    v::Vector{Float64}
-    w::Vector{Float64}
+@kwdef struct Camera
+    origin::V3
+    ll_corner::V3
+    horizontal::V3
+    vertical::V3
+    u::V3
+    v::V3
+    w::V3
     lens_radius::Float64
-    function camera(lookfrom, lookat, vup, vfov, aspect_ratio, aperture, focus_dist)
-        theta = vfov * ( pi / 180 )
-        h = tan(theta / 2)
-        viewport_height = 2.0 * h
-        viewport_width = aspect_ratio * viewport_height
+end
 
-        w = (lookfrom - lookat) / norm(lookfrom - lookat)
-        u = (cross(vup, w)) / norm(cross(vup, w))
-        v = cross(w, u) 
+function compute_camera(lookfrom, lookat, vup, vfov, aspect_ratio, aperture, focus_dist)
+    θ               = vfov * (pi / 180)
+    viewport_height = 2.0 * tan(θ / 2)
+    viewport_width  = aspect_ratio * viewport_height
 
-        origin = lookfrom
-        horizontal = focus_dist * viewport_width * u
-        vertical = focus_dist * viewport_height * v
-        lower_left_corner = origin - (horizontal / 2) - (vertical / 2) - (focus_dist * w)
+    w = (lookfrom - lookat) / norm(lookfrom - lookat)
+    u = (cross(vup, w)) / norm(cross(vup, w))
+    v = cross(w, u)
 
+    horizontal = focus_dist * viewport_width * u
+    vertical = focus_dist * viewport_height * v
+
+    Camera(
+        origin      = lookfrom,
+        ll_corner   = lookfrom - (horizontal / 2) - (vertical / 2) - (focus_dist * w),
+        horizontal  = horizontal,
+        vertical    = vertical,
+        u           = u,
+        v           = v,
+        w           = w,
         lens_radius = aperture / 2
-        new(origin, lower_left_corner, horizontal, vertical, u, v, w, lens_radius)
-    end
-end 
-
-function get_ray(cam::camera, u::Float64, v::Float64)
-    rd = cam.lens_radius * random_in_unit_disk()
-    offset = (cam.u * rd[1]) + (cam.v * rd[2])
-    Ray(
-        cam.origin + offset, 
-        cam.lower_left_corner + (u * cam.horizontal) + (v * cam.vertical) - cam.origin - offset
     )
 end
+
+function compute_ray(camera::Camera, p::V2)
+    u, v   = p
+
+    rd     = camera.lens_radius * random_in_unit_disk()
+    offset = (camera.u * rd[1]) + (camera.v * rd[2])
+
+    Ray(
+        camera.origin + offset,
+        camera.ll_corner + (u * camera.horizontal) + (v * camera.vertical) - camera.origin - offset
+    )
+end
+
+export compute_camera, compute_ray, Camera

@@ -67,42 +67,33 @@ private:
     static inline std::vector<Result> _results = {};
 };
 
-
-
-void init_pbrt() {
-    jluna::Main.safe_eval("using Pkg");
-    jluna::Main.safe_eval("Pkg.activate(\"./\")");
-    jluna::Main.safe_eval("Pkg.instantiate()");
-    jluna::Main.safe_eval("Pkg.resolve()");
-    jluna::Main.safe_eval("ENV[\"JULIA_CPU_TARGET\"] = \"generic; native\"");
-    jluna::Main.safe_eval("include(\"/workspaces/Thesis/src/PBRT.jl\")");
-    jluna::Main.safe_eval("using .PBRT");
-}
-
 void register_functions() {
-    jluna::Main.create_or_assign("hit_bvh", jluna::as_julia_function<HitRecord(BVHNode, RayData, HitRecord)>(
-        [](const BVHNode& bvh_tree, const RayData& ray_data, HitRecord&& hit_record) -> HitRecord {
-            Benchmark::run([&]() { BVH_hit(bvh_tree, ray_data, hit_record); });
-            return hit_record;
+    jluna::Module RTInterop = jluna::Main.safe_eval("return MiniRTInterop");
+
+    RTInterop.create_or_assign("hit", jluna::as_julia_function<HitRecord(BVHNode, RayPath, HitRecord)>(
+        [](const BVHNode& node, const RayPath& ray_path, HitRecord&& record) -> HitRecord {
+            Benchmark::run([&]() { node.hit(ray_path.ray, ray_path.interval, record); });
+            return record;
         }
     ));
-    
-    jluna::Main.safe_eval(funcs::hit_bvh);
 }
 
 void render_scene(std::string scene_path) {
-    jluna::Main["PBRT"]["example_render"](scene_path);
+    jluna::Main.safe_eval("push!(LOAD_PATH, \"/workspaces/Thesis/\")");
+    jluna::Main.safe_eval("using MiniRT");
+    
+    jluna::Main["MiniRT"]["render_scene"](scene_path);
 }
 
 int main(int argc, char* argv[]) {
     jluna::initialize(1);
-    init_pbrt();
+    jluna::Main.safe_eval(module::MiniRTInterop);
 
     register_types();
     register_functions();
 
     Benchmark::initialize();
-    render_scene("./scenes/cottage.obj");
+    render_scene("/workspaces/Thesis/scenes/cottage/cottage.obj");
     Benchmark::save();
     return 0;
 }

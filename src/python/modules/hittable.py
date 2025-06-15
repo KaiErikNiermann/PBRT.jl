@@ -1,36 +1,28 @@
 import numpy as np
 from dataclasses import dataclass, field
-from .aabb import aabb, ray_itval
+from .aabb import AABB
 from .material import Material
-from functools import singledispatch
-from .aabb import hit_aabb
+from typing import Optional
 
 
 class Hittable:
     pass
 
 
+@dataclass
 class HittableList:
-    def __init__(self, objects: list[Hittable] = [], bbox: aabb = None):
-        self.objects = objects
-        self.bbox = bbox
+    objects: list[Hittable] = field(default_factory=list)
+    bbox: Optional[AABB] = None
 
 
+@dataclass
 class HitRecord:
-    def __init__(
-        self,
-        t: float = 0.0,
-        p: np.ndarray = np.array([0.0, 0.0, 0.0]),
-        normal: np.ndarray = np.array([0.0, 0.0, 0.0]),
-        front_face: bool = False,
-        mat: Material = None,
-        u: float = 0.0,
-        v: float = 0.0,
-    ):
-        self.p = p
-        self.normal = normal
-        self.mat = mat
-        self.t = t
-        self.front_face = front_face
-        self.u = u
-        self.v = v
+    t: float = 0.0
+    p: np.ndarray = field(
+        default_factory=lambda: np.zeros(3, dtype=np.float64))
+    normal: np.ndarray = field(
+        default_factory=lambda: np.zeros(3, dtype=np.float64))
+    front_face: bool = False
+    mat: Optional[Material] = None
+    u: float = 0.0
+    v: float = 0.0

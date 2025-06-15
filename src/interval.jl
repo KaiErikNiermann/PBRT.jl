@@ -1,19 +1,21 @@
-mutable struct Interval{T<:Real}
+import Base: ==
+
+mutable struct Interval{T <: Real}
     lo::T
     hi::T
+    
+    Interval(lo::T, hi::T) where {T <: Real} = 
+        new{T}(lo, hi)
+    
+    Interval(a::Interval{T}, b::Interval{T}) where {T <: Real} = 
+        new{T}(min(a.lo, b.lo), max(a.hi, b.hi))
 end
 
-function size(a::Interval)::Float64
-    return a.hi - a.lo
-end
+size(a::Interval)::Float64 = a.hi - a.lo
 
-Interval() = Interval(Inf, -Inf)
+expand(Δ::Float64, i::Interval)::Interval = Interval(i.lo - Δ/2, i.hi + Δ/2)
 
-function Interval(a::Interval, b::Interval)::Interval
-    Interval(min(a.lo, b.lo), max(a.hi, b.hi))
-end
+==(a::Interval, b::Interval)::Bool =
+    a.lo == b.lo && a.hi == b.hi
 
-function expand(delta::Float64, intval::Interval)::Interval
-    padding = delta / 2.0
-    Interval(intval.lo - padding, intval.hi + padding)
-end
+export Interval, size, expand

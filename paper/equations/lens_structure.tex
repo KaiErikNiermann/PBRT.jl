@@ -1,0 +1,13 @@
+\begin{align}\label{eq:lens_structure}
+  \text{Lens}_{L} =
+  \begin{cases}
+    T: ( l:L\vdash T_{l}) :\text{type}\\
+    \times\ (\text{get}_{T_l} :T\rightarrow T_{l})\\
+    \times\ (\text{set}_{T_l} :T \times T_l\rightarrow T)\\
+    \times\ (\text{rw} :( x:T_{l} ,\tau :T)\rightarrow \text{Id}_{T_l}\left(\text{get}_{T_l}\left(\text{set}_{T_l}( x,\ \tau )\right) ,\ x\right) \ )\\
+    \times\ (\text{wr} :( \tau :T)\rightarrow \text{Id}_{T}\left(\text{set}_{T_l}\left(\text{get}_{T_l}( \tau ) ,\ \tau \right) ,\ \tau \right))\\
+    \times\ (\text{ww} : (x_1: T_l, x_2: T_l, \tau: T) \rightarrow \text{Id}_T(\ldots)) \footnote{
+      The full definition of $\text{ww}$ is omitted for brevity, the definition is semantically equivalent to Put-Put. 
+    } \\ 
+  \end{cases}
+\end{align}

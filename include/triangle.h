@@ -9,14 +9,15 @@
 
 class Triangle : public Hittable {
 public:
-    std::vector<double> A;
-    std::vector<double> B;
-    std::vector<double> C;
+    std::vector<double> v1;
+    std::vector<double> v2;
+    std::vector<double> v3;
     int id;
     std::vector<std::set<std::vector<double>>> edges;
     std::shared_ptr<Material> mat;
     AABB bbox;
-    bool hit(const RayData&, HitRecord& rec) const override;
+
+    bool hit(const Ray&, const Interval&, HitRecord&) const override;
 };
 
 set_usertype_enabled(Triangle);

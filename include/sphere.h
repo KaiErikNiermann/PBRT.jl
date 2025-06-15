@@ -17,7 +17,7 @@ class Sphere : public Hittable {
         double r_squared;
         std::shared_ptr<Material> mat;
         AABB bbox;
-        bool hit(const RayData&, HitRecord& rec) const override;
+        bool hit(const Ray&, const Interval&, HitRecord&) const override;
 };
 
 set_usertype_enabled(Sphere);

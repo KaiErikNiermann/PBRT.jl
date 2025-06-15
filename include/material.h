@@ -9,21 +9,21 @@
 class Material {
     public:
         virtual ~Material() = default;
-        virtual Color get_albedo() = 0; 
+        virtual RGBVec3 get_albedo() = 0; 
 };
 
 class Lambertian : public Material {
     public:
-        Color albedo;
-        virtual Color get_albedo() override {
+        RGBVec3 albedo;
+        virtual RGBVec3 get_albedo() override {
             return this->albedo;
         }
 };
 
 class Metal : public Material {
     public:
-        Color albedo;
-        virtual Color get_albedo() override {
+        RGBVec3 albedo;
+        virtual RGBVec3 get_albedo() override {
             return this->albedo;
         }
         double fuzz;

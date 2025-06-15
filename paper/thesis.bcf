@@ -2435,17 +2435,17 @@
     <bcf:citekey order="65" intorder="1">dtolnay_syn</bcf:citekey>
     <bcf:citekey order="66" intorder="1">zhdan2024swiftcpp</bcf:citekey>
     <bcf:citekey order="67" intorder="1">Shirley2024RTW1</bcf:citekey>
-    <bcf:citekey order="68" intorder="1">Shirley2024RTW2</bcf:citekey>
-    <bcf:citekey order="69" intorder="1">Rowley2025JuliaPy</bcf:citekey>
-    <bcf:citekey order="70" intorder="1">Janssens2025JuliaInterop</bcf:citekey>
-    <bcf:citekey order="71" intorder="1">jluna</bcf:citekey>
-    <bcf:citekey order="72" intorder="1">Futamura1983</bcf:citekey>
-    <bcf:citekey order="73" intorder="1">Veldhuizen1998</bcf:citekey>
-    <bcf:citekey order="74" intorder="1">unruh1994prime</bcf:citekey>
-    <bcf:citekey order="75" intorder="1">Fulton2025swig</bcf:citekey>
-    <bcf:citekey order="76" intorder="1">10.1145/3550454.3555463</bcf:citekey>
-    <bcf:citekey order="77" intorder="1">Cooper2005Records</bcf:citekey>
-    <bcf:citekey order="78" intorder="1">Zappa2018Julia</bcf:citekey>
+    <bcf:citekey order="67" intorder="2">Shirley2024RTW2</bcf:citekey>
+    <bcf:citekey order="68" intorder="1">Rowley2025JuliaPy</bcf:citekey>
+    <bcf:citekey order="69" intorder="1">Janssens2025JuliaInterop</bcf:citekey>
+    <bcf:citekey order="70" intorder="1">jluna</bcf:citekey>
+    <bcf:citekey order="71" intorder="1">Futamura1983</bcf:citekey>
+    <bcf:citekey order="72" intorder="1">Veldhuizen1998</bcf:citekey>
+    <bcf:citekey order="73" intorder="1">unruh1994prime</bcf:citekey>
+    <bcf:citekey order="74" intorder="1">Fulton2025swig</bcf:citekey>
+    <bcf:citekey order="75" intorder="1">10.1145/3550454.3555463</bcf:citekey>
+    <bcf:citekey order="76" intorder="1">Cooper2005Records</bcf:citekey>
+    <bcf:citekey order="77" intorder="1">Zappa2018Julia</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

@@ -1,35 +1,39 @@
-from .aabb import aabb, interval, ray, at, ray_itval
-import modules.hittable as h
+from .aabb import AABB, Interval, Ray, at, RayPath
+from .hittable import Hittable, HitRecord
 from dataclasses import dataclass
 from .material import Material
+from bvh import hit
 import numpy as np
+from typing import Optional
 
 
-class Sphere(h.Hittable):
-    def __init__(
-        self,
-        center: np.ndarray = np.array([0.0, 0.0, 0.0]),
-        radius: float = 0.0,
-        mat: Material = None,
-    ):
-        self.center: np.ndarray = center
-        self.radius: float = max(0.0, radius)
-        self.r_squared: float = radius * radius
-        self.mat: Material = mat
-        self.bbox = aabb(
-            x=interval[float](lo=center[0] - radius, hi=center[0] + radius),
-            y=interval[float](lo=center[1] - radius, hi=center[1] + radius),
-            z=interval[float](lo=center[2] - radius, hi=center[2] + radius),
+@dataclass
+class Sphere(Hittable):
+    center: np.ndarray = np.array([0.0, 0.0, 0.0])
+    radius: float = 0.0
+    mat: Optional[Material] = None
+
+    def __post_init__(self):
+        self.radius = max(0.0, self.radius)
+        self.r_squared = self.radius * self.radius
+        self.bbox = AABB(
+            x=Interval[float](
+                lo=self.center[0] - self.radius, hi=self.center[0] + self.radius
+            ),
+            y=Interval[float](
+                lo=self.center[1] - self.radius, hi=self.center[1] + self.radius
+            ),
+            z=Interval[float](
+                lo=self.center[2] - self.radius, hi=self.center[2] + self.radius
+            ),
         )
 
-    def __repr__(self) -> str:
-        return f"sphere"
 
-
-def hit_sphere(s: Sphere, rt: ray_itval, rec: h.HitRecord) -> bool:
-    oc = rt.r.origin - s.center
-    a = np.dot(rt.r.direction, rt.r.direction)
-    half_b = np.dot(oc, rt.r.direction)
+@hit.register
+def _(s: Sphere, ray: Ray, interval: Interval, record: HitRecord) -> bool:
+    oc = ray.origin - s.center
+    a = np.dot(ray.direction, ray.direction)
+    half_b = np.dot(oc, ray.direction)
 
     c = np.dot(oc, oc) - s.r_squared
     discriminant = half_b * half_b - a * c
@@ -39,19 +43,21 @@ def hit_sphere(s: Sphere, rt: ray_itval, rec: h.HitRecord) -> bool:
     sqrtd = np.sqrt(discriminant)
 
     root = (-half_b - sqrtd) / a
-    if root < rt.t.lo or root > rt.t.hi:
+    if root < interval.lo or root > interval.hi:
         root = (-half_b + sqrtd) / a
-        if root < rt.t.lo or root > rt.t.hi:
+        if root < interval.lo or root > interval.hi:
             return False
 
-    rec.t = root
-    rec.p = at(rt.r, root)
-    outward_normal = [
-        (rec.p[0] - s.center[0]) / s.radius,
-        (rec.p[1] - s.center[1]) / s.radius,
-        (rec.p[2] - s.center[2]) / s.radius,
-    ]
-    rec.normal = outward_normal
-    rec.mat = s.mat
+    record.t = root
+    record.p = at(ray, root)
+    outward_normal = np.ndarray(
+        [
+            (record.p[0] - s.center[0]) / s.radius,
+            (record.p[1] - s.center[1]) / s.radius,
+            (record.p[2] - s.center[2]) / s.radius,
+        ]
+    )
+    record.normal = outward_normal
+    record.mat = s.mat
 
     return True

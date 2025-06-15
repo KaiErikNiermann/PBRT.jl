@@ -1,0 +1,9 @@
+\begin{mathpar}\label{par:jl_subtyping}
+    \inferrule [App-Super]
+    {name\{T_1,\ldots,T_m\} <: t'' \in tds \\ \Gamma \vdash t''[a_1/T_1 \ldots a_m/T_m] <: t' \vdash \Gamma' }
+    {\Gamma \vdash name\{a_1,\ldots,a_m\} <: t' \vdash \Gamma'} \\ 
+
+    \inferrule [App-Inv]
+    {n\leq m\ , \Gamma_0 = add(\text{Barrier}, \Gamma)\ , \forall i\in [0, n] \\ \Gamma_{i-1} \vdash a_i <: a_i' \vdash \Gamma_i \land \Gamma_i \vdash a_i' <: a_i \vdash \Gamma_{i}}
+    {\Gamma \vdash name\{a_1,\ldots,a_n\} <: name\{a_1',\ldots,a_n'\} \vdash del(\text{Barrier}, \Gamma_n)}
+\end{mathpar}

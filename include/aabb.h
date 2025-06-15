@@ -37,14 +37,14 @@ public:
         , hi(hi) { }
 };
 
-class RayData {
+class RayPath {
 public:
     Interval interval;
     Ray ray;
-    RayData()
+    RayPath()
         : interval(0.0, 0.0)
         , ray() { }
-    RayData(Interval t, Ray r)
+    RayPath(Interval t, Ray r)
         : interval(t)
         , ray(r) { }
 };
@@ -56,11 +56,11 @@ public:
     Interval z;
 };
 
+bool hit_bbox(const AABB& bbox, const Ray& ray, const Interval& interval);
+
 set_usertype_enabled(Ray);
 set_usertype_enabled(Interval);
 set_usertype_enabled(AABB);
-set_usertype_enabled(RayData);
-
-bool AABB_hit(const AABB& bbox, const Ray& ray, const Interval& ray_it);
+set_usertype_enabled(RayPath);
 
 #endif // AABB_H

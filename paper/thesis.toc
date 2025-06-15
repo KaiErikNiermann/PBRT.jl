@@ -33,7 +33,7 @@
 \contentsline {subsubsection}{\numberline {3.2.2}Metaprogramming and Partial Evaluation}{15}{subsubsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.3}A Record Type Formalism}{17}{subsubsection.3.2.3}%
 \contentsline {subsubsection}{\numberline {3.2.4}Case Study: Jluna's Internals}{21}{subsubsection.3.2.4}%
-\contentsline {subsection}{\numberline {3.3}Solution and Language Extension}{22}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.3}Solution and Language Extension}{23}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Abstract Types \& Substitutability}{23}{subsubsection.3.3.1}%
 \contentsline {subsubsection}{\numberline {3.3.2}Substitutability in Julia and C++}{24}{subsubsection.3.3.2}%
 \contentsline {subsubsection}{\numberline {3.3.3}Representing Fields \& Types}{25}{subsubsection.3.3.3}%

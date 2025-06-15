@@ -1,6 +1,6 @@
 #include "aabb.h"
 
-bool AABB_hit(const AABB& bbox, const Ray& ray, const Interval& interval) {
+bool hit_bbox(const AABB& bbox, const Ray& ray, const Interval& interval) {
     for (int axis = 0; axis < 3; axis++) {
         auto ax    = std::vector<Interval> { bbox.x, bbox.y, bbox.z }[axis];
         float invD = ray.direction[axis] != 0.0 ? 1.0 / ray.direction[axis] : 0.0;
