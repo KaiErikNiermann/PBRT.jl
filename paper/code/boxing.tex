@@ -1,27 +1,19 @@
-% \begin{algorithm}
-%     \begin{algorithmic}[1]
-%     \end{algorithmic}
-% \end{algorithm}
-
-\begin{fileminted}{jluna/usertype.inl}{cpp}
-_box = [&](T& in, unsafe::Value* out) {
-    (fold<FilterType<FType<Field>, std::is_base_of, DerivedType...>>(
-        Field::getter(in),
-        [&](auto&& val) {
-            unsafe::call(setfield, out, _fsymbols[Field::label()], val.value());
-        },
-        MatchTy {
-            // Boxable type
-            [&]<typename DT = FType<Field>, is_boxable FT>(FT& v) -> unsafe::Value* {
-                return jluna::box<FT>(v);
-            },
-            // Not boxable, but base type
-            [&]<is_base_of<FType<Field>> DT, is_not_boxable FT>(FT& v) -> unsafe::Value* {
-                if (auto* val = dynamic_cast<DT*>(v.get()))
-                    return jluna::box<DT>(*val);
-                return nullptr;
-            }
+\begin{mathalgo}{Boxing usertype}
+auto _box = [&](T& obj) -> Value* {
+    return new_struct<T>(                       // allocate Julia struct
+        array<Value*, N>{                       // N == sizeof...(FLens)
+            invoke(                             // pack-expand over FLens…
+                match{
+                    [&]<concrete FT>(FT& v){ 
+                        return box<FT>(v); 
+                    },
+                    [&]<abstract FT>(FT& v){ 
+                        return dispatch_vptr(v); 
+                    }
+                },
+                FLens::get(obj)                 // extract field
+            )...                                // …for every FLens
         }
-    ), ...);
-};
-\end{fileminted}
+    );
+}
+\end{mathalgo}

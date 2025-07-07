@@ -1,9 +1,9 @@
 #include "sphere.h"
 
 bool Sphere::hit(const Ray& ray, const Interval& interval, HitRecord& record) const {
-    std::vector<double> oc = subtract(ray.origin, this->center);
-    double a               = dot(ray.direction, ray.direction);
-    double half_b          = dot(oc, ray.direction);
+    Vec3 oc = Vec3(ray.origin) - Vec3(this->center);
+    double a               = 1;
+    double half_b          = dot(oc, Vec3(ray.direction));
     double c               = dot(oc, oc) - this->r_squared;
     double discriminant    = half_b * half_b - a * c;
 
@@ -22,12 +22,9 @@ bool Sphere::hit(const Ray& ray, const Interval& interval, HitRecord& record) co
     }
 
     record.t = root;
-    record.p = at(ray, root);
-    record.normal = std::vector<double>(
-        {(record.p[0] - this->center[0]) / this->radius,
-         (record.p[1] - this->center[1]) / this->radius,
-         (record.p[2] - this->center[2]) / this->radius}
-    );
+    record.p = at(ray, root).to_array();
+    record.normal = ((Vec3(record.p) - Vec3(this->center)) / this->radius).to_array();
     record.mat = this->mat;
+    
     return true;
 };

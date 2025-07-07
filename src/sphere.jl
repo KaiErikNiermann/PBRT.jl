@@ -1,14 +1,14 @@
 @kwdef struct Sphere <: Hittable
-    center::V3
+    center::Vec3
     radius::Float64
     r_squared::Float64
     mat::Material
     bbox::AABB
 end
 
-function compute_sphere(center::V3, radius::Float64, material::Material = Lambertian(RGBVec3(1.0, 0.0, 0.0)))::Sphere
+function compute_sphere(center::Vec3, radius::Float64, material::Material = Lambertian(RGBVec3(1.0, 0.0, 0.0)))::Sphere
     radius  = max(0.0, radius)
-    rvec    = @vec3 radius, radius, radius
+    rvec    = Vec3((radius, radius, radius))
     
     Sphere(
         center    = center, 
@@ -21,10 +21,10 @@ end
 
 function hit!(s::Sphere, ray::Ray, interval::Interval, record::HitRecord)
     oc     = ray.origin - s.center
-    a      = ray.direction ⋅ ray.direction
-    half_b = oc ⋅ ray.direction
+    a      = dot(ray.direction, ray.direction)
+    half_b = dot(oc, ray.direction)
 
-    c      = (oc ⋅ oc) - s.r_squared
+    c      = dot(oc, oc) - s.r_squared
     Δ      = half_b^2 - a * c
 
     @guard Δ < 0 false

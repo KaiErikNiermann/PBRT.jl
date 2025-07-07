@@ -10,8 +10,8 @@
 
 class HitRecord {
 public:
-    std::vector<double> p;
-    std::vector<double> normal;
+    std::array<double, 3> p;
+    std::array<double, 3> normal;
     std::shared_ptr<Material> mat;
     double t;
     bool front_face;
@@ -25,28 +25,25 @@ public:
             os << val << " ";
         }
         os << "], normal: [ ";
+        for (auto& val : hr.mat.get()->get_albedo().data) {
+            os << val << " ";
+        } 
         for (const auto& val : hr.normal) {
             os << val << " ";
         }
-        
-        os << "], t: " << hr.t
-           << ", front_face: " << hr.front_face
-           << ", u: " << hr.u
-           << ", v: " << hr.v
-           << ", hit: " << hr.hit
-           << ")";
+
+        os << "], t: " << hr.t << ", front_face: " << hr.front_face << ", u: " << hr.u
+           << ", v: " << hr.v << ", hit: " << hr.hit << ")";
         return os;
     }
 };
 
 class Hittable {
 public:
-    Hittable()                                                  = default;
-    virtual ~Hittable()                                         = default;
+    Hittable()                                                                          = default;
+    virtual ~Hittable()                                                                 = default;
     virtual bool hit(const Ray& ray, const Interval& interval, HitRecord& record) const = 0;
 };
-
-std::vector<double> scale(std::vector<double> v, double s);
 
 set_usertype_enabled(Hittable);
 set_usertype_enabled(HitRecord);

@@ -1,0 +1,13 @@
+\begin{mathalgo}{Boxing usertype fields}
+invoke(                             
+    match {
+        [&]<concrete FT>(FT& v) { 
+            return box<FT>(v); 
+        },
+        [&]<abstract FT>(FT& v) { 
+            return dispatch_vptr(v); 
+        }
+    },
+    FLens::get(in /* T& in */)                 
+)...                               
+\end{mathalgo}

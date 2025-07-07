@@ -1,17 +1,17 @@
 @kwdef struct Camera
-    origin::V3
-    ll_corner::V3
-    horizontal::V3
-    vertical::V3
-    u::V3
-    v::V3
-    w::V3
+    origin::Vec3
+    ll_corner::Vec3
+    horizontal::Vec3
+    vertical::Vec3
+    u::Vec3
+    v::Vec3
+    w::Vec3
     lens_radius::Float64
 end
 
 function compute_camera(lookfrom, lookat, vup, vfov, aspect_ratio, aperture, focus_dist)
-    θ               = vfov * (pi / 180)
-    viewport_height = 2.0 * tan(θ / 2)
+    theta               = vfov * (pi / 180)
+    viewport_height = 2.0 * tan(theta / 2)
     viewport_width  = aspect_ratio * viewport_height
 
     w = (lookfrom - lookat) / norm(lookfrom - lookat)
@@ -33,11 +33,18 @@ function compute_camera(lookfrom, lookat, vup, vfov, aspect_ratio, aperture, foc
     )
 end
 
-function compute_ray(camera::Camera, p::V2)
+function compute_ray(camera::Camera, p::Vec2)
     u, v   = p
 
     rd     = camera.lens_radius * random_in_unit_disk()
     offset = (camera.u * rd[1]) + (camera.v * rd[2])
+
+    origin = camera.origin + offset
+    direction = camera.ll_corner + (u * camera.horizontal) + (v * camera.vertical) - camera.origin - offset
+
+    if length(direction) <= 1
+        error("Direction vector must have at least 2 dimensions.")
+    end
 
     Ray(
         camera.origin + offset,

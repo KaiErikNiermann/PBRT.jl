@@ -1,13 +1,13 @@
 \begin{fileminted}{src/cpp/usertype.cpp}{cpp}
 Usertype<Sphere>::initialize_type(
-    TList<
-        Lens<center, &Sphere::center>,
-        Lens<radius, &Sphere::radius>,
-        Lens<r_squared, &Sphere::r_squared>,
-        Lens<mat, &Sphere::mat>,
-        Lens<bbox, &Sphere::bbox>
+    lenses<
+        Lens<"center"_ct,  &Sphere::center>,
+        Lens<"radius"_ct,  &Sphere::radius>,
+        Lens<"r_squared"_ct,&Sphere::r_squared>,
+        Lens<"mat"_ct,     &Sphere::mat>,
+        Lens<"bbox"_ct,    &Sphere::bbox>
     >(),
-    TList<Lambertian>()
+    types<Lambertian, Metal>()
 );
 
 Usertype<Sphere>::implement<Hittable>();

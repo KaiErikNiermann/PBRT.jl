@@ -8,7 +8,7 @@ bool hit_bbox(const AABB& bbox, const Ray& ray, const Interval& interval) {
         float t0 = (ax.lo - ray.origin[axis]) * invD;
         float t1 = (ax.hi - ray.origin[axis]) * invD;
 
-        if (invD < 0.0)
+        if (invD < 0.0) 
             std::swap(t0, t1);
 
         float r_lo = t0 > interval.lo ? t0 : interval.lo;

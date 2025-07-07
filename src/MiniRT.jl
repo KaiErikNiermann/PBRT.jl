@@ -7,8 +7,8 @@ using Profile
 using StaticArrays
 using ProgressBars
 using BenchmarkTools
+using InteractiveUtils
 using Match
-using Main: V2, V3
 
 include("macros.jl")
 include("util.jl")
@@ -26,10 +26,15 @@ include("obj_reader.jl")
 include("scene.jl")
 include("main.jl")
 
+test(str) = begin
+    @info "MiniRT.jl test function called with argument: $str"
+    open("test.txt", "w") do file
+        write(file, "Test successful with argument: $str\n")
+    end
+end
+
 hello() = begin 
     @info "MiniRT.jl initialized successfully."
     return true
 end
-
-export hello
 end

@@ -28,7 +28,7 @@ function scene_summary(sc::ObjectScene)
 end
 
 function scene_parser(file_path::String)::ObjectScene
-    v_array = Vector{Vector{Float64}}()
+    v_array  = Vector{Vector{Float64}}()
     vn_array = Vector{Vector{Float64}}()
     vt_array = Vector{Vector{Float64}}()
 

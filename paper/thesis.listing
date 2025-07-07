@@ -1,20 +1,11 @@
-_box = [&](T& in, unsafe::Value* out) {
-    (fold<FilterType<FType<Field>, std::is_base_of, DerivedType...>>(
-        Field::getter(in),
-        [&](auto&& val) {
-            unsafe::call(setfield, out, _fsymbols[Field::label()], val.value());
+invoke(
+    match {
+        [&]<concrete FT>(FT& v) {
+            return box<FT>(v);
         },
-        MatchTy {
-            // Boxable type
-            [&]<typename DT = FType<Field>, is_boxable FT>(FT& v) -> unsafe::Value* {
-                return jluna::box<FT>(v);
-            },
-            // Not boxable, but base type
-            [&]<is_base_of<FType<Field>> DT, is_not_boxable FT>(FT& v) -> unsafe::Value* {
-                if (auto* val = dynamic_cast<DT*>(v.get()))
-                    return jluna::box<DT>(*val);
-                return nullptr;
-            }
+        [&]<abstract FT>(FT& v) {
+            return dispatch_vptr(v);
         }
-    ), ...);
-};
+    },
+    FLens::get(in /* T& in */)
+)...

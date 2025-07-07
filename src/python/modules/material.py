@@ -15,7 +15,7 @@ class Lambertian(Material):
 
 @dataclass
 class Metal(Material):
-    albedo: RGBVec3 = field(default_factory=lambda: RGBVec3(0.0, 0.0, 0.0))
+    albedo: RGBVec3 = field(default_factory=lambda: RGBVec3([0.0, 0.0, 0.0]))
     fuzz: float = 0.0
 
 

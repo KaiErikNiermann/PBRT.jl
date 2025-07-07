@@ -23,7 +23,7 @@ function triangle_parser(scene::ObjectScene)::Vector{Triangle}
     end]
 end
 
-function custom_scene(fp::Union{String, Nothing})::Scene
+function custom_scene(fp::Union{String, Nothing})::Scene 
 	scene = fp !== nothing ? 
 		compute_bvh(reduce(
 			push!, 
@@ -45,9 +45,9 @@ function custom_scene(fp::Union{String, Nothing})::Scene
 			norm([-170, 20, 0] - [0, 0, -1])
 		), 
 		Image(
-			width = 500,
-			height = trunc(Int, 500 / DEF_ASPECT_RATIO),
-			spp = 50,
+			width = 50,
+			height = trunc(Int, 50 / DEF_ASPECT_RATIO),
+			spp = 1,
 			max_depth = 50
 		)
 	)

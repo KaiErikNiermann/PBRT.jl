@@ -7,8 +7,10 @@ Lambertian material, typically used for diffuse or matte surfaces.
 
 - `albedo` is the color of the material, represented as an RGB vector.
 """
-struct Lambertian <: Material
+mutable struct Lambertian <: Material
     albedo::RGBVec3
+    Lambertian(albedo::RGBVec3) = new(albedo)
+    Lambertian() = new(RGBVec3((0.0, 0.0, 0.0)))
 end
 
 """
@@ -19,7 +21,7 @@ Metal material with fuzziness
 -  `albedo` is the color of the material, represented as an RGB vector.
 -  `fuzz` is the fuzziness factor, which should be between 0.0 and 1.0.
 """
-struct Metal <: Material
+mutable struct Metal <: Material
     albedo::RGBVec3
     fuzz::Float64 
 
@@ -34,7 +36,7 @@ Dielectric material, typically used for glass or water
 
 - `ir` is the index of refraction. (default is 0)
 """
-struct Dielectric <: Material
+mutable struct Dielectric <: Material
     ir::Float64
     Dielectric(ir::Float64) = new(ir)
     Dielectric() = new(0)

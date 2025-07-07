@@ -1,6 +1,6 @@
 mutable struct HitRecord
-    p::V3
-    normal::V3
+    p::Vec3
+    normal::Vec3
     mat::Material
     t::Float64
     front_face::Bool
@@ -10,9 +10,9 @@ mutable struct HitRecord
 end
 
 HitRecord() = HitRecord(
-    V3([0.0, 0.0, 0.0]),
-    V3([0.0, 0.0, 0.0]),
-    Lambertian(RGBVec3()),
+    Vec3((0.0, 0.0, 0.0)),
+    Vec3((0.0, 0.0, 0.0)),
+    Lambertian(RGBVec3((0.0, 0.0, 0.0))),
     0.0,
     false,
     0.0,
@@ -28,8 +28,8 @@ end
 const HRecord  = HitRecord
 const SDRecord = ScatterRecord
 
-function set_face_normal!(h_record::HRecord, r::Ray, outward_normal::V3)
-    h_record.front_face = r.direction ⋅ outward_normal < 0
+function set_face_normal!(h_record::HRecord, r::Ray, outward_normal::Vec3)
+    h_record.front_face = dot(r.direction, outward_normal) < 0
     
     if(h_record.front_face)
         h_record.normal = outward_normal
@@ -57,14 +57,14 @@ function scatter(material::Metal, h_record::HRecord, s_data::SDRecord, ray::Ray)
     s_data.scattered   = Ray(h_record.p, reflected .+ (material.fuzz * random_in_unit_sphere()))
     s_data.attenuation = material.albedo
     
-    (s_data.scattered.direction ⋅ h_record.normal) > 0
+    dot(s_data.scattered.direction, h_record.normal) > 0
 end
 
 function scatter(material::Dielectric, h_record::HRecord, s_data::SDRecord, ray::Ray)::Bool
     refraction_ratio = h_record.front_face ? (1.0 / material.ir) : material.ir
     
     unit_direction   = unit_v(ray.direction)
-    cosθ             = min((-unit_direction ⋅ h_record.normal), 1.0)
+    cosθ             = min(dot(-unit_direction, h_record.normal), 1.0)
     sinθ             = sqrt(1.0 - cosθ^2)
     
     cannot_refract = (refraction_ratio * sinθ) > 1.0
@@ -74,7 +74,7 @@ function scatter(material::Dielectric, h_record::HRecord, s_data::SDRecord, ray:
     refract(unit_direction, h_record.normal, refraction_ratio)
     
     s_data.scattered = Ray(h_record.p, direction)
-    s_data.attenuation = RGBVec3(V3[1.0, 1.0, 1.0])
+    s_data.attenuation = RGBVec3(Vec3[1.0, 1.0, 1.0])
     
     true
 end

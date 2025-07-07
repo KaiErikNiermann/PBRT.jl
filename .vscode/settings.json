@@ -221,7 +221,22 @@
         "unordered_set": "cpp",
         "shared_mutex": "cpp",
         "cfenv": "cpp",
-        "typeindex": "cpp"
+        "typeindex": "cpp",
+        "csignal": "cpp",
+        "strstream": "cpp",
+        "barrier": "cpp",
+        "bitset": "cpp",
+        "codecvt": "cpp",
+        "coroutine": "cpp",
+        "cuchar": "cpp",
+        "expected": "cpp",
+        "regex": "cpp",
+        "source_location": "cpp",
+        "latch": "cpp",
+        "scoped_allocator": "cpp",
+        "syncstream": "cpp",
+        "valarray": "cpp",
+        "simd": "cpp"
     },
     "files.exclude": {
         "**/.git": true,
@@ -265,4 +280,10 @@
     "vscoq.args": [
         "-Q", "${workspaceFolder}/PFClib", "PFC"
     ], 
+    "cmake.configureEnvironment": {
+        "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/libs/jluna"
+    }, 
+    "cmake.configureArgs": [
+        "-DCMAKE_INSTALL_PREFIX=${workspaceFolder}/libs/jluna/build", 
+    ]
 }

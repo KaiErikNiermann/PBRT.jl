@@ -1,67 +1,46 @@
 mutable struct AABB
-    x::Interval{Float64}
-    y::Interval{Float64}
-    z::Interval{Float64}
-end
-
-function pad_to_min(x, y, z)
-    Δ = 0.0001
-
-    if size(x) < Δ
-        x = expand(Δ, x)
-    end 
+    x::Interval
+    y::Interval
+    z::Interval
+    function pad_to_min(x, y, z)
+        delta = 0.0001
     
-    if size(y) < Δ
-        y = expand(Δ, y)
+        if size(x) < delta
+            x = expand(delta, x)
+        end 
+        
+        if size(y) < delta
+            y = expand(delta, y)
+        end
+        
+        if size(z) < delta
+            z = expand(delta, z)
+        end
+    
+        new(x, y, z)
     end
     
-    if size(z) < Δ
-        z = expand(Δ, z)
-    end
-
-    AABB(x, y, z)
+    AABB() = 
+        pad_to_min(Interval(0.0, 0.0), Interval(0.0, 0.0), Interval(0.0, 0.0))
+    
+    AABB(a::AABB, b::AABB) = 
+        pad_to_min(Interval(a.x, b.x), Interval(a.y, b.y), Interval(a.z, b.z))
+        
+    AABB(x::Interval, y::Interval, z::Interval) = 
+        pad_to_min(x, y, z)
+    
+    AABB(p0::Vec3, p1::Vec3) = 
+        pad_to_min(
+            Interval(min(p0[1], p1[1]), max(p0[1], p1[1])),
+            Interval(min(p0[2], p1[2]), max(p0[2], p1[2])),
+            Interval(min(p0[3], p1[3]), max(p0[3], p1[3]))
+        )
 end
 
 
-AABB() = 
-    pad_to_min(Interval(0.0, 0.0), Interval(0.0, 0.0), Interval(0.0, 0.0))
+axis_longest(bbox::AABB) = argmax((size(bbox.x), size(bbox.y), size(bbox.z)))
 
-compute_aabb(x::Interval{Float64}, y::Interval{Float64}, z::Interval{Float64}) = 
-    pad_to_min(x, y, z)
-
-AABB(p0::V3, p1::V3) = 
-    pad_to_min(
-        Interval(min(p0[1], p1[1]), max(p0[1], p1[1])),
-        Interval(min(p0[2], p1[2]), max(p0[2], p1[2])),
-        Interval(min(p0[3], p1[3]), max(p0[3], p1[3])
-    ))
-
-AABB(p0::Vector{Float64}, p1::Vector{Float64}) = 
-    pad_to_min(
-        Interval(min(p0[1], p1[1]), max(p0[1], p1[1])),
-        Interval(min(p0[2], p1[2]), max(p0[2], p1[2])),
-        Interval(min(p0[3], p1[3]), max(p0[3], p1[3])
-    ))
-
-AABB(a::AABB, b::AABB) = 
-    pad_to_min(Interval(a.x, b.x), Interval(a.y, b.y), Interval(a.z, b.z))
-
-function longest_axis(bbox::AABB)
-    if size(bbox.x) > size(bbox.y)
-        return size(bbox.x) > size(bbox.z) ? 1 : 3
-    else
-        return size(bbox.y) > size(bbox.z) ? 2 : 3
-    end
-end
-
-function axis_interval(bbox::AABB, axis::Int)::Interval
-    if axis == 2
-        return bbox.y
-    elseif axis == 3
-        return bbox.z
-    end
-    return bbox.x
-end
+axis_interval(bbox::AABB, axis::Int)::Interval = (bbox.x, bbox.y, bbox.z)[axis]
 
 function hit!(bbox::AABB, ray::Ray, interval::Interval)::Bool
     r_lo = interval.lo
@@ -84,4 +63,4 @@ function hit!(bbox::AABB, ray::Ray, interval::Interval)::Bool
     true
 end
 
-export AABB, longest_axis, axis_interval, hit!, pad_to_min, compute_aabb
+export AABB, axis_longest, axis_interval, hit!, pad_to_min, compute_aabb

@@ -1,0 +1,15 @@
+\begin{mathalgo}{Unboxing usertype}
+foreach_indexed<FLens...>([&]<Lens FL, size_t I> { 
+    invoke_with<FType<FL>>(
+        match {
+            [&]<is_jlbits FT>(Value* v) { 
+                FL::set(out, as_pod<FT>(v)); 
+            }, 
+            [&]<typename FT>(Value* v) {
+                dispatch_tptr<FT>(out, v);
+            }
+        }, 
+        nth_field<FL, I>(in /* Value* in */)  
+    );          
+});
+\end{mathalgo}

@@ -1,12 +1,23 @@
 \begin{fileminted}{src/cpp/usertype.cpp}{cpp}
-template <typename Ot, typename Ft, const char* name>
-struct P {
-    using obj_t = const Ot;
-    using field_t = Ft;
-    static constexpr const char* get_name() { 
-        return name; 
+template <
+    ct_string Name, 
+    typename T, typename M, 
+    M T::* Member
+>
+struct Lens<Name, Member> {
+    using type  = internal_t<M>;
+    
+    static M T::* member_ = Member;
+
+    static auto label() { 
+        return Name; 
     }
-    static std::function<Ft(Ot&)> get;
-    static std::function<void(Ot&, Ft)> set;
+    static auto get(T& obj) -> M { 
+        return obj.*member_; 
+    }
+    template <typename U>
+    static auto set(T& obj, U&& value) -> void {
+        obj.*member_ = value;
+    }
 };
 \end{fileminted}

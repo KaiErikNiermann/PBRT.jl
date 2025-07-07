@@ -8,15 +8,15 @@
 #include <jluna.hpp>
 
 class Ray {
-    std::vector<double> at(double t) {
+    std::array<double, 3> at(double t) {
         return {
             origin[0] + t * direction[0], origin[1] + t * direction[1], origin[2] + t * direction[2]
         };
     }
 
 public:
-    std::vector<double> origin;
-    std::vector<double> direction;
+    std::array<double, 3> origin;
+    std::array<double, 3> direction;
 
     Ray()
         : origin({0.0, 0.0, 0.0})
@@ -62,5 +62,6 @@ set_usertype_enabled(Ray);
 set_usertype_enabled(Interval);
 set_usertype_enabled(AABB);
 set_usertype_enabled(RayPath);
+
 
 #endif // AABB_H

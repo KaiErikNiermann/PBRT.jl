@@ -1,7 +1,7 @@
 \begin{mathpar}
   \inferrule [Record-Indexing-Formation]
-  {\Gamma \vdash L : \text{type} \\ \Gamma, x: L \vdash T_x : \text{type}}
-  {\Gamma \vdash (x : L) \rightarrow T_x : \text{type}} \\ 
+  {\Gamma \vdash L : \text{type} \\ \Gamma, l: L \vdash T_l : \text{type}}
+  {\Gamma \vdash (l : L) \rightarrow T_l : \text{type}} \\ 
   \inferrule [Record-Term-Introduction]
   {\Gamma, l : L \vdash \tau : T_l}
   {\Gamma \vdash (l \rightarrow \tau) : (l : L) \rightarrow T_l}

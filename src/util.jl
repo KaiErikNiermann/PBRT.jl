@@ -1,27 +1,25 @@
 import Base: +, -, *
 
-const ϵ                = 1e-8
+const EPSILON = 1e-8
 const DEF_ASPECT_RATIO = 16.0 / 9.0
 
-struct RGBVec3
-    data::V3
-end 
+const Vec3 = SVector{3, Float64}
+const Vec2 = SVector{2, Float64}
 
-RGBVec3() = RGBVec3(@vec3 0.0, 0.0, 0.0)
-RGBVec3(r::Float64, g::Float64, b::Float64) = RGBVec3(@vec3 r, g, b)
+mutable struct RGBVec3
+    data::Vec3
+end
 
-+(c1::RGBVec3, c2::RGBVec3)::RGBVec3 = 
-    RGBVec3(c1.data + c2.data)
--(c1::RGBVec3, c2::RGBVec3)::RGBVec3 =
-    RGBVec3(c1.data - c2.data)
-*(c::RGBVec3, s::Float64)::RGBVec3 =
-    RGBVec3(c.data * s)
-*(s::Float64, c::RGBVec3)::RGBVec3 =
-    RGBVec3(c.data * s)
-*(c1::RGBVec3, c2::RGBVec3)::RGBVec3 =
-    RGBVec3(c1.data .* c2.data)
+RGBVec3() = RGBVec3(Vec3((0.0, 0.0, 0.0)))
+RGBVec3(r::Float64, g::Float64, b::Float64) = RGBVec3(Vec3((r, g, b)))
 
-Base.getproperty(c::RGBVec3, s::Symbol) = 
++(c1::RGBVec3, c2::RGBVec3)::RGBVec3 = RGBVec3(c1.data + c2.data)
+-(c1::RGBVec3, c2::RGBVec3)::RGBVec3 = RGBVec3(c1.data - c2.data)
+*(c::RGBVec3, s::Float64)::RGBVec3 = RGBVec3(c.data * s)
+*(s::Float64, c::RGBVec3)::RGBVec3 = RGBVec3(c.data * s)
+*(c1::RGBVec3, c2::RGBVec3)::RGBVec3 = RGBVec3(c1.data .* c2.data)
+
+Base.getproperty(c::RGBVec3, s::Symbol) =
     s === :r ? c.data[1] :
     s === :g ? c.data[2] :
     s === :b ? c.data[3] :
@@ -41,42 +39,42 @@ function split_quad(vertices)
     ]
 end
 
-unit_v(v::V3)::V3 = v ./ norm(v)
+unit_v(v::Vec3)::Vec3 = v ./ norm(v)
 
-norm_coords(pos::V2, dims::Vector{Int64})::V2 = 
+norm_coords(pos::Vec2, dims::SVector{2, Int64})::Vec2 =
     (pos .+ rand_f64()) ./ (dims .- 1)
 
-rand_rgbvec3()::RGBVec3 = 
-    RGBVec3(@vec3 rand([0.0, 1.0]), rand([0.0, 1.0]), rand([0.0, 1.0]))
+rand_rgbvec3()::RGBVec3 =
+    RGBVec3(Vec3([rand([0.0, 1.0]), rand([0.0, 1.0]), rand([0.0, 1.0])]))
 
-rand_f64vec3()::V3 = 
-    @vec3 rand_f64(), rand_f64(), rand_f64()
+rand_f64vec3()::Vec3 =
+    Vec3([rand_f64(), rand_f64(), rand_f64()])
 
-rand_f64vec3(min::Float64, max::Float64)::V3 = 
-    @vec3 rand_f64(min, max), rand_f64(min, max), rand_f64(min, max)
+rand_f64vec3(min::Float64, max::Float64)::Vec3 =
+    Vec3([rand_f64(min, max), rand_f64(min, max), rand_f64(min, max)])
 
-rand_f64()::Float64 = 
+rand_f64()::Float64 =
     rand(Uniform(0.0, 1.0))
 
-rand_f64(min::Float64, max::Float64)::Float64 = 
-    min + (max - min) * rand_f64() 
+rand_f64(min::Float64, max::Float64)::Float64 =
+    min + (max - min) * rand_f64()
 
-rand_i64(min::Int64, max::Int64)::Int64 = 
+rand_i64(min::Int64, max::Int64)::Int64 =
     trunc(Int64, rand_f64(Float64(min), Float64(max)))
 
-rand_unit_v() = 
+rand_unit_v() =
     normalize(random_in_unit_sphere())
 
-near_zero(vec::V3)::Bool = 
-    all(abs.(vec) .< ϵ)
+near_zero(vec::Vec3)::Bool =
+    all(abs.(vec) .< EPSILON)
 
-reflect(v::V3, n::V3)::V3 = 
-    v + 2.0 * (-n ⋅ v) * n
+reflect(v::Vec3, n::Vec3)::Vec3 =
+    v + 2.0 * dot(-n, v) * n
 
 function random_in_unit_sphere()
     while true
         p = rand_f64(-1.0, 1.0)
-        if norm(p) >= 1.0  
+        if norm(p) >= 1.0
             continue
         end
         return p
@@ -85,22 +83,22 @@ end
 
 function random_in_unit_disk()
     while true
-        p = @vec3 rand_f64(-1.0, 1.0), rand_f64(-1.0, 1.0), 0.0
-        if p ⋅ p >= 1
+        p = Vec3([rand_f64(-1.0, 1.0), rand_f64(-1.0, 1.0), 0.0])
+        if dot(p, p) >= 1
             continue
         end
         return p
     end
 end
 
-function random_in_hemisphere(normal::V3)::V3
+function random_in_hemisphere(normal::Vec3)::Vec3
     in_unit_sphere = random_in_unit_sphere()
 
-   (in_unit_sphere ⋅ normal) > 0.0 ? in_unit_sphere : -in_unit_sphere
-end 
+    dot(in_unit_sphere, normal) > 0.0 ? in_unit_sphere : -in_unit_sphere
+end
 
 @doc raw"""
-    refract(uv::V3, n::V3, r::Float64)::V3
+    refract(uv::Vec3, n::Vec3, r::Float64)::Vec3
 
 Refract a vector `uv` with respect to a normal `n` and a refraction index `r`.
 
@@ -110,16 +108,16 @@ Refract a vector `uv` with respect to a normal `n` and a refraction index `r`.
 \end{equation}
 ```
 """
-function refract(uv::V3, n::V3, r)::V3 
-    cosθ            = min((-uv ⋅ n), 1)
-    r_out_perp      = r * (uv + cosθ * n)
-    r_out_parallel  = -sqrt(abs(1.0 - r^2 * (1 - cosθ^2))) * n
+function refract(uv::Vec3, n::Vec3, r)::Vec3
+    cos_theta = min(dot(-uv, n), 1)
+    r_out_perp = r * (uv + cos_theta * n)
+    r_out_parallel = -sqrt(abs(1.0 - r^2 * (1 - cos_theta^2))) * n
 
     r_out_perp + r_out_parallel
 end
 
 @doc raw"""
-    reflectance(cosθ::Float64, ref_idx::Float64)::Float64
+    reflectance(cos_theta::Float64, ref_idx::Float64)::Float64
 
 Schlick's approximation for reflectance. 
 
@@ -129,10 +127,10 @@ Schlick's approximation for reflectance.
 \end{equation}
 ```
 """
-function reflectance(cosθ, ref_idx)::Float64
+function reflectance(cos_theta, ref_idx)::Float64
     r0 = ((1 - ref_idx) / (1 + ref_idx))^2
-    (r0 + (1 - r0) * (1 - cosθ)^5) # R(θ)
+    (r0 + (1 - r0) * (1 - cos_theta)^5) # R(_theta)
 end
 
 export RGBVec3
-export rand_f64, rand_f64vec3, rand_rgbvec3, rand_unit_v, norm_coords, unit_v, rand_f64, rand_f64vec3, rand_f64vec3, rand_i64   
+export rand_f64, rand_f64vec3, rand_rgbvec3, rand_unit_v, norm_coords, unit_v, rand_f64, rand_f64vec3, rand_f64vec3, rand_i64

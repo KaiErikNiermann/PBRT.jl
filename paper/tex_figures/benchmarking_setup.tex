@@ -1,0 +1,70 @@
+\begin{sequencediagram}
+    \newinst {img}{:Image Gen}
+    \newinst  {proxy}{:Proxy}
+    \newthread  {api}{:Interop Lib}
+    \newinst  {bvh_p}{:BVH}
+
+    \begin{call}{api}{render(scene)}{img}{}
+        \begin{sdblock}{proxy module}{} 
+        \begin{sdblock}{draw}{pixel $\times$ sample}
+            \begin{call}{img}{hit(args…)}{proxy}{HitInfo}
+                \begin{call}{proxy}{hit(args…)}{api}{HitInfo}
+                    \begin{callself}{api}{unbox(args)…}{…}{}
+                    \end{callself}
+                    
+                    \begin{call}{api}{hit(…)}{bvh_p}{HitInfo}
+                        \begin{callself}{bvh_p}{hit(…)}{…}{}
+                        \end{callself}
+                    \end{call}
+
+                    \begin{callself}{api}{box(HitInfo)}{…}{}
+                    \end{callself}
+                \end{call}
+                    
+                \node[anchor=east, xshift=-4pt] (t0) at (cf3) {$t_0$};
+                \node[anchor=west, xshift=4pt] (t0) at (ct4) {$t_1$};
+                
+                \node[anchor=west, xshift=4pt] (t1) at (rt4) {$t_2$};
+                \node[anchor=east, xshift=-4pt] (t1) at (rf3) {$t_3$};       
+                \draw [decorate, 
+                    decoration = {brace,
+                    raise=5pt,
+                    mirror,
+                    amplitude=3pt}]%
+                    let
+                        \p1=(ct3),
+                        \p2=(cf4)
+                    in
+                        (\x2,\y1) -- (\p2)
+                    node[pos=0.5,left=7pt]{$\Delta t_{u}$};
+
+                \draw [decorate,
+                    decoration = {brace,
+                    raise=5pt,
+                    mirror,
+                    amplitude=3pt}]%
+                    let
+                        \p1=(cf4),  
+                        \p2=(rf4)
+                    in
+                        (\x2,\y1) -- (\p2)
+                    node[pos=0.5,left=7pt]{$\Delta t_{r}$};   
+                    
+                \draw [decorate,
+                    decoration = {brace,
+                    raise=5pt,
+                    mirror,
+                    amplitude=3pt}]%
+                    let
+                        \p1=(rf4),  
+                        \p2=(rt3)
+                    in
+                        (\x2,\y1) -- (\p2)
+                    node[pos=0.5,left=7pt]{$\Delta t_{b}$};
+                    
+                    \postlevel
+                \end{call}
+            \end{sdblock}
+        \end{sdblock}
+    \end{call}
+\end{sequencediagram}

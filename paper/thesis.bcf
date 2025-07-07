@@ -2422,30 +2422,48 @@
     <bcf:citekey order="53" intorder="1">clang_arc</bcf:citekey>
     <bcf:citekey order="54" intorder="1">cppreference_class</bcf:citekey>
     <bcf:citekey order="55" intorder="1">crubit</bcf:citekey>
-    <bcf:citekey order="56" intorder="1">p1144r13</bcf:citekey>
-    <bcf:citekey order="57" intorder="1">clang-trivial-abi</bcf:citekey>
-    <bcf:citekey order="57" intorder="2">crubit-cxx-design</bcf:citekey>
-    <bcf:citekey order="58" intorder="1">p2786r11</bcf:citekey>
-    <bcf:citekey order="59" intorder="1">crubit-struct-layout</bcf:citekey>
-    <bcf:citekey order="60" intorder="1">rust-pinning</bcf:citekey>
-    <bcf:citekey order="61" intorder="1">Young2023google</bcf:citekey>
-    <bcf:citekey order="62" intorder="1">juliacall-gc</bcf:citekey>
-    <bcf:citekey order="63" intorder="1">digitalocean-jvm-memory-2020</bcf:citekey>
-    <bcf:citekey order="64" intorder="1">Sengupta2023JuliaInterop</bcf:citekey>
-    <bcf:citekey order="65" intorder="1">dtolnay_syn</bcf:citekey>
-    <bcf:citekey order="66" intorder="1">zhdan2024swiftcpp</bcf:citekey>
-    <bcf:citekey order="67" intorder="1">Shirley2024RTW1</bcf:citekey>
-    <bcf:citekey order="67" intorder="2">Shirley2024RTW2</bcf:citekey>
-    <bcf:citekey order="68" intorder="1">Rowley2025JuliaPy</bcf:citekey>
-    <bcf:citekey order="69" intorder="1">Janssens2025JuliaInterop</bcf:citekey>
-    <bcf:citekey order="70" intorder="1">jluna</bcf:citekey>
+    <bcf:citekey order="56" intorder="1">hartzell2021cppmove</bcf:citekey>
+    <bcf:citekey order="57" intorder="1">p1144r13</bcf:citekey>
+    <bcf:citekey order="58" intorder="1">clang-trivial-abi</bcf:citekey>
+    <bcf:citekey order="58" intorder="2">crubit-cxx-design</bcf:citekey>
+    <bcf:citekey order="59" intorder="1">p2786r11</bcf:citekey>
+    <bcf:citekey order="60" intorder="1">crubit-struct-layout</bcf:citekey>
+    <bcf:citekey order="61" intorder="1">rust-pinning</bcf:citekey>
+    <bcf:citekey order="62" intorder="1">Young2023google</bcf:citekey>
+    <bcf:citekey order="63" intorder="1">juliacall-gc</bcf:citekey>
+    <bcf:citekey order="64" intorder="1">digitalocean-jvm-memory-2020</bcf:citekey>
+    <bcf:citekey order="65" intorder="1">Sengupta2023JuliaInterop</bcf:citekey>
+    <bcf:citekey order="66" intorder="1">dtolnay_syn</bcf:citekey>
+    <bcf:citekey order="67" intorder="1">zhdan2024swiftcpp</bcf:citekey>
+    <bcf:citekey order="68" intorder="1">Veldhuizen1998</bcf:citekey>
+    <bcf:citekey order="69" intorder="1">Futamura1983</bcf:citekey>
+    <bcf:citekey order="70" intorder="1">Futamura1983</bcf:citekey>
     <bcf:citekey order="71" intorder="1">Futamura1983</bcf:citekey>
     <bcf:citekey order="72" intorder="1">Veldhuizen1998</bcf:citekey>
     <bcf:citekey order="73" intorder="1">unruh1994prime</bcf:citekey>
     <bcf:citekey order="74" intorder="1">Fulton2025swig</bcf:citekey>
-    <bcf:citekey order="75" intorder="1">10.1145/3550454.3555463</bcf:citekey>
-    <bcf:citekey order="76" intorder="1">Cooper2005Records</bcf:citekey>
-    <bcf:citekey order="77" intorder="1">Zappa2018Julia</bcf:citekey>
+    <bcf:citekey order="75" intorder="1">Abadi1996Theory</bcf:citekey>
+    <bcf:citekey order="76" intorder="1">montague1970english</bcf:citekey>
+    <bcf:citekey order="77" intorder="1">Cooper2005Records</bcf:citekey>
+    <bcf:citekey order="77" intorder="2">cooper2021structure</bcf:citekey>
+    <bcf:citekey order="78" intorder="1">zucker1975automath</bcf:citekey>
+    <bcf:citekey order="78" intorder="2">debruijn1991telescopic</bcf:citekey>
+    <bcf:citekey order="79" intorder="1">Foster2005Combinators</bcf:citekey>
+    <bcf:citekey order="80" intorder="1">Clarke2024Profunctor</bcf:citekey>
+    <bcf:citekey order="81" intorder="1">Foster2005Combinators</bcf:citekey>
+    <bcf:citekey order="82" intorder="1">Clarke2024Profunctor</bcf:citekey>
+    <bcf:citekey order="82" intorder="2">Riley2018Categories</bcf:citekey>
+    <bcf:citekey order="83" intorder="1">nlab:structure</bcf:citekey>
+    <bcf:citekey order="84" intorder="1">10.1145/197320.197383</bcf:citekey>
+    <bcf:citekey order="85" intorder="1">Zappa2018Julia</bcf:citekey>
+    <bcf:citekey order="86" intorder="1">Shirley2024RTW1</bcf:citekey>
+    <bcf:citekey order="86" intorder="2">Shirley2024RTW2</bcf:citekey>
+    <bcf:citekey order="87" intorder="1">Rowley2025JuliaPy</bcf:citekey>
+    <bcf:citekey order="88" intorder="1">Janssens2025JuliaInterop</bcf:citekey>
+    <bcf:citekey order="89" intorder="1">jluna</bcf:citekey>
+    <bcf:citekey order="90" intorder="1">HlzlePICs</bcf:citekey>
+    <bcf:citekey order="91" intorder="1">v8_wasm_constants</bcf:citekey>
+    <bcf:citekey order="92" intorder="1">mozilla_icstate</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

@@ -9,11 +9,9 @@
 
 class Triangle : public Hittable {
 public:
-    std::vector<double> v1;
-    std::vector<double> v2;
-    std::vector<double> v3;
-    int id;
-    std::vector<std::set<std::vector<double>>> edges;
+    std::array<double, 3> v1{0.0, 0.0, 0.0};
+    std::array<double, 3> v2{0.0, 0.0, 0.0};
+    std::array<double, 3> v3{0.0, 0.0, 0.0};
     std::shared_ptr<Material> mat;
     AABB bbox;
 

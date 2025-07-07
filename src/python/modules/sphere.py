@@ -1,44 +1,22 @@
-from .aabb import AABB, Interval, Ray, at, RayPath
-from .hittable import Hittable, HitRecord
+from .hittable import set_face_normal
+from .fast_math import dot
+from .models import LIB_SCOPE, _Sphere, Interval, Ray, HitRecord, Sphere
 from dataclasses import dataclass
-from .material import Material
-from bvh import hit
+from .aabb import at
 import numpy as np
-from typing import Optional
+from .bvh import hit
 
 
-@dataclass
-class Sphere(Hittable):
-    center: np.ndarray = np.array([0.0, 0.0, 0.0])
-    radius: float = 0.0
-    mat: Optional[Material] = None
+@hit.register(_Sphere)
+def _(sphere, ray: Ray, interval: Interval, record: HitRecord) -> HitRecord:
+    oc = ray.origin - sphere.center
+    a = 1
+    half_b = dot(oc, ray.direction)
 
-    def __post_init__(self):
-        self.radius = max(0.0, self.radius)
-        self.r_squared = self.radius * self.radius
-        self.bbox = AABB(
-            x=Interval[float](
-                lo=self.center[0] - self.radius, hi=self.center[0] + self.radius
-            ),
-            y=Interval[float](
-                lo=self.center[1] - self.radius, hi=self.center[1] + self.radius
-            ),
-            z=Interval[float](
-                lo=self.center[2] - self.radius, hi=self.center[2] + self.radius
-            ),
-        )
-
-
-@hit.register
-def _(s: Sphere, ray: Ray, interval: Interval, record: HitRecord) -> bool:
-    oc = ray.origin - s.center
-    a = np.dot(ray.direction, ray.direction)
-    half_b = np.dot(oc, ray.direction)
-
-    c = np.dot(oc, oc) - s.r_squared
+    c = dot(oc, oc) - sphere.r_squared
     discriminant = half_b * half_b - a * c
     if discriminant < 0:
-        return False
+        return record
 
     sqrtd = np.sqrt(discriminant)
 
@@ -46,18 +24,12 @@ def _(s: Sphere, ray: Ray, interval: Interval, record: HitRecord) -> bool:
     if root < interval.lo or root > interval.hi:
         root = (-half_b + sqrtd) / a
         if root < interval.lo or root > interval.hi:
-            return False
+            return record
 
     record.t = root
     record.p = at(ray, root)
-    outward_normal = np.ndarray(
-        [
-            (record.p[0] - s.center[0]) / s.radius,
-            (record.p[1] - s.center[1]) / s.radius,
-            (record.p[2] - s.center[2]) / s.radius,
-        ]
-    )
-    record.normal = outward_normal
-    record.mat = s.mat
+    record.mat = sphere.mat
+    record.hit = True
+    out_norm = (record.p - sphere.center) / sphere.radius
 
-    return True
+    return record

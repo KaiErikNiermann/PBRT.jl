@@ -7,22 +7,11 @@ const ROOT        = @__DIR__
 const SCENES_DIR  = joinpath(ROOT, "scenes")
 const SCENES_FP   = joinpath(SCENES_DIR, "scenes.toml")
 
-# ┌────────────────────────────────────────────┐
-# │        Configuration Setup                 │
-# │ Hacky trick to have swappable vector types │
-# └────────────────────────────────────────────┘
-include(joinpath(ROOT, "src", "Config.jl"))
-using .Config
+include(joinpath(ROOT, "src", "Types.jl"))
+using .Types
 
-const MODE = Symbol(get(ARGS, 1, "static"))
-init!(MODE)
-
-const V2 = V2_ref[]
-const V3 = V3_ref[]
-
-include("src/MiniRT.jl")
+include(joinpath(ROOT, "src", "MiniRT.jl"))
 using .MiniRT
-# └────────────────────────────────────────────┘
 
 function get_scenes_dict(path::AbstractString)::Dict
     isfile(path) || error("Scenes list not found at $path")
@@ -48,8 +37,9 @@ end
 
 function main()
     scene_fp = resolve_scene(ARGS)
+    mode = Types.mode_set(Symbol(get(ARGS, 1, "dynamic")))
 
-    @info "Vector mode: $MODE  (V3 = $V3, V2 = $V2)"
+    @info "Vector mode: $mode  (V3 = $(Types.Point2D(mode)), V2 = $(Types.Point3D(mode)))"
     @info "Rendering scene from: $scene_fp"
 
     MiniRT.render(scene_fp)

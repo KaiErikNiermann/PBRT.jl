@@ -11,13 +11,13 @@
 #include "math_util.h"
 
 class Sphere : public Hittable {
-    public:
-        std::vector<double> center;
-        double radius;
-        double r_squared;
-        std::shared_ptr<Material> mat;
-        AABB bbox;
-        bool hit(const Ray&, const Interval&, HitRecord&) const override;
+public:
+    std::array<double, 3> center{0.0, 0.0, 0.0};
+    double radius;
+    double r_squared;
+    std::shared_ptr<Material> mat;
+    AABB bbox;
+    bool hit(const Ray&, const Interval&, HitRecord&) const override;
 };
 
 set_usertype_enabled(Sphere);

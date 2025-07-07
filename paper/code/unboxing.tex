@@ -1,14 +1,15 @@
-\begin{fileminted}{libs/jluna/.src/usertype.inl}{cpp}
-template <typename T>
-T Usertype<T>::unbox(unsafe::Value* in) {
-    if (not _implemented) [[unlikely]]
-        implement();
+\begin{mathalgo}{Unboxing usertype}
+auto _unbox = [&](Value* in) -> T {
+    T out;                                           
 
-    gc_safepoint(
-        T out;
-        _unbox(out, in)
-    )
-    return out;
+    for_each_indexed<FLens...>(
+        [&]<auto FL, auto I>() { 
+            dispatch_tptr<FL>(
+                out, 
+                get_field<FT, I>(in));          
+        }
+    );
+
+    return out;                                         
 }
-\end{fileminted}
-                
+\end{mathalgo}

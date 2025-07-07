@@ -1,70 +1,162 @@
 @conference{kiam_9689,
-  title     = {Supercompilation and partial evaluation are still not widely used in practice. Why and what to do?},
-  author    = {{Klimov, A.V.}},
-  year      = 2022,
-  booktitle = {Scientific service & Internet: proceedings of the 24th All-Russian Scientific Conference (September 19-22, 2022, online)},
-  publisher = {Keldysh Institute of Applied Mathematics},
-  volume    = 24,
-  pages     = {312--331},
-  doi       = {https://doi.org/10.20948/abrau-2022-38},
-  url       = {https://keldysh.ru/papers/2022/prep_vw.asp?pid=9689&lg=e},
-  abstract  = {Such methods of metacomputation as supercompilation and partial evaluation appeared around half a century ago. Since then, they have fruitfully developed, deep scientific results were achieved, many software prototypes were created. However, they are still not used in the practice of programming, although their authors foresaw a great prospect for them to automate programming and expected rapid achievement of the goals. What's the big deal? We consider the history of programming from the point of view of the evolutionary theory of metasystem transitions by V.F. Turchin in order to reveal the origins of metacomputation methods and their place in the overall picture. We note that unlike software tools that were easily put into practice, such as, for example, optimizing compilers, these methods could not be implemented in such a way that they could be used automatically, because they contain too many points of choice of solutions, options, degrees of freedom that the machine cannot resolve without human assistance. For further progress to practice, we propose to pay special attention to embedding metacomputation tools in modern programming environments and developing and designing convenient human-machine interfaces, where a person will remain the top-level metasystem that makes creative decisions. In addition, we propose to include supercomputers in the arsenal of software developers' tools, including metacomputation, as it happened in applied engineering fields, but for some reason the development of effective and reliable programs for critical applications is not considered to justify the use of supercomputers.},
-  annote    = {Such methods of metacomputation as supercompilation and partial evaluation appeared around half a century ago. Since then, they have fruitfully developed, deep scientific results were achieved, many software prototypes were created. However, they are still not used in the practice of programming, although their authors foresaw a great prospect for them to automate programming and expected rapid achievement of the goals. What's the big deal? We consider the history of programming from the point of view of the evolutionary theory of metasystem transitions by V.F. Turchin in order to reveal the origins of metacomputation methods and their place in the overall picture. We note that unlike software tools that were easily put into practice, such as, for example, optimizing compilers, these methods could not be implemented in such a way that they could be used automatically, because they contain too many points of choice of solutions, options, degrees of freedom that the machine cannot resolve without human assistance. For further progress to practice, we propose to pay special attention to embedding metacomputation tools in modern programming environments and developing and designing convenient human-machine interfaces, where a person will remain the top-level metasystem that makes creative decisions. In addition, we propose to include supercomputers in the arsenal of software developers' tools, including metacomputation, as it happened in applied engineering fields, but for some reason the development of effective and reliable programs for critical applications is not considered to justify the use of supercomputers.},
-  crossref  = {https://doi.org/10.20948/abrau-2022-38},
-  eprint    = {https://keldysh.ru/abrau/2022/theses/38.pdf},
-  type      = {Conference material}
+  author     = {{Klimov, A.V.}},
+  booktitle  = {Scientific service & Internet: proceedings of the 24th All-Russian Scientific Conference (September 19-22, 2022, online)},
+  title      = {Supercompilation and partial evaluation are still not widely used in practice. Why and what to do?},
+  pages      = {312--331},
+  publisher  = {Keldysh Institute of Applied Mathematics},
+  volume     = {24},
+  abstract   = {Such methods of metacomputation as supercompilation and partial evaluation appeared around half a century ago. Since then, they have fruitfully developed, deep scientific results were achieved, many software prototypes were created. However, they are still not used in the practice of programming, although their authors foresaw a great prospect for them to automate programming and expected rapid achievement of the goals. What's the big deal? We consider the history of programming from the point of view of the evolutionary theory of metasystem transitions by V.F. Turchin in order to reveal the origins of metacomputation methods and their place in the overall picture. We note that unlike software tools that were easily put into practice, such as, for example, optimizing compilers, these methods could not be implemented in such a way that they could be used automatically, because they contain too many points of choice of solutions, options, degrees of freedom that the machine cannot resolve without human assistance. For further progress to practice, we propose to pay special attention to embedding metacomputation tools in modern programming environments and developing and designing convenient human-machine interfaces, where a person will remain the top-level metasystem that makes creative decisions. In addition, we propose to include supercomputers in the arsenal of software developers' tools, including metacomputation, as it happened in applied engineering fields, but for some reason the development of effective and reliable programs for critical applications is not considered to justify the use of supercomputers.},
+  annotation = {Such methods of metacomputation as supercompilation and partial evaluation appeared around half a century ago. Since then, they have fruitfully developed, deep scientific results were achieved, many software prototypes were created. However, they are still not used in the practice of programming, although their authors foresaw a great prospect for them to automate programming and expected rapid achievement of the goals. What's the big deal? We consider the history of programming from the point of view of the evolutionary theory of metasystem transitions by V.F. Turchin in order to reveal the origins of metacomputation methods and their place in the overall picture. We note that unlike software tools that were easily put into practice, such as, for example, optimizing compilers, these methods could not be implemented in such a way that they could be used automatically, because they contain too many points of choice of solutions, options, degrees of freedom that the machine cannot resolve without human assistance. For further progress to practice, we propose to pay special attention to embedding metacomputation tools in modern programming environments and developing and designing convenient human-machine interfaces, where a person will remain the top-level metasystem that makes creative decisions. In addition, we propose to include supercomputers in the arsenal of software developers' tools, including metacomputation, as it happened in applied engineering fields, but for some reason the development of effective and reliable programs for critical applications is not considered to justify the use of supercomputers.},
+  crossref   = {https://doi.org/10.20948/abrau-2022-38},
+  date       = {2022},
+  doi        = {10.20948/abrau-2022-38},
+  eprint     = {https://keldysh.ru/abrau/2022/theses/38.pdf},
+  type       = {Conference material},
+  url        = {https://keldysh.ru/papers/2022/prep_vw.asp?pid=9689&lg=e}
+}
+
+@Misc{hartzell2021cppmove,
+  author       = {Jimmy Hartzell},
+  howpublished = {The Coded Message (blog)},
+  note         = {Accessed: 2025-07-07},
+  title        = {{C++ Move Semantics Considered Harmful (Rust is better)}},
+  date         = {2021-11-03},
+  day          = {3},
+  url          = {https://www.thecodedmessage.com/posts/cpp-move/},
+}
+
+@misc{mozilla_icstate,
+  author       = {Mozilla},
+  title        = {ICState.h},
+  howpublished = {Source code},
+  note         = {js/src/jit/ICState.h, Mozilla SpiderMonkey},
+  url          = {https://searchfox.org/mozilla-central/source/js/src/jit/ICState.h},
+  year         = {n.d.},
+  urldate      = {2025-07-06}
+}
+
+@misc{v8_wasm_constants,
+  author       = {Google},
+  title        = {wasm-constants.h},
+  year         = {n.d.},
+  howpublished = {\url{https://chromium.googlesource.com/v8/v8/+/refs/heads/main/src/wasm/wasm-constants.h}},
+  note         = {Accessed: 2025-07-06}
+}
+
+@Article{HlzlePICs,
+  author = {Hlzle, Urs and Chambers, Craig and Ungar, David},
+  title  = {Optimizing Dynamically-Typed Object-Oriented Languages WithPolymorphic Inline Caches},
+  date   = {1999-11},
+}
+
+@Article{10.1145/197320.197383,
+  author       = {Liskov, Barbara H. and Wing, Jeannette M.},
+  title        = {A behavioral notion of subtyping},
+  issn         = {0164-0925},
+  number       = {6},
+  pages        = {1811--1841},
+  volume       = {16},
+  abstract     = {The use of hierarchy is an important component of object-oriented design. Hierarchy allows the use of type families, in which higher level supertypes capture the behavior that all of their subtypes have in common. For this methodology to be effective, it is necessary to have a clear understanding of how subtypes and supertypes are related. This paper takes the position that the relationship should ensure that any property proved about supertype objects also holds for its subtype objects. It presents two ways of defining the subtype relation, each of which meets this criterion, and each of which is easy for programmers to use. The subtype relation is based on the specifications of the sub- and supertypes; the paper presents a way of specifying types that makes it convenient to define  the subtype relation. The paper also discusses the ramifications of this notion of subtyping on the design of type families.},
+  date         = {1994-11},
+  doi          = {10.1145/197320.197383},
+  issue_date   = {Nov. 1994},
+  journaltitle = {ACM Trans. Program. Lang. Syst.},
+  keywords     = {Larch, formal specifications, subtyping},
+  location     = {New York, NY, USA},
+  numpages     = {31},
+  publisher    = {Association for Computing Machinery},
+}
+
+@Misc{nlab:structure,
+  author       = {{nLab authors}},
+  howpublished = {\url{https://ncatlab.org/nlab/show/structure}},
+  title        = {structure},
+  date         = {2025-07},
+  url          = {https://ncatlab.org/nlab/revision/structure/54},
+}
+
+@Article{Riley2018Categories,
+  author     = {Riley, Mitchell},
+  title      = {Categories of {Optics}},
+  date       = {2018},
+  doi        = {10.48550/ARXIV.1809.00738},
+  eprint     = {1809.00738},
+  eprinttype = {arxiv},
+  publisher  = {arXiv},
+}
+
+@InProceedings{zucker1975automath,
+  author    = {Jeffery Zucker},
+  booktitle = {Colloques Internationaux du Centre National de la Recherche Scientifique},
+  title     = {Formalization of Classical Mathematics in Automath},
+  note      = {Section 10.2 introduces the notion of telescopes as generalized \(\Sigma\)-types},
+  pages     = {135--145},
+  publisher = {CNRS},
+  volume    = {249},
+  date      = {1975},
+}
+
+@Article{debruijn1991telescopic,
+  author       = {Nicolaas G. de Bruijn},
+  title        = {Telescopic Mappings in Typed Lambda Calculus},
+  number       = {2},
+  pages        = {189--204},
+  volume       = {91},
+  date         = {1991},
+  doi          = {10.1016/0890-5401(91)90066-B},
+  journaltitle = {Information and Computation},
 }
 
 @manual{juliaEmbedding,
-  title        = {Embedding Julia},
-  author       = {{The Julia Language}},
-  year         = {2024},
-  note         = {Julia 1.x Documentation},
-  url          = {https://docs.julialang.org/en/v1/manual/embedding/},
-  urldate      = {2025-05-25}
+  title   = {Embedding Julia},
+  author  = {{The Julia Language}},
+  note    = {Julia 1.x Documentation},
+  date    = {2024},
+  url     = {https://docs.julialang.org/en/v1/manual/embedding/},
+  urldate = {2025-05-25}
 }
 
 @manual{cffi,
-  title        = {CFFI Documentation},
-  author       = {{Armin Rigo and contributors}},
-  year         = {2024},
-  note         = {C Foreign Function Interface for Python},
-  url          = {https://cffi.readthedocs.io/en/latest/},
-  urldate      = {2025-05-25}
+  title   = {CFFI Documentation},
+  author  = {{Armin Rigo and contributors}},
+  note    = {C Foreign Function Interface for Python},
+  date    = {2024},
+  url     = {https://cffi.readthedocs.io/en/latest/},
+  urldate = {2025-05-25}
 }
 
 @misc{rustFFINomicon,
-  title        = {Foreign Function Interface (FFI)},
-  author       = {{The Rust Project Developers}},
-  year         = {2024},
-  note         = {Rustonomicon: Unsafe Rust Guidelines},
-  url          = {https://doc.rust-lang.org/nomicon/ffi.html},
-  urldate      = {2025-05-25}
+  author  = {{The Rust Project Developers}},
+  note    = {Rustonomicon: Unsafe Rust Guidelines},
+  title   = {Foreign Function Interface (FFI)},
+  date    = {2024},
+  url     = {https://doc.rust-lang.org/nomicon/ffi.html},
+  urldate = {2025-05-25}
 }
 
 @misc{microsoft2023clr,
-  author       = {{Microsoft Corporation}},
-  title        = {Common Language Runtime (CLR) Overview},
-  year         = {2023},
-  url          = {https://learn.microsoft.com/en-us/dotnet/standard/clr},
-  note         = {Accessed: 2025-05-25}
+  author = {{Microsoft Corporation}},
+  note   = {Accessed: 2025-05-25},
+  title  = {Common Language Runtime (CLR) Overview},
+  date   = {2023},
+  url    = {https://learn.microsoft.com/en-us/dotnet/standard/clr}
 }
 
 @misc{akbary_wasienv_2019,
   author       = {Syrus Akbary},
-  title        = {Wasienv: WASI Development Workflow for Humans},
-  year         = {2019},
   howpublished = {\url{https://blog.wasmer.io/wasienv-wasi-development-workflow-for-humans-1811d9a50345}},
-  note         = {Accessed: 2025-05-27}
+  note         = {Accessed: 2025-05-27},
+  title        = {Wasienv: WASI Development Workflow for Humans},
+  date         = {2019}
 }
 
 
 @misc{graalvm2025introduction,
-  title        = {Introduction to GraalVM},
-  author       = {{GraalVM Team}},
-  year         = {2025},
-  url          = {https://www.graalvm.org/latest/introduction/},
-  note         = {Accessed: 2025-05-25}
+  author = {{GraalVM Team}},
+  note   = {Accessed: 2025-05-25},
+  title  = {Introduction to GraalVM},
+  date   = {2025},
+  url    = {https://www.graalvm.org/latest/introduction/}
 }
 
 @manual{bun_ffi_api,
@@ -73,362 +165,383 @@
   note  = {Accessed: 2024-11-09}
 }
 
-@misc{Akbary2023wasienv,
-  title  = {wasienv/wasienv},
+@Misc{Akbary2023wasienv,
   author = {Akbary, Syrus and McCaskey, Mark and Kruth, James and Turner, Aaron and Noa and Desiatov, Max and Enderlin, Ivan and van Emden, Robin and Allmaras, Moritz},
-  year   = 2023,
-  month  = 6,
-  day    = 6,
+  month  = jun,
+  title  = {wasienv/wasienv},
+  year   = {2023},
+  date   = {2023-06-06},
+  day    = {6},
   url    = {https://github.com/wasienv/wasienv},
-  date   = {2023-06-06}
 }
 
 @misc{castellan2020categoriesfamiliesunitypedsimply,
-  title         = {Categories with Families: Unityped, Simply Typed, and Dependently Typed},
   author        = {Simon Castellan and Pierre Clairambault and Peter Dybjer},
-  year          = {2020},
-  eprint        = {1904.00827},
+  title         = {Categories with Families: Unityped, Simply Typed, and Dependently Typed},
   archiveprefix = {arXiv},
-  primaryclass  = {cs.LO},
-  url           = {https://arxiv.org/abs/1904.00827}
+  date          = {2020},
+  doi           = {10.48550/arxiv.1904.00827},
+  eprint        = {1904.00827},
+  eprintclass   = {cs.LO},
+  eprinttype    = {arxiv}
 }
 
 @misc{Shirley2024RTW1,
-  title  = {Ray Tracing in One Weekend},
   author = {Peter Shirley, Trevor David Black, Steve Hollasch},
-  year   = {2024},
-  month  = {August},
+  title  = {Ray Tracing in One Weekend},
+  date   = {2024},
   url    = {https://raytracing.github.io/books/RayTracingInOneWeekend.html}
 }
 
 @misc{Shirley2024RTW2,
-  title  = {Ray Tracing: The Next Week},
   author = {Peter Shirley, Trevor David Black, Steve Hollasch},
-  year   = {2024},
-  month  = {August},
+  title  = {Ray Tracing: The Next Week},
+  date   = {2024},
   url    = {https://raytracing.github.io/books/RayTracingTheNextWeek.html}
 }
 
 @misc{riehl2023typetheorysyntheticinftycategories,
-  title         = {A type theory for synthetic $\infty$-categories},
   author        = {Emily Riehl and Michael Shulman},
-  year          = {2023},
-  eprint        = {1705.07442},
+  title         = {A type theory for synthetic $\infty$-categories},
   archiveprefix = {arXiv},
-  primaryclass  = {math.CT},
-  url           = {https://arxiv.org/abs/1705.07442}
+  date          = {2023},
+  doi           = {10.48550/arxiv.1705.07442},
+  eprint        = {1705.07442},
+  eprintclass   = {math.CT},
+  eprinttype    = {arxiv}
 }
-@book{Sengupta2023JuliaInterop,
-	title = {JuliaInterop/JavaCall.jl},
-	url = {https://github.com/JuliaInterop/JavaCall.jl},
-	author = {Sengupta, Avik and Kittisopikul, Mark and Burdick, Bill and Zhabinski, Andrei and Ahnlide, Johannes Kumra and ExpandingMan and Haraldsson, Páll and Heintzmann, Rainer and Greenwell, Andy and Waller, Jeff and Cuvelier, Thibaut and Chandraprabhu, Abhijith and Mohapatra, Tanmay and mbeltagy and github-actions[bot] and femtocleaner[bot] and Shah, Viral B. and Kelman, Tony and Tanja, Stefan and Byrne, Simon and Jones, Scott P. and Mudlapur, Pradeep and MatFi and Marcono1234 and TagBot, Julia and Saba, Elliot and Lobianco, Antonello and Singhvi, Anshul and Breda, André and Brewster, Adam},
-	date = {2023-11-22},
-	year = {2023},
-	month = {11},
-	day = {22},
+
+@Book{Sengupta2023JuliaInterop,
+  author = {Sengupta, Avik and Kittisopikul, Mark and Burdick, Bill and Zhabinski, Andrei and Ahnlide, Johannes Kumra and ExpandingMan and Haraldsson, Páll and Heintzmann, Rainer and Greenwell, Andy and Waller, Jeff and Cuvelier, Thibaut and Chandraprabhu, Abhijith and Mohapatra, Tanmay and mbeltagy and github-actions[bot] and femtocleaner[bot] and Shah, Viral B. and Kelman, Tony and Tanja, Stefan and Byrne, Simon and Jones, Scott P. and Mudlapur, Pradeep and MatFi and Marcono1234 and TagBot, Julia and Saba, Elliot and Lobianco, Antonello and Singhvi, Anshul and Breda, André and Brewster, Adam},
+  title  = {JuliaInterop/JavaCall.jl},
+  year   = {2023},
+  month  = nov,
+  date   = {2023-11-22},
+  day    = {22},
+  url    = {https://github.com/JuliaInterop/JavaCall.jl},
 }
 
 @misc{unruh1994prime,
   author = {Erwin Unruh},
-  title  = {Prime Number Computation},
-  year   = {1994},
   note   = {ANSI X3J16-94-0075 / ISO WG21-462},
-  url    = {https://stackoverflow.com/questions/48849447/does-example-of-erwin-unruh-work-today}
+  title  = {Prime Number Computation},
+  date   = {1994},
 }
 
-@misc{Ayke2024tinygo,
-  title  = {tinygo-org/tinygo},
+@Misc{Ayke2024tinygo,
   author = {Ayke and Evans, Ron and Gryski, Damian and sago35 and Nia and dkegel-fastly and kenbell and de Andrade, Elliott Sales and ardnew and Soldak, Yurii and Huber, Yannis and BCG and Reddig, Randy and Schwindt, Federico G. and Whittingslow, Patricio and Naur, Elias and leongross and Clift, Justin and Esteban, Daniel and Agrawal, Anuraag (Rag) and Fauchon, Olivier and Brauer, Björn and Siudzinski, Wojtek and Zakharkin, Dmitriy and Teske, Lucas and Brandhorst-Satzkorn, Johan and Achille and Reesor, Ethan and Feldman, Scott and Yegupov, Konstantin},
-  year   = 2024,
-  month  = 11,
-  day    = 14,
+  month  = nov,
+  title  = {tinygo-org/tinygo},
+  year   = {2024},
+  date   = {2024-11-14},
+  day    = {14},
   url    = {https://github.com/tinygo-org/tinygo},
-  date   = {2024-11-14}
 }
 
-@article{10.1145/310930.310970,
-  author     = {Greenberg, Donald P.},
-  title      = {A framework for realistic image synthesis},
-  year       = {1999},
-  issue_date = {Aug. 1999},
-  publisher  = {Association for Computing Machinery},
-  address    = {New York, NY, USA},
-  volume     = {42},
-  number     = {8},
-  issn       = {0001-0782},
-  url        = {https://doi.org/10.1145/310930.310970},
-  doi        = {10.1145/310930.310970},
-  journal    = {Commun. ACM},
-  month      = {aug},
-  pages      = {44-53},
-  numpages   = {10}
+@Article{10.1145/310930.310970,
+  author       = {Greenberg, Donald P.},
+  title        = {A framework for realistic image synthesis},
+  issn         = {0001-0782},
+  number       = {8},
+  pages        = {44--53},
+  volume       = {42},
+  date         = {1999-08},
+  doi          = {10.1145/310930.310970},
+  issue_date   = {Aug. 1999},
+  journaltitle = {Commun. ACM},
+  location     = {New York, NY, USA},
+  numpages     = {10},
+  publisher    = {Association for Computing Machinery},
 }
 
 @misc{rosu2020easypbr,
-  title         = {EasyPBR: A Lightweight Physically-Based Renderer},
-  author        = {Radu Alexandru Rosu and Sven Behnke},
-  year          = {2020},
-  eprint        = {2012.03325},
-  archiveprefix = {arXiv},
-  primaryclass  = {cs.GR}
+  author      = {Radu Alexandru Rosu and Sven Behnke},
+  title       = {EasyPBR: A Lightweight Physically-Based Renderer},
+  date        = {2020},
+  doi         = {10.48550/arxiv.2012.03325},
+  eprint      = {2012.03325},
+  eprintclass = {cs.GR},
+  eprinttype  = {arXiv}
 }
 
-@article{Cooper2005Records,
-  journal   = {Journal of Logic and Computation},
-  doi       = {10.1093/logcom/exi004},
-  issn      = {0955-792X},
-  number    = {2},
-  language  = {en},
-  publisher = {Oxford University Press (OUP)},
-  title     = {Records and Record Types in Semantic Theory},
-  url       = {http://dx.doi.org/10.1093/logcom/exi004},
-  volume    = {15},
-  author    = {Cooper, R.},
-  pages     = {99--112},
-  date      = {2005-04-01},
-  year      = {2005},
-  month     = {4},
-  day       = {1}
+@Article{Cooper2005Records,
+  author       = {Cooper, R.},
+  title        = {Records and Record Types in Semantic Theory},
+  year         = {2005},
+  issn         = {0955-792X},
+  month        = apr,
+  number       = {2},
+  pages        = {99--112},
+  volume       = {15},
+  date         = {2005-04-01},
+  day          = {1},
+  doi          = {10.1093/logcom/exi004},
+  journaltitle = {Journal of Logic and Computation},
+  language     = {en},
+  publisher    = {Oxford University Press (OUP)},
 }
 
 @article{10.1145/3550454.3555463,
-  author     = {Zheng, Shaokun and Zhou, Zhiqian and Chen, Xin and Yan, Difei and Zhang, Chuyan and Geng, Yuefeng and Gu, Yan and Xu, Kun},
-  title      = {LuisaRender: A High-Performance Rendering Framework with Layered and Unified Interfaces on Stream Architectures},
-  year       = {2022},
-  issue_date = {December 2022},
-  publisher  = {Association for Computing Machinery},
-  address    = {New York, NY, USA},
-  volume     = {41},
-  number     = {6},
-  issn       = {0730-0301},
-  url        = {https://doi.org/10.1145/3550454.3555463},
-  doi        = {10.1145/3550454.3555463},
-  abstract   = {The advancements in hardware have drawn more attention than ever to high-quality offline rendering with modern stream processors, both in the industry and in research fields. However, the graphics APIs are fragmented and existing shading languages lack high-level constructs such as polymorphism, which adds complexity to developing and maintaining cross-platform high-performance renderers. We present LuisaRender1, a high-performance rendering framework for modern stream-architecture hardware. Our main contribution is an expressive C++-embedded DSL for kernel programming with JIT code generation and compilation. We also implement a unified runtime layer with resource wrappers and an optimized Monte Carlo renderer. Experiments on test scenes show that LuisaRender achieves much higher performance than existing research renderers on modern graphics hardware, e.g., 5--11\texttimes{} faster than PBRT-v4 and 4--16\texttimes{} faster than Mitsuba 3.},
-  journal    = {ACM Trans. Graph.},
-  month      = {nov},
-  articleno  = {232},
-  numpages   = {19},
-  keywords   = {stream architecture, rendering framework, cross-platform renderer}
+  author       = {Zheng, Shaokun and Zhou, Zhiqian and Chen, Xin and Yan, Difei and Zhang, Chuyan and Geng, Yuefeng and Gu, Yan and Xu, Kun},
+  title        = {LuisaRender: A High-Performance Rendering Framework with Layered and Unified Interfaces on Stream Architectures},
+  issn         = {0730-0301},
+  number       = {6},
+  volume       = {41},
+  abstract     = {The advancements in hardware have drawn more attention than ever to high-quality offline rendering with modern stream processors, both in the industry and in research fields. However, the graphics APIs are fragmented and existing shading languages lack high-level constructs such as polymorphism, which adds complexity to developing and maintaining cross-platform high-performance renderers. We present LuisaRender1, a high-performance rendering framework for modern stream-architecture hardware. Our main contribution is an expressive C++-embedded DSL for kernel programming with JIT code generation and compilation. We also implement a unified runtime layer with resource wrappers and an optimized Monte Carlo renderer. Experiments on test scenes show that LuisaRender achieves much higher performance than existing research renderers on modern graphics hardware, e.g., 5--11\texttimes{} faster than PBRT-v4 and 4--16\texttimes{} faster than Mitsuba 3.},
+  articleno    = {232},
+  date         = {2022-11},
+  doi          = {10.1145/3550454.3555463},
+  issue_date   = {December 2022},
+  journaltitle = {ACM Trans. Graph.},
+  keywords     = {stream architecture, rendering framework, cross-platform renderer},
+  location     = {New York, NY, USA},
+  numpages     = {19},
+  publisher    = {Association for Computing Machinery}
 }
 
+@book{Abadi1996Theory,
+  author    = {Abadi, Mart{\' i}n and Cardelli, Luca},
+  publisher = {Springer New York},
+  title     = {A {Theory} of {Objects}},
+  isbn      = {9781461264453},
+  date      = {1996},
+  doi       = {10.1007/978-1-4419-8598-9},
+  issn      = {0172-603X}
+}
+
+
 @manual{boost_python_1_72,
-  author       = {David Abrahams and Stefan Seefeld},
-  title        = {Boost.Python Library Documentation},
-  year         = {2019},
-  note         = {Version 1.72.0, Accessed: 2025-06-01},
-  url          = {https://www.boost.org/doc/libs/1_72_0/libs/python/doc/html/index.html}
+  title  = {Boost.Python Library Documentation},
+  author = {David Abrahams and Stefan Seefeld},
+  note   = {Version 1.72.0, Accessed: 2025-06-01},
+  date   = {2019},
+  url    = {https://www.boost.org/doc/libs/1_72_0/libs/python/doc/html/index.html}
 }
 
 @misc{Cxxjl,
   author       = {The JuliaInterop Developers},
-  title        = {Cxx.jl: The Julia C++ Interface},
-  year         = {2025},
-  publisher    = {GitHub},
-  journal      = {GitHub repository},
   howpublished = {\url{https://github.com/JuliaInterop/Cxx.jl}},
-  note         = {Accessed: 2025-06-01}
+  note         = {Accessed: 2025-06-01},
+  title        = {Cxx.jl: The Julia C++ Interface},
+  date         = {2025},
+  journaltitle = {GitHub repository},
+  publisher    = {GitHub}
 }
 
 @misc{JuliaInterop_Cxxjl,
   author       = {JuliaInterop},
-  title        = {Cxx.jl: The Julia C++ Interface},
-  year         = {2025},
   howpublished = {\url{https://github.com/JuliaInterop/Cxx.jl}},
-  note         = {Accessed: 2025-06-01}
+  note         = {Accessed: 2025-06-01},
+  title        = {Cxx.jl: The Julia C++ Interface},
+  date         = {2025}
 }
 
 
 @misc{libcxxwrap-julia,
   author       = {The JuliaInterop Developers},
-  title        = {libcxxwrap-julia: C++ Library for Backing CxxWrap.jl},
-  year         = {2025},
-  publisher    = {GitHub},
   howpublished = {\url{https://github.com/JuliaInterop/libcxxwrap-julia}},
-  note         = {Accessed: 2025-06-01}
+  note         = {Accessed: 2025-06-01},
+  title        = {libcxxwrap-julia: C++ Library for Backing CxxWrap.jl},
+  date         = {2025},
+  publisher    = {GitHub}
 }
 
 @article{Jakob2020DrJit,
-  author  = {Wenzel Jakob and Sébastien Speierer and Nicolas Roussel and Delio Vicini},
-  title   = {Dr.Jit: A Just-In-Time Compiler for Differentiable Rendering},
-  journal = {Transactions on Graphics (Proceedings of SIGGRAPH)},
-  volume  = {41},
-  number  = {4},
-  year    = {2022},
-  month   = jul,
-  doi     = {10.1145/3528223.3530099}
+  author       = {Wenzel Jakob and Sébastien Speierer and Nicolas Roussel and Delio Vicini},
+  title        = {Dr.Jit: A Just-In-Time Compiler for Differentiable Rendering},
+  number       = {4},
+  volume       = {41},
+  date         = {2022-07},
+  doi          = {10.1145/3528223.3530099},
+  journaltitle = {Transactions on Graphics (Proceedings of SIGGRAPH)}
 }
 
-@book{Johnson2024JuliaPy,
-	title = {JuliaPy/PyCall.jl},
-	url = {https://github.com/JuliaPy/PyCall.jl},
-	author = {Johnson, Steven G. and Arakaki, Takafumi and Yu, Yichao and Haraldsson, Páll and Kornblith, Simon and Fischer, Keno and Malmaud, Jonathan and St-Jean, Cédric and Bolewski, Jake and Mason, Joel and Nash, Jameson and Darakananda, Darwin and Anantharaman, Ranjan and Cranmer, Miles and Millea, Marius and Dunning, Iain and Aluthge, Dilum and Lynch, Galen and Norton, Isaiah and Squire, Kevin and Mohamad, Mustafa and Høegh, Daniel and Beyer, Lucas and Kelman, Tony and Arabas, Sylwester and Goretkin, Gustavo and Anthoff, David and Ranocha, Hendrik and Weidner, Jan and Bromberger, Seth},
-	date = {2024-03-11},
-	year = {2024},
-	month = {3},
-	day = {11},
+@Book{Johnson2024JuliaPy,
+  author = {Johnson, Steven G. and Arakaki, Takafumi and Yu, Yichao and Haraldsson, Páll and Kornblith, Simon and Fischer, Keno and Malmaud, Jonathan and St-Jean, Cédric and Bolewski, Jake and Mason, Joel and Nash, Jameson and Darakananda, Darwin and Anantharaman, Ranjan and Cranmer, Miles and Millea, Marius and Dunning, Iain and Aluthge, Dilum and Lynch, Galen and Norton, Isaiah and Squire, Kevin and Mohamad, Mustafa and Høegh, Daniel and Beyer, Lucas and Kelman, Tony and Arabas, Sylwester and Goretkin, Gustavo and Anthoff, David and Ranocha, Hendrik and Weidner, Jan and Bromberger, Seth},
+  title  = {JuliaPy/PyCall.jl},
+  year   = {2024},
+  month  = mar,
+  date   = {2024-03-11},
+  day    = {11},
+  url    = {https://github.com/JuliaPy/PyCall.jl},
 }
 
 
 @misc{juliacall,
   author       = {Christopher Rowley},
-  title        = {JuliaCall: Seamless Integration of Julia and Python},
-  year         = {2025},
   howpublished = {\url{https://pypi.org/project/juliacall/}},
-  note         = {Version 0.9.25, released on May 14, 2025. Accessed: 2025-05-27}
+  note         = {Version 0.9.25, released on May 14, 2025. Accessed: 2025-05-27},
+  title        = {JuliaCall: Seamless Integration of Julia and Python},
+  date         = {2025}
 }
 
 @article{Pal2020,
-  doi       = {10.21105/jcon.00037},
-  url       = {https://doi.org/10.21105/jcon.00037},
-  year      = {2020},
-  publisher = {The Open Journal},
-  volume    = {1},
-  number    = {1},
-  pages     = {37},
-  author    = {Avik Pal},
-  title     = {RayTracer.jl: A Differentiable Renderer that supports Parameter Optimization for Scene Reconstruction},
-  journal   = {Proceedings of the JuliaCon Conferences}
+  author       = {Avik Pal},
+  title        = {RayTracer.jl: A Differentiable Renderer that supports Parameter Optimization for Scene Reconstruction},
+  number       = {1},
+  pages        = {37},
+  volume       = {1},
+  date         = {2020},
+  doi          = {10.21105/jcon.00037},
+  journaltitle = {Proceedings of the JuliaCon Conferences},
+  publisher    = {The Open Journal}
 }
 
+@Article{Clarke2024Profunctor,
+  author       = {Clarke, Bryce and Elkins, Derek and Gibbons, Jeremy and Loregian, Fosco and Milewski, Bartosz and Pillmore, Emily and Rom{\' a}n, Mario},
+  title        = {Profunctor {Optics}, a {Categorical} {Update}},
+  issn         = {2631-4444},
+  pages        = {1},
+  volume       = {6},
+  date         = {2024},
+  doi          = {10.32408/compositionality-6-1},
+  journaltitle = {Compositionality},
+  publisher    = {Centre pour la Communication Scientifique Directe (CCSD)},
+}
+
+
 @misc{boisseau2020understandingprofunctoropticsrepresentation,
-  title         = {Understanding Profunctor Optics: a representation theorem},
   author        = {Guillaume Boisseau},
-  year          = {2020},
-  eprint        = {2001.11816},
+  title         = {Understanding Profunctor Optics: a representation theorem},
   archiveprefix = {arXiv},
-  primaryclass  = {cs.PL},
-  url           = {https://arxiv.org/abs/2001.11816}
+  date          = {2020},
+  doi           = {10.48550/arxiv.2001.11816},
+  eprint        = {2001.11816},
+  eprintclass   = {cs.PL},
+  eprinttype    = {arxiv}
 }
 
 @inproceedings{mellies2015functors,
   author    = {Paul-André Melliès and Noam Zeilberger},
-  title     = {Functors are Type Refinement Systems},
   booktitle = {Conference on the Mathematical Foundations of Programming Semantics (MFPS)},
-  year      = {2015},
+  title     = {Functors are Type Refinement Systems},
+  date      = {2015},
   url       = {https://noamz.org/papers/funts.pdf}
 }
 
-@book{DutChen182024leaningtech,
-	title = {leaningtech/ts2cpp},
-	url = {https://github.com/leaningtech/ts2cpp},
-	author = {DutChen18},
-	date = {2024-09-02},
-	year = {2024},
-	month = {9},
-	day = {2},
+@Book{DutChen182024leaningtech,
+  author = {DutChen18},
+  title  = {leaningtech/ts2cpp},
+  year   = {2024},
+  month  = sep,
+  date   = {2024-09-02},
+  day    = {2},
+  url    = {https://github.com/leaningtech/ts2cpp},
 }
+
 @misc{libclang,
   author       = {{Clang Documentation Contributors}},
-  title        = {libclang - C Interface to Clang},
   howpublished = {\url{https://clang.llvm.org/docs/LibClang.html}},
   note         = {Accessed: 2025-06-12},
-  year         = {2025}
+  title        = {libclang - C Interface to Clang},
+  date         = {2025}
 }
+
 @inproceedings{zhdan2024swiftcpp,
   author       = {Egor Zhdan},
-  title        = {{Swift\:/\:C++ Interoperability}},
   booktitle    = {EuroLLVM Developers' Meeting 2024},
-  month        = apr,
-  year         = {2024},
-  howpublished = {\url{https://llvm.org/devmtg/2024-04/slides/TechnicalTalks/Zhdan-SwiftCPlusPus-Interoperability.pdf}},
-  note         = {Accessed: 2025-06-12}
+  title        = {{Swift\:/\:C++ Interoperability}},
+  note         = {Accessed: 2025-06-12},
+  date         = {2024-04},
+  howpublished = {\url{https://llvm.org/devmtg/2024-04/slides/TechnicalTalks/Zhdan-SwiftCPlusPus-Interoperability.pdf}}
 }
 
 @misc{dtolnay_syn,
   author       = {David Tolnay},
-  title        = {{syn}: A parsing library for Rust source code},
   howpublished = {\url{https://docs.rs/syn/latest/syn/}},
-  year         = {2025},
   note         = {Latest version published on crates.io as of June 2025},
-  url          = {https://docs.rs/syn/latest/syn/},
+  title        = {{syn}: A parsing library for Rust source code},
+  date         = {2025},
+  url          = {https://docs.rs/syn/latest/syn/}
 }
 
 @inproceedings{polze_grpc_2017,
-  title        = {{gRPC} - Modern Framework for Efficient Remote Procedure Calls},
-  author       = {Polze, Andreas and Paul, Rudiger},
-  booktitle    = {Proceedings of the Future Technologies Conference (FTC)},
-  year         = {2017},
-  pages        = {1012--1017},
-  doi          = {10.1109/FTC.2017.8102788},
+  author    = {Polze, Andreas and Paul, Rudiger},
+  booktitle = {Proceedings of the Future Technologies Conference (FTC)},
+  title     = {{gRPC} - Modern Framework for Efficient Remote Procedure Calls},
+  pages     = {1012--1017},
+  date      = {2017},
+  doi       = {10.1109/FTC.2017.8102788}
 }
+
 @techreport{omg_corba_specification_1996,
-  title        = {The Common Object Request Broker: Architecture and Specification},
-  institution  = {Object Management Group},
-  number       = {Version 2.0},
-  year         = {1996},
-  url          = {https://www.omg.org/spec/CORBA},
-  note         = {Standard Specification},
+  institution = {Object Management Group},
+  title       = {The Common Object Request Broker: Architecture and Specification},
+  note        = {Standard Specification},
+  number      = {Version 2.0},
+  date        = {1996},
+  url         = {https://www.omg.org/spec/CORBA}
 }
 
 @misc{emscripten_fs_overview,
-  author       = {{Emscripten Project}},
-  title        = {File System Overview — Emscripten Documentation},
-  year         = {n.d.},
-  url          = {https://emscripten.org/docs/porting/files/file_systems_overview.html#file-system-overview},
-  note         = {Accessed: 2025-05-27}
+  author = {{Emscripten Project}},
+  title  = {File System Overview — Emscripten Documentation},
+  year   = {n.d.},
+  url    = {https://emscripten.org/docs/porting/files/file_systems_overview.html#file-system-overview},
+  note   = {Accessed: 2025-05-27}
 }
 
-@book{Zakai2025emscripten,
-	title = {emscripten-core/emscripten},
-	url = {https://github.com/emscripten-core/emscripten},
-	author = {Zakai, Alon and Clegg, Sam and juj and Mitchener, Bruce and Akhgari, Ehsan and Schuff, Derek and Lively, Thomas and Ahn, Heejin and Shawabkeh, Max and azakai and Kalintiris, Vasilis and Dahl, Brendan and Pesch, Anthony and Stepanyan, Ingvar and Austin, Chad and Sayers, Aidan Hobson and Wolthuizen, Kleis Auke and Gohman, Dan and Gravelle, Jacob and Willee, Hamish and Rosylight, Kagami Sascha and Ng, Jez and Chen, Guanzhong and Birks, Charlie and Chatham, Hood and Lee, Ethan and Esfahbod, Behdad and Guryanov, Alexander and Pujante, Yan and BillWelden},
-	date = {2025-05-24},
-	year = {2025},
-	month = {5},
-	day = {24},
+@Book{Zakai2025emscripten,
+  author = {Zakai, Alon and Clegg, Sam and juj and Mitchener, Bruce and Akhgari, Ehsan and Schuff, Derek and Lively, Thomas and Ahn, Heejin and Shawabkeh, Max and azakai and Kalintiris, Vasilis and Dahl, Brendan and Pesch, Anthony and Stepanyan, Ingvar and Austin, Chad and Sayers, Aidan Hobson and Wolthuizen, Kleis Auke and Gohman, Dan and Gravelle, Jacob and Willee, Hamish and Rosylight, Kagami Sascha and Ng, Jez and Chen, Guanzhong and Birks, Charlie and Chatham, Hood and Lee, Ethan and Esfahbod, Behdad and Guryanov, Alexander and Pujante, Yan and BillWelden},
+  title  = {emscripten-core/emscripten},
+  year   = {2025},
+  month  = may,
+  date   = {2025-05-24},
+  day    = {24},
+  url    = {https://github.com/emscripten-core/emscripten},
 }
 
 @misc{graalvmWebAssembly,
   author       = {{GraalVM Contributors}},
-  title        = {GraalVM WebAssembly Documentation},
-  year         = {2025},
   howpublished = {\url{https://www.graalvm.org/webassembly/}},
-  note         = {Accessed: 2025-05-27}
+  note         = {Accessed: 2025-05-27},
+  title        = {GraalVM WebAssembly Documentation},
+  date         = {2025}
 }
 
 
-@book{Piovesan2025leaningtech,
-	title = {leaningtech/cheerp-meta},
-	url = {https://github.com/leaningtech/cheerp-meta},
-	author = {Piovesan, Carlo and De Rossi, Stefano and Alex and Pignotti, Alessandro and Ziviani, Serena and Iozzelli, Yuri and Lorenzo and Peerdeman, Mark and dependabot[bot]},
-	date = {2025-03-29},
-	year = {2025},
-	month = {3},
-	day = {29},
+@Book{Piovesan2025leaningtech,
+  author = {Piovesan, Carlo and De Rossi, Stefano and Alex and Pignotti, Alessandro and Ziviani, Serena and Iozzelli, Yuri and Lorenzo and Peerdeman, Mark and dependabot[bot]},
+  title  = {leaningtech/cheerp-meta},
+  year   = {2025},
+  month  = mar,
+  date   = {2025-03-29},
+  day    = {29},
+  url    = {https://github.com/leaningtech/cheerp-meta},
 }
 
 @article{Kundu2023Efficient,
-  title     = {Efficient and Accurate Automatic Python Bindings with cppyy; Cling},
-  author    = {Kundu, Baidyanath and Vassilev, Vassil and Lavrijsen, Wim},
-  year      = 2023,
-  publisher = {arXiv},
-  doi       = {10.48550/ARXIV.2304.02712},
-  url       = {https://arxiv.org/abs/2304.02712},
-  date      = 2023
+  author     = {Kundu, Baidyanath and Vassilev, Vassil and Lavrijsen, Wim},
+  title      = {Efficient and Accurate Automatic Python Bindings with cppyy; Cling},
+  date       = {2023},
+  doi        = {10.48550/ARXIV.2304.02712},
+  eprint     = {2304.02712},
+  eprinttype = {arxiv},
+  publisher  = {arXiv}
 }
 
-@Misc{webassemblyFeatures,
+@misc{webassemblyFeatures,
   author       = {{WebAssembly Community Group}},
   howpublished = {\url{https://webassembly.org/features/}},
   note         = {Accessed: 2025-05-27},
   title        = {WebAssembly Features},
-  date         = {2025},
+  date         = {2025}
 }
 
 @misc{graalvmLanguagesManual,
   author       = {{GraalVM Contributors}},
-  title        = {GraalVM Languages Reference Manual},
-  year         = {2025},
   howpublished = {\url{https://www.graalvm.org/latest/reference-manual/languages/}},
-  note         = {Accessed: 2025-05-27}
+  note         = {Accessed: 2025-05-27},
+  title        = {GraalVM Languages Reference Manual},
+  date         = {2025}
 }
 
 @misc{juliaJITdocs,
-  author       = {{The Julia Programming Language}},
-  title        = {Just-In-Time (JIT) Compilation — Julia Documentation},
-  year         = {2024},
-  url          = {https://docs.julialang.org/en/v1/devdocs/jit/},
-  note         = {Accessed: 2025-05-27}
+  author = {{The Julia Programming Language}},
+  note   = {Accessed: 2025-05-27},
+  title  = {Just-In-Time (JIT) Compilation — Julia Documentation},
+  date   = {2024},
+  url    = {https://docs.julialang.org/en/v1/devdocs/jit/}
 }
 
 @manual{dartCInterop,
@@ -447,12 +560,11 @@
 }
 
 @misc{rose2019abistability,
-  author       = {Jordan Rose},
-  title        = {ABI Stability and More},
-  year         = {2019},
-  month        = {February},
-  url          = {https://swift.org/blog/abi-stability-and-more/},
-  note         = {Accessed: 2025-05-25}
+  author = {Jordan Rose},
+  note   = {Accessed: 2025-05-25},
+  title  = {ABI Stability and More},
+  date   = {2019-02},
+  url    = {https://swift.org/blog/abi-stability-and-more/}
 }
 
 @manual{cxx,
@@ -464,47 +576,46 @@
 }
 
 @techreport{ONCD2024,
-  title        = {Back to the Building Blocks: A Path Toward Secure and Measurable Software},
-  author       = {{Office of the National Cyber Director}},
-  institution  = {The White House},
-  year         = {2024},
-  month        = feb,
-  url          = {https://bidenwhitehouse.archives.gov/wp-content/uploads/2024/02/Final-ONCD-Technical-Report.pdf},
-  note         = {Accessed: 2025-05-29}
+  author      = {{Office of the National Cyber Director}},
+  institution = {The White House},
+  title       = {Back to the Building Blocks: A Path Toward Secure and Measurable Software},
+  note        = {Accessed: 2025-05-29},
+  date        = {2024-02},
+  url         = {https://bidenwhitehouse.archives.gov/wp-content/uploads/2024/02/Final-ONCD-Technical-Report.pdf}
 }
 
 @misc{cppreference_class,
-  author       = {{cppreference.com}},
-  title        = {C++ language: class specifier},
-  year         = {2024},
-  url          = {https://en.cppreference.com/w/cpp/language/class},
-  note         = {Accessed: 2025-06-02}
+  author = {{cppreference.com}},
+  note   = {Accessed: 2025-06-02},
+  title  = {C++ language: class specifier},
+  date   = {2024},
+  url    = {https://en.cppreference.com/w/cpp/language/class}
 }
 
 @misc{clang_arc,
-  author       = {{Clang Documentation}},
-  title        = {Objective-C Automatic Reference Counting (ARC)},
-  year         = {2023},
-  url          = {https://clang.llvm.org/docs/AutomaticReferenceCounting.html},
-  note         = {Accessed: 2025-06-02}
+  author = {{Clang Documentation}},
+  note   = {Accessed: 2025-06-02},
+  title  = {Objective-C Automatic Reference Counting (ARC)},
+  date   = {2023},
+  url    = {https://clang.llvm.org/docs/AutomaticReferenceCounting.html}
 }
 
 @misc{microsoft_raii,
-  author       = {{Microsoft Learn}},
-  title        = {Object lifetime and resource management (RAII)},
-  year         = {2022},
-  url          = {https://learn.microsoft.com/en-us/cpp/cpp/object-lifetime-and-resource-management-modern-cpp?view=msvc-170},
-  note         = {Accessed: 2025-06-02}
+  author = {{Microsoft Learn}},
+  note   = {Accessed: 2025-06-02},
+  title  = {Object lifetime and resource management (RAII)},
+  date   = {2022},
+  url    = {https://learn.microsoft.com/en-us/cpp/cpp/object-lifetime-and-resource-management-modern-cpp?view=msvc-170}
 }
 
-@book{Vassilev2025root,
-	title = {root-project/cling},
-	url = {https://github.com/root-project/cling},
-	author = {Vassilev, Vassil and Naumann, Axel and marsupial and Canal, Philippe and Bose, Anirudha and Bellenot, Bertrand and Hahnfeld, Jonas and CristinaCristescu and Lopez-Gomez, Javier and Mukherjee, Manasij and Ehrig, Simeon and Devajith and Das, Pratyush and Somayyajula, Surya and Piparo, Danilo and Isemann, Raphael and sploving and Mato, Pere and TimurP and ferdymercury and Ikarashi, Yuka and RK, Min and esakellari and Yi, Jiang and Garg, Vaibhav and Linev, Sergey and Amadio, Guilherme and Rademakers, Fons and Rembser, Jonas and Shadura, Oksana},
-	date = {2025-03-07},
-	year = {2025},
-	month = {3},
-	day = {7},
+@Book{Vassilev2025root,
+  author = {Vassilev, Vassil and Naumann, Axel and marsupial and Canal, Philippe and Bose, Anirudha and Bellenot, Bertrand and Hahnfeld, Jonas and CristinaCristescu and Lopez-Gomez, Javier and Mukherjee, Manasij and Ehrig, Simeon and Devajith and Das, Pratyush and Somayyajula, Surya and Piparo, Danilo and Isemann, Raphael and sploving and Mato, Pere and TimurP and ferdymercury and Ikarashi, Yuka and RK, Min and esakellari and Yi, Jiang and Garg, Vaibhav and Linev, Sergey and Amadio, Guilherme and Rademakers, Fons and Rembser, Jonas and Shadura, Oksana},
+  title  = {root-project/cling},
+  year   = {2025},
+  month  = mar,
+  date   = {2025-03-07},
+  day    = {7},
+  url    = {https://github.com/root-project/cling},
 }
 
 @misc{juliacall-gc,
@@ -515,131 +626,127 @@
 }
 
 @misc{digitalocean-jvm-memory-2020,
-  author       = {{DigitalOcean Community}},
-  title        = {Java {JVM} Memory Model - Memory Management in Java},
-  year         = {2020},
-  url          = {\url{https://www.digitalocean.com/community/tutorials/java-jvm-memory-model-memory-management-in-java}},
-  note         = {Accessed: 2025-06-05}
+  author = {{DigitalOcean Community}},
+  note   = {Accessed: 2025-06-05},
+  title  = {Java {JVM} Memory Model - Memory Management in Java},
+  date   = {2020},
+  url    = {\url{https://www.digitalocean.com/community/tutorials/java-jvm-memory-model-memory-management-in-java}}
 }
 
 @misc{python-c-api-memory,
   author       = {Python Software Foundation},
-  title        = {Memory Management — Python 3 C API documentation},
-  year         = {2024},
   howpublished = {\url{https://docs.python.org/3/c-api/memory.html}},
-  note         = {Accessed: 2025-06-05}
+  note         = {Accessed: 2025-06-05},
+  title        = {Memory Management — Python 3 C API documentation},
+  date         = {2024}
 }
 
 @misc{RustFoundation2024,
-  author       = {{Rust Foundation}},
-  title        = {Google Contributes \$1M to Rust Foundation to Support C++/Rust “Interop Initiative”},
-  year         = {2024},
-  month        = feb,
-  url          = {\url{https://rustfoundation.org/media/google-contributes-1m-to-rust-foundation-to-support-c-rust-interop-initiative/}},
-  note         = {Accessed: 2025-05-29}
+  author = {{Rust Foundation}},
+  note   = {Accessed: 2025-05-29},
+  title  = {Google Contributes \$1M to Rust Foundation to Support C++/Rust “Interop Initiative”},
+  date   = {2024-02},
+  url    = {\url{https://rustfoundation.org/media/google-contributes-1m-to-rust-foundation-to-support-c-rust-interop-initiative/}}
 }
 
-@book{Young2023google,
-	title = {google/moveit},
-	url = {https://github.com/google/moveit},
-	author = {Young, Miguel and silvanshade and Taylor, Adrian},
-	date = {2023-06-15},
-	year = {2023},
-	month = {6},
-	day = {15},
+@Book{Young2023google,
+  author = {Young, Miguel and silvanshade and Taylor, Adrian},
+  title  = {google/moveit},
+  year   = {2023},
+  month  = jun,
+  date   = {2023-06-15},
+  day    = {15},
+  url    = {https://github.com/google/moveit},
 }
 
 @misc{rust-pinning,
   author       = {{The Rust Project Developers}},
-  title        = {What is pinning?},
-  year         = {2025},
   howpublished = {\url{https://doc.rust-lang.org/std/pin/index.html\#what-is-pinning}},
-  note         = {Accessed: 2025-06-04}
+  note         = {Accessed: 2025-06-04},
+  title        = {What is pinning?},
+  date         = {2025}
 }
 
 @misc{p2786r11,
   author       = {Jens Maurer},
-  title        = {Trivial relocatability},
   howpublished = {\url{https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r11.html}},
   note         = {ISO/IEC JTC1/SC22/WG21 P2786R11},
-  year         = {2024},
-  month        = november
+  title        = {Trivial relocatability},
+  date         = {2024-11}
 }
 
 @misc{crubit-struct-layout,
   author       = {{Crubit Contributors}},
-  title        = {Struct Layout},
-  year         = {2023},
   howpublished = {\url{https://github.com/google/crubit/blob/8d6b38fd9ab044ab7595a7df9752e62eb84345c7/docs/design/struct_layout.md}},
-  note         = {Accessed: 2025-06-04}
+  note         = {Accessed: 2025-06-04},
+  title        = {Struct Layout},
+  date         = {2023}
 }
 
 @misc{clangjl-tutorial,
   author       = {{The JuliaInterop Developers}},
-  title        = {Clang.jl Tutorial},
-  year         = {2025},
   howpublished = {\url{https://juliainterop.github.io/Clang.jl/stable/tutorial/}},
-  note         = {Accessed: 2025-05-29}
+  note         = {Accessed: 2025-05-29},
+  title        = {Clang.jl Tutorial},
+  date         = {2025}
 }
 
 @misc{clang-trivial-abi,
   author       = {{Clang Team}},
-  title        = {Clang Attribute Reference: \texttt{trivial\_abi}},
   howpublished = {\url{https://clang.llvm.org/docs/AttributeReference.html\#trivial-abi}},
   note         = {Accessed: 2025-06-04},
-  year         = {2025}
+  title        = {Clang Attribute Reference: \texttt{trivial\_abi}},
+  date         = {2025}
 }
 
 @misc{p1144r13,
   author       = {Chandler Carruth},
-  title        = {Object relocation in terms of move plus destroy},
   howpublished = {\url{https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/p1144r13.html}},
   note         = {ISO/IEC JTC1/SC22/WG21 P1144R13},
-  year         = {2025},
-  month        = april,
+  title        = {Object relocation in terms of move plus destroy},
+  date         = {2025-04}
 }
 
 @misc{chromium-rust-cpp-interop,
   author       = {{The Chromium Project Developers}},
-  title        = {Rust and C++ Interoperability},
-  year         = {2020},
   howpublished = {\url{https://www.chromium.org/Home/chromium-security/memory-safety/rust-and-c-interoperability/}},
-  note         = {Accessed: 2025-05-29}
+  note         = {Accessed: 2025-05-29},
+  title        = {Rust and C++ Interoperability},
+  date         = {2020}
 }
 
 @misc{rachum2016shared,
   author = {Amir Rachum},
+  note   = {Accessed: 2025-02-09},
   title  = {Shared Libraries: Understanding Dynamic Loading},
-  year   = {2016},
-  month  = {September},
-  url    = {https://amir.rachum.com/shared-libraries/},
-  note   = {Accessed: 2025-02-09}
+  date   = {2016-09},
+  url    = {https://amir.rachum.com/shared-libraries/}
 }
 
 @misc{crubit-cxx-design,
   author       = {The Crubit Project Developers},
-  title        = {Crubit Design Document: CXX Section},
-  year         = {2025},
   howpublished = {https://github.com/google/crubit/blob/main/docs/design/design.md\#cxx},
-  note         = {Accessed: 2025-05-29}
+  note         = {Accessed: 2025-05-29},
+  title        = {Crubit Design Document: CXX Section},
+  date         = {2025}
 }
 
 
 
 @misc{rustonomicon-ffi,
   author       = {{The Rust Project Developers}},
-  title        = {The Rustonomicon: FFI},
-  year         = {2025},
   howpublished = {\url{https://doc.rust-lang.org/nomicon/ffi.html}},
-  note         = {Accessed: 2025-05-29}
+  note         = {Accessed: 2025-05-29},
+  title        = {The Rustonomicon: FFI},
+  date         = {2025}
 }
 
 @misc{rust-bindgen,
-  title        = {rust-bindgen},
   author       = {{The rust-bindgen Developers}},
-  year         = {2025},
   howpublished = {\url{https://github.com/rust-lang/rust-bindgen}},
-  note         = {Accessed: 2025-05-29}
+  note         = {Accessed: 2025-05-29},
+  title        = {rust-bindgen},
+  date         = {2025}
 }
 
 @manual{javacpp,
@@ -650,59 +757,59 @@
   date   = 2024
 }
 
-@misc{Jakob2024pybind,
-  title  = {pybind/pybind11},
+@Misc{Jakob2024pybind,
   author = {Jakob, Wenzel and Schreiner, Henry and Rhinelander, Jason and Moldovan, Dean and Smirnov, Ivan and Gokaslan, Aaron and pre-commit-ci[bot] and dependabot[bot] and Jadoul, Yannick and Huebl, Axel and Staletic, Boris and Izmailov, Sergei and Cousineau, Eric and Merry, Bruce and Spicuzza, Dustin and Corlay, Sylvain and Lee, Antony and Burns, Lori A. and Dan and Lyskov, Sergey and Houliston, Trent and bennorth and Carlstrom, Michael and jbarlow and Steinberg, Ethan and Pritchard, Benjamin and Leavitt, Laramie and Haschke, Robert and luzpaz and Mabille, Johan},
-  year   = 2024,
-  month  = 11,
-  day    = 14,
+  month  = nov,
+  title  = {pybind/pybind11},
+  year   = {2024},
+  date   = {2024-11-14},
+  day    = {14},
   url    = {https://github.com/pybind/pybind11},
-  date   = {2024-11-14}
 }
 
-@misc{Shajii2024exaloop,
-  title  = {exaloop/codon},
+@Misc{Shajii2024exaloop,
   author = {Shajii, A. R. and Numanagić, Ibrahim and Numanagić, Ishak and dependabot[bot] and Henderson, Mark and McKee, Kurt and Berry, Stephen and Smajlović, Haris and Ashimine, Ikko Eltociear and Soref, Josh and Kaelbling, Philip and Farley, Sean and learnforpractice and zstadler},
-  year   = 2024,
-  month  = 11,
-  day    = 13,
+  month  = nov,
+  title  = {exaloop/codon},
+  year   = {2024},
+  date   = {2024-11-13},
+  day    = {13},
   url    = {https://github.com/exaloop/codon},
-  date   = {2024-11-13}
 }
 
 @misc{bytecodealliance_component_model_concepts,
-  title        = {Component Model Concepts},
   author       = {{Bytecode Alliance}},
-  year         = {2025},
   howpublished = {\url{https://component-model.bytecodealliance.org/design/component-model-concepts.html}},
-  note         = {Accessed: 2025-05-27}
+  note         = {Accessed: 2025-05-27},
+  title        = {Component Model Concepts},
+  date         = {2025}
 }
 
-@misc{Simon2024oracle,
-  title  = {oracle/graal},
+@Misc{Simon2024oracle,
   author = {Simon, Douglas and Humer, Christian and Eisl, Josef and Duboscq, Gilles and Schatz, Roland and Peterssen, Alfonso² and Wuerthinger, Thomas and Spasojevic, Boris and Ansaloni, Danilo and Zezula, Tomáš and Woegerer, Paul and Woess, Andreas and Rodriguez, Tom and Stadler, Lukas and Haeubl, Christian and Prokopec, Aleksandar and Gregersen, Allan and Garcia, Thomas and Hofer, Peter and OracleLabsAutomation and Daloze, Benoit and Leopoldseder, David and Stancu, Codrut and Gupalo, Olga and Zheng, Yudi and Niephaus, Fabio and Entlicher, Martin and Li, Paley and Maršík, Jirka and Urban-Forster, Bernhard},
-  year   = 2024,
-  month  = 11,
-  day    = 15,
+  month  = nov,
+  title  = {oracle/graal},
+  year   = {2024},
+  date   = {2024-11-15},
+  day    = {15},
   url    = {https://github.com/oracle/graal},
-  date   = {2024-11-15}
 }
 
 @misc{wasi_dev,
-  title        = {WASI.dev: The WebAssembly System Interface},
   author       = {{WASI Subgroup, W3C WebAssembly Community Group}},
-  year         = {2025},
   howpublished = {\url{https://wasi.dev/}},
-  note         = {Accessed: 2025-05-27}
+  note         = {Accessed: 2025-05-27},
+  title        = {WASI.dev: The WebAssembly System Interface},
+  date         = {2025}
 }
 
 
 @misc{bytecodealliance_projects,
-  author       = {{Bytecode Alliance}},
-  title        = {Bytecode Alliance Projects},
-  year         = {2023},
-  url          = {https://bytecodealliance.org/projects},
-  note         = {Accessed: 2025-05-27}
+  author = {{Bytecode Alliance}},
+  note   = {Accessed: 2025-05-27},
+  title  = {Bytecode Alliance Projects},
+  date   = {2023},
+  url    = {https://bytecodealliance.org/projects}
 }
 
 @misc{WebAssemblyComponentModel,
@@ -715,24 +822,24 @@
   date         = 2024
 }
 
-@misc{Gohman2024WebAssembly,
-  title  = {WebAssembly/wasi-sdk},
+@Misc{Gohman2024WebAssembly,
   author = {Gohman, Dan and Crichton, Alex and Brown, Andrew and Clegg, Sam and Takashi, YAMAMOTO and Shao, Cheng and Dice, Joel and Luo, Yonggang and Agrawal, Anuraag (Rag) and Schneidereit, Till and Hommey, Mike and A., Greg. and Hickey, Pat and Foltzer, Adam C. and Cannon, Brett and Catherine and Vukicevic, Vladimir and Delendik, Yury and McCormick, Matt and Lill, Michael and Floros, Orestis and Rying, Philip and Kolesnikov, Roman and Lopopolo, Ryan and Rubanov, Sergey and SingleAccretion and Manuel, Steve and Nepogodin, Vladislav and Saito, Yuta and liang.he},
-  year   = 2024,
-  month  = 10,
-  day    = 29,
+  month  = oct,
+  title  = {WebAssembly/wasi-sdk},
+  year   = {2024},
+  date   = {2024-10-29},
+  day    = {29},
   url    = {https://github.com/WebAssembly/wasi-sdk},
-  date   = {2024-10-29}
 }
 
-@book{Rowley2025JuliaPy,
-  title  = {JuliaPy/PythonCall.jl},
-  url    = {https://github.com/JuliaPy/PythonCall.jl},
+@Book{Rowley2025JuliaPy,
   author = {Rowley, Christopher and github-actions[bot] and Cranmer, Miles and Hafner, Lilith Orion and Eichhorn, Helge and Pietro Monticone and Haraldsson, Páll and Sousa, Cristóvão Duarte and Pinyol, Daniel and Peters, Lasse and Johnson, Steven G. and Seiler, Alexander and Dellabetta, Brian and De La Torre, Camilo and Lucibello, Carlo and Ingraham, Daniel and Hanson, Eric and ExpandingMan and Moynihan, Glenn and Dalle, Guillaume and Miranda, Guillem Ramírez and Goretkin, Gustavo and Cui, Hantao and Millea, Marius and Zubieta, Pablo and Xavier, Pedro Maciel and Kaplan, Sam and Gao, Shuhua and Sahm, Stephan and Lienart, Thibaut},
-  date   = {2025-01-22},
+  title  = {JuliaPy/PythonCall.jl},
   year   = {2025},
-  month  = {1},
-  day    = {22}
+  month  = jan,
+  date   = {2025-01-22},
+  day    = {22},
+  url    = {https://github.com/JuliaPy/PythonCall.jl},
 }
 
 @misc{wasmtime_intro,
@@ -759,224 +866,217 @@
   date   = 2024
 }
 
-@book{Fulton2025swig,
-  title  = {swig/swig},
-  url    = {https://github.com/swig/swig},
+@Book{Fulton2025swig,
   author = {Fulton, William S and Betts, Olly and VZ and Köppe, Matthias and oliver7654 and Wette, Karl and Middelschulte, Leif and Wang, Joseph and Spytz, Zackery and Kabak, Dmitry and szager and Mitchell, Dustin J. and Artem and Kalinin, Vladimir and Nadlinger, David and Taylor, Ian Lance and xavier98 and Tamura, Takashi and Drwal, Maciej and nihal95 and Jekovec, Matevž and Geva, Erez and Romberg, Mike and Momtchev, Momtchil and Johnson, Seth R. and Bai, Haoyu and Janssens, Geert and Stone, Robert and Woods, Alec and Klopcic, Marko},
-  date   = {2025-02-05},
+  title  = {swig/swig},
   year   = {2025},
-  month  = {2},
-  day    = {5}
+  month  = feb,
+  date   = {2025-02-05},
+  day    = {5},
+  url    = {https://github.com/swig/swig},
 }
 
 @article{Coquand1996,
-  title     = {An algorithm for type-checking dependent types},
-  author    = {Coquand, Thierry},
-  year      = 1996,
-  month     = may,
-  journal   = {Science of Computer Programming},
-  publisher = {Elsevier BV},
-  volume    = 26,
-  number    = {1–3},
-  pages     = {167--177},
-  doi       = {10.1016/0167-6423(95)00021-6},
-  issn      = {0167-6423}
+  author       = {Coquand, Thierry},
+  title        = {An algorithm for type-checking dependent types},
+  issn         = {0167-6423},
+  number       = {1-3},
+  pages        = {167--177},
+  volume       = {26},
+  date         = {1996-05},
+  doi          = {10.1016/0167-6423(95)00021-6},
+  journaltitle = {Science of Computer Programming},
+  publisher    = {Elsevier BV}
 }
 
 @misc{wasmedgeAOT,
   author       = {{WasmEdge Contributors}},
-  title        = {Build and Run with Ahead-of-Time Compilation},
-  year         = {2025},
   howpublished = {\url{https://wasmedge.org/docs/start/build-and-run/aot/}},
-  note         = {Accessed: 2025-05-27}
+  note         = {Accessed: 2025-05-27},
+  title        = {Build and Run with Ahead-of-Time Compilation},
+  date         = {2025}
 }
 
 @misc{Chung2023,
-  title     = {{A Type System for Julia}},
   author    = {Chung, Benjamin},
-  year      = 2023,
-  publisher = {arXiv},
-  doi       = {10.48550/ARXIV.2310.16866},
+  title     = {{A Type System for Julia}},
   copyright = {Creative Commons Attribution Share Alike 4.0 International},
-  keywords  = {Programming Languages (cs.PL), FOS: Computer and information sciences, FOS: Computer and information sciences}
+  date      = {2023},
+  doi       = {10.48550/ARXIV.2310.16866},
+  keywords  = {Programming Languages (cs.PL), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  publisher = {arXiv}
 }
 
 @misc{pestov2020library,
   author       = {Slava Pestov},
-  title        = {Library Evolution in Swift},
-  year         = {2020},
   howpublished = {\url{https://swift.org/blog/library-evolution/}},
-  note         = {Accessed: 2025-05-27}
+  note         = {Accessed: 2025-05-27},
+  title        = {Library Evolution in Swift},
+  date         = {2020}
 }
 
 @book{pestov2024compiling,
-  title  = {Compiling Swift Generics},
   author = {Pestov, Slava},
-  year   = 2024,
-  month  = aug,
-  note   = {{Explains the generics implementation in the Swift compiler}}
+  title  = {Compiling Swift Generics},
+  note   = {{Explains the generics implementation in the Swift compiler}},
+  date   = {2024-08}
 }
 
 @article{desires2019swiftabi,
-  title   = {How Swift Achieved Dynamic Linking Where Rust Couldn't},
-  author  = {Aria Desires},
-  year    = 2019,
-  journal = {Faultlore},
-  url     = {https://faultlore.com/blah/swift-abi/},
-  note    = {Accessed: 2025-02-01}
+  author       = {Aria Desires},
+  title        = {How Swift Achieved Dynamic Linking Where Rust Couldn't},
+  note         = {Accessed: 2025-02-01},
+  date         = {2019},
+  journaltitle = {Faultlore},
+  url          = {https://faultlore.com/blah/swift-abi/}
 }
 
 @article{Laird2022,
-  title     = {Revisiting Decidable Bounded Quantification, via Dinaturality},
   author    = {Laird, James},
-  year      = 2022,
-  publisher = {arXiv},
-  doi       = {10.48550/ARXIV.2212.04882},
+  title     = {Revisiting Decidable Bounded Quantification, via Dinaturality},
   copyright = {Creative Commons Attribution 4.0 International},
-  keywords  = {Logic in Computer Science (cs.LO), FOS: Computer and information sciences, FOS: Computer and information sciences, F.3.2}
+  date      = {2022},
+  doi       = {10.48550/ARXIV.2212.04882},
+  keywords  = {Logic in Computer Science (cs.LO), FOS: Computer and information sciences, FOS: Computer and information sciences, F.3.2},
+  publisher = {arXiv}
 }
 
 @inproceedings{Pierce1992,
-  title      = {Bounded quantification is undecidable},
   author     = {Pierce, Benjamin C.},
-  year       = 1992,
   booktitle  = {Proceedings of the 19th ACM SIGPLAN-SIGACT symposium on Principles of programming languages - POPL ’92},
+  title      = {Bounded quantification is undecidable},
+  pages      = {305--315},
   publisher  = {ACM Press},
   series     = {POPL ’92},
-  pages      = {305--315},
-  doi        = {10.1145/143165.143228},
-  collection = {POPL ’92}
+  collection = {POPL ’92},
+  date       = {1992},
+  doi        = {10.1145/143165.143228}
 }
 
 @misc{hu_cartesian_2018,
-  title       = {Cartesian Closed Categories and the Simply-Typed λ-Calculus},
   author      = {Nick Hu},
-  year        = 2018,
-  month       = {Trinity term},
-  address     = {Oxford, United Kingdom},
   note        = {Third Year Project, supervised by Professor Luke Ong},
+  title       = {Cartesian Closed Categories and the Simply-Typed λ-Calculus},
+  date        = {2018},
   institution = {St. Catherine’s College, University of Oxford},
+  location    = {Oxford, United Kingdom},
   school      = {University of Oxford},
   type        = {Bachelor's thesis}
 }
 
 @book{1999,
-  title     = {Partial Evaluation},
-  year      = 1999,
-  journal   = {Lecture Notes in Computer Science},
-  publisher = {Springer Berlin Heidelberg},
-  doi       = {10.1007/3-540-47018-2},
-  isbn      = 9783540470182,
-  issn      = {1611-3349}
+  publisher    = {Springer Berlin Heidelberg},
+  title        = {Partial Evaluation},
+  isbn         = {9783540470182},
+  date         = {1999},
+  doi          = {10.1007/3-540-47018-2},
+  issn         = {1611-3349},
+  journaltitle = {Lecture Notes in Computer Science}
 }
 
 @misc{Veldhuizen1998,
-  title     = {C++ Templates as Partial Evaluation},
   author    = {Veldhuizen, Todd L.},
-  year      = 1998,
-  publisher = {arXiv},
-  doi       = {10.48550/ARXIV.CS/9810010},
+  title     = {C++ Templates as Partial Evaluation},
   copyright = {Assumed arXiv.org perpetual, non-exclusive license to distribute this article for submissions made before January 2004},
-  keywords  = {Programming Languages (cs.PL), Performance (cs.PF), FOS: Computer and information sciences, FOS: Computer and information sciences, F.3.2; D.3.3; D.3.4}
+  date      = {1998},
+  doi       = {10.48550/ARXIV.CS/9810010},
+  keywords  = {Programming Languages (cs.PL), Performance (cs.PF), FOS: Computer and information sciences, FOS: Computer and information sciences, F.3.2; D.3.3; D.3.4},
+  publisher = {arXiv}
 }
 
-@book{Janssens2025JuliaInterop,
-  title  = {JuliaInterop/CxxWrap.jl},
-  url    = {https://github.com/JuliaInterop/CxxWrap.jl},
+@Book{Janssens2025JuliaInterop,
   author = {Janssens, Bart and Jain, Praneeth and Horn, Max and Corlay, Sylvain and Strube, Jan and Daly, Nathan and Roehrig-Zoellner, Melven and Shah, Viral B. and Vogt, Curtis and Lorenz, Benjamin and Kelman, Tony and Haraldsson, Páll and Simomaa, Jani and Wrigley, James and Hirzel, Alex and Kleinschmidt, Dave and zhopan77 and Kaluba, Marek and femtocleaner[bot] and Simillides, Yiannis and Kelly, Steve and Ventura, Rui and Mohamad, Mustafa and Dashti, Mohammad and Schlottke-Lakemper, Michael and Göttgens, Lars and Carlsson, Kristoffer and Briand, Luc and Tian, Jun and TagBot, Julia},
-  date   = {2025-01-29},
+  title  = {JuliaInterop/CxxWrap.jl},
   year   = {2025},
-  month  = {1},
-  day    = {29}
+  month  = jan,
+  date   = {2025-01-29},
+  day    = {29},
+  url    = {https://github.com/JuliaInterop/CxxWrap.jl},
 }
 
 
 @inbook{Henglein1991,
-  title     = {Efficient type inference for higher-order binding-time analysis},
   author    = {Henglein, Fritz},
-  year      = 1991,
-  booktitle = {Functional Programming Languages and Computer Architecture},
-  publisher = {Springer Berlin Heidelberg},
   pages     = {448--472},
+  publisher = {Springer Berlin Heidelberg},
+  title     = {Efficient type inference for higher-order binding-time analysis},
+  isbn      = {9783540475996},
+  booktitle = {Functional Programming Languages and Computer Architecture},
+  date      = {1991},
   doi       = {10.1007/3540543961_22},
-  isbn      = 9783540475996,
   issn      = {1611-3349}
 }
 
 @book{JacobsCLTT,
-  title     = {Categorical Logic and Type Theory},
   author    = {B. Jacobs},
-  year      = 1999,
   publisher = {North Holland},
-  address   = {Amsterdam},
+  title     = {Categorical Logic and Type Theory},
+  number    = {141},
   series    = {Studies in Logic and the Foundations of Mathematics},
-  number    = 141
+  date      = {1999},
+  location  = {Amsterdam}
 }
 
 @article{imada_equivalence_2019,
-  title   = {The Equivalence of Typed λ Calculi and Cartesian Closed Categories},
-  author  = {Kei Imada},
-  year    = 2019,
-  month   = {January},
-  journal = {Unpublished manuscript}
+  author       = {Kei Imada},
+  title        = {The Equivalence of Typed λ Calculi and Cartesian Closed Categories},
+  date         = {2019-01},
+  journaltitle = {Unpublished manuscript}
 }
 
 @inbook{Csoernyei,
-  title     = {An Introduction to the Lambda Calculus},
   author    = {Csörnyei, Zoltán and Dévai, Gergely},
-  year      = 2010,
-  booktitle = {Central European Functional Programming School},
-  publisher = {Springer Berlin Heidelberg},
   pages     = {87--111},
+  publisher = {Springer Berlin Heidelberg},
+  title     = {An Introduction to the Lambda Calculus},
+  isbn      = {9783540880592},
+  booktitle = {Central European Functional Programming School},
+  date      = {2010},
   doi       = {10.1007/978-3-540-88059-2_3},
-  isbn      = 9783540880592,
   issn      = {1611-3349}
 }
 
 @misc{cs4110-lecture19,
-  title        = {{Lecture \#19: Simply Typed λ-calculus}},
   author       = {{CS 4110 - Programming Languages and Logics}},
-  year         = 2023,
-  note         = {Lecture notes for CS 4110 - Programming Languages and Logics, Cornell University},
   howpublished = {{https://www.cs.cornell.edu/courses/cs4110/2014fa/lectures/lecture19.pdf}},
+  note         = {Lecture notes for CS 4110 - Programming Languages and Logics, Cornell University},
+  title        = {{Lecture \#19: Simply Typed λ-calculus}},
+  date         = {2023},
   institution  = {Cornell University}
 }
 
-@article{10.1145/5956.5957,
-  title      = {The concept of a supercompiler},
-  author     = {Turchin, Valentin F.},
-  year       = 1986,
-  month      = jun,
-  journal    = {ACM Trans. Program. Lang. Syst.},
-  publisher  = {Association for Computing Machinery},
-  address    = {New York, NY, USA},
-  volume     = 8,
-  number     = 3,
-  pages      = {292–325},
-  doi        = {10.1145/5956.5957},
-  issn       = {0164-0925},
-  url        = {https://doi.org/10.1145/5956.5957},
-  abstract   = {A supercompiler is a program transformer of a certain type. It traces the possible generalized histories of computation by the original program, and compiles an equivalent program, reducing in the process the redundancy that could be present in the original program. The nature of the redundancy that can be eliminated by supercompilation may be various, e.g., some variables might have predefined values (as in partial evaluation), or the structure of control transfer could be made more efficient (as in lazy evaluation), or it could simply be the fact that the same variable is used more than once. The general principles of supercompilation are described and compared with the usual approach to program transformation as a stepwise application of a number of equivalence rules. It is argued that the language Refal serves the needs of supercompilation best. Refal is formally defined and compared with Prolog and other languages. Examples are given of the operation of a Refal supercompiler implemented at CCNY on an IBM/370.},
-  issue_date = {July 1986},
-  numpages   = 34
+@Article{10.1145/5956.5957,
+  author       = {Turchin, Valentin F.},
+  title        = {The concept of a supercompiler},
+  issn         = {0164-0925},
+  number       = {3},
+  pages        = {292--325},
+  volume       = {8},
+  abstract     = {A supercompiler is a program transformer of a certain type. It traces the possible generalized histories of computation by the original program, and compiles an equivalent program, reducing in the process the redundancy that could be present in the original program. The nature of the redundancy that can be eliminated by supercompilation may be various, e.g., some variables might have predefined values (as in partial evaluation), or the structure of control transfer could be made more efficient (as in lazy evaluation), or it could simply be the fact that the same variable is used more than once. The general principles of supercompilation are described and compared with the usual approach to program transformation as a stepwise application of a number of equivalence rules. It is argued that the language Refal serves the needs of supercompilation best. Refal is formally defined and compared with Prolog and other languages. Examples are given of the operation of a Refal supercompiler implemented at CCNY on an IBM/370.},
+  date         = {1986-06},
+  doi          = {10.1145/5956.5957},
+  issue_date   = {July 1986},
+  journaltitle = {ACM Trans. Program. Lang. Syst.},
+  location     = {New York, NY, USA},
+  numpages     = {34},
+  publisher    = {Association for Computing Machinery},
 }
 
-@inproceedings{Bolingbroke2010,
-  title     = {Supercompilation by evaluation},
+@InProceedings{Bolingbroke2010,
   author    = {Bolingbroke, Maximilian and Peyton Jones, Simon},
-  year      = 2010,
   booktitle = {Proceedings of the Third ACM Haskell Symposium on Haskell},
-  location  = {Baltimore, Maryland, USA},
-  publisher = {Association for Computing Machinery},
+  title     = {Supercompilation by evaluation},
   address   = {New York, NY, USA},
+  pages     = {135--146},
+  publisher = {Association for Computing Machinery},
   series    = {Haskell '10},
-  pages     = {135–146},
-  doi       = {10.1145/1863523.1863540},
-  isbn      = 9781450302524,
-  url       = {https://doi.org/10.1145/1863523.1863540},
   abstract  = {This paper shows how call-by-need supercompilation can be recast to be based explicitly on an evaluator, contrasting with standard presentations which are specified as algorithms that mix evaluation rules with reductions that are unique to supercompilation. Building on standard operational-semantics technology for call-by-need languages, we show how to extend the supercompilation algorithm to deal with recursive let expressions.},
+  date      = {2010},
+  doi       = {10.1145/1863523.1863540},
+  isbn      = {9781450302524},
   keywords  = {deforestation, haskell, optimisation, specialisation, supercompilation},
-  numpages  = 12
+  location  = {Baltimore, Maryland, USA},
+  numpages  = {12},
 }
 
 @inbook{Harmelen1989,
@@ -993,550 +1093,561 @@
 
 @misc{cxx2025,
   author       = {David Tolnay},
-  title        = {cxx: Safe Interop Between Rust and C++},
-  year         = {2025},
   howpublished = {\url{https://github.com/dtolnay/cxx}},
-  note         = {Accessed: 2025-05-29}
+  note         = {Accessed: 2025-05-29},
+  title        = {cxx: Safe Interop Between Rust and C++},
+  date         = {2025}
 }
 
-@book{Goffart2024mystor,
-	title = {mystor/rust-cpp},
-	url = {https://github.com/mystor/rust-cpp},
-	author = {Goffart, Olivier and Layzell, Nika and twistedfall and VanDyke, Jeff and Meadows, Richard and Yang, Edward and ratijas and Markert, Leonhard and Hunger, Tobias and rumblefrog and wicast and Masud, Ahmed and aprilwade and Mitchener, Bruce and S., Eddy and Chamberlain, Ian and Thiele, Sven and SpaceManiac and inokawa},
-	date = {2024-11-20},
-	year = {2024},
-	month = {11},
-	day = {20},
+@Book{Goffart2024mystor,
+  author = {Goffart, Olivier and Layzell, Nika and twistedfall and VanDyke, Jeff and Meadows, Richard and Yang, Edward and ratijas and Markert, Leonhard and Hunger, Tobias and rumblefrog and wicast and Masud, Ahmed and aprilwade and Mitchener, Bruce and S., Eddy and Chamberlain, Ian and Thiele, Sven and SpaceManiac and inokawa},
+  title  = {mystor/rust-cpp},
+  year   = {2024},
+  month  = nov,
+  date   = {2024-11-20},
+  day    = {20},
+  url    = {https://github.com/mystor/rust-cpp},
 }
 
 @misc{zngur2025,
   author       = {H. Kalbasi},
-  title        = {Zngur: A C++/Rust Interop Tool},
-  year         = {2025},
   howpublished = {\url{https://github.com/HKalbasi/zngur}},
-  note         = {Accessed: 2025-05-29}
+  note         = {Accessed: 2025-05-29},
+  title        = {Zngur: A C++/Rust Interop Tool},
+  date         = {2025}
 }
 
 @misc{zngur_philosophy,
   author       = {Hadi Kalbasi},
-  title        = {Design decisions},
   howpublished = {\url{https://hkalbasi.github.io/zngur/philosophy.html}},
-  year         = {2025},
-  note         = {Accessed: 2025-05-31}
+  note         = {Accessed: 2025-05-31},
+  title        = {Design decisions},
+  date         = {2025}
 }
 
-@inproceedings{10.1145/3062341.3062381,
-  title     = {Practical partial evaluation for high-performance dynamic language runtimes},
+@InProceedings{10.1145/3062341.3062381,
   author    = {W\"{u}rthinger, Thomas and Wimmer, Christian and Humer, Christian and W\"{o}\ss{}, Andreas and Stadler, Lukas and Seaton, Chris and Duboscq, Gilles and Simon, Doug and Grimmer, Matthias},
-  year      = 2017,
   booktitle = {Proceedings of the 38th ACM SIGPLAN Conference on Programming Language Design and Implementation},
-  location  = {Barcelona, Spain},
-  publisher = {Association for Computing Machinery},
+  title     = {Practical partial evaluation for high-performance dynamic language runtimes},
   address   = {New York, NY, USA},
+  pages     = {662--676},
+  publisher = {Association for Computing Machinery},
   series    = {PLDI 2017},
-  pages     = {662–676},
-  doi       = {10.1145/3062341.3062381},
-  isbn      = 9781450349888,
-  url       = {https://doi.org/10.1145/3062341.3062381},
   abstract  = {Most high-performance dynamic language virtual machines duplicate language semantics in the interpreter, compiler, and runtime system. This violates the principle to not repeat yourself. In contrast, we define languages solely by writing an interpreter. The interpreter performs specializations, e.g., augments the interpreted program with type information and profiling information. Compiled code is derived automatically using partial evaluation while incorporating these specializations. This makes partial evaluation practical in the context of dynamic languages: It reduces the size of the compiled code while still compiling all parts of an operation that are relevant for a particular program. When a speculation fails, execution transfers back to the interpreter, the program re-specializes in the interpreter, and later partial evaluation again transforms the new state of the interpreter to compiled code. We evaluate our approach by comparing our implementations of JavaScript, Ruby, and R with best-in-class specialized production implementations. Our general-purpose compilation system is competitive with production systems even when they have been heavily optimized for the one language they support. For our set of benchmarks, our speedup relative to the V8 JavaScript VM is 0.83x, relative to JRuby is 3.8x, and relative to GNU R is 5x.},
+  date      = {2017},
+  doi       = {10.1145/3062341.3062381},
+  isbn      = {9781450349888},
   keywords  = {virtual machine, partial evaluation, optimization, language implementation, dynamic languages},
-  numpages  = 15
+  location  = {Barcelona, Spain},
+  numpages  = {15},
 }
 
-@book{Taylor2025google,
-	title = {google/autocxx},
-	url = {https://github.com/google/autocxx},
-	author = {Taylor, Adrian and Craig, Philip and Silverman, Brian and martinboehme and Nakayama, Kenjiro and Greene, Russell and Jeanpierre, Devin and Kitlith and Perry, John and silvanshade and milahu and Viviani, Gabriel and Carvalho, Wes and Hebb, Tom and YunKun, Huang and Tolnay, David and Baker, Collin and yuxuan-xie and Uttarayan and fzyzcjy and dependabot[bot] and Bieniek, Tobias and Cramer, Taylor and Sneeringer, Luke and Veilleux, Eric and Durham, Crystal and Badics, Alex and Hellstrom, Maddison and Maurer, Matthew and Lubinets, Mike},
-	date = {2025-03-05},
-	year = {2025},
-	month = {3},
-	day = {5},
+@Book{Taylor2025google,
+  author = {Taylor, Adrian and Craig, Philip and Silverman, Brian and martinboehme and Nakayama, Kenjiro and Greene, Russell and Jeanpierre, Devin and Kitlith and Perry, John and silvanshade and milahu and Viviani, Gabriel and Carvalho, Wes and Hebb, Tom and YunKun, Huang and Tolnay, David and Baker, Collin and yuxuan-xie and Uttarayan and fzyzcjy and dependabot[bot] and Bieniek, Tobias and Cramer, Taylor and Sneeringer, Luke and Veilleux, Eric and Durham, Crystal and Badics, Alex and Hellstrom, Maddison and Maurer, Matthew and Lubinets, Mike},
+  title  = {google/autocxx},
+  year   = {2025},
+  month  = mar,
+  date   = {2025-03-05},
+  day    = {5},
+  url    = {https://github.com/google/autocxx},
 }
 
 @article{Woerister2019LTO,
-  author  = {Michael Woerister},
-  title   = {Closing the gap: cross-language LTO between Rust and C/C++},
-  journal = {LLVM Project Blog},
-  year    = {2019},
-  month   = {September},
-  url     = {https://blog.llvm.org/2019/09/closing-gap-cross-language-lto-between.html},
-  note    = {Accessed: 2025-02-09}
+  author       = {Michael Woerister},
+  title        = {Closing the gap: cross-language LTO between Rust and C/C++},
+  note         = {Accessed: 2025-02-09},
+  date         = {2019-09},
+  journaltitle = {LLVM Project Blog},
+  url          = {https://blog.llvm.org/2019/09/closing-gap-cross-language-lto-between.html}
 }
 
 @inbook{Futamura1983,
-  title     = {Partial computation of programs},
   author    = {Futamura, Yoshihiko},
-  year      = 1983,
-  booktitle = {RIMS Symposia on Software Science and Engineering},
-  publisher = {Springer Berlin Heidelberg},
   pages     = {1--35},
+  publisher = {Springer Berlin Heidelberg},
+  title     = {Partial computation of programs},
+  isbn      = {9783540394426},
+  booktitle = {RIMS Symposia on Software Science and Engineering},
+  date      = {1983},
   doi       = {10.1007/3-540-11980-9_13},
-  isbn      = 9783540394426,
   issn      = {1611-3349}
 }
 
 @misc{julia_object_model,
-  title        = {Julia Documentation: The Julia Object Model},
   author       = {{The Julia Project}},
-  year         = {2024},
   howpublished = {\url{https://docs.julialang.org/en/v1/devdocs/object/}},
-  note         = {Accessed: 2025-05-31}
+  note         = {Accessed: 2025-05-31},
+  title        = {Julia Documentation: The Julia Object Model},
+  date         = {2024}
 }
 
 @article{Barrett2015,
-  title     = {Approaches to interpreter composition},
-  author    = {Barrett, Edd and Bolz, Carl Friedrich and Tratt, Laurence},
-  year      = 2015,
-  month     = dec,
-  journal   = {{Computer Languages Systems and Structures}},
-  publisher = {Elsevier BV},
-  volume    = 44,
-  pages     = {199--217},
-  doi       = {10.1016/j.cl.2015.03.001},
-  issn      = {1477-8424}
+  author       = {Barrett, Edd and Bolz, Carl Friedrich and Tratt, Laurence},
+  title        = {Approaches to interpreter composition},
+  issn         = {1477-8424},
+  pages        = {199--217},
+  volume       = {44},
+  date         = {2015-12},
+  doi          = {10.1016/j.cl.2015.03.001},
+  journaltitle = {{Computer Languages Systems and Structures}},
+  publisher    = {Elsevier BV}
 }
 
 @article{SANG2002175,
-  title    = {Development of CORBA-based engineering applications from legacy Fortran programs},
-  author   = {Janche Sang and Gregory Follen and Chan Kim and Isaac Lopez},
-  year     = 2002,
-  journal  = {Information and Software Technology},
-  volume   = 44,
-  number   = 3,
-  pages    = {175--184},
-  doi      = {https://doi.org/10.1016/S0950-5849(02)00005-8},
-  issn     = {0950-5849},
-  url      = {https://www.sciencedirect.com/science/article/pii/S0950584902000058},
-  abstract = {A majority of scientific and engineering applications in aerodynamics and solid mechanics are written in Fortran. To reduce the high cost of software development, NASA researchers reuse most of the legacy Fortran codes instead of developing them from scratch in the numerical propulsion system simulation project. In this paper, we present an efficient methodology for integrating legacy applications written in Fortran into a distributed object framework. Issues and strategies regarding the conversion and wrapping of Fortran codes into common object request broker architecture objects are discussed. Fortran codes are modified as little as possible when they are decomposed into modules and wrapped as objects. We implement a wrapper generator which takes the Fortran application as input and generates the C++ wrapper files and interface definition language file. Tedious programming tasks for wrapping the codes can therefore be reduced.},
-  keywords = {Code wrapping, CORBA, Distributed object, Fortran, Legacy software, Software reuse}
+  author       = {Janche Sang and Gregory Follen and Chan Kim and Isaac Lopez},
+  title        = {Development of CORBA-based engineering applications from legacy Fortran programs},
+  issn         = {0950-5849},
+  number       = {3},
+  pages        = {175--184},
+  volume       = {44},
+  abstract     = {A majority of scientific and engineering applications in aerodynamics and solid mechanics are written in Fortran. To reduce the high cost of software development, NASA researchers reuse most of the legacy Fortran codes instead of developing them from scratch in the numerical propulsion system simulation project. In this paper, we present an efficient methodology for integrating legacy applications written in Fortran into a distributed object framework. Issues and strategies regarding the conversion and wrapping of Fortran codes into common object request broker architecture objects are discussed. Fortran codes are modified as little as possible when they are decomposed into modules and wrapped as objects. We implement a wrapper generator which takes the Fortran application as input and generates the C++ wrapper files and interface definition language file. Tedious programming tasks for wrapping the codes can therefore be reduced.},
+  date         = {2002},
+  doi          = {10.1016/S0950-5849(02)00005-8},
+  journaltitle = {Information and Software Technology},
+  keywords     = {Code wrapping, CORBA, Distributed object, Fortran, Legacy software, Software reuse},
+  url          = {https://www.sciencedirect.com/science/article/pii/S0950584902000058}
 }
 
 @inproceedings{SleeThriftS,
-  title  = {Thrift : Scalable Cross-Language Services Implementation},
   author = {Mark Slee and Aditya Agarwal and Marc Kwiatkowski},
-  year   = 2007,
+  title  = {Thrift : Scalable Cross-Language Services Implementation},
+  date   = {2007},
   url    = {https://api.semanticscholar.org/CorpusID:14349304}
 }
 
-@inproceedings{10.1145/1869459.1869517,
-  title     = {SPUR: a trace-based JIT compiler for CIL},
+@InProceedings{10.1145/1869459.1869517,
   author    = {Bebenita, Michael and Brandner, Florian and Fahndrich, Manuel and Logozzo, Francesco and Schulte, Wolfram and Tillmann, Nikolai and Venter, Herman},
-  year      = 2010,
   booktitle = {Proceedings of the ACM International Conference on Object Oriented Programming Systems Languages and Applications},
-  location  = {Reno/Tahoe, Nevada, USA},
-  publisher = {Association for Computing Machinery},
+  title     = {SPUR: a trace-based JIT compiler for CIL},
   address   = {New York, NY, USA},
+  pages     = {708--725},
+  publisher = {Association for Computing Machinery},
   series    = {OOPSLA '10},
-  pages     = {708–725},
-  doi       = {10.1145/1869459.1869517},
-  isbn      = 9781450302036,
-  url       = {https://doi.org/10.1145/1869459.1869517},
   abstract  = {Tracing just-in-time compilers (TJITs) determine frequently executed traces (hot paths and loops) in running programs and focus their optimization effort by emitting optimized machine code specialized to these traces. Prior work has established this strategy to be especially beneficial for dynamic languages such as JavaScript, where the TJIT interfaces with the interpreter and produces machine code from the JavaScript trace.This direct coupling with a JavaScript interpreter makes it difficult to harness the power of a TJIT for other components that are not written in JavaScript, e.g., the DOM implementation or the layout engine inside a browser. Furthermore, if a TJIT is tied to a particular high-level language interpreter, it is difficult to reuse it for other input languages as the optimizations are likely targeted at specific idioms of the source language.To address these issues, we designed and implemented a TJIT for Microsoft's Common Intermediate Language CIL (the target language of C#, VisualBasic, F#, and many other languages). Working on CIL enables TJIT optimizations for any program compiled to this platform. In addition, to validate that the performance gains of a TJIT for JavaScript do not depend on specific idioms of JavaScript that are lost in the translation to CIL, we provide a performance evaluation of our JavaScript runtime which translates JavaScript to CIL and then runs on top of our CIL TJIT.},
+  date      = {2010},
+  doi       = {10.1145/1869459.1869517},
+  isbn      = {9781450302036},
   keywords  = {cil, dynamic compilation, javascript, just-in-time, tracing},
-  numpages  = 18
+  location  = {Reno/Tahoe, Nevada, USA},
+  numpages  = {18},
 }
 
 @inproceedings{Rigger2016SulongM,
-  title  = {{Sulong : Memory Safe and Efficient Execution of LLVM-Based Languages}},
   author = {Manuel Rigger},
-  year   = 2016,
+  title  = {{Sulong : Memory Safe and Efficient Execution of LLVM-Based Languages}},
+  date   = {2016},
   url    = {https://api.semanticscholar.org/CorpusID:38362945}
 }
 
-@inproceedings{10.5555/646149.679193,
-  title     = {{Optimizing Dynamically-Typed Object-Oriented Languages With Polymorphic Inline Caches}},
+@InProceedings{10.5555/646149.679193,
   author    = {H\"{o}lzle, Urs and Chambers, Craig and Ungar, David},
   booktitle = {Proceedings of the European Conference on Object-Oriented Programming},
-  location  = {Berlin, Heidelberg},
+  title     = {{Optimizing Dynamically-Typed Object-Oriented Languages With Polymorphic Inline Caches}},
+  pages     = {21--38},
   publisher = {Springer-Verlag},
   series    = {ECOOP '91},
-  pages     = {21–38},
-  isbn      = 3540542620,
-  date      = 1991,
-  numpages  = 18
+  date      = {1991},
+  isbn      = {3540542620},
+  location  = {Berlin, Heidelberg},
+  numpages  = {18},
 }
 
-@inproceedings{10.1145/1297081.1297091,
-  title     = {{RPython: a step towards reconciling dynamically and statically typed OO languages}},
+@InProceedings{10.1145/1297081.1297091,
   author    = {Ancona, Davide and Ancona, Massimo and Cuni, Antonio and Matsakis, Nicholas D.},
-  year      = 2007,
   booktitle = {Proceedings of the 2007 Symposium on Dynamic Languages},
-  location  = {Montreal, Quebec, Canada},
-  publisher = {Association for Computing Machinery},
+  title     = {{RPython: a step towards reconciling dynamically and statically typed OO languages}},
   address   = {New York, NY, USA},
+  pages     = {53--64},
+  publisher = {Association for Computing Machinery},
   series    = {DLS '07},
-  pages     = {53–64},
-  doi       = {10.1145/1297081.1297091},
-  isbn      = 9781595938688,
-  url       = {https://doi.org/10.1145/1297081.1297091},
   abstract  = {Although the C-based interpreter of Python is reasonably fast, implementations on the CLI or the JVM platforms offers some advantages in terms of robustness and interoperability. Unfortunately, because the CLI and JVM are primarily designed to execute statically typed, object-oriented languages, most dynamic language implementations cannot use the native bytecodes for common operations like method calls and exception handling; as a result, they are not able to take full advantage of the power offered by the CLI and JVM.We describe a different approach that attempts to preserve the flexibility of Python, while still allowing for efficient execution. This is achieved by limiting the use of the more dynamic features of Python to an initial, bootstrapping phase. This phase is used to construct a final RPython (Restricted Python) program that is actually executed. RPython is a proper subset of Python, is statically typed, and does not allow dynamic modification of class or method definitions; however, it can still take advantage of Python features such as mixins and first-class methods and classes.This paper presents an overview of RPython, including its design and its translation to both CLI and JVM bytecode. We show how the bootstrapping phase can be used to implement advanced features, like extensible classes and generative programming. We also discuss what work remains before RPython is truly ready for general use, and compare the performance of RPython with that of other approaches.},
+  date      = {2007},
+  doi       = {10.1145/1297081.1297091},
+  isbn      = {9781595938688},
   keywords  = {Python, JVM, .NET},
-  numpages  = 12
+  location  = {Montreal, Quebec, Canada},
+  numpages  = {12},
 }
 
 @inproceedings{Woess2014,
-  title      = {An object storage model for the truffle language implementation framework},
   author     = {Wöß, Andreas and Wirth, Christian and Bonetta, Daniele and Seaton, Chris and Humer, Christian and Mössenböck, Hanspeter},
-  year       = 2014,
-  month      = sep,
   booktitle  = {Proceedings of the 2014 International Conference on Principles and Practices of Programming on the Java platform: Virtual machines, Languages, and Tools},
+  title      = {An object storage model for the truffle language implementation framework},
+  pages      = {133--144},
   publisher  = {ACM},
   series     = {PPPJ ’14},
-  pages      = {133--144},
-  doi        = {10.1145/2647508.2647517},
-  collection = {PPPJ ’14}
+  collection = {PPPJ ’14},
+  date       = {2014-09},
+  doi        = {10.1145/2647508.2647517}
 }
 
 @article{Bolz2015,
-  title     = {{The impact of meta-tracing on VM design and implementation}},
-  author    = {Bolz, Carl Friedrich and Tratt, Laurence},
-  year      = 2015,
-  month     = feb,
-  journal   = {Science of Computer Programming},
-  publisher = {Elsevier BV},
-  volume    = 98,
-  pages     = {408--421},
-  doi       = {10.1016/j.scico.2013.02.001},
-  issn      = {0167-6423}
+  author       = {Bolz, Carl Friedrich and Tratt, Laurence},
+  title        = {{The impact of meta-tracing on VM design and implementation}},
+  issn         = {0167-6423},
+  pages        = {408--421},
+  volume       = {98},
+  date         = {2015-02},
+  doi          = {10.1016/j.scico.2013.02.001},
+  journaltitle = {Science of Computer Programming},
+  publisher    = {Elsevier BV}
 }
 
 @inproceedings{Marr2015,
-  title      = {Tracing vs. partial evaluation: comparing meta-compilation approaches for self-optimizing interpreters},
   author     = {Marr, Stefan and Ducasse, Stéphane},
-  year       = 2015,
-  month      = oct,
   booktitle  = {Proceedings of the 2015 ACM SIGPLAN International Conference on Object-Oriented Programming, Systems, Languages, and Applications},
+  title      = {Tracing vs. partial evaluation: comparing meta-compilation approaches for self-optimizing interpreters},
+  pages      = {821--839},
   publisher  = {ACM},
   series     = {SPLASH ’15},
-  pages      = {821--839},
-  doi        = {10.1145/2814270.2814275},
-  collection = {SPLASH ’15}
+  collection = {SPLASH ’15},
+  date       = {2015-10},
+  doi        = {10.1145/2814270.2814275}
 }
 
 @inbook{Awodey2015,
-  title     = {Homotopy Type Theory},
   author    = {Awodey, Steve},
-  year      = 2015,
-  booktitle = {Logic and Its Applications},
-  publisher = {Springer Berlin Heidelberg},
   pages     = {1--10},
+  publisher = {Springer Berlin Heidelberg},
+  title     = {Homotopy Type Theory},
+  isbn      = {9783662458242},
+  booktitle = {Logic and Its Applications},
+  date      = {2015},
   doi       = {10.1007/978-3-662-45824-2_1},
-  isbn      = 9783662458242,
   issn      = {1611-3349}
 }
 
 @article{Palsberg1992,
-  title     = {Binding Time Analysis: Abstract Interpretation vs. Type Inference},
-  author    = {Palsberg, Jens and Schwartzbach, Michael I.},
-  year      = 1992,
-  month     = apr,
-  journal   = {DAIMI Report Series},
-  publisher = {Det Kgl. Bibliotek/Royal Danish Library},
-  volume    = 21,
-  number    = 393,
-  doi       = {10.7146/dpb.v21i393.6628},
-  issn      = {0105-8517}
+  author       = {Palsberg, Jens and Schwartzbach, Michael I.},
+  title        = {Binding Time Analysis: Abstract Interpretation vs. Type Inference},
+  issn         = {0105-8517},
+  number       = {393},
+  volume       = {21},
+  date         = {1992-04},
+  doi          = {10.7146/dpb.v21i393.6628},
+  journaltitle = {DAIMI Report Series},
+  publisher    = {Det Kgl. Bibliotek/Royal Danish Library}
 }
 
 @inproceedings{Affeldt2019,
-  title       = {Type-Driven Development of Certified Tree Algorithms: An Experience Report on Dependently-Typed Programming in Coq},
   author      = {Reynald Affeldt and Jacques Garrigue and Xuanrui Qi and Kazunari Tanaka},
-  year        = 2019,
-  month       = sep,
   booktitle   = {Proceedings of the Coq Workshop 2019},
-  address     = {Portland, Oregon, USA},
-  institution = {National Institute of Advanced Industrial Science and Technology, Japan and Graduate School of Mathematics, Nagoya University, Japan and Department of Computer Science, Tufts University, USA and Inria Paris, France}
+  title       = {Type-Driven Development of Certified Tree Algorithms: An Experience Report on Dependently-Typed Programming in Coq},
+  date        = {2019-09},
+  institution = {National Institute of Advanced Industrial Science and Technology, Japan and Graduate School of Mathematics, Nagoya University, Japan and Department of Computer Science, Tufts University, USA and Inria Paris, France},
+  location    = {Portland, Oregon, USA}
 }
 
 @book{Okasaki1998,
-  title     = {Purely Functional Data Structures},
   author    = {Okasaki, Chris},
-  year      = 1998,
-  month     = apr,
   publisher = {Cambridge University Press},
-  doi       = {10.1017/cbo9780511530104},
-  isbn      = 9780511530104
+  title     = {Purely Functional Data Structures},
+  isbn      = {9780511530104},
+  date      = {1998-04},
+  doi       = {10.1017/cbo9780511530104}
 }
 
 @book{10.5555/2584504,
-  title     = {Certified Programming with Dependent Types: A Pragmatic Introduction to the Coq Proof Assistant},
   author    = {Chlipala, Adam},
-  year      = 2013,
   publisher = {The MIT Press},
+  title     = {Certified Programming with Dependent Types: A Pragmatic Introduction to the Coq Proof Assistant},
   isbn      = {0262026651},
-  abstract  = {The technology of mechanized program verification can play a supporting role in many kinds of research projects in computer science, and related tools for formal proof-checking are seeing increasing adoption in mathematics and engineering. This book provides an introduction to the Coq software for writing and checking mathematical proofs. It takes a practical engineering focus throughout, emphasizing techniques that will help users to build, understand, and maintain large Coq developments and minimize the cost of code change over time. Two topics, rarely discussed elsewhere, are covered in detail: effective dependently typed programming (making productive use of a feature at the heart of the Coq system) and construction of domain-specific proof tactics. Almost every subject covered is also relevant to interactive computer theorem proving in general, not just program verification, demonstrated through examples of verified programs applied in many different sorts of formalizations. The book develops a unique automated proof style and applies it throughout; even experienced Coq users may benefit from reading about basic Coq concepts from this novel perspective. The book also offers a library of tactics, or programs that find proofs, designed for use with examples in the book. Readers will acquire the necessary skills to reimplement these tactics in other settings by the end of the book. All of the code appearing in the book is freely available online.}
+  abstract  = {The technology of mechanized program verification can play a supporting role in many kinds of research projects in computer science, and related tools for formal proof-checking are seeing increasing adoption in mathematics and engineering. This book provides an introduction to the Coq software for writing and checking mathematical proofs. It takes a practical engineering focus throughout, emphasizing techniques that will help users to build, understand, and maintain large Coq developments and minimize the cost of code change over time. Two topics, rarely discussed elsewhere, are covered in detail: effective dependently typed programming (making productive use of a feature at the heart of the Coq system) and construction of domain-specific proof tactics. Almost every subject covered is also relevant to interactive computer theorem proving in general, not just program verification, demonstrated through examples of verified programs applied in many different sorts of formalizations. The book develops a unique automated proof style and applies it throughout; even experienced Coq users may benefit from reading about basic Coq concepts from this novel perspective. The book also offers a library of tactics, or programs that find proofs, designed for use with examples in the book. Readers will acquire the necessary skills to reimplement these tactics in other settings by the end of the book. All of the code appearing in the book is freely available online.},
+  date      = {2013}
 }
 
 @article{Aschieri2019,
-  title     = {Par means parallel: multiplicative linear logic proofs as concurrent functional programs},
-  author    = {Aschieri, Federico and Genco, Francesco A.},
-  year      = 2019,
-  month     = dec,
-  journal   = {Proceedings of the ACM on Programming Languages},
-  publisher = {Association for Computing Machinery (ACM)},
-  volume    = 4,
-  number    = {POPL},
-  pages     = {1--28},
-  doi       = {10.1145/3371086},
-  issn      = {2475-1421}
+  author       = {Aschieri, Federico and Genco, Francesco A.},
+  title        = {Par means parallel: multiplicative linear logic proofs as concurrent functional programs},
+  issn         = {2475-1421},
+  number       = {POPL},
+  pages        = {1--28},
+  volume       = {4},
+  date         = {2019-12},
+  doi          = {10.1145/3371086},
+  journaltitle = {Proceedings of the ACM on Programming Languages},
+  publisher    = {Association for Computing Machinery (ACM)}
 }
 
+@InCollection{montague1970english,
+  author    = {Richard Montague},
+  booktitle = {Linguaggi nella societ{\`a} e nella tecnica},
+  publisher = {Edizioni di Comunit{\`a}},
+  title     = {English as a Formal Language},
+  editor    = {Bruno Visentini and Giorgio Scarpa and Basilius Segre},
+  note      = {(Reprinted in Montague, *Formal Philosophy*, Yale University Press, 1974)},
+  pages     = {188--221},
+  date      = {1970},
+}
+
+@Article{cooper2005records,
+  author       = {Robin Cooper},
+  title        = {Records and Record Types in Semantic Theory},
+  number       = {2},
+  pages        = {99--112},
+  volume       = {15},
+  date         = {2005-04},
+  doi          = {10.1093/logcom/exi004},
+  journaltitle = {Journal of Logic and Computation},
+  publisher    = {Oxford University Press},
+}
+
+@InProceedings{cooper2021structure,
+  author       = {Robin Cooper},
+  booktitle    = {Proceedings of the ESSLLI 2021 Workshop on Computing Semantics with Types, Frames and Related Structures},
+  title        = {So Whats All This Structure Good For? Some Uses of Record Types in TTR},
+  organization = {Association for Computational Linguistics},
+  pages        = {3--11},
+  date         = {2021-07},
+  location     = {Utrecht, The Netherlands (online)},
+}
+
+
 @misc{product_type,
-  title        = {product type},
   author       = {{nLab authors}},
-  year         = 2025,
-  month        = jan,
-  note         = {\href{https://ncatlab.org/nlab/revision/product+type/24}{Revision 24}},
-  howpublished = {\url{https://ncatlab.org/nlab/show/product+type}}
+  howpublished = {\url{https://ncatlab.org/nlab/show/product+type}},
+  title        = {product type},
+  date         = {2025-01},
+  url          = {https://ncatlab.org/nlab/revision/product+type/24}
 }
 
 @article{MATSUDA2018Applicative,
-  title     = {Applicative bidirectional programming},
-  author    = {MATSUDA, KAZUTAKA and WANG, MENG},
-  year      = 2018,
-  journal   = {Journal of Functional Programming},
-  publisher = {Cambridge University Press (CUP)},
-  volume    = 28,
-  doi       = {10.1017/s0956796818000096},
-  issn      = {0956-7968},
-  url       = {http://dx.doi.org/10.1017/S0956796818000096},
-  language  = {en},
-  date      = 2018
+  author       = {MATSUDA, KAZUTAKA and WANG, MENG},
+  title        = {Applicative bidirectional programming},
+  issn         = {0956-7968},
+  volume       = {28},
+  date         = {2018},
+  doi          = {10.1017/s0956796818000096},
+  journaltitle = {Journal of Functional Programming},
+  language     = {en},
+  publisher    = {Cambridge University Press (CUP)}
 }
 
 @article{DBLP:journals/corr/abs-1910-10421,
-  title      = {Towards a Complete Picture of Lens Laws},
-  author     = {Keisuke Nakano},
-  year       = 2019,
-  journal    = {CoRR},
-  volume     = {abs/1910.10421},
-  url        = {http://arxiv.org/abs/1910.10421},
-  eprinttype = {arXiv},
-  eprint     = {1910.10421},
-  timestamp  = {Thu, 26 Nov 2020 15:44:21 +0100},
-  biburl     = {https://dblp.org/rec/journals/corr/abs-1910-10421.bib},
-  bibsource  = {dblp computer science bibliography, https://dblp.org}
+  author       = {Keisuke Nakano},
+  title        = {Towards a Complete Picture of Lens Laws},
+  volume       = {abs/1910.10421},
+  bibsource    = {dblp computer science bibliography, https://dblp.org},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-1910-10421.bib},
+  date         = {2019},
+  doi          = {10.48550/arxiv.1910.10421},
+  eprint       = {1910.10421},
+  eprinttype   = {arxiv},
+  journaltitle = {CoRR},
+  timestamp    = {Thu, 26 Nov 2020 15:44:21 +0100}
 }
 
-@inproceedings{10.1007/978-3-030-79837-6_11,
-  title     = {A Tangled Web of 12 Lens Laws},
+@InProceedings{10.1007/978-3-030-79837-6_11,
   author    = {Nakano, Keisuke},
-  year      = 2021,
-  booktitle = {Reversible Computation: 13th International Conference, RC 2021, Virtual Event, July 7–8, 2021, Proceedings},
+  booktitle = {Reversible Computation: 13th International Conference, RC 2021, Virtual Event, July 7-8, 2021, Proceedings},
+  title     = {A Tangled Web of 12 Lens Laws},
+  pages     = {185--203},
   publisher = {Springer-Verlag},
-  address   = {Berlin, Heidelberg},
-  pages     = {185–203},
+  abstract  = {Bidirectional transformation has played important roles in broad areas, database management, programming language, and model-driven development after Foster et al. revisited view updating problems introduced by Bancilhon and Spyratos. They introduced the concept of (asymmetric) lens as a pair of a forward get and a backward put functions to synchronize a source data and its view consistently. For the get and put functions to be consistent, they should satisfy several lens laws such as the (StrongGetPut), (GetPut), (PutGet) and (PutPut) laws. By combining some of these lens laws, we can represent how consistent a lens satisfying the laws is. Fischer et al. has introduced nine meaningful weaker lens laws to give a “clear picture” of the laws where they show relations among lens laws, for example, that one law implies another and combination of two laws is equivalent to combination of the other three laws. This paper gives more precise relationship among 12 lens laws that have been presented in literature. The relationship makes an intertwined implication diagram like a tangled web. The results can be used for easily verifying the desirable lens laws.},
+  date      = {2021},
   doi       = {10.1007/978-3-030-79837-6_11},
   isbn      = {978-3-030-79836-9},
-  url       = {https://doi.org/10.1007/978-3-030-79837-6_11},
-  abstract  = {Bidirectional transformation has played important roles in broad areas, database management, programming language, and model-driven development after Foster et al. revisited view updating problems introduced by Bancilhon and Spyratos. They introduced the concept of (asymmetric) lens as a pair of a forward get and a backward put functions to synchronize a source data and its view consistently. For the get and put functions to be consistent, they should satisfy several lens laws such as the (StrongGetPut), (GetPut), (PutGet) and (PutPut) laws. By combining some of these lens laws, we can represent how consistent a lens satisfying the laws is. Fischer et al. has introduced nine meaningful weaker lens laws to give a “clear picture” of the laws where they show relations among lens laws, for example, that one law implies another and combination of two laws is equivalent to combination of the other three laws. This paper gives more precise relationship among 12 lens laws that have been presented in literature. The relationship makes an intertwined implication diagram like a tangled web. The results can be used for easily verifying the desirable lens laws.},
-  numpages  = 19,
-  keywords  = {Asymmetric lens laws, Bidirectional transformation}
+  keywords  = {Asymmetric lens laws, Bidirectional transformation},
+  location  = {Berlin, Heidelberg},
+  numpages  = {19},
 }
 
-@inproceedings{Foster2005Combinators,
-  title        = {Combinators for bi-directional tree transformations},
+@InProceedings{Foster2005Combinators,
   author       = {Foster, J. Nathan and Greenwald, Michael B. and Moore, Jonathan T. and Pierce, Benjamin C. and Schmitt, Alan},
-  year         = 2005,
-  month        = 1,
-  day          = 12,
-  journal      = {Proceedings of the 32nd ACM SIGPLAN-SIGACT symposium on Principles of programming languages},
-  publisher    = {ACM},
-  pages        = {233--246},
-  doi          = {10.1145/1040305.1040325},
-  url          = {http://dx.doi.org/10.1145/1040305.1040325},
+  title        = {Combinators for bi-directional tree transformations},
+  year         = {2005},
+  month        = jan,
   organization = {POPL05: The 32nd Annual ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages 2005},
-  date         = {2005-01-12}
+  pages        = {233--246},
+  publisher    = {ACM},
+  date         = {2005-01-12},
+  day          = {12},
+  doi          = {10.1145/1040305.1040325},
+  journaltitle = {Proceedings of the 32nd ACM SIGPLAN-SIGACT symposium on Principles of programming languages},
 }
 
 @incollection{Fischer2015Clear,
-  title     = {A Clear Picture of Lens Laws},
   author    = {Fischer, Sebastian and Hu, Zhenjiang and Pacheco, Hugo},
-  year      = 2015,
   booktitle = {Lecture Notes in Computer Science},
   publisher = {Springer International Publishing},
+  title     = {A Clear Picture of Lens Laws},
+  isbn      = {9783319197968},
   pages     = {215--223},
+  date      = {2015},
   doi       = {10.1007/978-3-319-19797-5_10},
-  isbn      = 9783319197968,
   issn      = {0302-9743},
-  url       = {http://dx.doi.org/10.1007/978-3-319-19797-5_10},
-  language  = {en},
-  date      = 2015
+  language  = {en}
 }
 
 @inproceedings{foster2008semantics,
-  title        = {Semantics of Bidirectional Languages},
   author       = {Nate Foster},
-  year         = 2008,
   booktitle    = {GRACE-BX '08S},
-  organization = {University of Pennsylvania}
+  title        = {Semantics of Bidirectional Languages},
+  organization = {University of Pennsylvania},
+  date         = {2008}
 }
 
 @inproceedings{Czarnecki2009BidirectionalTA,
-  title  = {Bidirectional Transformations: A Cross-Discipline Perspective GRACE Meeting Notes, State of the Art, and Outlook},
   author = {K. Czarnecki and J. Nathan Foster and Zhenjiang Hu and James F. Terwilliger},
-  year   = 2009,
+  title  = {Bidirectional Transformations: A Cross-Discipline Perspective GRACE Meeting Notes, State of the Art, and Outlook},
+  date   = {2009},
   url    = {https://api.semanticscholar.org/CorpusID:112946198}
 }
 
 @misc{nlab:arrow_category,
-  title        = {arrow category},
   author       = {{nLab authors}},
-  year         = 2025,
-  month        = jan,
-  note         = {\href{https://ncatlab.org/nlab/revision/arrow+category/23}{Revision 23}},
-  howpublished = {\url{https://ncatlab.org/nlab/show/arrow+category}}
+  howpublished = {\url{https://ncatlab.org/nlab/show/arrow+category}},
+  title        = {arrow category},
+  date         = {2025-01},
+  url          = {https://ncatlab.org/nlab/revision/arrow+category/23}
 }
 
 @misc{Turcotte2019Reasoning,
-  title     = {Reasoning About Foreign Function Interfaces Without Modelling the Foreign Language (Artifact)},
   author    = {Turcotte, Alexi and Arteca, Ellen and Richards, Gregor},
-  year      = 2019,
-  publisher = {Schloss Dagstuhl – Leibniz-Zentrum für Informatik},
+  title     = {Reasoning About Foreign Function Interfaces Without Modelling the Foreign Language (Artifact)},
+  date      = {2019},
   doi       = {10.4230/DARTS.5.2.9},
-  url       = {https://drops.dagstuhl.de/entities/document/10.4230/DARTS.5.2.9},
   language  = {en},
-  date      = 2019
+  publisher = {Schloss Dagstuhl - Leibniz-Zentrum für Informatik}
 }
 
 @article{Lyons2019Towards,
-  title     = {Towards Lakosian Multilingual Software Design Principles},
-  author    = {Lyons, Damian M. and Zahra, Saba B. and Marshall, Thomas M.},
-  year      = 2019,
-  publisher = {arXiv},
-  doi       = {10.48550/ARXIV.1906.08351},
-  url       = {https://arxiv.org/abs/1906.08351},
-  date      = 2019
+  author     = {Lyons, Damian M. and Zahra, Saba B. and Marshall, Thomas M.},
+  title      = {Towards Lakosian Multilingual Software Design Principles},
+  date       = {2019},
+  doi        = {10.48550/ARXIV.1906.08351},
+  eprint     = {1906.08351},
+  eprinttype = {arxiv},
+  publisher  = {arXiv}
 }
 
 @misc{julia_eval_2025,
-  title  = {Evaluation in Julia},
   author = {The Julia Programming Language},
-  year   = 2025,
-  url    = {https://web.archive.org/web/20250111004107/https://docs.julialang.org/en/v1/devdocs/eval/},
-  note   = {Accessed: 2025-02-01}
+  note   = {Accessed: 2025-02-01},
+  title  = {Evaluation in Julia},
+  date   = {2025},
+  url    = {https://web.archive.org/web/20250111004107/https://docs.julialang.org/en/v1/devdocs/eval/}
 }
 
 @article{hartzell2021cppmove,
-  title   = {C++ Move Semantics Considered Harmful (Rust is better)},
-  author  = {Jimmy Hartzell},
-  year    = 2021,
-  journal = {The Coded Message},
-  url     = {https://www.thecodedmessage.com/posts/cpp-move/},
-  note    = {Accessed: 2025-02-01}
+  author       = {Jimmy Hartzell},
+  title        = {C++ Move Semantics Considered Harmful (Rust is better)},
+  note         = {Accessed: 2025-02-01},
+  date         = {2021},
+  journaltitle = {The Coded Message},
+  url          = {https://www.thecodedmessage.com/posts/cpp-move/}
 }
 
 @article{gandhi2025ziggenerics,
-  title   = {Zig-style generics are not well-suited for most languages},
-  author  = {Varun Gandhi},
-  year    = 2025,
-  journal = {TypeSanitizer},
-  url     = {https://typesanitizer.com/blog/zig-generics.html},
-  note    = {Accessed: 2025-02-01}
+  author       = {Varun Gandhi},
+  title        = {Zig-style generics are not well-suited for most languages},
+  note         = {Accessed: 2025-02-01},
+  date         = {2025},
+  journaltitle = {TypeSanitizer},
+  url          = {https://typesanitizer.com/blog/zig-generics.html}
 }
 
 @article{hume2019generics,
-  title   = {Models of Generics and Metaprogramming: Go, Rust, Swift, D and More},
-  author  = {Tristan Hume},
-  year    = 2019,
-  journal = {Tristan Hume's Blog},
-  url     = {https://thume.ca/2019/07/14/a-tour-of-metaprogramming-models-for-generics/},
-  note    = {Accessed: 2025-02-01}
+  author       = {Tristan Hume},
+  title        = {Models of Generics and Metaprogramming: Go, Rust, Swift, D and More},
+  note         = {Accessed: 2025-02-01},
+  date         = {2019},
+  journaltitle = {Tristan Hume's Blog},
+  url          = {https://thume.ca/2019/07/14/a-tour-of-metaprogramming-models-for-generics/}
 }
 
 @misc{abi_stable_2025,
-  title  = {abi\_stable v0.11.3: For 	doing Rust-to-Rust FFI, writing libraries loaded at program startup},
   author = {{abi\_stable contributors}},
-  year   = 2025,
-  url    = {https://crates.io/crates/abi_stable},
-  note   = {Accessed: 2025-02-01}
+  note   = {Accessed: 2025-02-01},
+  title  = {abi\_stable v0.11.3: For doing Rust-to-Rust FFI, writing libraries loaded at program startup},
+  date   = {2025},
+  url    = {https://crates.io/crates/abi_stable}
 }
 
 @misc{cglue,
-  title        = {cglue - A glue library for Rust},
   author       = {Auri (h33p)},
-  year         = 2018,
-  url          = {https://crates.io/crates/cglue},
+  howpublished = {Crates.io},
   note         = {MIT Licensed, version 0.3.4},
-  howpublished = {Crates.io}
+  title        = {cglue - A glue library for Rust},
+  date         = {2018},
+  url          = {https://crates.io/crates/cglue}
 }
 
 @misc{zhdan2024swiftcpp,
-  title        = {Swift/C++ Interoperability},
   author       = {Egor Zhdan},
-  year         = 2024,
+  howpublished = {\url{https://llvm.org/devmtg/2024-04/}},
+  note         = {2024 European LLVM Developers' Meeting, Slides available at \url{https://llvm.org/devmtg/2024-04/slide...}},
+  title        = {Swift/C++ Interoperability},
+  date         = {2024},
   publisher    = {LLVM},
   url          = {https://www.youtube.com/watch?v=2g-fQd_OYUU&t=716s},
-  note         = {2024 European LLVM Developers' Meeting, Slides available at \url{https://llvm.org/devmtg/2024-04/slide...}},
-  howpublished = {\url{https://llvm.org/devmtg/2024-04/}},
   video        = {https://www.youtube.com/watch?v=2g-fQd_OYUU&t=716s}
 }
 
 @inproceedings{Malawski2023,
-  title     = {Swift as C++ Successor in FoundationDB},
   author    = {Konrad Malawski},
-  year      = 2023,
-  month     = {September},
   booktitle = {Strange Loop 2023},
-  address   = {St. Louis, MO},
+  title     = {Swift as C++ Successor in FoundationDB},
+  date      = {2023-09},
+  location  = {St. Louis, MO},
   url       = {https://www.youtube.com/watch?v=ZQc9-seU-5k}
 }
 
-@book{Bezanson2025JuliaLang,
-  title  = {JuliaLang/julia},
-  url    = {https://github.com/JuliaLang/julia},
+@Book{Bezanson2025JuliaLang,
   author = {Bezanson, Jeff and Karpinski, Stefan and Shah, Viral B. and Fischer, Keno and Kelman, Tony and Holy, Tim and Yu, Yichao and Hyatt, Katharine and Saba, Elliot and Carlsson, Kristoffer and Johnson, Steven G. and Noack, Andreas and Kadowaki, Shuhei and Churavy, Valentin and Nolta, Mike and Chen, Jiahao and Baldassi, Carlo and Bolewski, Jake and Verweij, Sacha and Fourquet, Rafael and Bauman, Matt and Besard, Tim and Murthy, Amit and Ekre, Fredrik and Bouchet-Valat, Milan and Byrne, Simon and Vogt, Curtis and Quinn, Jacob and Bhattacharya, Jishnu and Arslan, Alex},
-  date   = {2025-02-09},
+  title  = {JuliaLang/julia},
   year   = {2025},
-  month  = {2},
-  day    = {9}
+  month  = feb,
+  date   = {2025-02-09},
+  day    = {9},
+  url    = {https://github.com/JuliaLang/julia},
 }
 
-@book{Gregor2025swiftlang,
-	title = {swiftlang/swift-evolution},
-	url = {https://github.com/swiftlang/swift-evolution},
-	author = {Gregor, Doug and McCall, John and Lattner, Chris and Rimmington, Ben and Groff, Joe and Malawski, Konrad `ktoso` and Kremenek, Ted and Cohen, Ben and Sadun, Erica and Lessard, Guillaume and Allevato, Tony and Borla, Holly and Kellison-Linn, Frederick and Shin, Ellie and Latsis, Anthony and Royal-Gordon, Becca and Murray, Kyle and Canon, Stephen and Cook, Nate and tomer doron and Desiatov, Max and Yaskevich, Pavel and Wu, Xiaodi and Gribenko, Dmitri and Bertelrud, Anders and Dempsey, James and filip-sakel and Lorentey, Karoy and Bandes-Storch, Jacob and Ballard, Rick},
-	date = {2025-05-28},
-	year = {2025},
-	month = {5},
-	day = {28},
+@Book{Gregor2025swiftlang,
+  author = {Gregor, Doug and McCall, John and Lattner, Chris and Rimmington, Ben and Groff, Joe and Malawski, Konrad `ktoso` and Kremenek, Ted and Cohen, Ben and Sadun, Erica and Lessard, Guillaume and Allevato, Tony and Borla, Holly and Kellison-Linn, Frederick and Shin, Ellie and Latsis, Anthony and Royal-Gordon, Becca and Murray, Kyle and Canon, Stephen and Cook, Nate and tomer doron and Desiatov, Max and Yaskevich, Pavel and Wu, Xiaodi and Gribenko, Dmitri and Bertelrud, Anders and Dempsey, James and filip-sakel and Lorentey, Karoy and Bandes-Storch, Jacob and Ballard, Rick},
+  title  = {swiftlang/swift-evolution},
+  year   = {2025},
+  month  = may,
+  date   = {2025-05-28},
+  day    = {28},
+  url    = {https://github.com/swiftlang/swift-evolution},
 }
 
-@book{swift2025swiftlang,
-  title  = {swiftlang/swift},
+@Book{swift2025swiftlang,
   author = {swift-ci and Gregor, Doug and Pestov, Slava and Gottesman, Michael and Groff, Joe and Yaskevich, Pavel and Lattner, Chris and Gribenko, Dmitri and eeckstein and Rose, Jordan and Abdulrasool, Saleem and Schwaighofer, Arnold and McCall, John and Ishizaki, Rintaro and nate-chandler and Trick, Andrew and J) and Ge, Xi and Knight, Hamish and Lacey, Mark and Hoppen, Alex and Shortlidge, Allan and Prantl, Adrian and Shah, Mishal and Borla, Holly and Lorentey, Karoy and Langmuir, Ben and Kyrtzidis, Argyrios and Zhdan, Egor and Mracek, Kuba (Brecka)},
-  year   = 2025,
-  month  = 2,
-  day    = 8,
+  title  = {swiftlang/swift},
+  year   = {2025},
+  month  = feb,
+  date   = {2025-02-08},
+  day    = {8},
   url    = {https://github.com/swiftlang/swift},
-  date   = {2025-02-08}
 }
 
- @misc{jluna,
+ 
+@misc{jluna,
   author       = {C. Cords},
-  title        = {jluna: A modern Julia Wrapper for C++},
-  url          = {https://www.github.com/clemapfel/jluna},
   howpublished = {\url{https://www.clemens-cords.com/jluna}},
-  year         = {2022},
-  note         = {v1.0.0}
+  note         = {v1.0.0},
+  title        = {jluna: A modern Julia Wrapper for C++},
+  date         = {2022},
+  url          = {https://www.github.com/clemapfel/jluna}
 }
 
-@article{Zappa2018Julia,
-	journal = {Proceedings of the ACM on Programming Languages},
-	doi = {10.1145/3276483},
-	issn = {2475-1421},
-	number = {OOPSLA},
-	language = {en},
-	publisher = {Association for Computing Machinery (ACM)},
-	title = {Julia subtyping: a rational reconstruction},
-	url = {http://dx.doi.org/10.1145/3276483},
-	volume = {2},
-	author = {Zappa Nardelli, Francesco and Belyakova, Julia and Pelenitsyn, Artem and Chung, Benjamin and Bezanson, Jeff and Vitek, Jan},
-	pages = {1--27},
-	date = {2018-10-24},
-	year = {2018},
-	month = {10},
-	day = {24},
+@Article{Zappa2018Julia,
+  author       = {Zappa Nardelli, Francesco and Belyakova, Julia and Pelenitsyn, Artem and Chung, Benjamin and Bezanson, Jeff and Vitek, Jan},
+  title        = {Julia subtyping: a rational reconstruction},
+  year         = {2018},
+  issn         = {2475-1421},
+  month        = oct,
+  number       = {OOPSLA},
+  pages        = {1--27},
+  volume       = {2},
+  date         = {2018-10-24},
+  day          = {24},
+  doi          = {10.1145/3276483},
+  journaltitle = {Proceedings of the ACM on Programming Languages},
+  language     = {en},
+  publisher    = {Association for Computing Machinery (ACM)},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

@@ -1,6 +1,7 @@
 \documentclass[sigconf,screen,9pt,natbib=false]{acmart}
 \usepackage[style=ieee, sorting=nyt, urldate=long, date=long, backend=biber]{biblatex}
 \addbibresource{references.bib}
+\setcounter{biburlnumpenalty}{9000}
 % Flag to disable all editing macros and make the document ready for
 %  submission.
 \newif\ifEditMode
@@ -18,6 +19,10 @@
 \usepackage{aliases}
 \usepackage{codestyle}
 \usepackage{tikz}
+\usepackage{svg}
+\usetikzlibrary{calc,decorations.pathreplacing}
+\usepackage{pgf-umlcd}
+\usepackage{pgf-umlsd}
 \usepackage{formal-grammar}
 
 \begin{document}

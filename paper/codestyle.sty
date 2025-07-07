@@ -56,8 +56,8 @@
     listing engine=minted,
     listing only,
     #1,
-    title=#2,
-    minted language=python,
+    title={\textbf{Algorithm} #2},
+    minted language=cpp,
     coltitle=black, % Make the title text black
     fonttitle=\normalfont\footnotesize, % Normal text family for title
     sharp corners,
@@ -76,7 +76,7 @@
         \path[draw=black](title.north west)--(title.north east);
     },
     frame code={
-        \path[draw=black, fill=white](frame.south west) rectangle (frame.north east);
+        % \path[draw=black, fill=white](frame.south west) rectangle (frame.north east);
         \path[draw=black](frame.south west)--(frame.south east);
     },
 }

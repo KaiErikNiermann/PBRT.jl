@@ -1,9 +1,5 @@
 \begin{fileminted}{jluna/usertype.inl}{cpp}
-template<typename T>
-template<typename Field_t>
-void Usertype<T>::add_property(
-    ...
-) {
+(...) {
     _mapping.insert({Symbol(name), {
         [get](T& t_inst) -> unsafe::Value* {
             return jluna::box<Field_t>(get(t_inst));

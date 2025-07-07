@@ -13,17 +13,21 @@ A struct representing a node in a Bounding Volume Hierarchy (BVH) for efficient 
     bbox::AABB
 end
 
-BVHNode(object::Hittable, bbox::AABB) =
-    BVHNode(object, object, bbox)
-
-box_compare(a, b) = a.lo < b.lo
+BVHNode(object::Hittable, bbox::AABB) = BVHNode(object, object, bbox)
 
 const comparators = Dict(
-    1 => (a, b) -> box_compare(a.bbox.x, b.bbox.x),
-    2 => (a, b) -> box_compare(a.bbox.y, b.bbox.y),
-    3 => (a, b) -> box_compare(a.bbox.z, b.bbox.z)
+    1 => (a, b) -> a.bbox.x.lo < b.bbox.x.lo,
+    2 => (a, b) -> a.bbox.y.lo < b.bbox.y.lo,
+    3 => (a, b) -> a.bbox.z.lo < b.bbox.z.lo
 )
 
+"""
+    compute_bvh(objects::Vector{Hittable}, range::UnitRange{Int})::BVHNode
+
+Computes a Bounding Volume Hierarchy (BVH) from a vector of hittable objects.
+- `objects` is a vector of hittable objects that will be organized into the BVH.
+- `range` is a unit range specifying the indices of the objects to be included in the BVH.
+"""
 function compute_bvh(objects::Vector{Hittable}, range::UnitRange{Int})::BVHNode
     bbox = reduce(
         (a, i) -> AABB(a, objects[i].bbox),
@@ -38,7 +42,7 @@ function compute_bvh(objects::Vector{Hittable}, range::UnitRange{Int})::BVHNode
 
         sort!(
             sorted_view,
-            lt  = comparators[longest_axis(bbox)],
+            lt  = comparators[axis_longest(bbox)],
             rev = false
         )
 
@@ -52,6 +56,14 @@ function compute_bvh(objects::Vector{Hittable}, range::UnitRange{Int})::BVHNode
     end
 
     BVHNode(objects[range]..., bbox)
+end
+
+function count_nodes(node::Hittable)::Int
+    if node isa BVHNode
+        return 1 + count_nodes(node.left) + count_nodes(node.right)
+    else
+        return 1
+    end
 end
 
 compute_bvh(h_list::HList) = begin

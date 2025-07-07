@@ -1,58 +1,46 @@
-from .aabb import AABB, Interval, Interval, Ray, at
-from .hittable import Hittable, HitRecord
+from .hittable import set_face_normal
+from .fast_math import cross, dot
+from .aabb import at
+from .models import LIB_SCOPE, HitRecord, Interval, Interval, Ray, _Triangle
 import numpy as np
 from dataclasses import dataclass
-from bvh import hit
-from .material import Material
-from typing import Optional, List, Set
+from .bvh import hit
 
 
-@dataclass
-class Triangle(Hittable):
-    v1: np.ndarray = np.zeros(3, dtype=np.float64)
-    v2: np.ndarray = np.zeros(3, dtype=np.float64)
-    v3: np.ndarray = np.zeros(3, dtype=np.float64)
-    ident: int = 0
-    edges: list[set[list[float]]] = []
-    mat: Optional[Material] = None
-    bbox: Optional[AABB] = None
+@hit.register(_Triangle)
+def _(triangle, ray: Ray, interval: Interval, record: HitRecord) -> HitRecord:
+    e1 = triangle.v2 - triangle.v1
+    e2 = triangle.v3 - triangle.v1
+    normal = cross(e1, e2)
 
-    def __repr__(self) -> str:
-        return "Triangle"
-
-
-@hit.register
-def _(t: Triangle, ray: Ray, interval: Interval, record: HitRecord) -> bool:
-    e1 = t.v2 - t.v1
-    e2 = t.v3 - t.v1
-    normal = np.cross(e1, e2)
-
-    ray_cross_e2 = np.cross(ray.direction, e2)
-    det = np.dot(e1, ray_cross_e2)
+    ray_cross_e2 = cross(ray.direction, e2)
+    det = dot(e1, ray_cross_e2)
 
     if det > -1e-8 and det < 1e-8:
-        return False
+        return record
 
     inv_det = 1.0 / det
-    s = ray.origin - t.v1
-    u = np.dot(s, ray_cross_e2) * inv_det
+    s = ray.origin - triangle.v1
+    u = dot(s, ray_cross_e2) * inv_det
     if u < 0 or u > 1:
-        return False
+        return record
 
-    s_cross_e1 = np.cross(s, e1)
-    v = np.dot(ray.direction, s_cross_e1) * inv_det
+    s_cross_e1 = cross(s, e1)
+    v = dot(ray.direction, s_cross_e1) * inv_det
 
     if v < 0.0 or u + v > 1.0:
-        return False
+        return record
 
-    t_val = np.dot(e2, s_cross_e1) * inv_det
+    t_val = dot(e2, s_cross_e1) * inv_det
 
     if t_val < interval.lo or t_val > interval.hi:
-        return False
+        return record
 
     record.t = t_val
     record.p = at(ray, t_val)
-    record.normal = normal
-    record.mat = t.mat
+    record.mat = triangle.mat
+    record.hit = True
 
-    return True
+    record.normal = list(normal)
+
+    return record

@@ -1,7 +1,5 @@
-push!(LOAD_PATH,"../src/")
-
 using Documenter
-using MiniRT
+include("../run.jl")
 
 makedocs(
     sitename = "MiniRT",

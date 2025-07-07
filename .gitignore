@@ -10,6 +10,9 @@ benchmarks/FlameGraph
 benchmarks/*.folded
 benchmarks/*out*
 
+# clangd cache 
+.cache
+
 # conda env
 .CondaPkg/
 
@@ -39,3 +42,10 @@ paper/_minted-thesis/
 # docs 
 docs/build/
 docs/site/
+
+# llvm 
+llvm/
+clang-p2996/
+
+# benchmark results
+benchmarks/runs/

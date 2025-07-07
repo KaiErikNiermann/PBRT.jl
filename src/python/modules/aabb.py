@@ -1,44 +1,16 @@
 import numpy as np
-from dataclasses import dataclass
-from functools import singledispatch
-from bvh import hit
-
-
-@dataclass
-class Ray:
-    origin: np.ndarray = np.zeros(3, dtype=np.float64)
-    direction: np.ndarray = np.zeros(3, dtype=np.float64)
+from .models import LIB_SCOPE, Ray, Interval
 
 
 def at(ray: Ray, t: float) -> np.ndarray:
-    return ray.origin + t * ray.direction
+    return np.array(ray.origin) + t * np.array(ray.direction)
 
 
-@dataclass
-class Interval[T]:
-    lo: T
-    hi: T
-
-
-@dataclass
-class AABB:
-    x: Interval[float]
-    y: Interval[float]
-    z: Interval[float]
-
-
-@dataclass
-class RayPath:
-    ray: Ray
-    interval: Interval[float]
-
-
-@hit.register
-def _(bbox: AABB, r: Ray, Interval: Interval[float]) -> bool:
+def hit_aabb(bbox, r: Ray, Interval: Interval) -> bool:
     r_lo = Interval.lo
     r_hi = Interval.hi
-    for axis in range(3):
-        ax = [bbox.x, bbox.y, bbox.z][axis]
+    x, y, z = bbox.x, bbox.y, bbox.z
+    for axis, ax in enumerate((x, y, z)):
         adinv = 1.0 / \
             r.direction[axis] if r.direction[axis] != 0 else float("inf")
 

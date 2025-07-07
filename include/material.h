@@ -6,6 +6,8 @@
 #include <jluna.hpp>
 #include "color.h"
 
+using namespace jluna;
+
 class Material {
     public:
         virtual ~Material() = default;
